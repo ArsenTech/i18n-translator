@@ -49,8 +49,8 @@
 
 ## About
 **I18N Content Translator** is a professional i18n tool that lets you localize and translate some apps into your native language.
+<!-- TODO: Add More Info -->
 
-<!-- TODO: Add Some Info -->
 ### Features
 <!-- TODO: Add some Features into the list -->
 

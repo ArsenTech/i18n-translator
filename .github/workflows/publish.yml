@@ -70,4 +70,5 @@ jobs:
           releaseDraft: true
           prerelease: false
           generateReleaseNotes: true
+          releaseBody: '### Full Changelog: [`i18n-content-translator/CHANGELOG.md`](https://github.com/ArsenTech/i18n-content-translator/blob/main/CHANGELOG.md)'
           args: ${{ matrix.args }}

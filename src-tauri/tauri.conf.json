@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "i18n Content Translator",
+        "title": "I18N Content Translator",
         "width": 800,
         "height": 600
       }

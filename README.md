@@ -54,6 +54,14 @@
 ### Features
 <!-- TODO: Add some Features into the list -->
 
+### Planned Improvements
+- [ ] Write the Documentation on the `docs/` folder.
+  - [ ] Usage Guide
+  - [ ] Installation Guide
+  - [ ] Troubleshooting
+  - [ ] FAQs
+- [ ] Fix the ARM64 build workflow
+
 ### Built With
 - [![Tauri][tauri-shield]][tauri-url]
 - [![React][react-shield]][react-url]

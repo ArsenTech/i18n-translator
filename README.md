@@ -34,7 +34,7 @@
                     <li><a href="#download">Download</a></li>
                </ul>
           </li>
-          <li><a href="#usage">Usage</a></li>
+          <li><a href="#usage-manual">Usage Manual</a></li>
           <li><a href="#versioning">Versioning</a></li>
           <li>
                <a href="#contributing">Contributing</a>
@@ -76,11 +76,13 @@ You can find the latest stable version of the I18N Content Translator right here
 
 [![GitHub Downloads (all assets, latest release)][download-shield]][download-url]
 
-<!-- TODO: Write the Usage Guide on the docs/
-## Usage
+## Usage Manual
 Full documentation is available here:
 ➡️ [Documentation][docs-url]
--->
+  - [Usage Guide](./usage.md)
+  - [Installation Guide](./installation.md)
+  - [Troubleshooting](./troubleshooting.md)
+  - [FAQs](./faq.md)
 
 ## Versioning
 This website follows [Semantic Versioning](https://semver.org/). You can view the full [Changelog][changelog-url] for details on each website version.

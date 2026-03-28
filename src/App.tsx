@@ -6,6 +6,7 @@ import { Toaster } from "./components/ui/sonner";
 
 function App() {
   const [greetMsg, setGreetMsg] = useState("");
+  const [lang, setLang] = useState("")
   async function greet() {
     setGreetMsg(await invoke("greet", { name: "ArsenTech" }));
   }
@@ -16,10 +17,13 @@ function App() {
       {greetMsg && (
         <p className="text-primary-foreground">{greetMsg}</p>
       )}
+      {lang && (
+        <p className="text-muted-foreground">{lang}</p>
+      )}
       <Button onClick={greet}>
         Greet!
       </Button>
-      <LangSelector/>
+      <LangSelector lang={lang} onLangChange={setLang}/>
       <Toaster/>
     </main>
   );

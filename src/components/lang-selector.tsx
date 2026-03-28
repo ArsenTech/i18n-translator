@@ -5,7 +5,11 @@ import { getErrorMessage } from "@/lib/utils";
 import { Skeleton } from "./ui/skeleton";
 import { CircleFlag, CircleFlagLanguage } from 'react-circle-flags'
 
-export default function LangSelector(){
+interface LangSelectorProps{
+     onLangChange: (langCode: string) => void,
+     lang: string
+}
+export default function LangSelector({lang, onLangChange}: LangSelectorProps){
      const [isLoading, setIsLoading] = useState(true);
      const [data, setData] = useState<{
           flag: string,
@@ -36,7 +40,7 @@ export default function LangSelector(){
      return isLoading ? (
           <Skeleton className="w-48 h-8"/>
      ) : (
-          <Select>
+          <Select value={lang} onValueChange={onLangChange}>
                <SelectTrigger>
                     <SelectValue placeholder="Language to Translate"/>
                </SelectTrigger>

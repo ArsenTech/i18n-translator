@@ -182,7 +182,6 @@
     { "code": "xh", "flag": "za", "type": "country", "name": "Xhosa" },
     { "code": "yi", "flag": "yi", "type": "language", "name": "Yiddish" },
     { "code": "yo", "flag": "yorubaland", "type": "country", "name": "Yoruba" },
-    { "code": "za", "flag": "ch", "type": "country", "name": "Zhuang" },
-    { "code": "zh", "flag": "ch", "type": "country", "name": "Mandarin Chinese" },
+    { "code": "zh", "flag": "zh", "type": "language", "name": "Mandarin Chinese" },
     { "code": "zu", "flag": "za", "type": "country", "name": "Zulu" }
 ]

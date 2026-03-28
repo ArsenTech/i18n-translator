@@ -60,7 +60,6 @@
   - [ ] Installation Guide
   - [ ] Troubleshooting
   - [ ] FAQs
-- [ ] Fix the ARM64 build workflow
 
 ### Built With
 - [![Tauri][tauri-shield]][tauri-url]
@@ -130,8 +129,8 @@ TODO: Add License
 [version-shield]: https://img.shields.io/github/package-json/v/ArsenTech/i18n-content-translator?style=for-the-badge
 [downloads-shield]: https://img.shields.io/github/downloads/ArsenTech/i18n-content-translator/total?style=for-the-badge&label=Total%20Downloads&color=%2322b455
 [downloads-url]:https://github.com/ArsenTech/i18n-content-translator/releases
-[status-shield]: https://img.shields.io/github/actions/workflow/status/ArsenTech/i18n-content-translator/publish.yml?style=for-the-badge
-[status-url]: https://github.com/ArsenTech/i18n-content-translator/actions/workflows/publish.yml
+[status-shield]: https://img.shields.io/github/actions/workflow/status/ArsenTech/i18n-content-translator/build.yml?style=for-the-badge
+[status-url]: https://github.com/ArsenTech/i18n-content-translator/actions/workflows/build.yml
 [commits-since-shield]: https://img.shields.io/github/commits-since/ArsenTech/i18n-content-translator/latest?style=for-the-badge&color=%2322b455&label=Commits%20since%20latest%20version
 [created-at-shield]: https://img.shields.io/github/created-at/ArsenTech/i18n-content-translator?style=for-the-badge
 [repo-size-shield]: https://img.shields.io/github/repo-size/ArsenTech/i18n-content-translator?style=for-the-badge

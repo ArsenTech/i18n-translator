@@ -3,6 +3,7 @@ import { invoke } from "@tauri-apps/api/core";
 import { Button } from "./components/ui/button";
 import LangSelector from "./components/lang-selector";
 import { Toaster } from "./components/ui/sonner";
+import LanguageInput from "./components/lang-input";
 
 function App() {
   const [greetMsg, setGreetMsg] = useState("");
@@ -24,6 +25,7 @@ function App() {
         Greet!
       </Button>
       <LangSelector lang={lang} onLangChange={setLang}/>
+      <LanguageInput lang={lang} onLangChange={setLang}/>
       <Toaster/>
     </main>
   );

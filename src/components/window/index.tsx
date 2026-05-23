@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import MenuBar from "./menubar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { SiGithub } from "react-icons/si"
+import { openUrl } from "@tauri-apps/plugin-opener"
 
 interface WindowWrapperProps{
      children: React.ReactNode
@@ -47,24 +48,24 @@ export default function WindowWrapper({children}: WindowWrapperProps){
                                         Settings
                                    </DropdownMenuItem>
                                    <DropdownMenuSeparator/>
-                                   <DropdownMenuItem>
+                                   <DropdownMenuItem onClick={async()=>await openUrl("https://github.com/ArsenTech/i18n-translator")}>
                                         <SiGithub className="text-muted-foreground"/>
                                         Github
                                    </DropdownMenuItem>
-                                   <DropdownMenuItem>
+                                   <DropdownMenuItem onClick={async()=>await openUrl("https://github.com/ArsenTech/i18n-translator/tree/main/docs")}>
                                         <BookOpen className="text-muted-foreground"/>
                                         Documentation
                                    </DropdownMenuItem>
-                                   <DropdownMenuItem>
+                                   <DropdownMenuItem onClick={async()=>await openUrl("https://github.com/ArsenTech/i18n-translator/blob/main/docs/CONTRIBUTING.md")}>
                                         <Code className="text-muted-foreground"/>
                                         Contribute
                                    </DropdownMenuItem>
                                    <DropdownMenuSeparator/>
-                                   <DropdownMenuItem>
+                                   <DropdownMenuItem onClick={async()=>await openUrl("https://github.com/ArsenTech/i18n-translator/issues/new?assignees=&labels=&template=bug_report.md&title=")}>
                                         <MessageCircleWarning className="text-muted-foreground"/>
                                         Report a bug
                                    </DropdownMenuItem>
-                                   <DropdownMenuItem>
+                                   <DropdownMenuItem onClick={async()=>await openUrl("https://github.com/ArsenTech/i18n-translator/issues/new?assignees=&labels=&template=feature_request.md&title=")}>
                                         <Grid2X2Plus className="text-muted-foreground"/>
                                         Request a feature
                                    </DropdownMenuItem>

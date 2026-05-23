@@ -1,4 +1,5 @@
 import { Menubar, MenubarContent, MenubarGroup, MenubarItem, MenubarMenu, MenubarSeparator, MenubarShortcut, MenubarSub, MenubarSubContent, MenubarSubTrigger, MenubarTrigger } from "../ui/menubar";
+import { exit } from '@tauri-apps/plugin-process';
 
 export default function MenuBar(){
      return (
@@ -14,10 +15,13 @@ export default function MenuBar(){
                          <MenubarSeparator/>
                          <MenubarGroup>
                               <MenubarItem>Save <MenubarShortcut>Ctrl+S</MenubarShortcut></MenubarItem>
-                              <MenubarItem>Save As...</MenubarItem>
+                              <MenubarItem>Save As... <MenubarShortcut>Ctrl+Shift+S</MenubarShortcut></MenubarItem>
                          </MenubarGroup>
                          <MenubarSeparator/>
-                         <MenubarItem>Exit</MenubarItem>
+                         <MenubarItem onClick={async()=>await exit(0)}>
+                              Exit
+                              <MenubarShortcut>Alt+F4</MenubarShortcut>
+                         </MenubarItem>
                     </MenubarContent>
                </MenubarMenu>
                <MenubarMenu>
@@ -37,15 +41,15 @@ export default function MenuBar(){
                                    <MenubarSubTrigger>Find</MenubarSubTrigger>
                                    <MenubarSubContent>
                                         <MenubarGroup>
-                                             <MenubarItem>Find...</MenubarItem>
+                                             <MenubarItem>Find...<MenubarShortcut>Ctrl+F</MenubarShortcut></MenubarItem>
                                              <MenubarItem>Find Next</MenubarItem>
                                              <MenubarItem>Find Previous</MenubarItem>
                                              <MenubarItem>Find Missing Keys</MenubarItem>
                                         </MenubarGroup>
                                    </MenubarSubContent>
                               </MenubarSub>
-                              <MenubarItem>Replace Translation</MenubarItem>
-                              <MenubarItem>Batch Rename</MenubarItem>
+                              <MenubarItem>Replace Translation <MenubarShortcut>Ctrl+R</MenubarShortcut></MenubarItem>
+                              <MenubarItem>Batch Rename <MenubarShortcut>Ctrl+Shift+R</MenubarShortcut></MenubarItem>
                          </MenubarGroup>
                          <MenubarSeparator />
                          <MenubarGroup>

@@ -13,8 +13,10 @@
     "windows": [
       {
         "title": "I18N Content Translator",
-        "width": 800,
-        "height": 600
+        "width": 1280,
+        "height": 800,
+        "decorations": false,
+        "transparent": true
       }
     ],
     "security": {
@@ -22,6 +24,7 @@
     }
   },
   "bundle": {
+    "publisher": "ArsenTech",
     "active": true,
     "targets": "all",
     "icon": [

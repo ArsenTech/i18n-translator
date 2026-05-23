@@ -43,7 +43,8 @@ jobs:
             libgtk-3-dev \
             libayatana-appindicator3-dev \
             librsvg2-dev \
-            patchelf
+            patchelf \
+            xdg-utils
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -89,33 +90,42 @@ jobs:
 
             ## Downloads
             ### :penguin: Linux
-            - **rpm** - [I18N.Content.Translator-__VERSION__-1.x86_64.rpm][linux-rpm]
-            - **AppImage** - [I18N.Content.Translator___VERSION___amd64.AppImage][linux-app-image]
-            - **deb** - [I18N.Content.Translator___VERSION___amd64.deb][linux-deb]
+            - **rpm** - [I18N.Translator-__VERSION__-1.x86_64.rpm][linux-amd-rpm]
+            - **AppImage** - [I18N.Translator___VERSION___amd64.AppImage][linux-amd-appimage]
+            - **deb** - [I18N.Translator___VERSION___amd64.deb][linux-amd-deb]
+
+            ### :penguin: Linux (ARM64)
+            - **rpm** - [I18N.Translator-__VERSION__-1.aarch64.rpm][linux-arm-rpm]
+            - **AppImage** - [CI18N.Translator___VERSION___aarch64.AppImage][linux-arm-appimage]
+            - **deb** - [I18N.Translator___VERSION___arm64.deb][linux-arm-deb]
 
             ### :window: Windows
-            - **exe** - [I18N.Content.Translator___VERSION___x64-setup.exe][windows-exe]
-            - **msi** - [I18N.Content.Translator___VERSION___x64_en-US.msi][windows-msi]
+            - **exe** - [I18N.Translator___VERSION___x64-setup.exe][windows-exe]
+            - **msi** - [I18N.Translator___VERSION___x64_en-US.msi][windows-msi]
+
+            ### :apple: macOS
+            - **dmg** - [I18N.Translator___VERSION___x64.dmg][mac-x64-dmg]
+            - **app.tar.gz** - [I18N.Translator_x64.app.tar.gz][mac-x64-tar]
 
             ### :green_apple: macOS (ARM64)
-            - **dmg** - [I18N.Content.Translator___VERSION___aarch64.dmg][mac-arm64-dmg]
-            - **app.tar.gz** - [I18N.Content.Translator_aarch64.app.tar.gz][mac-arm64-tar]
+            - **dmg** - [I18N.Translator___VERSION___aarch64.dmg][mac-arm64-dmg]
+            - **app.tar.gz** - [I18N.Translator_aarch64.app.tar.gz][mac-arm64-tar]
 
-            ### :apple: macOS (x86)
-            - **dmg** - [I18N.Content.Translator___VERSION___x64.dmg][mac-x64-dmg]
-            - **app.tar.gz** - [I18N.Content.Translator_x64.app.tar.gz][mac-x64-tar]
+            [mac-arm64-dmg]: https://github.com/ArsenTech/i18n-translator/releases/download/v__VERSION__/I18N.Translator___VERSION___aarch64.dmg
+            [mac-x64-dmg]: https://github.com/ArsenTech/i18n-translator/releases/download/v__VERSION__/I18N.Translator___VERSION___x64.dmg
+            [mac-arm64-tar]: https://github.com/ArsenTech/i18n-translator/releases/download/v__VERSION__/I18N.Translator_aarch64.app.tar.gz
+            [mac-x64-tar]: https://github.com/ArsenTech/i18n-translator/releases/download/v__VERSION__/I18N.Translator_x64.app.tar.gz
 
-            [mac-arm64-dmg]: https://github.com/ArsenTech/i18n-translator/releases/download/v__VERSION__/I18N.Content.Translator___VERSION___aarch64.dmg
-            [mac-x64-dmg]: https://github.com/ArsenTech/i18n-translator/releases/download/v__VERSION__/I18N.Content.Translator___VERSION___x64.dmg
-            [mac-arm64-tar]: https://github.com/ArsenTech/i18n-translator/releases/download/v__VERSION__/I18N.Content.Translator_aarch64.app.tar.gz
-            [mac-x64-tar]: https://github.com/ArsenTech/i18n-translator/releases/download/v__VERSION__/I18N.Content.Translator_x64.app.tar.gz
+            [windows-exe]: https://github.com/ArsenTech/i18n-translator/releases/download/v__VERSION__/I18N.Translator___VERSION___x64-setup.exe
+            [windows-msi]: https://github.com/ArsenTech/i18n-translator/releases/download/v__VERSION__/I18N.Translator___VERSION___x64_en-US.msi
 
-            [windows-exe]: https://github.com/ArsenTech/i18n-translator/releases/download/v__VERSION__/I18N.Content.Translator___VERSION___x64-setup.exe
-            [windows-msi]: https://github.com/ArsenTech/i18n-translator/releases/download/v__VERSION__/I18N.Content.Translator___VERSION___x64_en-US.msi
+            [linux-amd-rpm]: https://github.com/ArsenTech/i18n-translator/releases/download/v__VERSION__/I18N.Translator-__VERSION__-1.x86_64.rpm
+            [linux-amd-appimage]: https://github.com/ArsenTech/i18n-translator/releases/download/v__VERSION__/I18N.Translator___VERSION___amd64.AppImage
+            [linux-amd-deb]: https://github.com/ArsenTech/i18n-translator/releases/download/v__VERSION__/I18N.Translator___VERSION___amd64.deb
 
-            [linux-rpm]: https://github.com/ArsenTech/i18n-translator/releases/download/v__VERSION__/I18N.Content.Translator-__VERSION__-1.x86_64.rpm
-            [linux-app-image]: https://github.com/ArsenTech/i18n-translator/releases/download/v__VERSION__/I18N.Content.Translator___VERSION___amd64.AppImage
-            [linux-deb]: https://github.com/ArsenTech/i18n-translator/releases/download/v__VERSION__/I18N.Content.Translator___VERSION___amd64.deb
+            [linux-arm-rpm]: https://github.com/ArsenTech/i18n-translator/releases/download/v__VERSION__/I18N.Translator-__VERSION__-1.aarch64.rpm
+            [linux-arm-appimage]: https://github.com/ArsenTech/i18n-translator/releases/download/v__VERSION__/I18N.Translator___VERSION___aarch64.AppImage
+            [linux-arm-deb]: https://github.com/ArsenTech/i18n-translator/releases/download/v__VERSION__/I18N.Translator___VERSION___arm64.deb
 
       - name: Test Build (PR / workflow_dispatch)
         uses: tauri-apps/tauri-action@v0

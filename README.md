@@ -1,12 +1,12 @@
 <p align="center">
-     <img src=".github/readme-logo.png" style="object-fit: contain;" alt="I18N Content Translator" width="150" height="150">
+     <img src=".github/readme-logo.png" style="object-fit: contain;" alt="I18N Translator" width="150" height="150">
 </p>
-<h1 align="center">I18N Content Translator</h3>
+<h1 align="center">I18N Translator</h3>
 <p align="center">A Universal Translator that helps you localize and translate some apps into your native language. Perfect for dev-translators localizing the app!</p>
 <p align="center">
-     <a href="https://github.com/ArsenTech/i18n-content-translator/issues/new?assignees=&labels=&template=bug_report.md&title=">Report bug</a>
+     <a href="https://github.com/ArsenTech/i18n-translator/issues/new?assignees=&labels=&template=bug_report.md&title=">Report bug</a>
      &nbsp;&middot;&nbsp;
-     <a href="https://github.com/ArsenTech/i18n-content-translator/issues/new?assignees=&labels=&template=feature_request.md&title=">Request Feature</a>
+     <a href="https://github.com/ArsenTech/i18n-translator/issues/new?assignees=&labels=&template=feature_request.md&title=">Request Feature</a>
 </p>
 
 ![version][version-shield]
@@ -50,7 +50,7 @@
 </details>
 
 ## About
-**I18N Content Translator** is a professional i18n tool that lets you localize and translate some apps into your native language.
+**I18N Translator** is a professional i18n tool that lets you localize and translate some apps into your native language.
 <!-- TODO: Add More Info -->
 
 ### Features
@@ -73,7 +73,7 @@
 - [![Rust][rust-shield]][rust-url]
 - [![React Router][react-router-shield]][react-router-url]
 ### Download
-You can find the latest stable version of the I18N Content Translator right here
+You can find the latest stable version of the I18N Translator right here
 
 [![GitHub Downloads (all assets, latest release)][download-shield]][download-url]
 
@@ -119,34 +119,34 @@ TODO: Add License
 > [ArsenTech's Website][website-url]
 
 <!-- Markdown Links -->
-[star-history-chart]: https://api.star-history.com/svg?repos=ArsenTech/i18n-content-translator&type=Date
-[star-history-url]: https://api.star-history.com/svg?repos=ArsenTech/i18n-content-translator&type=Date
-[contributors-shield]: https://img.shields.io/github/contributors/ArsenTech/i18n-content-translator.svg?style=for-the-badge&color=%2322b455
-[contributors-url]: https://github.com/ArsenTech/i18n-content-translator/graphs/contributors
-[top-contributors]: https://contrib.rocks/image?repo=ArsenTech/i18n-content-translator
-[forks-shield]: https://img.shields.io/github/forks/ArsenTech/i18n-content-translator.svg?style=for-the-badge&color=%2322b455
-[forks-url]: https://github.com/ArsenTech/i18n-content-translator/network/members
-[stars-shield]: https://img.shields.io/github/stars/ArsenTech/i18n-content-translator.svg?style=for-the-badge&color=%2322b455
-[stars-url]: https://github.com/ArsenTech/i18n-content-translator/stargazers
-[issues-shield]: https://img.shields.io/github/issues/ArsenTech/i18n-content-translator.svg?style=for-the-badge
-[issues-url]: https://github.com/ArsenTech/i18n-content-translator/issues
-[license-shield]: https://img.shields.io/github/license/ArsenTech/i18n-content-translator?color=%2322b455&style=for-the-badge
-[license-url]: https://github.com/ArsenTech/i18n-content-translator/blob/main/LICENSE.md
-[version-shield]: https://img.shields.io/github/package-json/v/ArsenTech/i18n-content-translator?style=for-the-badge
-[downloads-shield]: https://img.shields.io/github/downloads/ArsenTech/i18n-content-translator/total?style=for-the-badge&label=Total%20Downloads&color=%2322b455
-[downloads-url]:https://github.com/ArsenTech/i18n-content-translator/releases
-[status-shield]: https://img.shields.io/github/actions/workflow/status/ArsenTech/i18n-content-translator/build.yml?style=for-the-badge
-[status-url]: https://github.com/ArsenTech/i18n-content-translator/actions/workflows/build.yml
-[commits-since-shield]: https://img.shields.io/github/commits-since/ArsenTech/i18n-content-translator/latest?style=for-the-badge&color=%2322b455&label=Commits%20since%20latest%20version
-[created-at-shield]: https://img.shields.io/github/created-at/ArsenTech/i18n-content-translator?style=for-the-badge
-[repo-size-shield]: https://img.shields.io/github/repo-size/ArsenTech/i18n-content-translator?style=for-the-badge
-[download-shield]: https://img.shields.io/github/downloads/ArsenTech/i18n-content-translator/latest/total?style=for-the-badge&label=Download&color=%2322b455
-[download-url]: https://github.com/ArsenTech/i18n-content-translator/releases/latest
-[code-of-conduct-url]: https://github.com/ArsenTech/i18n-content-translator/blob/main/docs/CODE_OF_CONDUCT.md
-[contributing-url]: https://github.com/ArsenTech/i18n-content-translator/blob/main/docs/CONTRIBUTING.md
-[changelog-url]: https://github.com/ArsenTech/i18n-content-translator/blob/main/CHANGELOG.md
+[star-history-chart]: https://api.star-history.com/svg?repos=ArsenTech/i18n-translator&type=Date
+[star-history-url]: https://api.star-history.com/svg?repos=ArsenTech/i18n-translator&type=Date
+[contributors-shield]: https://img.shields.io/github/contributors/ArsenTech/i18n-translator.svg?style=for-the-badge&color=%2322b455
+[contributors-url]: https://github.com/ArsenTech/i18n-translator/graphs/contributors
+[top-contributors]: https://contrib.rocks/image?repo=ArsenTech/i18n-translator
+[forks-shield]: https://img.shields.io/github/forks/ArsenTech/i18n-translator.svg?style=for-the-badge&color=%2322b455
+[forks-url]: https://github.com/ArsenTech/i18n-translator/network/members
+[stars-shield]: https://img.shields.io/github/stars/ArsenTech/i18n-translator.svg?style=for-the-badge&color=%2322b455
+[stars-url]: https://github.com/ArsenTech/i18n-translator/stargazers
+[issues-shield]: https://img.shields.io/github/issues/ArsenTech/i18n-translator.svg?style=for-the-badge
+[issues-url]: https://github.com/ArsenTech/i18n-translator/issues
+[license-shield]: https://img.shields.io/github/license/ArsenTech/i18n-translator?color=%2322b455&style=for-the-badge
+[license-url]: https://github.com/ArsenTech/i18n-translator/blob/main/LICENSE.md
+[version-shield]: https://img.shields.io/github/package-json/v/ArsenTech/i18n-translator?style=for-the-badge
+[downloads-shield]: https://img.shields.io/github/downloads/ArsenTech/i18n-translator/total?style=for-the-badge&label=Total%20Downloads&color=%2322b455
+[downloads-url]:https://github.com/ArsenTech/i18n-translator/releases
+[status-shield]: https://img.shields.io/github/actions/workflow/status/ArsenTech/i18n-translator/build.yml?style=for-the-badge
+[status-url]: https://github.com/ArsenTech/i18n-translator/actions/workflows/build.yml
+[commits-since-shield]: https://img.shields.io/github/commits-since/ArsenTech/i18n-translator/latest?style=for-the-badge&color=%2322b455&label=Commits%20since%20latest%20version
+[created-at-shield]: https://img.shields.io/github/created-at/ArsenTech/i18n-translator?style=for-the-badge
+[repo-size-shield]: https://img.shields.io/github/repo-size/ArsenTech/i18n-translator?style=for-the-badge
+[download-shield]: https://img.shields.io/github/downloads/ArsenTech/i18n-translator/latest/total?style=for-the-badge&label=Download&color=%2322b455
+[download-url]: https://github.com/ArsenTech/i18n-translator/releases/latest
+[code-of-conduct-url]: https://github.com/ArsenTech/i18n-translator/blob/main/docs/CODE_OF_CONDUCT.md
+[contributing-url]: https://github.com/ArsenTech/i18n-translator/blob/main/docs/CONTRIBUTING.md
+[changelog-url]: https://github.com/ArsenTech/i18n-translator/blob/main/CHANGELOG.md
 [website-url]: https://arsentech.github.io
-[docs-url]: https://github.com/ArsenTech/i18n-content-translator/blob/main/docs/usage.md
+[docs-url]: https://github.com/ArsenTech/i18n-translator/blob/main/docs/usage.md
 [sponsors-list]: https://raw.githubusercontent.com/ArsenTech/clamav-gui/main/public/sponsors/sponsors.svg
 [sponsors-link]: https://github.com/sponsors/ArsenTech
 [sponsors-badge]: https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86&style=for-the-badge

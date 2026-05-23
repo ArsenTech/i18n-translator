@@ -13,7 +13,7 @@ function App() {
   }
   return (
     <main className="p-4 space-y-2">
-      <h1 className="text-lg md:text-2xl lg:text-3xl font-semibold">I initialized I18n Content Translator!</h1>
+      <h1 className="text-lg md:text-2xl lg:text-3xl font-semibold">I initialized I18N Translator!</h1>
       <p className="text-muted-foreground">TODO: Make a UI</p>
       {greetMsg && (
         <p className="text-primary-foreground">{greetMsg}</p>

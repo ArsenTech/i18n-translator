@@ -1,8 +1,8 @@
 <p align="center">
-     <img alt="i18n-content-translator" width="500" height="130" style="object-fit: contain;" src="https://raw.githubusercontent.com/ArsenTech/i18n-content-translator/refs/heads/main/.github/logo-mark.png" />
+     <img alt="i18n-translator" width="500" height="130" style="object-fit: contain;" src="https://raw.githubusercontent.com/ArsenTech/i18n-translator/refs/heads/main/.github/logo-mark.png" />
 </p>
 
-<h1 align="center">Contributing Guide to I18N Content Translator</h1>
+<h1 align="center">Contributing Guide to I18N Translator</h1>
 
 First off, thanks for considering contributing to this project!  
 Your ideas, time, and effort help make it better for everyone. 🌱
@@ -72,8 +72,8 @@ refactor: Improved the Translation data table
 
 1. Fork the repository and clone your fork:
       ```bash
-      git clone https://github.com/ArsenTech/i18n-content-translator.git
-      cd i18n-content-translator
+      git clone https://github.com/ArsenTech/i18n-translator.git
+      cd i18n-translator
       ```
 2. Install dependencies:
       ```bash
@@ -152,18 +152,18 @@ Your time, ideas, and creativity are truly appreciated.
 
 Take a deep breath, enjoy the process — and let’s make something beautiful together ✨
 
-Thanks for making  I18N Content Translator better!
+Thanks for making  I18N Translator better!
 
 > GitHub [@ArsenTech][github-url] &nbsp;&middot;&nbsp;
 > YouTube [@ArsenTech][yt-url] &nbsp;&middot;&nbsp;
 > Patreon [ArsenTech][patreon-url] &nbsp;&middot;&nbsp;
 > [ArsenTech's Website][website-url]
 
-[issues-url]: https://github.com/ArsenTech/i18n-content-translator/issues
-[new-feature-request-url]: https://github.com/ArsenTech/i18n-content-translator/issues/new?assignees=&labels=&template=feature_request.md&title=
-[code-of-conduct-url]: https://github.com/ArsenTech/i18n-content-translator/blob/main/CODE_OF_CONDUCT.md
+[issues-url]: https://github.com/ArsenTech/i18n-translator/issues
+[new-feature-request-url]: https://github.com/ArsenTech/i18n-translator/issues/new?assignees=&labels=&template=feature_request.md&title=
+[code-of-conduct-url]: https://github.com/ArsenTech/i18n-translator/blob/main/CODE_OF_CONDUCT.md
 [yt-url]:https://www.youtube.com/channel/UCrtH0g6NE8tW5VIEgDySYtg
 [patreon-url]:https://www.patreon.com/ArsenTech
 [github-url]: https://github.com/ArsenTech
 [website-url]: https://arsentech.github.io
-[link-to-base-lang]: https://github.com/ArsenTech/i18n-content-translator/tree/main/public/locales/en
+[link-to-base-lang]: https://github.com/ArsenTech/i18n-translator/tree/main/public/locales/en

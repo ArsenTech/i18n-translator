@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "I18N Content Translator",
+  "productName": "I18N Translator",
   "version": "0.1.0",
-  "identifier": "com.arsentech.i18n-content-translator",
+  "identifier": "com.arsentech.i18n-translator",
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://localhost:1420",
@@ -12,11 +12,10 @@
   "app": {
     "windows": [
       {
-        "title": "I18N Content Translator",
+        "title": "I18N Translator",
         "width": 1280,
         "height": 800,
-        "decorations": false,
-        "transparent": true
+        "decorations": false
       }
     ],
     "security": {

@@ -1,8 +1,8 @@
 # Welcome!
-Welcome to the documentation of the **I18N Content Translator** version 0.1.0!
+Welcome to the documentation of the **I18N Translator** version 0.1.0!
 
 Here are some quick links to get you started:
-- To use the I18N Content Translator, continue to the [Usage Guide](./usage.md)
+- To use the I18N Translator, continue to the [Usage Guide](./usage.md)
 - To install the translator on your device, See the [Installation Guide](./installation.md)
 - Having Problems? See [Troubleshooting](./troubleshooting.md)
 

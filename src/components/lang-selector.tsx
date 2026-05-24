@@ -1,15 +1,22 @@
 import { useEffect, useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { toast } from "sonner";
-import { getErrorMessage } from "@/lib/utils";
+import { cn, getErrorMessage } from "@/lib/utils";
 import { Skeleton } from "./ui/skeleton";
 import { CircleFlag, CircleFlagLanguage } from 'react-circle-flags'
 
 interface LangSelectorProps{
-     onLangChange: (langCode: string) => void,
-     lang: string
+     onLangChange?: (langCode: string) => void,
+     lang?: string,
+     placeholder?: string,
+     className?: string
 }
-export default function LangSelector({lang, onLangChange}: LangSelectorProps){
+export default function LangSelector({
+     lang,
+     onLangChange,
+     placeholder="Language to Translate",
+     className
+}: LangSelectorProps){
      const [isLoading, setIsLoading] = useState(true);
      const [data, setData] = useState<{
           flag: string,
@@ -38,11 +45,11 @@ export default function LangSelector({lang, onLangChange}: LangSelectorProps){
           })()
      },[])
      return isLoading ? (
-          <Skeleton className="w-48 h-8"/>
+          <Skeleton className={cn("h-8",className)}/>
      ) : (
           <Select value={lang} onValueChange={onLangChange}>
-               <SelectTrigger>
-                    <SelectValue placeholder="Language to Translate"/>
+               <SelectTrigger className={className}>
+                    <SelectValue placeholder={placeholder}/>
                </SelectTrigger>
                <SelectContent>
                     {data.map(lang => (

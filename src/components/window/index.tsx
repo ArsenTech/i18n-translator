@@ -31,7 +31,7 @@ export default function WindowWrapper({children}: WindowWrapperProps){
           }
      }, [])
      return (
-          <div className="w-full h-full relative">
+          <main className="w-full h-full relative">
                <div className="flex items-center justify-between gap-2 bg-secondary/85 dark:bg-muted/80 text-secondary-foreground border-b shadow-xs pl-2 sticky top-0 left-0 z-20 w-full h-9 backdrop-blur-md">
                     <div className="flex items-center gap-2">
                          <DropdownMenu>
@@ -86,6 +86,6 @@ export default function WindowWrapper({children}: WindowWrapperProps){
                     </ButtonGroup>
                </div>
                {children}
-          </div>
+          </main>
      )
 }

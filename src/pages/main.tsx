@@ -1,51 +1,32 @@
 import LangSelector from "@/components/lang-selector";
+import { TranslationTable } from "@/components/translation-table";
+import TreeSidebar from "@/components/tree-sidebar";
 import { Button } from "@/components/ui/button";
-import { ButtonGroup, ButtonGroupSeparator, ButtonGroupText } from "@/components/ui/button-group";
-import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@/components/ui/input-group";
+import { ButtonGroup, ButtonGroupSeparator } from "@/components/ui/button-group";
 import { Progress } from "@/components/ui/progress";
 import { Textarea } from "@/components/ui/textarea";
-import { Copy, Save, Search, X } from "lucide-react";
+import { mockupData } from "@/lib/types";
+import { Copy, Save } from "lucide-react";
 
 export default function MainPage(){
      return (
-          <div className="grid grid-cols-1 md:grid-cols-[0.5fr_1fr] lg:grid-cols-[0.4fr_1fr] xl:grid-cols-[0.3fr_1fr] px-4 py-2 gap-4 h-[calc(100dvh-40px)] mb-1">
-               <div className="w-full flex flex-col gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-[0.5fr_1fr] lg:grid-cols-[0.4fr_1fr] xl:grid-cols-[0.3fr_1fr] px-4 py-2 gap-4 h-[calc(100dvh-40px)] overflow-hidden">
+               <div className="w-full flex flex-col gap-4 min-h-0 overflow-hidden">
                     <div className="p-2 flex items-center justify-center">
                          Quick Actions
                     </div>
-                    <div className="bg-card text-card-foreground border shadow-xs rounded-md p-2 flex items-center justify-center flex-1">
-                         Tree Sidebar
-                    </div>
+                    <TreeSidebar/>
                </div>
-               <div className="w-full flex flex-col gap-2">
+               <div className="w-full flex flex-col gap-2 min-h-0 overflow-hidden">
                     <div className="flex items-center gap-2">
                          <span>From</span>
                          <LangSelector placeholder="Base Language" className="flex-1"/>
                          <span>to</span>
                          <LangSelector className="flex-1"/>
                     </div>
-                    <div className="flex items-center gap-2">
-                         <ButtonGroup className="flex-1">
-                              <ButtonGroupText>Filters</ButtonGroupText>
-                              <InputGroup className="rounded-none!">
-                                   <InputGroupInput
-                                        placeholder="Search translations"
-                                   />
-                                   <InputGroupAddon>
-                                        <Search/>
-                                   </InputGroupAddon>
-                                   <InputGroupAddon align="inline-end">
-                                        <InputGroupButton size="icon-sm">
-                                             <X/>
-                                        </InputGroupButton>
-                                   </InputGroupAddon>
-                              </InputGroup>
-                         </ButtonGroup>
-                         <div className="bg-card text-card-foreground border shadow-xs rounded-md p-2 text-xs">Sort By</div>
-                    </div>
-                    <div className="bg-card text-card-foreground border shadow-xs rounded-md p-2 flex items-center justify-center flex-1">
-                         Table
-                    </div>
+                    <TranslationTable
+                         data={mockupData}
+                    />
                     <div className="flex items-center gap-2">
                          <div className="text-sm">50%</div>
                          <Progress className="h-3 flex-1" value={50}/>

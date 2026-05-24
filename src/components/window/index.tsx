@@ -1,10 +1,10 @@
-import { BookOpen, Code, Copy, Grid2X2Plus, Info, MessageCircleWarning, Minus, Settings, Square, X } from "lucide-react"
+import { BookOpen, Code, Copy, Grid2X2Plus, Info, Keyboard, MessageCircleWarning, Minus, Settings, Square, X } from "lucide-react"
 import { Button } from "../ui/button"
 import { ButtonGroup } from "../ui/button-group"
 import { getCurrentWindow } from '@tauri-apps/api/window';
 import { useEffect, useState } from "react";
 import MenuBar from "./menubar";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { SiGithub } from "react-icons/si"
 import { openUrl } from "@tauri-apps/plugin-opener"
 
@@ -39,6 +39,8 @@ export default function WindowWrapper({children}: WindowWrapperProps){
                                    <img src="/logo.png" alt="I18N Translator" width={24} height={24} className="select-none"/> 
                               </DropdownMenuTrigger>
                               <DropdownMenuContent className="w-full">
+                                   <DropdownMenuLabel>I18N Translator</DropdownMenuLabel>
+                                   <DropdownMenuSeparator/>
                                    <DropdownMenuItem>
                                         <Info className="text-muted-foreground"/>
                                         About I18N Translator
@@ -59,6 +61,10 @@ export default function WindowWrapper({children}: WindowWrapperProps){
                                    <DropdownMenuItem onClick={async()=>await openUrl("https://github.com/ArsenTech/i18n-translator/blob/main/docs/CONTRIBUTING.md")}>
                                         <Code className="text-muted-foreground"/>
                                         Contribute
+                                   </DropdownMenuItem>
+                                   <DropdownMenuItem>
+                                        <Keyboard className="text-muted-foreground"/>
+                                        Keyboard Shortcuts
                                    </DropdownMenuItem>
                                    <DropdownMenuSeparator/>
                                    <DropdownMenuItem onClick={async()=>await openUrl("https://github.com/ArsenTech/i18n-translator/issues/new?assignees=&labels=&template=bug_report.md&title=")}>

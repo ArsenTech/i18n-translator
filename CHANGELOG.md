@@ -5,6 +5,30 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 ## [0.1.1] - Unreleased
+### Added
+- Initial Layout of the Translator
+- Sidebar and Table
+- Quick access buttons
+- Filter, Search, and Sort UI
+- New Menu Items + the App name as the Logo Dropdown Menu Name
+  - Edit
+    - Go to prop name
+    - Select untranslated
+    - Compare diff
+    - Select All
+  - Tools
+    - Translate using
+      - Google Translate
+      - Gemini
+      - LibreTranslate
+      - Llama AI
+    - Validation
+      - Validate Keys
+      - Remove Unused Keys
+       Spell check (using Hunspell)
+    - Transliterate Script
+### Improved
+- **Menubar and Logo dropdown menu** - Added links
 
 ## [0.1.0] - 2026-05-23
 > [!IMPORTANT]

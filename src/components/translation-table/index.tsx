@@ -14,9 +14,11 @@ import {
 } from "@/components/ui/table"
 import { ITranslation } from "@/lib/types"
 import { columns } from "./columns"
-import { ButtonGroup, ButtonGroupText } from "@/components/ui/button-group";
+import { ButtonGroup } from "@/components/ui/button-group";
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@/components/ui/input-group";
 import { Search, X } from "lucide-react";
+import Filters from "./filters"
+import SortBy from "./sort-by"
 
 interface DataTableProps {
      data: ITranslation[]
@@ -34,7 +36,7 @@ export function TranslationTable({
           <div className="flex flex-col flex-1 min-h-0 overflow-hidden gap-2">
                <div className="flex items-center gap-2">
                     <ButtonGroup className="flex-1">
-                         <ButtonGroupText>Filters</ButtonGroupText>
+                         <Filters/>
                          <InputGroup className="rounded-none!">
                               <InputGroupInput
                                    placeholder="Search translations"
@@ -49,7 +51,7 @@ export function TranslationTable({
                               </InputGroupAddon>
                          </InputGroup>
                     </ButtonGroup>
-                    <div className="bg-card text-card-foreground border shadow-xs rounded-md p-2 text-xs">Sort By</div>
+                    <SortBy/>
                </div>
                <div className="flex flex-col flex-1 min-h-0 overflow-hidden rounded-md border bg-card text-card-foreground shadow-xs">
                     <Table className="min-w-[900px] table-fixed">

@@ -63,6 +63,40 @@
   - [ ] Troubleshooting
   - [ ] FAQs
 
+### Future Expansions
+- [ ] The "All Glossaries" page providing Glossaries to download and use
+- [ ] Glossary page that'll save words to Glossary (Needs Rust to save as json)
+  ```json
+     {
+     "[base]-[target]": {
+          "[base-word-1]": "[target-word-1]",
+          "[base-word-2]": "[target-word-2]",
+          "[base-word-3]": "[target-word-3]"
+     }
+  }
+  ```
+- [ ] Glossary Packs
+  > Example pack: en-hy (folder)
+  > - Gaming: game.json (e.g. Skin will be "Սկին")
+  > - Editing: editor.json (e.g. Track will be "Թրեք")
+  > - Coding: coding.json (e.g. Bug will be "Բագ", not "Բլոճ")
+  > - index.json: Clean glossary full of literal 🇦🇲 words only
+  > 
+  > These niche-based Glossary packs will be used if I translate something.
+  > 
+  > Example
+  > - Translating Teeworlds or Neverball -> use the gaming slang (en-hy/game.json)
+  > - Translating Editors (Like OpenShot and Audacity) -> use the editor slang (en-hy/editor.json)
+  > 
+  > Uses the GitHub organization to store these packs (en-hy, ru-hy, etc)
+- [ ] Auto-detect glossary language pair from file names
+- [ ] Import/export glossary to CSV
+- [ ] Support ICU MessageFormat & pluralization rules
+- [ ] Autocomplete box from glossary to popup after word highlight
+- [ ] Glossary-related items like
+  - [ ] Edit => Add to Glossary
+  - [ ] Tools => Glossary
+
 ### Built With
 - [![Tauri][tauri-shield]][tauri-url]
 - [![React][react-shield]][react-url]

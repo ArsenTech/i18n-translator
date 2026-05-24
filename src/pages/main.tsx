@@ -2,11 +2,10 @@ import LangSelector from "@/components/lang-selector";
 import { TranslationTable } from "@/components/translation-table";
 import TreeSidebar from "@/components/tree-sidebar";
 import { Button } from "@/components/ui/button";
-import { ButtonGroup, ButtonGroupSeparator } from "@/components/ui/button-group";
 import { Progress } from "@/components/ui/progress";
 import { Textarea } from "@/components/ui/textarea";
 import { mockupData } from "@/lib/types";
-import { Cog, Copy, FilePlus, FolderOpen, Languages, RotateCcw, Save, Search, SearchCheck } from "lucide-react";
+import { ChevronRight, Cog, Copy, FilePlus, FolderOpen, Languages, RotateCcw, Save, Search, SearchCheck } from "lucide-react";
 
 export default function MainPage(){
      return (
@@ -59,30 +58,42 @@ export default function MainPage(){
                               className="flex-2"
                               rows={3}
                          />
-                         <ButtonGroup orientation="vertical" className="flex-1">
+                         <div className="flex items-center gap-1 flex-wrap flex-1">
                               <Button className="flex-1" variant="secondary">
                                    <Copy/>
                                    Copy from Source
                               </Button>
-                              <ButtonGroupSeparator/>
                               <Button className="flex-1">
                                    <Save/>
-                                   Save the Translation
+                                   Save String
                               </Button>
-                         </ButtonGroup>
+                              <Button className="flex-1">
+                                   Next Blank Field
+                                   <ChevronRight/>
+                              </Button>
+                         </div>
                     </div>
-                    <div className="flex justify-between items-center text-xs md:text-sm">
-                         <div className="flex gap-2 justify-center items-center bg-card border rounded-md px-3 py-1">
-                              <span className="text-base md:text-lg">1234</span>
-                              <span className="text-muted-foreground">Untranslated</span>
+                    <div className="flex justify-between items-center text-xs md:text-sm flex-wrap gap-2">
+                         <div className="flex items-center gap-2">
+                              <div className="flex gap-2 justify-center items-center bg-card border rounded-md px-3 py-1">
+                                   <span className="text-base md:text-lg">1234</span>
+                                   <span className="text-muted-foreground">Untranslated</span>
+                              </div>
+                              <div className="flex gap-2 justify-center items-center bg-card border rounded-md px-3 py-1">
+                                   <span className="text-base md:text-lg">1234</span>
+                                   <span className="text-muted-foreground">Translated</span>
+                              </div>
+                              <div className="flex gap-2 justify-center items-center bg-card border rounded-md px-3 py-1">
+                                   <span className="text-base md:text-lg">1234</span>
+                                   <span className="text-muted-foreground">Total</span>
+                              </div>
                          </div>
-                         <div className="flex gap-2 justify-center items-center bg-card border rounded-md px-3 py-1">
-                              <span className="text-base md:text-lg">1234</span>
-                              <span className="text-muted-foreground">Translated</span>
-                         </div>
-                         <div className="flex gap-2 justify-center items-center bg-card border rounded-md px-3 py-1">
-                              <span className="text-base md:text-lg">1234</span>
-                              <span className="text-muted-foreground">Total</span>
+                         <div className="flex items-center gap-2">
+                              <div className="flex gap-2 justify-center items-center bg-card border rounded-md px-3 py-1">
+                                   <span className="text-base md:text-lg">1234</span>
+                                   <span className="text-muted-foreground">Line Number</span>
+                              </div>
+                              <p className="text-muted-foreground">String Prop Name</p>
                          </div>
                     </div>
                </div>

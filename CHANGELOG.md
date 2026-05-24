@@ -4,7 +4,7 @@ All notable changes of I18N Translator will be documented here.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
-## [0.1.1] - Unreleased
+## [0.1.1] - 2026-05-24
 ### Added
 - Initial Layout of the Translator
 - Sidebar and Table

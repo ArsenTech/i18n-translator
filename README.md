@@ -67,7 +67,7 @@
 - [ ] The "All Glossaries" page providing Glossaries to download and use
 - [ ] Glossary page that'll save words to Glossary (Needs Rust to save as json)
   ```json
-     {
+  {
      "[base]-[target]": {
           "[base-word-1]": "[target-word-1]",
           "[base-word-2]": "[target-word-2]",
@@ -90,7 +90,7 @@
   > 
   > Uses the GitHub organization to store these packs (en-hy, ru-hy, etc)
 - [ ] Auto-detect glossary language pair from file names
-- [ ] Import/export glossary to CSV
+- [ ] Import/export glossary to CSV or JSON
 - [ ] Support ICU MessageFormat & pluralization rules
 - [ ] Autocomplete box from glossary to popup after word highlight
 - [ ] Glossary-related items like

@@ -18,7 +18,7 @@ export default function MenuBar(){
                               <MenubarItem>Save As... <MenubarShortcut>Ctrl+Shift+S</MenubarShortcut></MenubarItem>
                          </MenubarGroup>
                          <MenubarSeparator/>
-                         <MenubarItem onClick={async()=>await exit(0)}>
+                         <MenubarItem onClick={()=>exit(0)}>
                               Exit
                               <MenubarShortcut>Alt+F4</MenubarShortcut>
                          </MenubarItem>

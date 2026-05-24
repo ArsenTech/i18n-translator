@@ -6,14 +6,37 @@ import { ButtonGroup, ButtonGroupSeparator } from "@/components/ui/button-group"
 import { Progress } from "@/components/ui/progress";
 import { Textarea } from "@/components/ui/textarea";
 import { mockupData } from "@/lib/types";
-import { Copy, Save } from "lucide-react";
+import { Cog, Copy, FilePlus, FolderOpen, Languages, RotateCcw, Save, Search, SearchCheck } from "lucide-react";
 
 export default function MainPage(){
      return (
           <div className="grid grid-cols-1 md:grid-cols-[0.5fr_1fr] lg:grid-cols-[0.4fr_1fr] xl:grid-cols-[0.3fr_1fr] px-4 py-2 gap-4 h-[calc(100dvh-40px)] overflow-hidden">
-               <div className="w-full flex flex-col gap-4 min-h-0 overflow-hidden">
-                    <div className="p-2 flex items-center justify-center">
-                         Quick Actions
+               <div className="w-full flex flex-col gap-1 min-h-0 overflow-hidden">
+                    <div className="py-2 gap-1 flex items-center justify-center flex-wrap">
+                         <Button variant="secondary" className="flex-1 aspect-square " title="New Translation">
+                              <FilePlus/>
+                         </Button>
+                         <Button variant="secondary" className="flex-1 aspect-square " title="Open Translations">
+                              <FolderOpen/>
+                         </Button>
+                         <Button variant="secondary" className="flex-1 aspect-square " title="Save Translation">
+                              <Save/>
+                         </Button>
+                         <Button variant="secondary" className="flex-1 aspect-square " title="Find Missing Keys">
+                              <Search/>
+                         </Button>
+                         <Button variant="secondary" className="flex-1 aspect-square " title="Auto-translate">
+                              <Languages/>
+                         </Button>
+                         <Button variant="secondary" className="flex-1 aspect-square " title="Validate Keys">
+                              <SearchCheck/>
+                         </Button>
+                         <Button variant="secondary" className="flex-1 aspect-square " title="Replace Translation">
+                              <RotateCcw/>
+                         </Button>
+                         <Button variant="secondary" className="flex-1 aspect-square " title="Settings">
+                              <Cog/>
+                         </Button>
                     </div>
                     <TreeSidebar/>
                </div>
@@ -49,15 +72,15 @@ export default function MainPage(){
                          </ButtonGroup>
                     </div>
                     <div className="flex justify-between items-center text-xs md:text-sm">
-                         <div className="flex gap-2 justify-center items-center">
+                         <div className="flex gap-2 justify-center items-center bg-card border rounded-md px-3 py-1">
                               <span className="text-base md:text-lg">1234</span>
                               <span className="text-muted-foreground">Untranslated</span>
                          </div>
-                         <div className="flex gap-2 justify-center items-center">
+                         <div className="flex gap-2 justify-center items-center bg-card border rounded-md px-3 py-1">
                               <span className="text-base md:text-lg">1234</span>
                               <span className="text-muted-foreground">Translated</span>
                          </div>
-                         <div className="flex gap-2 justify-center items-center">
+                         <div className="flex gap-2 justify-center items-center bg-card border rounded-md px-3 py-1">
                               <span className="text-base md:text-lg">1234</span>
                               <span className="text-muted-foreground">Total</span>
                          </div>

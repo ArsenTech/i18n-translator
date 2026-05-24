@@ -10,25 +10,9 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Sidebar and Table
 - Quick access buttons
 - Filter, Search, and Sort UI
-- New Menu Items + the App name as the Logo Dropdown Menu Name
-  - Edit
-    - Go to prop name
-    - Select untranslated
-    - Compare diff
-    - Select All
-  - Tools
-    - Translate using
-      - Google Translate
-      - Gemini
-      - LibreTranslate
-      - Llama AI
-    - Validation
-      - Validate Keys
-      - Remove Unused Keys
-       Spell check (using Hunspell)
-    - Transliterate Script
+- New UI changes after initializing the layout
 ### Improved
-- **Menubar and Logo dropdown menu** - Added links
+- **Menubar and Logo dropdown menu** - Added links and more items
 
 ## [0.1.0] - 2026-05-23
 > [!IMPORTANT]

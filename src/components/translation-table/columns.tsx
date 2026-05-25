@@ -1,11 +1,19 @@
 import { ITranslation } from "@/lib/types"
 import { ColumnDef } from "@tanstack/react-table"
 import { CheckCircle } from "lucide-react"
+import { DataTableColumnHeader } from "./col-header"
+
+const wordCount = (value: string) => {
+     const text = value.trim()
+     return text ? text.split(/\s+/).length : 0
+}
 
 export const columns: ColumnDef<ITranslation>[] = [
      {
           accessorKey: "keyName",
-          header: "Name",
+          header: ({column})=>(
+               <DataTableColumnHeader title="Name" column={column}/>
+          ),
           size: 250,
           cell: ({getValue}) => (
                <div className="truncate">
@@ -15,7 +23,9 @@ export const columns: ColumnDef<ITranslation>[] = [
      },
      {
           accessorKey: "baseString",
-          header: "Base Language",
+          header: ({column})=>(
+               <DataTableColumnHeader title="Source" column={column}/>
+          ),
           size: 300,
           cell: ({getValue}) => (
                <div className="truncate">
@@ -25,13 +35,35 @@ export const columns: ColumnDef<ITranslation>[] = [
      },
      {
           accessorKey: "translationString",
-          header: "Translation",
+          header: ({column})=>(
+               <DataTableColumnHeader title="Translation" column={column}/>
+          ),
           size: 300,
           cell: ({getValue}) => (
                <div className="truncate">
                     {getValue<string>()}
                </div>
           )
+     },
+     {
+          id: "baseChars",
+          accessorFn: (row) => row.baseString.trim().length,
+          enableHiding: true,
+     },
+     {
+          id: "baseWords",
+          accessorFn: (row) => wordCount(row.baseString),
+          enableHiding: true,
+     },
+     {
+          id: "translationChars",
+          accessorFn: (row) => row.translationString.trim().length,
+          enableHiding: true,
+     },
+     {
+          id: "translationWords",
+          accessorFn: (row) => wordCount(row.translationString),
+          enableHiding: true,
      },
      {
           id: "status",

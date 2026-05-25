@@ -1,8 +1,15 @@
 import { Filter } from "lucide-react";
 import { Button } from "../ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import { FilterType } from ".";
 
-export default function Filters(){
+interface FiltersProps {
+     filter: FilterType
+     onFilterChange: (filter: FilterType) => void
+     searchMode: "key" | "translation" | "source" | "source-not" | "translation-not" | "key-not"
+     onSearchModeChange: (mode: "key" | "translation" | "source" | "source-not" | "translation-not" | "key-not") => void
+}
+export default function Filters({filter, onFilterChange, onSearchModeChange, searchMode}: FiltersProps){
      return (
           <DropdownMenu>
                <DropdownMenuTrigger asChild>
@@ -14,30 +21,32 @@ export default function Filters(){
                <DropdownMenuContent className="w-full min-w-56">
                     <DropdownMenuLabel>Filter By</DropdownMenuLabel>
                     <DropdownMenuSeparator/>
-                    <DropdownMenuItem>All</DropdownMenuItem>
-                    <DropdownMenuSub>
-                         <DropdownMenuSubTrigger>Status</DropdownMenuSubTrigger>
-                         <DropdownMenuSubContent>
-                              <DropdownMenuItem>Translated</DropdownMenuItem>
-                              <DropdownMenuItem>Untranslated</DropdownMenuItem>
-                         </DropdownMenuSubContent>
-                    </DropdownMenuSub>
-                    <DropdownMenuItem>Missing Keys</DropdownMenuItem>
-                    <DropdownMenuItem>Translation equals Source</DropdownMenuItem>
-                    <DropdownMenuSub>
-                         <DropdownMenuSubTrigger>Validation</DropdownMenuSubTrigger>
-                         <DropdownMenuSubContent>
-                              <DropdownMenuItem>Has Errors</DropdownMenuItem>
-                              <DropdownMenuItem>Has Warnings</DropdownMenuItem>
-                         </DropdownMenuSubContent>
-                    </DropdownMenuSub>
                     <DropdownMenuSub>
                          <DropdownMenuSubTrigger>Search</DropdownMenuSubTrigger>
                          <DropdownMenuSubContent>
-                              <DropdownMenuItem>Search by Key</DropdownMenuItem>
-                              <DropdownMenuItem>Search by Translation</DropdownMenuItem>
+                              <DropdownMenuRadioGroup
+                                   value={searchMode}
+                                   onValueChange={(value) => onSearchModeChange(value as typeof searchMode)}
+                              >
+                                   <DropdownMenuRadioItem value="source">Search by Source</DropdownMenuRadioItem>
+                                   <DropdownMenuRadioItem value="source-not">Source doesn't contain</DropdownMenuRadioItem>
+                                   <DropdownMenuRadioItem value="translation">Search by Translation</DropdownMenuRadioItem>
+                                   <DropdownMenuRadioItem value="translation-not">Translation doesn't contain</DropdownMenuRadioItem>
+                                   <DropdownMenuRadioItem value="key">Search by Key</DropdownMenuRadioItem>
+                                   <DropdownMenuRadioItem value="key-not">Key doesn't contain</DropdownMenuRadioItem>
+                              </DropdownMenuRadioGroup>
                          </DropdownMenuSubContent>
                     </DropdownMenuSub>
+                    <DropdownMenuRadioGroup
+                         value={filter}
+                         onValueChange={(value) => onFilterChange(value as FilterType)}
+                    >
+                         <DropdownMenuRadioItem value="all">All</DropdownMenuRadioItem>
+                         <DropdownMenuRadioItem value="translated">Translated</DropdownMenuRadioItem>
+                         <DropdownMenuRadioItem value="untranslated">Untranslated</DropdownMenuRadioItem>
+                         <DropdownMenuRadioItem value="transEqSrc">Translation equals Source</DropdownMenuRadioItem>
+                         <DropdownMenuRadioItem value="repeatedStr">Repeated Strings</DropdownMenuRadioItem>
+                    </DropdownMenuRadioGroup>
                </DropdownMenuContent>
           </DropdownMenu>
      )

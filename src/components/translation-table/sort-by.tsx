@@ -1,45 +1,82 @@
-import { ArrowDownUp } from "lucide-react";
-import { Button } from "../ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuCheckboxItem, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import React from "react"
+import { ArrowDownUp } from "lucide-react"
+import { Button } from "../ui/button"
+import {
+     DropdownMenu,
+     DropdownMenuContent,
+     DropdownMenuRadioGroup,
+     DropdownMenuRadioItem,
+     DropdownMenuSeparator,
+     DropdownMenuTrigger,
+} from "../ui/dropdown-menu"
 
-export default function SortBy(){
+interface SortByProps {
+     onSort: (column: string | null, desc?: boolean) => void
+}
+
+export default function SortBy({ onSort }: SortByProps) {
+     const [column, setColumn] = React.useState("")
+     const [direction, setDirection] = React.useState<"asc" | "desc">("asc")
+     const handleSort = (
+          nextColumn: string,
+          nextDirection: "asc" | "desc" = direction
+     ) => {
+          setColumn(nextColumn)
+          setDirection(nextDirection)
+
+          if (!nextColumn) {
+               onSort(null)
+               return
+          }
+
+          onSort(nextColumn, nextDirection === "desc")
+     }
      return (
           <DropdownMenu>
                <DropdownMenuTrigger asChild>
                     <Button variant="outline">
-                         <ArrowDownUp/>
+                         <ArrowDownUp />
                          Sort By
                     </Button>
                </DropdownMenuTrigger>
-               <DropdownMenuContent className="w-full min-w-56">
-                    <DropdownMenuSub>
-                         <DropdownMenuSubTrigger>Translation Updated</DropdownMenuSubTrigger>
-                         <DropdownMenuSubContent>
-                              <DropdownMenuCheckboxItem>Ascending</DropdownMenuCheckboxItem>
-                              <DropdownMenuCheckboxItem>Descending</DropdownMenuCheckboxItem>
-                         </DropdownMenuSubContent>
-                    </DropdownMenuSub>
-                    <DropdownMenuSub>
-                         <DropdownMenuSubTrigger>Source Updated</DropdownMenuSubTrigger>
-                         <DropdownMenuSubContent>
-                              <DropdownMenuCheckboxItem>Ascending</DropdownMenuCheckboxItem>
-                              <DropdownMenuCheckboxItem>Descending</DropdownMenuCheckboxItem>
-                         </DropdownMenuSubContent>
-                    </DropdownMenuSub>
-                    <DropdownMenuSub>
-                         <DropdownMenuSubTrigger>Source Words Count</DropdownMenuSubTrigger>
-                         <DropdownMenuSubContent>
-                              <DropdownMenuCheckboxItem>Ascending</DropdownMenuCheckboxItem>
-                              <DropdownMenuCheckboxItem>Descending</DropdownMenuCheckboxItem>
-                         </DropdownMenuSubContent>
-                    </DropdownMenuSub>
-                    <DropdownMenuSub>
-                         <DropdownMenuSubTrigger>Source Characters Count</DropdownMenuSubTrigger>
-                         <DropdownMenuSubContent>
-                              <DropdownMenuCheckboxItem>Ascending</DropdownMenuCheckboxItem>
-                              <DropdownMenuCheckboxItem>Descending</DropdownMenuCheckboxItem>
-                         </DropdownMenuSubContent>
-                    </DropdownMenuSub>
+               <DropdownMenuContent className="min-w-56">
+                    <DropdownMenuRadioGroup
+                         value={column}
+                         onValueChange={(value) => handleSort(value)}
+                    >
+                         <DropdownMenuRadioItem value="">
+                              Default
+                         </DropdownMenuRadioItem>
+                         <DropdownMenuRadioItem value="baseWords">
+                              Source Words Count
+                         </DropdownMenuRadioItem>
+                         <DropdownMenuRadioItem value="baseChars">
+                              Source Characters Count
+                         </DropdownMenuRadioItem>
+                         <DropdownMenuRadioItem value="translationWords">
+                              Translation Words Count
+                         </DropdownMenuRadioItem>
+                         <DropdownMenuRadioItem value="translationChars">
+                              Translation Characters Count
+                         </DropdownMenuRadioItem>
+                    </DropdownMenuRadioGroup>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuRadioGroup
+                         value={direction}
+                         onValueChange={(value) =>
+                              handleSort(
+                                   column,
+                                   value as "asc" | "desc"
+                              )
+                         }
+                    >
+                         <DropdownMenuRadioItem value="asc">
+                              Ascending
+                         </DropdownMenuRadioItem>
+                         <DropdownMenuRadioItem value="desc">
+                              Descending
+                         </DropdownMenuRadioItem>
+                    </DropdownMenuRadioGroup>
                </DropdownMenuContent>
           </DropdownMenu>
      )

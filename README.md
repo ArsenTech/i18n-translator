@@ -92,7 +92,7 @@
 - [ ] Auto-detect glossary language pair from file names
 - [ ] Import/export glossary to CSV or JSON
 - [ ] Support ICU MessageFormat & pluralization rules
-- [ ] Autocomplete box from glossary to popup after word highlight
+- [ ] Glossary sidebar under the tree sidebar, which lists Buttons only + active when the selected word has on a Glossary
 - [ ] Glossary-related items like
   - [ ] Edit => Add to Glossary
   - [ ] Tools => Glossary

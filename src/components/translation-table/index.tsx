@@ -16,7 +16,7 @@ import {
      TableRow,
 } from "@/components/ui/table"
 import { ITranslation } from "@/lib/types"
-import { columns } from "./columns"
+import { getColumns } from "./columns"
 import { ButtonGroup } from "@/components/ui/button-group";
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@/components/ui/input-group";
 import { Search, X } from "lucide-react";
@@ -26,7 +26,8 @@ import React from "react"
 import { cn } from "@/lib/utils"
 
 interface DataTableProps {
-     data: ITranslation[]
+     data: ITranslation[],
+     selected?: string | null
 }
 
 export type FilterType =
@@ -42,7 +43,7 @@ const matchesSearch = (value: string, query: string, reverse = false) => {
 }
 
 export function TranslationTable({
-     data,
+     data, selected
 }: DataTableProps) {
      const [search, setSearch] = React.useState("")
      const [searchMode, setSearchMode] = React.useState<"name" | "translation" | "source" | "source-not" | "translation-not" | "name-not">("source")
@@ -91,6 +92,7 @@ export function TranslationTable({
                }
           })
      }, [data, filter, search, searchMode])
+     const columns = getColumns(selected ? selected.trim()!=="" : false)
      const table = useReactTable({
           data: filteredData,
           columns,

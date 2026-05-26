@@ -2,24 +2,23 @@ import { ITranslation } from "@/lib/types"
 import { ColumnDef } from "@tanstack/react-table"
 import { CheckCircle, CircleAlert, TriangleAlert } from "lucide-react"
 import { DataTableColumnHeader } from "./col-header"
+import { wordCount } from "@/lib/helpers"
 
-const wordCount = (value: string) => {
-     const text = value.trim()
-     return text ? text.split(/\s+/).length : 0
-}
-
-export const columns: ColumnDef<ITranslation>[] = [
+export const getColumns = (isSelected: boolean): ColumnDef<ITranslation>[] => [
      {
           accessorKey: "keyName",
           header: ({column})=>(
                <DataTableColumnHeader title="Name" column={column}/>
           ),
           size: 250,
-          cell: ({getValue}) => (
-               <div className="truncate">
-                    {getValue<string>()}
-               </div>
-          )
+          cell: ({getValue}) => {
+               const array = getValue<string>().split(".");
+               return (
+                    <div className="truncate">
+                         {isSelected ? array[array.length-1] : getValue<string>()}
+                    </div>
+               )
+          }
      },
      {
           accessorKey: "baseString",

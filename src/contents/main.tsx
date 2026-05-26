@@ -5,9 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Textarea } from "@/components/ui/textarea";
 import WindowWrapper from "@/components/window";
-import { mockupData } from "@/lib/types";
+import { mockupData } from "@/lib/constants"
+import { buildTree } from "@/lib/helpers";
 import { ChevronRight, Copy, FilePlus, FolderOpen, Languages, RotateCcw, Save, Search, SearchCheck } from "lucide-react";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 export default function MainPage(){
      const total = useMemo(()=>mockupData.length,[mockupData])
@@ -16,9 +17,22 @@ export default function MainPage(){
      const percentage = useMemo(()=>{
           return total > 0 ? Math.min(100,Math.floor((translatedCount / total) * 100)) : 0
      },[translatedCount, total])
+     const [selectedNamespace, setSelectedNamespace] = useState<string>("")
+     const tree = useMemo(() => buildTree(mockupData), [])
+     const tableData = useMemo(() => {
+          if (!selectedNamespace) return mockupData
+
+          if (selectedNamespace === "__general") {
+               return mockupData.filter(item => !item.keyName.includes("."))
+          }
+
+          return mockupData.filter(item =>
+               item.keyName.startsWith(`${selectedNamespace}.`)
+          )
+     }, [selectedNamespace])
      return (
           <WindowWrapper>
-               <div className="grid grid-cols-1 md:grid-cols-[0.5fr_1fr] lg:grid-cols-[0.4fr_1fr] xl:grid-cols-[0.3fr_1fr] px-4 py-2 gap-4 h-[calc(100dvh-40px)] overflow-hidden">
+               <div className="grid grid-cols-1 md:grid-cols-[0.5fr_1fr] lg:grid-cols-[0.4fr_1fr] xl:grid-cols-[0.3fr_1fr] px-4 py-2 gap-4 md:h-[calc(100dvh-40px)] overflow-hidden">
                     <div className="w-full flex flex-col-reverse md:flex-col gap-1 min-h-0 overflow-hidden">
                          <div className="py-2 gap-1 flex items-center justify-center flex-wrap">
                               <Button variant="secondary" className="flex-1 aspect-square " title="New Translation">
@@ -43,7 +57,11 @@ export default function MainPage(){
                                    <RotateCcw/>
                               </Button>
                          </div>
-                         <TreeSidebar/>
+                         <TreeSidebar
+                              tree={tree}
+                              onSelectNamespace={setSelectedNamespace}
+                              selectedNamespace={selectedNamespace}
+                         />
                     </div>
                     <div className="w-full flex flex-col gap-2 min-h-0 overflow-hidden">
                          <div className="flex items-center gap-2">
@@ -53,7 +71,8 @@ export default function MainPage(){
                               <LangSelector className="flex-1"/>
                          </div>
                          <TranslationTable
-                              data={mockupData}
+                              data={tableData}
+                              selected={selectedNamespace}
                          />
                          <div className="flex items-center gap-2">
                               <div className="text-sm">{percentage}%</div>

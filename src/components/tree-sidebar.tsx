@@ -1,4 +1,4 @@
-import { ChevronRight, Folder, FileText, Menu } from "lucide-react"
+import { ChevronRight, Folder, Menu, List } from "lucide-react"
 import { Button, ButtonProps } from "./ui/button"
 import { ScrollArea, ScrollBar } from "./ui/scroll-area"
 import { cn } from "@/lib/utils"
@@ -6,6 +6,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collap
 import { useState } from "react"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetTrigger, SheetClose, SheetFooter } from "./ui/sheet"
+import { TreeNode } from "@/lib/types"
 
 const SIDEBAR_WIDTH_MOBILE = "18rem"
 
@@ -27,10 +28,10 @@ function TreeSidebarSubmenu({children}: {children: React.ReactNode}){
      )
 }
 
-function TreeSidebarButton({variant="ghost", size="sm", className, ...props}: ButtonProps) {
+function TreeSidebarButton({variant="ghost", size="sm", className, selected, ...props}: ButtonProps & {selected?: boolean}) {
      return (
           <Button
-               variant={variant}
+               variant={selected ? "secondary" : variant}
                size={size}
                className={cn("w-full justify-start gap-2",className)}
                {...props}
@@ -38,36 +39,11 @@ function TreeSidebarButton({variant="ghost", size="sm", className, ...props}: Bu
      )
 }
 
-interface TreeSidebarCollapsibleProps{
-     name: string,
-     children: React.ReactNode
-}
-function TreeSidebarCollapsible({name, children}: TreeSidebarCollapsibleProps){
-     const [open, setOpen] = useState(false);
-     return (
-          <Collapsible open={open} onOpenChange={setOpen}>
-               <TreeSidebarItem>
-                    <CollapsibleTrigger asChild>
-                         <TreeSidebarButton>
-                              <ChevronRight className={cn("size-4 transition-transform",open &&"rotate-90")} />
-                              <Folder className="size-4" />
-                              {name}
-                         </TreeSidebarButton>
-                    </CollapsibleTrigger>
-                    <CollapsibleContent>
-                         {children}
-                    </CollapsibleContent>
-               </TreeSidebarItem>
-          </Collapsible>
-     )
-}
-
 function TreeSidebarContainer({children}: {children: React.ReactNode}){
      const isMobile = useIsMobile()
      const content = (
           <ScrollArea className={cn(
-               "flex-1 min-h-0 h-full",
-               !isMobile && "bg-card text-card-foreground border shadow-xs rounded-md"
+               !isMobile && "bg-card text-card-foreground border shadow-xs rounded-md md:flex-1 min-h-0 h-full"
           )}>
                <div className="p-2">
                     {children}
@@ -114,26 +90,74 @@ function TreeSidebarContainer({children}: {children: React.ReactNode}){
      return content
 }
 
-export default function TreeSidebar() {
+interface TreeNodeItemProps{
+     node: TreeNode
+     selectedNamespace: string
+     onSelectNamespace: (namespace: string) => void
+}
+function TreeNodeItem({node, onSelectNamespace, selectedNamespace}: TreeNodeItemProps){
+     const [open, setOpen] = useState(node.name === "Root")
+     const hasChildren = node.children.length > 0
+     const selected = selectedNamespace === node.fullPath
+     return (
+          <TreeSidebarItem>
+               <Collapsible open={open} onOpenChange={setOpen}>
+                    <div className="flex items-center gap-1">
+                         {hasChildren ? (
+                              <CollapsibleTrigger asChild>
+                                   <TreeSidebarButton>
+                                        <ChevronRight className={cn("size-4 transition-transform",open &&"rotate-90")} />
+                                        <Folder className="size-4" />
+                                        {node.name}
+                                   </TreeSidebarButton>
+                              </CollapsibleTrigger>
+                         ) : (
+                              <TreeSidebarButton
+                                   variant="ghost"
+                                   selected={selected}
+                                   onClick={() => onSelectNamespace(node.fullPath)}
+                              >
+                                   <List className="size-4" />
+                                   {node.name}
+                              </TreeSidebarButton>
+                         )}
+                    </div>
+                    {hasChildren && (
+                         <CollapsibleContent>
+                              <TreeSidebarSubmenu>
+                                   {node.children.map(child => (
+                                        <TreeNodeItem
+                                             key={child.fullPath}
+                                             node={child}
+                                             onSelectNamespace={onSelectNamespace}
+                                             selectedNamespace={selectedNamespace}
+                                        />
+                                   ))}
+                              </TreeSidebarSubmenu>
+                         </CollapsibleContent>
+                    )}
+               </Collapsible>
+          </TreeSidebarItem>
+     )
+}
+
+interface TreeSidebarProps{
+     tree: TreeNode[]
+     selectedNamespace: string
+     onSelectNamespace: (namespace: string) => void
+}
+export default function TreeSidebar({tree, onSelectNamespace, selectedNamespace}: TreeSidebarProps) {
      return (
           <TreeSidebarContainer>
                <TreeSidebarMenu>
-                    <TreeSidebarCollapsible name="common">
-                         <TreeSidebarSubmenu>
-                              <TreeSidebarItem>
-                                   <TreeSidebarButton>
-                                        <FileText className="size-4" />
-                                        buttons.save
-                                   </TreeSidebarButton>
-                              </TreeSidebarItem>
-                              <TreeSidebarItem>
-                                   <TreeSidebarButton>
-                                        <FileText className="size-4" />
-                                        buttons.save
-                                   </TreeSidebarButton>
-                              </TreeSidebarItem>
-                         </TreeSidebarSubmenu>
-                    </TreeSidebarCollapsible>
+                    {tree.map(node => (
+                         <TreeNodeItem
+                              key={node.fullPath}
+                              node={node}
+                              onSelectNamespace={onSelectNamespace}
+                              selectedNamespace={selectedNamespace}
+                         />
+                    ))}
                </TreeSidebarMenu>
           </TreeSidebarContainer>
      )

@@ -80,8 +80,9 @@ function TreeSidebarContainer({children}: {children: React.ReactNode}){
           return (
                <Sheet>
                     <SheetTrigger asChild>
-                         <Button variant="outline" size="icon" title="Toggle Sidebar">
+                         <Button variant="outline">
                               <Menu/>
+                              Open Sidebar
                          </Button>
                     </SheetTrigger>
                     <SheetContent

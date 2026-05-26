@@ -6,9 +6,16 @@ import { Progress } from "@/components/ui/progress";
 import { Textarea } from "@/components/ui/textarea";
 import WindowWrapper from "@/components/window";
 import { mockupData } from "@/lib/types";
-import { ChevronRight, Cog, Copy, FilePlus, FolderOpen, Languages, RotateCcw, Save, Search, SearchCheck } from "lucide-react";
+import { ChevronRight, Copy, FilePlus, FolderOpen, Languages, RotateCcw, Save, Search, SearchCheck } from "lucide-react";
+import { useMemo } from "react";
 
 export default function MainPage(){
+     const total = useMemo(()=>mockupData.length,[mockupData])
+     const translatedCount = useMemo(()=>mockupData.filter(val=>val.translationString.trim()!=="").length,[mockupData])
+     const sourceAsTranslationCount = useMemo(()=>mockupData.filter(val=>val.baseString===val.translationString).length,[mockupData])
+     const percentage = useMemo(()=>{
+          return total > 0 ? Math.min(100,Math.floor((translatedCount / total) * 100)) : 0
+     },[translatedCount, total])
      return (
           <WindowWrapper>
                <div className="grid grid-cols-1 md:grid-cols-[0.5fr_1fr] lg:grid-cols-[0.4fr_1fr] xl:grid-cols-[0.3fr_1fr] px-4 py-2 gap-4 h-[calc(100dvh-40px)] overflow-hidden">
@@ -17,26 +24,23 @@ export default function MainPage(){
                               <Button variant="secondary" className="flex-1 aspect-square " title="New Translation">
                                    <FilePlus/>
                               </Button>
-                              <Button variant="secondary" className="flex-1 aspect-square " title="Open Translations">
+                              <Button variant="secondary" className="flex-1 aspect-square" title="Open Translations">
                                    <FolderOpen/>
                               </Button>
-                              <Button variant="secondary" className="flex-1 aspect-square " title="Save Translation">
+                              <Button variant="secondary" className="flex-1 aspect-square" title="Save Translation">
                                    <Save/>
                               </Button>
-                              <Button variant="secondary" className="flex-1 aspect-square " title="Find Missing Keys">
+                              <Button variant="secondary" className="flex-1 aspect-square" title="Find Missing Keys">
                                    <Search/>
                               </Button>
-                              <Button variant="secondary" className="flex-1 aspect-square " title="Auto-translate">
+                              <Button variant="secondary" className="flex-1 aspect-square" title="Auto-translate">
                                    <Languages/>
                               </Button>
-                              <Button variant="secondary" className="flex-1 aspect-square " title="Validate Keys">
+                              <Button variant="secondary" className="flex-1 aspect-square" title="Validate Keys">
                                    <SearchCheck/>
                               </Button>
-                              <Button variant="secondary" className="flex-1 aspect-square " title="Replace Translation">
+                              <Button variant="secondary" className="flex-1 aspect-square" title="Replace Translation">
                                    <RotateCcw/>
-                              </Button>
-                              <Button variant="secondary" className="flex-1 aspect-square " title="Settings">
-                                   <Cog/>
                               </Button>
                          </div>
                          <TreeSidebar/>
@@ -52,8 +56,8 @@ export default function MainPage(){
                               data={mockupData}
                          />
                          <div className="flex items-center gap-2">
-                              <div className="text-sm">50%</div>
-                              <Progress className="h-3 flex-1" value={50}/>
+                              <div className="text-sm">{percentage}%</div>
+                              <Progress className="h-3 flex-1" value={percentage}/>
                          </div>
                          <div className="flex gap-2">
                               <Textarea
@@ -78,24 +82,30 @@ export default function MainPage(){
                          <div className="flex justify-between items-center text-xs md:text-sm flex-wrap gap-2">
                               <div className="flex items-center gap-2">
                                    <div className="flex gap-2 justify-center items-center bg-card border rounded-md px-3 py-1">
-                                        <span className="text-base md:text-lg">1234</span>
+                                        <span className="text-base md:text-lg">{mockupData.length-translatedCount}</span>
                                         <span className="text-muted-foreground">Untranslated</span>
                                    </div>
                                    <div className="flex gap-2 justify-center items-center bg-card border rounded-md px-3 py-1">
-                                        <span className="text-base md:text-lg">1234</span>
+                                        <span className="text-base md:text-lg">{translatedCount}</span>
                                         <span className="text-muted-foreground">Translated</span>
                                    </div>
+                                   {sourceAsTranslationCount>0 && (
+                                        <div className="flex gap-2 justify-center items-center bg-card border rounded-md px-3 py-1">
+                                             <span className="text-base md:text-lg">{sourceAsTranslationCount}</span>
+                                             <span className="text-muted-foreground">Borrowed from Source</span>
+                                        </div>
+                                   )}
                                    <div className="flex gap-2 justify-center items-center bg-card border rounded-md px-3 py-1">
-                                        <span className="text-base md:text-lg">1234</span>
+                                        <span className="text-base md:text-lg">{mockupData.length}</span>
                                         <span className="text-muted-foreground">Total</span>
                                    </div>
                               </div>
                               <div className="flex items-center gap-2">
-                                   <div className="flex gap-2 justify-center items-center bg-card border rounded-md px-3 py-1">
-                                        <span className="text-base md:text-lg">1234</span>
-                                        <span className="text-muted-foreground">Line Number</span>
-                                   </div>
                                    <p className="text-muted-foreground">String Prop Name</p>
+                                   <div className="flex gap-2 justify-center items-center bg-card border rounded-md px-3 py-1">
+                                        <span className="text-muted-foreground">Line &#x2116;</span>
+                                        <span className="text-base md:text-lg">1234</span>
+                                   </div>
                               </div>
                          </div>
                     </div>

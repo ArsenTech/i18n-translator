@@ -8,13 +8,16 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Added
 - Sorting + Filtering frontend logic for translations
 - Indicators inside the table
+- "Borrowed from Source" stat
 ### Initialized
 - Settings Window
 - About Window
 ### Improved
 - **Sidebar** - the Responsible UX
+- **Progressbar and Stats count** - Uses real data
 ### Removed
-- React Router Approach - Replaced with a Window approach
+- React Router Approach for the native Window approach
+- Settings from Quick Actions for the Settings dropdown menu item
 
 ## [0.1.1] - 2026-05-24
 ### Added

@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import WindowWrapper from "@/components/window";
 import { mockupData } from "@/lib/constants"
 import { buildTree } from "@/lib/helpers";
+import { ITranslation } from "@/lib/types";
 import { ChevronRight, Copy, FilePlus, FolderOpen, Languages, RotateCcw, Save, Search, SearchCheck } from "lucide-react";
 import { useMemo, useState } from "react";
 
@@ -21,15 +22,11 @@ export default function MainPage(){
      const tree = useMemo(() => buildTree(mockupData), [])
      const tableData = useMemo(() => {
           if (!selectedNamespace) return mockupData
-
-          if (selectedNamespace === "__general") {
-               return mockupData.filter(item => !item.keyName.includes("."))
-          }
-
-          return mockupData.filter(item =>
-               item.keyName.startsWith(`${selectedNamespace}.`)
-          )
+          if (selectedNamespace === "__general") return mockupData.filter(item => !item.keyName.includes("."))
+          return mockupData.filter(item =>item.keyName.startsWith(`${selectedNamespace}.`))
      }, [selectedNamespace])
+     const [currTranslation, setCurrentTranslation] = useState<ITranslation | null>(null)
+     const [input, setInput] = useState("")
      return (
           <WindowWrapper>
                <div className="grid grid-cols-1 md:grid-cols-[0.5fr_1fr] lg:grid-cols-[0.4fr_1fr] xl:grid-cols-[0.3fr_1fr] px-4 py-2 gap-4 md:h-[calc(100dvh-40px)] overflow-hidden">
@@ -73,6 +70,9 @@ export default function MainPage(){
                          <TranslationTable
                               data={tableData}
                               selected={selectedNamespace}
+                              onSelectTranslation={setCurrentTranslation}
+                              currKey={currTranslation?.keyName ?? ""}
+                              setInput={setInput}
                          />
                          <div className="flex items-center gap-2">
                               <div className="text-sm">{percentage}%</div>
@@ -80,11 +80,16 @@ export default function MainPage(){
                          </div>
                          <div className="flex gap-2">
                               <Textarea
+                                   value={input}
+                                   onChange={e=>setInput(e.target.value)}
                                    className="flex-2"
                                    rows={3}
                               />
                               <div className="flex items-center gap-1 flex-wrap flex-1">
-                                   <Button className="flex-1" variant="secondary">
+                                   <Button className="flex-1" variant="secondary" onClick={()=>{
+                                        if(!currTranslation) return;
+                                        setInput(currTranslation.baseString)
+                                   }}>
                                         <Copy/>
                                         Copy from Source
                                    </Button>
@@ -119,13 +124,15 @@ export default function MainPage(){
                                         <span className="text-muted-foreground">Total</span>
                                    </div>
                               </div>
-                              <div className="flex items-center gap-2">
-                                   <p className="text-muted-foreground">String Prop Name</p>
-                                   <div className="flex gap-2 justify-center items-center bg-card border rounded-md px-3 py-1">
-                                        <span className="text-muted-foreground">Line &#x2116;</span>
-                                        <span className="text-base md:text-lg">1234</span>
+                              {currTranslation && (
+                                   <div className="flex items-center gap-2">
+                                        <p className="text-muted-foreground">{currTranslation.keyName}</p>
+                                        <div className="flex gap-2 justify-center items-center bg-card border rounded-md px-3 py-1">
+                                             <span className="text-muted-foreground">Line &#x2116;</span>
+                                             <span className="text-base md:text-lg">{currTranslation.lineNumber}</span>
+                                        </div>
                                    </div>
-                              </div>
+                              )}
                          </div>
                     </div>
                </div>

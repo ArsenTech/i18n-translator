@@ -27,7 +27,10 @@ import { cn } from "@/lib/utils"
 
 interface DataTableProps {
      data: ITranslation[],
-     selected?: string | null
+     selected?: string | null,
+     onSelectTranslation: (translation: ITranslation) => void,
+     currKey: string,
+     setInput: (input: string) => void
 }
 
 export type FilterType =
@@ -42,9 +45,7 @@ const matchesSearch = (value: string, query: string, reverse = false) => {
      return reverse ? !matched : matched
 }
 
-export function TranslationTable({
-     data, selected
-}: DataTableProps) {
+export function TranslationTable({data, selected, onSelectTranslation, currKey, setInput}: DataTableProps) {
      const [search, setSearch] = React.useState("")
      const [searchMode, setSearchMode] = React.useState<"name" | "translation" | "source" | "source-not" | "translation-not" | "name-not">("source")
      const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({
@@ -178,11 +179,15 @@ export function TranslationTable({
                                    table.getRowModel().rows.map((row) => (
                                         <TableRow
                                              key={row.id}
-                                             data-state={row.getIsSelected() && "selected"}
+                                             data-state={(row.getIsSelected() || row.original.keyName===currKey) && "selected"}
                                              className={cn(
                                                   row.original.baseString===row.original.translationString && "bg-amber-50 dark:bg-amber-900",
                                                   !row.original.translationString && "bg-destructive/5"
                                              )}
+                                             onClick={()=>{
+                                                  onSelectTranslation(row.original)
+                                                  setInput(row.original.translationString)
+                                             }}
                                         >
                                              {row.getVisibleCells().map((cell) => (
                                                   <TableCell

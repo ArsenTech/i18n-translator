@@ -9,6 +9,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Sorting + Filtering frontend logic for translations
 - Indicators inside the table
 - "Borrowed from Source" stat
+- Feature to Select translation from the row
+- Translation input and Copy from source logic
 ### Initialized
 - Settings Window
 - About Window
@@ -16,6 +18,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - **Sidebar** - the Responsible UX
 - **Progressbar and Stats count** - Uses real data
 - **Tree Sidebar** - Now uses real data
+- **Translation key and line number stat** - Uses real data
 ### Removed
 - React Router Approach for the native Window approach
 - Settings from Quick Actions for the Settings dropdown menu item

@@ -4,7 +4,7 @@ All notable changes of I18N Translator will be documented here.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
-## [0.1.2] - Unreleased
+## [0.1.2] - 2026-05-26
 ### Added
 - Sorting + Filtering frontend logic for translations
 - Indicators inside the table

@@ -1,6 +1,6 @@
 import { ITranslation } from "@/lib/types"
 import { ColumnDef } from "@tanstack/react-table"
-import { CheckCircle } from "lucide-react"
+import { CheckCircle, CircleAlert, TriangleAlert } from "lucide-react"
 import { DataTableColumnHeader } from "./col-header"
 
 const wordCount = (value: string) => {
@@ -68,9 +68,15 @@ export const columns: ColumnDef<ITranslation>[] = [
      {
           id: "status",
           header: "Status",
-          cell: () => (
+          cell: ({row}) => (
                <div className="flex justify-center">
-                    <CheckCircle className="size-5 text-emerald-600 dark:text-emerald-400" />
+                    {row.original.baseString===row.original.translationString ? (
+                         <TriangleAlert className="size-5 text-amber-600 dark:text-amber-400"/>
+                    ) : !row.original.translationString ? (
+                         <CircleAlert className="size-5 text-destructive"/>
+                    ) : (
+                         <CheckCircle className="size-5 text-emerald-600 dark:text-emerald-400" />
+                    )}
                </div>
           ),
           size: 60,

@@ -6,8 +6,8 @@ import { FilterType } from ".";
 interface FiltersProps {
      filter: FilterType
      onFilterChange: (filter: FilterType) => void
-     searchMode: "key" | "translation" | "source" | "source-not" | "translation-not" | "key-not"
-     onSearchModeChange: (mode: "key" | "translation" | "source" | "source-not" | "translation-not" | "key-not") => void
+     searchMode: "name" | "translation" | "source" | "source-not" | "translation-not" | "name-not"
+     onSearchModeChange: (mode: "name" | "translation" | "source" | "source-not" | "translation-not" | "name-not") => void
 }
 export default function Filters({filter, onFilterChange, onSearchModeChange, searchMode}: FiltersProps){
      return (
@@ -32,8 +32,8 @@ export default function Filters({filter, onFilterChange, onSearchModeChange, sea
                                    <DropdownMenuRadioItem value="source-not">Source doesn't contain</DropdownMenuRadioItem>
                                    <DropdownMenuRadioItem value="translation">Search by Translation</DropdownMenuRadioItem>
                                    <DropdownMenuRadioItem value="translation-not">Translation doesn't contain</DropdownMenuRadioItem>
-                                   <DropdownMenuRadioItem value="key">Search by Key</DropdownMenuRadioItem>
-                                   <DropdownMenuRadioItem value="key-not">Key doesn't contain</DropdownMenuRadioItem>
+                                   <DropdownMenuRadioItem value="name">Search by Key name</DropdownMenuRadioItem>
+                                   <DropdownMenuRadioItem value="name-not">Key name doesn't contain</DropdownMenuRadioItem>
                               </DropdownMenuRadioGroup>
                          </DropdownMenuSubContent>
                     </DropdownMenuSub>

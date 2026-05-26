@@ -1,4 +1,4 @@
-import { BookOpen, Code, Copy, Grid2X2Plus, Info, Keyboard, MessageCircleWarning, Minus, Settings, Square, X } from "lucide-react"
+import { BookOpen, Code, Copy, Grid2X2Plus, Info, MessageCircleWarning, Minus, Settings, Square, X } from "lucide-react"
 import { Button } from "../ui/button"
 import { ButtonGroup } from "../ui/button-group"
 import { getCurrentWindow } from '@tauri-apps/api/window';
@@ -7,15 +7,25 @@ import MenuBar from "./menubar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { SiGithub } from "react-icons/si"
 import { openUrl } from "@tauri-apps/plugin-opener"
+import { createAboutWindow, createSettingsWindow } from "@/lib/window";
 
 interface WindowWrapperProps{
-     children: React.ReactNode
+     children: React.ReactNode,
+     hideMenubar?: boolean,
+     title?: string,
+     hideMaximize?: boolean
 }
-export default function WindowWrapper({children}: WindowWrapperProps){
+export default function WindowWrapper({
+     children,
+     hideMenubar=false,
+     title="I18N Translator",
+     hideMaximize=false
+}: WindowWrapperProps){
      const appWindow = getCurrentWindow()
      const [isMaximized, setIsMaximized] = useState(false)
      const handleClose = async () => appWindow.close();
      const handleToggleMaximize = async () => {
+          if(hideMaximize) return;
           await appWindow.toggleMaximize();
           setIsMaximized(await appWindow.isMaximized())
      }
@@ -39,45 +49,47 @@ export default function WindowWrapper({children}: WindowWrapperProps){
                                    <img src="/logo.png" alt="I18N Translator" width={24} height={24} className="select-none"/> 
                               </DropdownMenuTrigger>
                               <DropdownMenuContent className="w-full">
-                                   <DropdownMenuLabel>I18N Translator</DropdownMenuLabel>
+                                   <DropdownMenuLabel>{title}</DropdownMenuLabel>
+                                   {!hideMenubar && (
+                                        <>
+                                        <DropdownMenuSeparator/>
+                                        <DropdownMenuItem onClick={()=>createAboutWindow()}>
+                                             <Info className="text-muted-foreground"/>
+                                             About I18N Translator
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem onClick={()=>createSettingsWindow()}>
+                                             <Settings className="text-muted-foreground"/>
+                                             Settings
+                                        </DropdownMenuItem>
+                                        </>
+                                   )}
                                    <DropdownMenuSeparator/>
-                                   <DropdownMenuItem>
-                                        <Info className="text-muted-foreground"/>
-                                        About I18N Translator
-                                   </DropdownMenuItem>
-                                   <DropdownMenuItem>
-                                        <Settings className="text-muted-foreground"/>
-                                        Settings
-                                   </DropdownMenuItem>
-                                   <DropdownMenuSeparator/>
-                                   <DropdownMenuItem onClick={async()=>await openUrl("https://github.com/ArsenTech/i18n-translator")}>
+                                   <DropdownMenuItem onClick={()=>openUrl("https://github.com/ArsenTech/i18n-translator")}>
                                         <SiGithub className="text-muted-foreground"/>
                                         Github
                                    </DropdownMenuItem>
-                                   <DropdownMenuItem onClick={async()=>await openUrl("https://github.com/ArsenTech/i18n-translator/tree/main/docs")}>
+                                   <DropdownMenuItem onClick={()=>openUrl("https://github.com/ArsenTech/i18n-translator/tree/main/docs")}>
                                         <BookOpen className="text-muted-foreground"/>
                                         Documentation
                                    </DropdownMenuItem>
-                                   <DropdownMenuItem onClick={async()=>await openUrl("https://github.com/ArsenTech/i18n-translator/blob/main/docs/CONTRIBUTING.md")}>
+                                   <DropdownMenuItem onClick={()=>openUrl("https://github.com/ArsenTech/i18n-translator/blob/main/docs/CONTRIBUTING.md")}>
                                         <Code className="text-muted-foreground"/>
                                         Contribute
                                    </DropdownMenuItem>
-                                   <DropdownMenuItem>
-                                        <Keyboard className="text-muted-foreground"/>
-                                        Keyboard Shortcuts
-                                   </DropdownMenuItem>
                                    <DropdownMenuSeparator/>
-                                   <DropdownMenuItem onClick={async()=>await openUrl("https://github.com/ArsenTech/i18n-translator/issues/new?assignees=&labels=&template=bug_report.md&title=")}>
+                                   <DropdownMenuItem onClick={()=>openUrl("https://github.com/ArsenTech/i18n-translator/issues/new?assignees=&labels=&template=bug_report.md&title=")}>
                                         <MessageCircleWarning className="text-muted-foreground"/>
                                         Report a bug
                                    </DropdownMenuItem>
-                                   <DropdownMenuItem onClick={async()=>await openUrl("https://github.com/ArsenTech/i18n-translator/issues/new?assignees=&labels=&template=feature_request.md&title=")}>
+                                   <DropdownMenuItem onClick={()=>openUrl("https://github.com/ArsenTech/i18n-translator/issues/new?assignees=&labels=&template=feature_request.md&title=")}>
                                         <Grid2X2Plus className="text-muted-foreground"/>
                                         Request a feature
                                    </DropdownMenuItem>
                               </DropdownMenuContent>
                          </DropdownMenu>
-                         <MenuBar/>
+                         {!hideMenubar && (
+                              <MenuBar/>
+                         )}
                     </div>
                     <div
                          data-tauri-drag-region
@@ -85,9 +97,11 @@ export default function WindowWrapper({children}: WindowWrapperProps){
                     />
                     <ButtonGroup className="[&>[data-slot]:not(:has(~[data-slot]))]:rounded-none! h-full">
                          <Button size="window-control" variant="ghost" title="Minimize" onClick={handleMinimize}><Minus/></Button>
-                         <Button size="window-control" variant="ghost" title={isMaximized ? "Restore Down" : "Maximize"} onClick={handleToggleMaximize}>
-                              {isMaximized ? <Copy/> : <Square/>}
-                         </Button>
+                         {!hideMaximize && (
+                              <Button size="window-control" variant="ghost" title={isMaximized ? "Restore Down" : "Maximize"} onClick={handleToggleMaximize}>
+                                   {isMaximized ? <Copy/> : <Square/>}
+                              </Button>
+                         )}
                          <Button size="window-control" variant="ghost-destructive" title="Close" onClick={handleClose}><X/></Button>
                     </ButtonGroup>
                </div>

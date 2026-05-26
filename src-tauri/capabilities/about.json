@@ -1,21 +1,12 @@
 {
   "$schema": "../gen/schemas/desktop-schema.json",
-  "identifier": "default",
-  "description": "Capability for the main window",
+  "identifier": "about",
+  "description": "Capability for the about window",
   "windows": [
-    "main"
+    "about"
   ],
   "permissions": [
     "core:default",
-    "core:webview:allow-create-webview-window",
-    {
-      "identifier": "opener:allow-open-path",
-      "allow": [
-        {
-          "path": "**"
-        }
-      ]
-    },
     {
       "identifier": "opener:allow-open-url",
       "allow": [
@@ -36,7 +27,6 @@
     "core:window:allow-start-dragging",
     "core:window:allow-minimize",
     "core:window:allow-close",
-    "core:window:allow-toggle-maximize",
     "process:default"
   ]
 }

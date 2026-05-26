@@ -23,6 +23,7 @@ import { Search, X } from "lucide-react";
 import Filters from "./filters"
 import SortBy from "./sort-by"
 import React from "react"
+import { cn } from "@/lib/utils"
 
 interface DataTableProps {
      data: ITranslation[]
@@ -44,7 +45,7 @@ export function TranslationTable({
      data,
 }: DataTableProps) {
      const [search, setSearch] = React.useState("")
-     const [searchMode, setSearchMode] = React.useState<"key" | "translation" | "source" | "source-not" | "translation-not" | "key-not">("source")
+     const [searchMode, setSearchMode] = React.useState<"name" | "translation" | "source" | "source-not" | "translation-not" | "name-not">("source")
      const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({
           baseChars: false,
           baseWords: false,
@@ -80,8 +81,8 @@ export function TranslationTable({
                if (!passesFilter) return false
                if (!query) return true
                switch (searchMode) {
-                    case "key": return matchesSearch(item.keyName, query)
-                    case "key-not": return matchesSearch(item.keyName, query, true)
+                    case "name": return matchesSearch(item.keyName, query)
+                    case "name-not": return matchesSearch(item.keyName, query, true)
                     case "translation": return matchesSearch(item.translationString, query)
                     case "translation-not": return matchesSearch(item.translationString, query, true)
                     case "source-not": return matchesSearch(item.baseString, query, true)
@@ -107,8 +108,8 @@ export function TranslationTable({
           "source-not": "Source doesn't contain",
           translation: "Search for translations",
           "translation-not": "Translation doesn't contain",
-          key: "Search for key name",
-          "key-not": "Key doesn't contain"
+          name: "Search for a key name",
+          "name-not": "Key name doesn't contain"
      }
      return (
           <div className="flex flex-col flex-1 min-h-0 overflow-hidden gap-2">
@@ -176,6 +177,10 @@ export function TranslationTable({
                                         <TableRow
                                              key={row.id}
                                              data-state={row.getIsSelected() && "selected"}
+                                             className={cn(
+                                                  row.original.baseString===row.original.translationString && "bg-amber-50 dark:bg-amber-900",
+                                                  !row.original.translationString && "bg-destructive/5"
+                                             )}
                                         >
                                              {row.getVisibleCells().map((cell) => (
                                                   <TableCell

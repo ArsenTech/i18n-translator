@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./App.css";
-import MainPage from "./pages/main";
+import AboutPage from "./pages/about";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <MainPage/>
+    <AboutPage/>
   </React.StrictMode>,
 );

@@ -7,6 +7,14 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [0.1.2] - Unreleased
 ### Added
 - Sorting + Filtering frontend logic for translations
+- Indicators inside the table
+### Initialized
+- Settings Window
+- About Window
+### Improved
+- **Sidebar** - the Responsible UX
+### Removed
+- React Router Approach - Replaced with a Window approach
 
 ## [0.1.1] - 2026-05-24
 ### Added

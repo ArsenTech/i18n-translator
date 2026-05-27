@@ -150,6 +150,16 @@ export default function TreeSidebar({tree, onSelectNamespace, selectedNamespace}
      return (
           <TreeSidebarContainer>
                <TreeSidebarMenu>
+                    <TreeSidebarItem>
+                         <TreeSidebarButton
+                              variant="ghost"
+                              selected={selectedNamespace===""}
+                              onClick={() => onSelectNamespace("")}
+                         >
+                              <List className="size-4" />
+                              Show All
+                         </TreeSidebarButton>
+                    </TreeSidebarItem>
                     {tree.map(node => (
                          <TreeNodeItem
                               key={node.fullPath}

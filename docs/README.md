@@ -1,5 +1,5 @@
 # Welcome!
-Welcome to the documentation of the **I18N Translator** version 0.1.2!
+Welcome to the documentation of the **I18N Translator** version 0.1.3!
 
 Here are some quick links to get you started:
 - To use the I18N Translator, continue to the [Usage Guide](./usage.md)

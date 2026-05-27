@@ -4,7 +4,7 @@ All notable changes of I18N Translator will be documented here.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
-## [0.1.3] - Unreleased
+## [0.1.3] - 2026-05-27
 ### Added
 - Skeleton loading inside the Main Window
 - Toggle Sidebar Menubar option

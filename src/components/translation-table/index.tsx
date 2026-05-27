@@ -45,7 +45,7 @@ const matchesSearch = (value: string, query: string, reverse = false) => {
      return reverse ? !matched : matched
 }
 
-export function TranslationTable({data, selected, onSelectTranslation, currKey, setInput}: DataTableProps) {
+export default function TranslationTable({data, selected, onSelectTranslation, currKey, setInput}: DataTableProps) {
      const [search, setSearch] = React.useState("")
      const [searchMode, setSearchMode] = React.useState<"name" | "translation" | "source" | "source-not" | "translation-not" | "name-not">("source")
      const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({

@@ -43,7 +43,8 @@ function TreeSidebarContainer({children}: {children: React.ReactNode}){
      const isMobile = useIsMobile()
      const content = (
           <ScrollArea className={cn(
-               !isMobile && "bg-card text-card-foreground border shadow-xs rounded-md md:flex-1 min-h-0 h-full"
+               "min-h-0 h-full",
+               !isMobile && "bg-card text-card-foreground border shadow-xs rounded-md md:flex-1"
           )}>
                <div className="p-2">
                     {children}

@@ -3,9 +3,7 @@ import { Skeleton } from "../ui/skeleton";
 
 export default function TreeSidebarLoader(){
      const isMobile = useIsMobile();
-     if(isMobile) return (
-          <Skeleton className="h-8 w-full"/>
-     )
+     if(isMobile) return null
      return (
           <div className="bg-card text-card-foreground border shadow-xs rounded-md md:flex-1 min-h-0 h-full p-2 space-y-1">
                <Skeleton className="h-7 w-full"/>

@@ -31,7 +31,7 @@ export default function MainPage(){
      return (
           <WindowWrapper>
                <div className="grid grid-cols-1 md:grid-cols-[0.5fr_1fr] lg:grid-cols-[0.4fr_1fr] xl:grid-cols-[0.3fr_1fr] px-4 py-2 gap-4 md:h-[calc(100dvh-40px)] overflow-hidden">
-                    <div className="w-full flex flex-col-reverse md:flex-col gap-1 min-h-0 overflow-hidden">
+                    <div className="w-full flex flex-col gap-1 min-h-0 overflow-hidden">
                          <Suspense fallback={(
                               <>
                               <QuickAccessToolbarLoader/>

@@ -4,9 +4,17 @@ All notable changes of I18N Translator will be documented here.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
-## [0.2.0] - Unrelease
+## [0.1.3] - Unreleased
 ### Added
 - Skeleton loading inside the Main Window
+- Toggle Sidebar Menubar option
+- **Zoom Actions** - Zoom in, Zoom out, reset zoom
+### Initialized
+- Few Translation, FileSystem, and Find actions, which is coming soon on v0.2.x
+### Improved
+- **Language Selector** - Cached the function
+### Removed
+- The "Open Sidebar" button in favor of the Toggle Sidebar Menubar option
 
 ## [0.1.2] - 2026-05-26
 ### Added
@@ -46,7 +54,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Initialized
 - Main Page with a sample test
 
-[0.2.0]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.0
+[0.1.3]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.1.3
 [0.1.2]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.1.2
 [0.1.1]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.1.1
 [0.1.0]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.1.0

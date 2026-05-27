@@ -5,6 +5,7 @@ import { mockupData } from "@/lib/constants"
 import { ITranslation } from "@/lib/types";
 import { ChevronRight, Copy, Save } from "lucide-react";
 import { useMemo } from "react";
+import TranslatorActions from "@/lib/actions/translator";
 
 interface TranslationInputProps{
      currTranslation?: ITranslation | null,
@@ -38,11 +39,11 @@ export default function TranslationInput({currTranslation, input, onInputChange}
                          <Copy/>
                          Copy from Source
                     </Button>
-                    <Button className="flex-1">
+                    <Button className="flex-1" onClick={TranslatorActions.saveString}>
                          <Save/>
                          Save String
                     </Button>
-                    <Button className="flex-1">
+                    <Button className="flex-1" onClick={TranslatorActions.jumpToNextBlankField}>
                          Next Blank Field
                          <ChevronRight/>
                     </Button>

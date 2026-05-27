@@ -48,7 +48,7 @@ export default function WindowWrapper({
                               <DropdownMenuTrigger>
                                    <img src="/logo.png" alt="I18N Translator" width={24} height={24} className="select-none"/> 
                               </DropdownMenuTrigger>
-                              <DropdownMenuContent className="w-full">
+                              <DropdownMenuContent className="w-full min-w-32">
                                    <DropdownMenuLabel>{title}</DropdownMenuLabel>
                                    {!hideMenubar && (
                                         <>

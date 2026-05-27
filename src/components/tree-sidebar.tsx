@@ -1,12 +1,12 @@
-import { ChevronRight, Folder, Menu, List } from "lucide-react"
+import { ChevronRight, Folder, List } from "lucide-react"
 import { Button, ButtonProps } from "./ui/button"
 import { ScrollArea, ScrollBar } from "./ui/scroll-area"
 import { cn } from "@/lib/utils"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible"
 import { useState } from "react"
-import { useIsMobile } from "@/hooks/use-mobile"
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetTrigger, SheetClose, SheetFooter } from "./ui/sheet"
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetClose, SheetFooter } from "./ui/sheet"
 import { TreeNode } from "@/lib/types"
+import { useTreeSidebar } from "@/context/sidebar"
 
 const SIDEBAR_WIDTH_MOBILE = "18rem"
 
@@ -40,7 +40,7 @@ function TreeSidebarButton({variant="ghost", size="sm", className, selected, ...
 }
 
 function TreeSidebarContainer({children}: {children: React.ReactNode}){
-     const isMobile = useIsMobile()
+     const {isMobile, open, setOpen} = useTreeSidebar()
      const content = (
           <ScrollArea className={cn(
                "min-h-0 h-full",
@@ -55,13 +55,7 @@ function TreeSidebarContainer({children}: {children: React.ReactNode}){
      )
      if (isMobile) {
           return (
-               <Sheet>
-                    <SheetTrigger asChild>
-                         <Button variant="outline">
-                              <Menu/>
-                              Open Sidebar
-                         </Button>
-                    </SheetTrigger>
+               <Sheet open={open} onOpenChange={setOpen}>
                     <SheetContent
                          data-sidebar="sidebar"
                          data-slot="sidebar"
@@ -100,6 +94,7 @@ function TreeNodeItem({node, onSelectNamespace, selectedNamespace}: TreeNodeItem
      const [open, setOpen] = useState(node.name === "Root")
      const hasChildren = node.children.length > 0
      const selected = selectedNamespace === node.fullPath
+     const {setOpen: setSidebarOpen} = useTreeSidebar()
      return (
           <TreeSidebarItem>
                <Collapsible open={open} onOpenChange={setOpen}>
@@ -116,7 +111,10 @@ function TreeNodeItem({node, onSelectNamespace, selectedNamespace}: TreeNodeItem
                               <TreeSidebarButton
                                    variant="ghost"
                                    selected={selected}
-                                   onClick={() => onSelectNamespace(node.fullPath)}
+                                   onClick={() => {
+                                        onSelectNamespace(node.fullPath)
+                                        setSidebarOpen(false)
+                                   }}
                               >
                                    <List className="size-4" />
                                    {node.name}
@@ -148,6 +146,7 @@ interface TreeSidebarProps{
      onSelectNamespace: (namespace: string) => void
 }
 export default function TreeSidebar({tree, onSelectNamespace, selectedNamespace}: TreeSidebarProps) {
+     const {setOpen} = useTreeSidebar()
      return (
           <TreeSidebarContainer>
                <TreeSidebarMenu>
@@ -155,7 +154,10 @@ export default function TreeSidebar({tree, onSelectNamespace, selectedNamespace}
                          <TreeSidebarButton
                               variant="ghost"
                               selected={selectedNamespace===""}
-                              onClick={() => onSelectNamespace("")}
+                              onClick={() => {
+                                   onSelectNamespace("")
+                                   setOpen(false)
+                              }}
                          >
                               <List className="size-4" />
                               Show All

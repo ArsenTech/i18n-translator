@@ -93,7 +93,7 @@ jobs:
 
             ### :penguin: Linux (ARM64)
             - **rpm** - [I18N.Translator-__VERSION__-1.aarch64.rpm][linux-arm-rpm]
-            - **AppImage** - [CI18N.Translator___VERSION___aarch64.AppImage][linux-arm-appimage]
+            - **AppImage** - [I18N.Translator___VERSION___aarch64.AppImage][linux-arm-appimage]
             - **deb** - [I18N.Translator___VERSION___arm64.deb][linux-arm-deb]
 
             ### :window: Windows

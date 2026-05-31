@@ -133,10 +133,8 @@ Contributions are Always Welcome! Please read both [Code of Conduct][code-of-con
 ## Star History
 [![Star History Chart][star-history-chart]][star-history-url]
 
-<!--
 ## License
-TODO: Add License
--->
+This project is licensed under the [Apache-2.0 license][license-url].
 
 ## Support And Follow
 [![YouTube][yt-shield]][yt-url]
@@ -164,7 +162,7 @@ TODO: Add License
 [issues-shield]: https://img.shields.io/github/issues/ArsenTech/i18n-translator.svg?style=for-the-badge
 [issues-url]: https://github.com/ArsenTech/i18n-translator/issues
 [license-shield]: https://img.shields.io/github/license/ArsenTech/i18n-translator?color=%2322b455&style=for-the-badge
-[license-url]: https://github.com/ArsenTech/i18n-translator/blob/main/LICENSE.md
+[license-url]: https://github.com/ArsenTech/i18n-translator/blob/main/LICENSE
 [version-shield]: https://img.shields.io/github/package-json/v/ArsenTech/i18n-translator?style=for-the-badge
 [downloads-shield]: https://img.shields.io/github/downloads/ArsenTech/i18n-translator/total?style=for-the-badge&label=Total%20Downloads&color=%2322b455
 [downloads-url]:https://github.com/ArsenTech/i18n-translator/releases

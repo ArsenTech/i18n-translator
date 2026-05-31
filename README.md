@@ -134,7 +134,7 @@ Contributions are Always Welcome! Please read both [Code of Conduct][code-of-con
 [![Star History Chart][star-history-chart]][star-history-url]
 
 ## License
-This project is licensed under the [Apache-2.0 license][license-url].
+This project is distributed under the Apache-2.0 License. See [`LICENSE`][license-url] for more information.
 
 ## Support And Follow
 [![YouTube][yt-shield]][yt-url]

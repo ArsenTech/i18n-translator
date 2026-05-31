@@ -24,6 +24,7 @@ import Filters from "./filters"
 import SortBy from "./sort-by"
 import React from "react"
 import { cn } from "@/lib/utils"
+import { useAppTranslation } from "@/context/translation"
 
 interface DataTableProps {
      data: ITranslation[],
@@ -46,6 +47,7 @@ const matchesSearch = (value: string, query: string, reverse = false) => {
 }
 
 export default function TranslationTable({data, selected, onSelectTranslation, currKey, setInput}: DataTableProps) {
+     const {missingOnly} = useAppTranslation()
      const [search, setSearch] = React.useState("")
      const [searchMode, setSearchMode] = React.useState<"name" | "translation" | "source" | "source-not" | "translation-not" | "name-not">("source")
      const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({
@@ -71,6 +73,7 @@ export default function TranslationTable({data, selected, onSelectTranslation, c
                const source = item.baseString.trim()
                const translation = item.translationString.trim()
                const query = search.trim()
+               if(missingOnly && translation.length > 0) return false;
                const passesFilter = (() => {
                     switch (filter) {
                          case "translated": return translation.length > 0
@@ -92,7 +95,7 @@ export default function TranslationTable({data, selected, onSelectTranslation, c
                     default: return true
                }
           })
-     }, [data, filter, search, searchMode])
+     }, [data, filter, search, searchMode, missingOnly])
      const columns = getColumns(selected ? selected.trim()!=="" : false)
      const table = useReactTable({
           data: filteredData,

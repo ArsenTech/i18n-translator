@@ -57,6 +57,12 @@
 <!-- TODO: Add some Features into the list -->
 
 ### Planned Improvements
+#### v0.2.x
+- [ ] New popup forms
+  - [ ] Compare Diff
+  - [ ] Spell Check
+- [ ] Recent Translations as a submenu
+#### Nice to have
 - [ ] Write the Documentation on the `docs/` folder.
   - [ ] Usage Guide
   - [ ] Installation Guide

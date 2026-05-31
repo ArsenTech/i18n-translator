@@ -4,18 +4,34 @@ import FilesystemActions from "@/actions/file-system";
 import FindActions from "@/actions/find";
 import TranslatorActions from "@/actions/translator";
 import { useTreeSidebar } from "@/context/sidebar";
-import { ViewActions } from "@/actions/view";
+import ViewActions from "@/actions/view";
+import { useAppTranslation } from "@/context/translation";
+import NewTranslationPopup from "@/popups/modals/new-translation";
+import OpenTranslationPopup from "@/popups/modals/open-translation";
+import FindPopup from "@/popups/modals/find";
+import ReplaceTranslationPopup from "@/popups/modals/replace-translation";
+import GoToKeyNamePopup from "@/popups/modals/go-to-key";
+import BatchRenameKeysPopup from "@/popups/modals/batch-rename-keys";
+import AutoTranslatePopup from "@/popups/modals/auto-translate";
+import TransliterateScriptPopup from "@/popups/modals/transliterate-script";
+import { PROVIDER_NAMES } from "@/lib/constants";
+import { AutoTranslateProvider } from "@/schemas/types";
 
 export default function MenuBar(){
      const {setOpen, isMobile} = useTreeSidebar()
+     const {setMissingOnly} = useAppTranslation()
      return (
           <Menubar className="h-full border-0 bg-transparent shadow-none rounded-none">
                <MenubarMenu>
                     <MenubarTrigger className="tracking-tight">File</MenubarTrigger>
                     <MenubarContent>
                          <MenubarGroup>
-                              <MenubarItem onClick={FilesystemActions.newTranslation}>New Translation</MenubarItem>
-                              <MenubarItem onClick={FilesystemActions.openTranslation}>Open Translations</MenubarItem>
+                              <NewTranslationPopup triggerButton={(
+                                   <MenubarItem onSelect={(e) => e.preventDefault()}>New Translation</MenubarItem>
+                              )}/>
+                              <OpenTranslationPopup triggerButton={(
+                                   <MenubarItem onSelect={(e) => e.preventDefault()}>Open Translations</MenubarItem>
+                              )}/>
                               <MenubarItem onClick={FilesystemActions.openRecent}>Recent Translations</MenubarItem>
                          </MenubarGroup>
                          <MenubarSeparator/>
@@ -40,19 +56,36 @@ export default function MenuBar(){
                                    <MenubarSubTrigger>Find</MenubarSubTrigger>
                                    <MenubarSubContent>
                                         <MenubarGroup>
-                                             <MenubarItem onClick={()=>FindActions.find("test")}>Find...<MenubarShortcut>Ctrl+F</MenubarShortcut></MenubarItem>
+                                             <FindPopup triggerButton={(
+                                                  <MenubarItem onSelect={(e) => e.preventDefault()}>
+                                                       Find...
+                                                       <MenubarShortcut>Ctrl+F</MenubarShortcut>
+                                                  </MenubarItem>
+                                             )}/>
                                              <MenubarItem onClick={FindActions.findNext}>Find Next</MenubarItem>
                                              <MenubarItem onClick={FindActions.findPrev}>Find Previous</MenubarItem>
                                              <MenubarItem onClick={FindActions.findMissing}>Find Missing Keys</MenubarItem>
                                         </MenubarGroup>
                                    </MenubarSubContent>
                               </MenubarSub>
-                              <MenubarItem onClick={FilesystemActions.replaceTranslation}>Replace Translation <MenubarShortcut>Ctrl+R</MenubarShortcut></MenubarItem>
-                              <MenubarItem onClick={FilesystemActions.batchRename}>Batch Rename <MenubarShortcut>Ctrl+Shift+R</MenubarShortcut></MenubarItem>
+                              <ReplaceTranslationPopup triggerButton={(
+                                   <MenubarItem onSelect={(e) => e.preventDefault()}>
+                                        Replace Translation
+                                        <MenubarShortcut>Ctrl+R</MenubarShortcut>
+                                   </MenubarItem>
+                              )}/>
+                              <BatchRenameKeysPopup triggerButton={(
+                                   <MenubarItem onSelect={(e) => e.preventDefault()}>
+                                        Batch Rename Keys
+                                        <MenubarShortcut>Ctrl+Shift+R</MenubarShortcut>
+                                   </MenubarItem>
+                              )}/>
                          </MenubarGroup>
                          <MenubarSeparator/>
                          <MenubarGroup>
-                              <MenubarItem onClick={TranslatorActions.goToProp}>Go to prop name</MenubarItem>
+                              <GoToKeyNamePopup triggerButton={(
+                                   <MenubarItem onSelect={(e) => e.preventDefault()}>Go to key name</MenubarItem>
+                              )}/>
                               <MenubarItem onClick={TranslatorActions.selectUntranslated}>Select untranslated</MenubarItem>
                               <MenubarItem onClick={TranslatorActions.compareDiff}>Compare diff</MenubarItem>
                          </MenubarGroup>
@@ -69,7 +102,7 @@ export default function MenuBar(){
                     <MenubarTrigger className="tracking-tight">View</MenubarTrigger>
                     <MenubarContent>
                          <MenubarItem disabled={!isMobile} onClick={()=>setOpen(prev=>!prev)}>Toggle Sidebar</MenubarItem>
-                         <MenubarItem onClick={TranslatorActions.toggleMissing}>Toggle Missing Only</MenubarItem>
+                         <MenubarItem onClick={()=>setMissingOnly(prev => !prev)}>Toggle Missing Only</MenubarItem>
                          <MenubarSub>
                               <MenubarSubTrigger>Zoom</MenubarSubTrigger>
                               <MenubarSubContent>
@@ -95,10 +128,13 @@ export default function MenuBar(){
                          <MenubarSub>
                               <MenubarSubTrigger>Translate using</MenubarSubTrigger>
                               <MenubarSubContent>
-                                   <MenubarItem onClick={()=>TranslatorActions.autoTranslate("google-translate")}>Google Translate</MenubarItem>
-                                   <MenubarItem onClick={()=>TranslatorActions.autoTranslate("gemini")}>Gemini</MenubarItem>
-                                   <MenubarItem onClick={()=>TranslatorActions.autoTranslate("libretranslate")}>LibreTranslate</MenubarItem>
-                                   <MenubarItem onClick={()=>TranslatorActions.autoTranslate("llama-ai")}>Llama AI</MenubarItem>
+                                   {Object.entries(PROVIDER_NAMES).map(([provider,name])=>(
+                                        <AutoTranslatePopup
+                                             key={provider}
+                                             provider={provider as AutoTranslateProvider}
+                                             triggerButton={<MenubarItem onSelect={(e) => e.preventDefault()}>{name}</MenubarItem>}
+                                        />
+                                   ))}
                               </MenubarSubContent>
                          </MenubarSub>
                          <MenubarSub>
@@ -109,7 +145,9 @@ export default function MenuBar(){
                                    <MenubarItem onClick={TranslatorActions.hunspellCheck}>Spell check (using Hunspell)</MenubarItem>
                               </MenubarSubContent>
                          </MenubarSub>
-                         <MenubarItem onClick={TranslatorActions.transliterateScript}>Transliterate Script</MenubarItem>
+                         <TransliterateScriptPopup triggerButton={(
+                              <MenubarItem onSelect={(e) => e.preventDefault()}>Transliterate Script</MenubarItem>
+                         )}/>
                     </MenubarContent>
                </MenubarMenu>
           </Menubar>

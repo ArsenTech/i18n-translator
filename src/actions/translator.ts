@@ -1,11 +1,12 @@
+import { AutoTranslateType, GoToKeyNameType, TransliterateScriptType } from "@/schemas/types"
 import { cache } from "react"
 
 export default class TranslatorActions{
-     public static autoTranslate(type: "google-translate" | "gemini" | "libretranslate" | "llama-ai", apiKey?: string){
-          console.log(`TODO: Implement ${type} Auto translation using ${apiKey}`)
+     public static autoTranslate(values: AutoTranslateType){
+          console.log(`TODO: Implement ${values.provider} Auto translation using ${JSON.stringify(values,undefined,2)}`)
      }
-     public static goToProp(){
-          console.log("TODO: Implement Go to prop name")
+     public static goToKeyName(values: GoToKeyNameType){
+          console.log(`TODO: Implement Go to key name and jump into ${values.keyName}`)
      }
      public static selectUntranslated(){
           console.log("TODO: Implement Select untranslated")
@@ -22,8 +23,8 @@ export default class TranslatorActions{
      public static hunspellCheck(){
           console.log("TODO: Implement Spell check (using Hunspell)")
      }
-     public static transliterateScript(){
-          console.log("TODO: Implement Script transliteration (e.g. Latin to Cyrillic)")
+     public static transliterateScript(values: TransliterateScriptType){
+          console.log(`TODO: Implement Script transliteration (e.g. ${values.source} to ${values.target})`)
      }
      public static jumpToNextBlankField(){
           console.log("TODO: Implement next blank field")
@@ -42,7 +43,4 @@ export default class TranslatorActions{
           }[] = await res.json();
           return resData.sort(({name: a},{name: b})=>a>b ? 1 : a<b ? -1 : 0)
      })
-     public static toggleMissing(){
-          console.log("TODO: Toggle Missing Translations")
-     }
 }

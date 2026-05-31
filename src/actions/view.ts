@@ -1,4 +1,4 @@
-export class ViewActions {
+export default class ViewActions {
      public static zoomIn() {
           document.body.style.zoom = `${Number(document.body.style.zoom || 1) + 0.1}`
      }

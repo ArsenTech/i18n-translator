@@ -5,19 +5,19 @@ import { cn, getErrorMessage } from "@/lib/utils";
 import { Skeleton } from "./ui/skeleton";
 import { CircleFlag, CircleFlagLanguage } from 'react-circle-flags'
 import TranslatorActions from "@/actions/translator";
+import { Noop } from "react-hook-form";
 
 interface LangSelectorProps{
-     onLangChange?: (langCode: string) => void,
-     lang?: string,
+     className?: string,
+     onChange?: (...event: any[]) => void;
+     onBlur?: Noop;
+     value?: string;
+     disabled?: boolean;
+     name?: string;
+     invalid?: boolean,
      placeholder?: string,
-     className?: string
 }
-export default function LangSelector({
-     lang,
-     onLangChange,
-     placeholder="Language to Translate",
-     className
-}: LangSelectorProps){
+export default function LangSelector({name, value, onChange, invalid, disabled, onBlur, placeholder="Language to Translate", className}: LangSelectorProps){
      const [isLoading, setIsLoading] = useState(true);
      const [data, setData] = useState<{
           flag: string,
@@ -46,8 +46,8 @@ export default function LangSelector({
      return isLoading ? (
           <Skeleton className={cn("h-8",className)}/>
      ) : (
-          <Select value={lang} onValueChange={onLangChange}>
-               <SelectTrigger className={className}>
+          <Select value={value} onValueChange={onChange} disabled={disabled}>
+               <SelectTrigger id={name} name={name} aria-invalid={invalid} className={className} onBlur={onBlur}>
                     <SelectValue placeholder={placeholder}/>
                </SelectTrigger>
                <SelectContent>

@@ -1,5 +1,24 @@
 import { ITranslation } from "./types";
 
+export const PROVIDER_NAMES = {
+     "google-translate": "Google Translate",
+     gemini: "Google Gemini",
+     libretranslate: "Libre Translate",
+     "llama-ai": "Llama AI",
+} as const
+export const SUPPORTED_SCRIPTS = [
+     { value: "latin", label: "Latin" },
+     { value: "cyrillic", label: "Cyrillic (Кириллица)" },
+     { value: "greek", label: "Greek (Ελληνικά)" },
+     { value: "arabic", label: "Arabic (عربي)" },
+     { value: "armenian", label: "Armenian (Հայերեն)" },
+     { value: "georgian", label: "Georgian (ქართული)" },
+     { value: "hebrew", label: "Hebrew (עִבְרִית)" },
+     { value: "devanagari", label: "Devanagari (देवनागरी)" },
+     { value: "thai", label: "Thai (ไทย)" },
+     { value: "hangul", label: "Korean (한글)" }
+] as const
+
 // TODO: Replace with a real data
 export const mockupData: ITranslation[] = [
      {

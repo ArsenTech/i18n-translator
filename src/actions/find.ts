@@ -1,6 +1,8 @@
+import { FindType } from "@/schemas/types"
+
 export default class FindActions{
-     public static find(query: string){
-          console.log(`TODO: Implement finding with query "${query}"`)
+     public static find(values: FindType){
+          console.log(`TODO: Implement finding with query "${values.query}" with mode "${values.mode}" and case sensitive ${values.caseSensitive}`)
      }
      public static findNext(){
           console.log("TODO: Implement Find Next")

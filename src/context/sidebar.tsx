@@ -1,12 +1,13 @@
 import { useIsMobile } from "@/hooks/use-mobile";
-import React, { useContext, useMemo, useState } from "react"
+import { SetStateType } from "@/lib/types";
+import { createContext, useContext, useMemo, useState } from "react"
 
 interface TreeSidebarContextValues{
      open: boolean,
-     setOpen: React.Dispatch<React.SetStateAction<boolean>>,
+     setOpen: SetStateType<boolean>,
      isMobile: boolean
 }
-const TreeSidebarContext = React.createContext<TreeSidebarContextValues | null>(null)
+const TreeSidebarContext = createContext<TreeSidebarContextValues | null>(null)
 
 export function TreeSidebarProvider({ children }: { children: React.ReactNode }){
      const [open, setOpen] = useState(false);

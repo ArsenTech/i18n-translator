@@ -4,7 +4,20 @@ All notable changes of I18N Translator will be documented here.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
-## [0.2.0] - Unreleased
+## [0.2.0] - 2026-05-31
+### Added
+- "Toggle Missing Keys Only" Option
+- Keyboard shortcuts for zoom
+- Popup Forms
+  - Auto Translate
+  - Batch Rename Keys
+  - Find
+  - Go To key name
+  - New Translation
+  - Open Translation
+  - Replace Translation
+  - Transliterate Script
+- Skeleton loading inside the Title Bar and the language selector
 
 ## [0.1.3] - 2026-05-27
 ### Added

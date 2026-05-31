@@ -1,10 +1,10 @@
 import { Menubar, MenubarContent, MenubarGroup, MenubarItem, MenubarMenu, MenubarSeparator, MenubarShortcut, MenubarSub, MenubarSubContent, MenubarSubTrigger, MenubarTrigger } from "../ui/menubar";
 import { exit } from '@tauri-apps/plugin-process';
-import FilesystemActions from "@/lib/actions/file-system";
-import FindActions from "@/lib/actions/find";
-import TranslatorActions from "@/lib/actions/translator";
+import FilesystemActions from "@/actions/file-system";
+import FindActions from "@/actions/find";
+import TranslatorActions from "@/actions/translator";
 import { useTreeSidebar } from "@/context/sidebar";
-import { ViewActions } from "@/lib/actions/view";
+import { ViewActions } from "@/actions/view";
 
 export default function MenuBar(){
      const {setOpen, isMobile} = useTreeSidebar()

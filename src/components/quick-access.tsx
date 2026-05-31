@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
-import FilesystemActions from "@/lib/actions/file-system";
-import FindActions from "@/lib/actions/find";
-import TranslatorActions from "@/lib/actions/translator";
+import FilesystemActions from "@/actions/file-system";
+import FindActions from "@/actions/find";
+import TranslatorActions from "@/actions/translator";
 import { FilePlus, FolderOpen, Languages, RotateCcw, Save, Search, SearchCheck } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
 

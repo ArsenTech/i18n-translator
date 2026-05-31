@@ -5,7 +5,7 @@ import { mockupData } from "@/lib/constants"
 import { ITranslation } from "@/lib/types";
 import { ChevronRight, Copy, Save } from "lucide-react";
 import { useMemo } from "react";
-import TranslatorActions from "@/lib/actions/translator";
+import TranslatorActions from "@/actions/translator";
 
 interface TranslationInputProps{
      currTranslation?: ITranslation | null,

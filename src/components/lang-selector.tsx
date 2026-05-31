@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { cn, getErrorMessage } from "@/lib/utils";
 import { Skeleton } from "./ui/skeleton";
 import { CircleFlag, CircleFlagLanguage } from 'react-circle-flags'
-import TranslatorActions from "@/lib/actions/translator";
+import TranslatorActions from "@/actions/translator";
 
 interface LangSelectorProps{
      onLangChange?: (langCode: string) => void,

@@ -3,7 +3,7 @@ import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";
 
 interface RadioFieldProps{
-     onChange: (...event: any[]) => void;
+     onChange: (value: string) => void;
      onBlur?: Noop;
      value: string;
      disabled?: boolean;

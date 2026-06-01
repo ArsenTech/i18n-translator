@@ -2,7 +2,7 @@ import { Noop } from "react-hook-form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 
 interface SelectorFieldProps{
-     onChange: (...event: any[]) => void;
+     onChange: (value: string) => void;
      onBlur?: Noop;
      value: string;
      disabled?: boolean;

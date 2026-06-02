@@ -1,4 +1,4 @@
-import { SUPPORTED_SCRIPTS } from "@/lib/constants"
+import { RESOURCE_TYPE, SUPPORTED_SCRIPTS } from "@/lib/constants"
 import * as z from "zod"
 
 const scriptField = z.enum([...SUPPORTED_SCRIPTS.map(s => s.value)],"Choose a Script to transliterate")
@@ -15,21 +15,21 @@ export const OpenTranslationSchema = z.object({
      targetLang: z.string().min(1,"Please select a language of the translation").trim(),
 })
 export const FindSchema = z.object({
-     query: z.string().min(1,"Please enter the query to find"),
+     query: z.string().min(1,"Please enter the query to find").trim(),
      mode: z.enum(["key","source","translation"],"Choose the search mode"),
      caseSensitive: z.boolean()
 })
 export const ReplaceTranslationSchema = z.object({
-     from: z.string().min(1,"Please enter the translation to replace"),
-     to: z.string().min(1,"Please enter the new translation"),
+     from: z.string().min(1,"Please enter the translation to replace").trim(),
+     to: z.string().min(1,"Please enter the new translation").trim(),
      caseSensitive: z.boolean()
 })
 export const GoToKeyNameSchema = z.object({
-     keyName: z.string().min(1,"Enter the key name")
+     keyName: z.string().min(1,"Enter the key name").trim()
 })
 export const BatchRenameKeysSchema = z.object({
-     from: z.string().min(1,"Please enter the key to replace"),
-     to: z.string().min(1,"Please enter the new key name"),
+     from: z.string().min(1,"Please enter the key to replace").trim(),
+     to: z.string().min(1,"Please enter the new key name").trim(),
 })
 export const TransliterateScriptSchema = z.object({
      source: scriptField,
@@ -41,3 +41,7 @@ export const TransliterateScriptSchema = z.object({
           message: "Source and target scripts must be different"
      }
 )
+export const SpellCheckSchema = z.object({
+     dictionary: z.string().min(1,"Please choose the dictionary language").trim(),
+     scope: z.enum([...RESOURCE_TYPE.map(s => s.value)], "Select the scope for a spell check")
+})

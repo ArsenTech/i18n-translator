@@ -32,7 +32,7 @@ export default function TranslatorStats({currTranslation}: TranslatorStatsProps)
                </div>
                {currTranslation && (
                     <div className="flex items-center gap-2">
-                         <p className="text-muted-foreground">{currTranslation.keyName}</p>
+                         <p className="text-muted-foreground font-mono font-semibold">{currTranslation.keyName}</p>
                          <div className="flex gap-2 justify-center items-center bg-card border rounded-md px-3 py-1">
                               <span className="text-muted-foreground">Line &#x2116;</span>
                               <span className="text-base md:text-lg">{currTranslation.lineNumber}</span>

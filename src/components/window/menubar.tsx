@@ -16,6 +16,8 @@ import AutoTranslatePopup from "@/popups/modals/auto-translate";
 import TransliterateScriptPopup from "@/popups/modals/transliterate-script";
 import { PROVIDER_NAMES } from "@/lib/constants";
 import { AutoTranslateProvider } from "@/schemas/types";
+import SpellCheckPopup from "@/popups/modals/spell-check"
+import CompareDifferencePopup from "@/popups/modals/compare-diff";
 
 export default function MenuBar(){
      const {setOpen, isMobile} = useTreeSidebar()
@@ -87,7 +89,9 @@ export default function MenuBar(){
                                    <MenubarItem onSelect={(e) => e.preventDefault()}>Go to key name</MenubarItem>
                               )}/>
                               <MenubarItem onClick={TranslatorActions.selectUntranslated}>Select untranslated</MenubarItem>
-                              <MenubarItem onClick={TranslatorActions.compareDiff}>Compare diff</MenubarItem>
+                              <CompareDifferencePopup triggerButton={(
+                                   <MenubarItem onSelect={(e) => e.preventDefault()}>Compare difference</MenubarItem>
+                              )}/>
                          </MenubarGroup>
                          <MenubarSeparator />
                          <MenubarGroup>
@@ -142,7 +146,9 @@ export default function MenuBar(){
                               <MenubarSubContent>
                                    <MenubarItem onClick={TranslatorActions.validateKeys}>Validate Keys</MenubarItem>
                                    <MenubarItem onClick={TranslatorActions.removeUnusedKeys}>Remove Unused Keys</MenubarItem>
-                                   <MenubarItem onClick={TranslatorActions.hunspellCheck}>Spell check (using Hunspell)</MenubarItem>
+                                   <SpellCheckPopup triggerButton={(
+                                        <MenubarItem onSelect={(e) => e.preventDefault()}>Spell check (using Hunspell)</MenubarItem>
+                                   )}/>
                               </MenubarSubContent>
                          </MenubarSub>
                          <TransliterateScriptPopup triggerButton={(

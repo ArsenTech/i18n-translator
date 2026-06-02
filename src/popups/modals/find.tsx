@@ -33,6 +33,7 @@ export default function FindPopup({triggerButton}: PopupFormProps){
      }
      return (
           <AppModal
+               size="sm"
                title="Find the translation"
                description="Search for a translation you're looking for"
                triggerButton={triggerButton}

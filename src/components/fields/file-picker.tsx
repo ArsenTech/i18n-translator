@@ -5,7 +5,7 @@ import { Input } from "../ui/input";
 import { open } from "@tauri-apps/plugin-dialog";
 
 interface FilePickerProps{
-     onChange: (...event: any[]) => void;
+     onChange: (value: string) => void;
      onBlur?: Noop;
      value: string;
      disabled?: boolean;
@@ -50,6 +50,7 @@ export default function FilePicker({invalid, openText="Open the base language fi
           <ButtonGroup>
                <Input
                     {...field}
+                    onChange={e=>field.onChange(e.target.value)}
                     id={field.name}
                     aria-invalid={invalid}
                />

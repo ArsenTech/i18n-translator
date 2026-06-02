@@ -1,9 +1,4 @@
-import TranslationInputLoader from "@/components/loaders/input";
-import LanguageSelectLoader from "@/components/loaders/language-select";
-import QuickAccessToolbarLoader from "@/components/loaders/quick-access";
-import TranslatorStatsLoader from "@/components/loaders/stats";
-import TableLoader from "@/components/loaders/table";
-import TreeSidebarLoader from "@/components/loaders/tree-sidebar";
+import { TranslationInputLoader, LanguageSelectLoader, QuickAccessToolbarLoader, TreeSidebarLoader, TranslatorStatsLoader, TableLoader} from "@/components/loaders/translator"
 import WindowWrapper from "@/components/window";
 import useKeyboardShortcuts from "@/hooks/use-kbd-shortcuts";
 import { mockupData } from "@/lib/constants"

@@ -3,44 +3,46 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
-import { BatchRenameKeysType } from "@/schemas/types";
-import { BatchRenameKeysSchema } from "@/schemas";
+import { SpellCheckType } from "@/schemas/types";
+import { SpellCheckSchema } from "@/schemas";
 import { DialogFooter } from "@/components/ui/dialog";
-import FilesystemActions from "@/actions/file-system";
-import { Input } from "@/components/ui/input";
 import { PopupFormProps } from "@/lib/types";
+import SelectorField from "@/components/fields/selector";
+import { DEFAULT_DICTIONARIES, RESOURCE_TYPE } from "@/lib/constants";
+import RadioField from "@/components/fields/radio-field";
+import TranslatorActions from "@/actions/translator";
 
-export default function BatchRenameKeysPopup({triggerButton}: PopupFormProps){
-     const form = useForm<BatchRenameKeysType>({
-          resolver: zodResolver(BatchRenameKeysSchema),
+export default function SpellCheckPopup({triggerButton}: PopupFormProps){
+     const form = useForm<SpellCheckType>({
+          resolver: zodResolver(SpellCheckSchema),
           defaultValues: {
-               from: "",
-               to: "",
+               dictionary: "",
+               scope: "key"
           }
      })
-     const onSubmit = (values: BatchRenameKeysType) => {
-          FilesystemActions.batchRename(values)
+     const onSubmit = (values: SpellCheckType) => {
+          TranslatorActions.hunspellCheck(values)
      }
      return (
           <AppModal
                size="sm"
-               title="Batch rename keys"
-               description="Rename many keys at once"
+               title="Spell Check"
+               description="Spell checking using Hunspell"
                triggerButton={triggerButton}
           >
-               <form id="batch-rename" onSubmit={form.handleSubmit(onSubmit)}>
+               <form id="spell-check" onSubmit={form.handleSubmit(onSubmit)}>
                     <FieldGroup>
                          <Controller
                               control={form.control}
-                              name="from"
+                              name="dictionary"
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
                                         <FieldLabel htmlFor={field.name}>From</FieldLabel>
-                                        <Input
+                                        <SelectorField
                                              {...field}
-                                             id={field.name}
-                                             aria-invalid={fieldState.invalid}
-                                             placeholder="common.button.cancel"
+                                             items={DEFAULT_DICTIONARIES}
+                                             invalid={fieldState.invalid}
+                                             placeholder="English"
                                         />
                                         {fieldState.invalid && (
                                              <FieldError errors={[fieldState.error]} />
@@ -50,15 +52,14 @@ export default function BatchRenameKeysPopup({triggerButton}: PopupFormProps){
                          />
                          <Controller
                               control={form.control}
-                              name="to"
+                              name="scope"
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
-                                        <FieldLabel htmlFor={field.name}>To</FieldLabel>
-                                        <Input
+                                        <FieldLabel htmlFor={field.name}>Scope</FieldLabel>
+                                        <RadioField
                                              {...field}
-                                             id={field.name}
-                                             aria-invalid={fieldState.invalid}
-                                             placeholder="common.buttons.cancel"
+                                             invalid={fieldState.invalid}
+                                             items={RESOURCE_TYPE}
                                         />
                                         {fieldState.invalid && (
                                              <FieldError errors={[fieldState.error]} />
@@ -69,7 +70,7 @@ export default function BatchRenameKeysPopup({triggerButton}: PopupFormProps){
                     </FieldGroup>
                </form>
                <DialogFooter>
-                    <Button type="submit" form="batch-rename">Rename Keys</Button>
+                    <Button type="submit" form="spell-check">Check Spelling</Button>
                </DialogFooter>
           </AppModal>
      )

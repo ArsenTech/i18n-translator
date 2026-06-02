@@ -1,23 +1,26 @@
 import { Noop } from "react-hook-form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { SelectType } from "@/lib/types";
 
 interface SelectorFieldProps{
      onChange: (value: string) => void;
      onBlur?: Noop;
      value: string;
      disabled?: boolean;
-     name: string;
+     name?: string;
      invalid?: boolean,
-     items: {label: string, value: string}[],
-     placeholder?: string
+     items: SelectType[],
+     placeholder?: string,
+     defaultValue?: string
 }
-export default function SelectorField({name, value, onChange, invalid, disabled, onBlur, items, placeholder="Select"}: SelectorFieldProps){
+export default function SelectorField({name, value, onChange, invalid, disabled, onBlur, items, defaultValue, placeholder="Select"}: SelectorFieldProps){
      return (
           <Select
                name={name}
                value={value}
                onValueChange={onChange}
                disabled={disabled}
+               defaultValue={defaultValue}
           >
                <SelectTrigger
                     id={name}

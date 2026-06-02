@@ -5,7 +5,9 @@ export interface ITranslation{
      lineNumber: number
 }
 export interface PopupFormProps{
-     triggerButton: React.ReactNode
+     triggerButton?: React.ReactNode
+     open?: boolean,
+     setOpen?: (open: boolean) => void
 }
 export interface TreeNode {
      name: string
@@ -13,3 +15,4 @@ export interface TreeNode {
      children: TreeNode[]
 }
 export type SetStateType<T> = React.Dispatch<React.SetStateAction<T>>
+export type SelectType = {label: string, value: string}

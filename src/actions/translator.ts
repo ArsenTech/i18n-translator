@@ -1,4 +1,4 @@
-import { AutoTranslateType, GoToKeyNameType, TransliterateScriptType } from "@/schemas/types"
+import { AutoTranslateType, GoToKeyNameType, SpellCheckType, TransliterateScriptType } from "@/schemas/types"
 import { cache } from "react"
 
 export default class TranslatorActions{
@@ -20,8 +20,8 @@ export default class TranslatorActions{
      public static removeUnusedKeys(){
           console.log("TODO: Implement remove unused keys")
      }
-     public static hunspellCheck(){
-          console.log("TODO: Implement Spell check (using Hunspell)")
+     public static hunspellCheck(values: SpellCheckType){
+          console.log(`TODO: Implement Spell check (using Hunspell with dictionary: ${values.dictionary})`)
      }
      public static transliterateScript(values: TransliterateScriptType){
           console.log(`TODO: Implement Script transliteration (e.g. ${values.source} to ${values.target})`)

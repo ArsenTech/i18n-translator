@@ -1,6 +1,7 @@
+import { RESOURCE_TYPE } from "@/lib/constants"
 import * as z from "zod"
 
-const translationTargetField = z.enum(["key","namespace","translation"], "Select the translation target to Auto-Translate")
+const translationTargetField = z.enum([...RESOURCE_TYPE.map(s => s.value)], "Select the translation target to Auto-Translate")
 
 export const providerField = z.enum([
      "google-translate",

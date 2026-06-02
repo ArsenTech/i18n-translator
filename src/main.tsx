@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./App.css";
 import { TreeSidebarProvider } from "./context/sidebar";
 import { AppTranslationProvider } from "./context/translation";
-import MainContentLoader from "./components/loaders/contents/main";
+import MainContentLoader from "./components/loaders/translator";
 
 const MainPage = lazy(()=>import("./contents/main"))
 

@@ -14,7 +14,7 @@ export const getColumns = (isSelected: boolean): ColumnDef<ITranslation>[] => [
           cell: ({getValue}) => {
                const array = getValue<string>().split(".");
                return (
-                    <div className="truncate">
+                    <div className="truncate line-clamp-1 font-mono">
                          {isSelected ? array[array.length-1] : getValue<string>()}
                     </div>
                )

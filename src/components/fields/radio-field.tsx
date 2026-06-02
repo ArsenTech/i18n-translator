@@ -1,6 +1,7 @@
 import { Noop } from "react-hook-form";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";
+import { SelectType } from "@/lib/types";
 
 interface RadioFieldProps{
      onChange: (value: string) => void;
@@ -9,7 +10,7 @@ interface RadioFieldProps{
      disabled?: boolean;
      name: string;
      invalid?: boolean,
-     items: {label: string, value: string}[]
+     items: SelectType[] | Readonly<SelectType[]>
 }
 export default function RadioField({onChange, name, value, disabled, invalid, onBlur, items}: RadioFieldProps){
      return (

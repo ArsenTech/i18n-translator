@@ -25,6 +25,7 @@ export default function ReplaceTranslationPopup({triggerButton}: PopupFormProps)
      }
      return (
           <AppModal
+               size="sm"
                title="Replace the translation"
                description="Replace existing translations"
                triggerButton={triggerButton}

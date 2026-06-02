@@ -36,7 +36,7 @@ export default function TitleBar({hideMaximize, hideMenubar, title}: TitleBarPro
           }
      }, [])
      return (
-          <div className="flex items-center justify-between gap-2 bg-secondary/80 dark:bg-card/80 text-secondary-foreground border-b shadow-xs pl-2 sticky top-0 left-0 z-20 w-full h-9 backdrop-blur-md">
+          <div className="flex items-center justify-between gap-2 bg-secondary/80 dark:bg-card/80 text-secondary-foreground border-b shadow-xs pl-2 sticky top-0 left-0 z-30 w-full h-9 backdrop-blur-md">
                <div className="flex items-center gap-2">
                     <DropdownMenu>
                          <DropdownMenuTrigger>

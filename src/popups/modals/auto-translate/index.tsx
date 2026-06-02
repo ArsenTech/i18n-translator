@@ -9,14 +9,8 @@ import { DialogFooter } from "@/components/ui/dialog";
 import TranslatorActions from "@/actions/translator";
 import RadioField from "@/components/fields/radio-field";
 import { GeminiFields, LibreTranslateFields, LlamaAIFields } from "./fields";
-import { PROVIDER_NAMES } from "@/lib/constants";
+import { PROVIDER_NAMES, RESOURCE_TYPE } from "@/lib/constants";
 import { PopupFormProps } from "@/lib/types";
-
-const items = [
-     {value: "key", label: "Selected Key"},
-     {value: "namespace", label: "Current Namescape"},
-     {value: "translation", label: "Entire Translation"}
-]
 
 interface AutoTranslatePopupProps extends PopupFormProps{
      provider: AutoTranslateProvider
@@ -62,7 +56,7 @@ export default function AutoTranslatePopup({provider, triggerButton}: AutoTransl
                                         <RadioField
                                              {...field}
                                              invalid={fieldState.invalid}
-                                             items={items}
+                                             items={RESOURCE_TYPE}
                                         />
                                         {fieldState.invalid && (
                                              <FieldError errors={[fieldState.error]} />

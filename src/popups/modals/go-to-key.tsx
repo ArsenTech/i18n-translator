@@ -23,6 +23,7 @@ export default function GoToKeyNamePopup({triggerButton}: PopupFormProps){
      }
      return (
           <AppModal
+               size="sm"
                title="Go to translation key name"
                description="Jump into the provided key name"
                triggerButton={triggerButton}

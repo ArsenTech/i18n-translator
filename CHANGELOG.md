@@ -5,6 +5,15 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 ## [0.2.1] - Unreleased
+### Added
+- Spell Checker Popups
+  - Dictionary setup form
+  - Workflow
+  - Summary
+- Compare Difference Modal
+### Improved
+- **Table design** - Fixed the UI sticky header issue
+- **Key names** - Now uses monospace font
 
 ## [0.2.0] - 2026-05-31
 ### Added

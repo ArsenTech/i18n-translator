@@ -118,7 +118,7 @@ export default function TranslationTable({data, selected, onSelectTranslation, c
           "name-not": "Key name doesn't contain"
      }
      return (
-          <div className="flex flex-col flex-1 min-h-0 overflow-hidden gap-2">
+          <div className="flex flex-col flex-1 min-h-0 gap-2 overflow-hidden">
                <div className="flex items-center gap-2">
                     <ButtonGroup className="flex-1">
                          <Filters
@@ -155,8 +155,8 @@ export default function TranslationTable({data, selected, onSelectTranslation, c
                          setSorting([{ id: column, desc }])
                     }}/>
                </div>
-               <div className="flex flex-col flex-1 min-h-0 overflow-hidden rounded-md border bg-card text-card-foreground shadow-xs">
-                    <Table className="min-w-[900px] table-fixed">
+               <div className="flex-1 min-h-0 overflow-auto rounded-md border bg-card text-card-foreground shadow-xs">
+                    <Table className="min-w-[900px] relative scroll-mt-0">
                          <TableHeader>
                               {table.getHeaderGroups().map((headerGroup) => (
                                    <TableRow key={headerGroup.id}>

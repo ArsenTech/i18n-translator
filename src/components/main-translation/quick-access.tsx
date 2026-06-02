@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import FilesystemActions from "@/actions/file-system";
 import FindActions from "@/actions/find";
 import TranslatorActions from "@/actions/translator";
-import { FilePlus, FolderOpen, Languages, RotateCcw, Save, Search, SearchCheck } from "lucide-react";
+import { FilePlus, FolderOpen, Languages, RotateCcw, Save, Search, SearchCheck, SpellCheckIcon } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import NewTranslationPopup from "@/popups/modals/new-translation";
 import OpenTranslationPopup from "@/popups/modals/open-translation";
@@ -10,6 +10,7 @@ import { PROVIDER_NAMES } from "@/lib/constants";
 import AutoTranslatePopup from "@/popups/modals/auto-translate";
 import { AutoTranslateProvider } from "@/schemas/types";
 import ReplaceTranslationPopup from "@/popups/modals/replace-translation";
+import SpellCheckPopup from "@/popups/modals/spell-check";
 
 export default function QuickAccessToolbar(){
      return (
@@ -54,6 +55,11 @@ export default function QuickAccessToolbar(){
                <ReplaceTranslationPopup triggerButton={(
                     <Button variant="secondary" className="flex-1 aspect-square" title="Replace Translation">
                          <RotateCcw/>
+                    </Button>
+               )}/>
+               <SpellCheckPopup triggerButton={(
+                    <Button variant="secondary" className="flex-1 aspect-square" title="Spell Check">
+                         <SpellCheckIcon/>
                     </Button>
                )}/>
           </div>

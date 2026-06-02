@@ -24,6 +24,7 @@ export default function TransliterateScriptPopup({triggerButton}: PopupFormProps
      }
      return (
           <AppModal
+               size="sm"
                title="Transliterate Script"
                description="Transliterate translation scripts"
                triggerButton={triggerButton}

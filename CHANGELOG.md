@@ -4,7 +4,7 @@ All notable changes of I18N Translator will be documented here.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
-## [0.2.1] - Unreleased
+## [0.2.1] - 2026-06-02
 ### Added
 - Spell Checker Popups
   - Dictionary setup form

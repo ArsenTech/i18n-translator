@@ -4,8 +4,8 @@ import { toast } from "sonner";
 import { cn, getErrorMessage } from "@/lib/utils";
 import { Skeleton } from "./ui/skeleton";
 import { CircleFlag, CircleFlagLanguage } from 'react-circle-flags'
-import TranslatorActions from "@/actions/translator";
 import { Noop } from "react-hook-form";
+import FetcherActions from "@/actions/fetcher";
 
 interface LangSelectorProps{
      className?: string,
@@ -28,7 +28,7 @@ export default function LangSelector({name, value, onChange, invalid, disabled, 
      useEffect(()=>{
           (async()=>{
                try{
-                    const resData = await TranslatorActions.fetchLanguages();
+                    const resData = await FetcherActions.fetchLanguages();
                     if(!resData) {
                          toast.error("Failed to load the language list");
                          return;

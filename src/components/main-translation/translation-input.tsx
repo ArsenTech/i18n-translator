@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Textarea } from "@/components/ui/textarea";
-import { mockupData } from "@/lib/constants"
-import { ITranslation } from "@/lib/types";
+import type { ITranslation } from "@/lib/types/data"
 import { ChevronRight, Copy, Save } from "lucide-react";
 import { useMemo } from "react";
 import TranslatorActions from "@/actions/translator";
+import { useAppTranslation } from "@/context/translation";
 
 interface TranslationInputProps{
      currTranslation?: ITranslation | null,
@@ -13,8 +13,9 @@ interface TranslationInputProps{
      onInputChange: (input: string) => void
 }
 export default function TranslationInput({currTranslation, input, onInputChange}: TranslationInputProps){
-     const total = useMemo(()=>mockupData.length,[mockupData])
-     const translatedCount = useMemo(()=>mockupData.filter(val=>val.translationString.trim()!=="").length,[mockupData])
+     const {table} = useAppTranslation()
+     const total = useMemo(()=>table.length,[table])
+     const translatedCount = useMemo(()=>table.filter(val=>val.translationString.trim()!=="").length,[table])
      const percentage = useMemo(()=>{
           return total > 0 ? Math.min(100,Math.floor((translatedCount / total) * 100)) : 0
      },[translatedCount, total])

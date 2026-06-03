@@ -1,8 +1,9 @@
-import { ITranslation } from "@/lib/types"
+import type { ITranslation } from "@/lib/types/data"
 import { ColumnDef } from "@tanstack/react-table"
 import { CheckCircle, CircleAlert, TriangleAlert } from "lucide-react"
 import { DataTableColumnHeader } from "./col-header"
 import { wordCount } from "@/lib/helpers"
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
 
 export const getColumns = (isSelected: boolean): ColumnDef<ITranslation>[] => [
      {
@@ -10,11 +11,12 @@ export const getColumns = (isSelected: boolean): ColumnDef<ITranslation>[] => [
           header: ({column})=>(
                <DataTableColumnHeader title="Name" column={column}/>
           ),
-          size: 250,
+          size: 200,
+          maxSize: 200,
           cell: ({getValue}) => {
                const array = getValue<string>().split(".");
                return (
-                    <div className="truncate line-clamp-1 font-mono">
+                    <div className="truncate font-mono max-w-[200px]">
                          {isSelected ? array[array.length-1] : getValue<string>()}
                     </div>
                )
@@ -25,9 +27,10 @@ export const getColumns = (isSelected: boolean): ColumnDef<ITranslation>[] => [
           header: ({column})=>(
                <DataTableColumnHeader title="Source" column={column}/>
           ),
-          size: 300,
+          size: 400,
+          maxSize: 400,
           cell: ({getValue}) => (
-               <div className="truncate">
+               <div className="break-all whitespace-normal max-w-[400px]">
                     {getValue<string>()}
                </div>
           )
@@ -37,9 +40,10 @@ export const getColumns = (isSelected: boolean): ColumnDef<ITranslation>[] => [
           header: ({column})=>(
                <DataTableColumnHeader title="Translation" column={column}/>
           ),
-          size: 300,
+          size: 400,
+          maxSize: 400,
           cell: ({getValue}) => (
-               <div className="truncate">
+               <div className="break-all whitespace-normal max-w-[400px]">
                     {getValue<string>()}
                </div>
           )
@@ -68,15 +72,22 @@ export const getColumns = (isSelected: boolean): ColumnDef<ITranslation>[] => [
           id: "status",
           header: "Status",
           cell: ({row}) => (
-               <div className="flex justify-center">
-                    {row.original.baseString===row.original.translationString ? (
-                         <TriangleAlert className="size-5 text-amber-600 dark:text-amber-400"/>
-                    ) : !row.original.translationString ? (
-                         <CircleAlert className="size-5 text-destructive"/>
-                    ) : (
-                         <CheckCircle className="size-5 text-emerald-600 dark:text-emerald-400" />
-                    )}
-               </div>
+               <Tooltip>
+                    <TooltipTrigger className="flex justify-center max-w-[60px]">
+                         {row.original.baseString===row.original.translationString ? (
+                              <TriangleAlert className="size-5 text-amber-600 dark:text-amber-400"/>
+                         ) : !row.original.translationString ? (
+                              <CircleAlert className="size-5 text-destructive"/>
+                         ) : (
+                              <CheckCircle className="size-5 text-emerald-600 dark:text-emerald-400" />
+                         )}
+                    </TooltipTrigger>
+                    <TooltipContent>
+                         {row.original.baseString===row.original.translationString
+                              ? "Translation is equal to source" : !row.original.translationString
+                              ? "Translation is missing" : "Translation is now set"}
+                    </TooltipContent>
+               </Tooltip>
           ),
           size: 60,
           maxSize: 60,

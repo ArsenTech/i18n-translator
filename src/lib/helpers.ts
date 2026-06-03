@@ -1,4 +1,5 @@
-import { ITranslation, TreeNode } from "./types"
+import { TreeNode } from "./types"
+import type { ITranslation } from "@/lib/types/data"
 
 export function buildTree(data: ITranslation[]): TreeNode[] {
      const root: TreeNode = {

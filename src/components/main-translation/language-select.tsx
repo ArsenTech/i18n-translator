@@ -1,5 +1,6 @@
 import LangSelector from "../lang-selector";
 
+// TODO: Map translation values after creating.
 export default function LanguageSelect(){
      return (
           <div className="flex items-center gap-2">

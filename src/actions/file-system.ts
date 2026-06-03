@@ -1,9 +1,38 @@
+import type { ITranslation } from "@/lib/types/data"
+import type { IBackendTranslation } from "@/lib/types/data/backend"
+import { NewTranslationSchema } from "@/schemas"
 import { BatchRenameKeysType, NewTranslationType, OpenTranslationType, ReplaceTranslationType } from "@/schemas/types"
+import { invoke } from "@tauri-apps/api/core"
 import { save } from "@tauri-apps/plugin-dialog"
 
 export default class FilesystemActions{
-     public static newTranslation(values: NewTranslationType){
-          console.log(`TODO: Implement New Translation Action as ${values.targetLanguageCode}.${values.format}`)
+     public static async newTranslation(values: NewTranslationType): Promise<{
+          error?: string,
+          success?: string,
+          data: ITranslation[]
+     }>{
+          try {
+               const validatedFields = NewTranslationSchema.safeParse(values)
+               if(!validatedFields.success) return {error: "All fields are invalid", data: []}
+               const {path, targetLanguageCode, format} = validatedFields.data
+               const res = await invoke<IBackendTranslation[]>("create_translation", {
+                    basePath: path,
+                    targetLanguageCode: targetLanguageCode,
+                    format: format
+               })
+               return {
+                    success: "Translation created successfully",
+                    data: res.map(val=>({
+                         keyName: val.key_name,
+                         translationString: val.translation_string,
+                         lineNumber: val.line_number,
+                         baseString: val.base_string
+                    }))
+               }
+          } catch (err) {
+               console.error(err)
+               return {error: "Something went wrong", data: []}
+          }
      }
      public static openTranslation(values: OpenTranslationType){
           console.log(`TODO: Implement Open Translation Action from ${values.targetPath}`)

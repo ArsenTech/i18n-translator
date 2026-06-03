@@ -7,7 +7,7 @@ interface Props{
      rows?: number,
 }
 export function TableLoader({rows=12}: Props){
-     const colsArr = [250,300,300,60]
+     const colsArr = [200,400,400,60]
      const rowsArr = useMemo(()=>Array.from({length: rows}).map((_,i)=>i),[rows]);
      return (
           <>

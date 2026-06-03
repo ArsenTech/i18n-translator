@@ -1,9 +1,3 @@
-export interface ITranslation{
-     keyName: string,
-     baseString: string,
-     translationString: string,
-     lineNumber: number
-}
 export interface PopupFormProps{
      triggerButton?: React.ReactNode
      open?: boolean,

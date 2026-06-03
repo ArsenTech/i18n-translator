@@ -1,9 +1,9 @@
 import { TranslationInputLoader, LanguageSelectLoader, QuickAccessToolbarLoader, TreeSidebarLoader, TranslatorStatsLoader, TableLoader} from "@/components/loaders/translator"
 import WindowWrapper from "@/components/window";
+import { useAppTranslation } from "@/context/translation";
 import useKeyboardShortcuts from "@/hooks/use-kbd-shortcuts";
-import { mockupData } from "@/lib/constants"
 import { buildTree } from "@/lib/helpers";
-import { ITranslation } from "@/lib/types";
+import type { ITranslation } from "@/lib/types/data"
 import { lazy, Suspense, useMemo, useState } from "react";
 
 const TranslationTable = lazy(()=>import("@/components/translation-table"))
@@ -16,15 +16,16 @@ const LanguageSelect = lazy(()=>import("@/components/main-translation/language-s
 export default function MainPage(){
      const [currTranslation, setCurrentTranslation] = useState<ITranslation | null>(null)
      const [input, setInput] = useState("")
+     const {table} = useAppTranslation()
 
      const [selectedNamespace, setSelectedNamespace] = useState<string>("")
-     const tree = useMemo(() => buildTree(mockupData), [])
+     const tree = useMemo(() => buildTree(table), [table])
 
      const tableData = useMemo(() => {
-          if (!selectedNamespace) return mockupData
-          if (selectedNamespace === "__general") return mockupData.filter(item => !item.keyName.includes("."))
-          return mockupData.filter(item =>item.keyName.startsWith(`${selectedNamespace}.`))
-     }, [selectedNamespace])
+          if (!selectedNamespace) return table
+          if (selectedNamespace === "__general") return table.filter(item => !item.keyName.includes("."))
+          return table.filter(item =>item.keyName.startsWith(`${selectedNamespace}.`))
+     }, [selectedNamespace, table])
 
      useKeyboardShortcuts()
      return (
@@ -67,7 +68,9 @@ export default function MainPage(){
                                    input={input}
                                    onInputChange={setInput}
                               />
-                              <TranslatorStats currTranslation={currTranslation} />
+                              <TranslatorStats
+                                   currTranslation={currTranslation}
+                              />
                          </Suspense>
                     </div>
                </div>

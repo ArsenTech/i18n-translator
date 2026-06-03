@@ -1,5 +1,4 @@
 import AppModal from "@/components/popups/modal";
-import { Button } from "@/components/ui/button";
 import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
@@ -11,6 +10,12 @@ import LanguageInput from "@/components/lang-input";
 import FilePicker from "@/components/fields/file-picker";
 import FilesystemActions from "@/actions/file-system";
 import { PopupFormProps } from "@/lib/types";
+import { useState, useTransition } from "react";
+import LoadingButton from "@/components/loading-button";
+import { FilePlus2 } from "lucide-react";
+import { toast } from "sonner";
+import { getErrorMessage } from "@/lib/utils";
+import { useAppTranslation } from "@/context/translation";
 
 const items = [
      {value: "json", label: "JSON File"},
@@ -21,6 +26,9 @@ const items = [
 ]
 
 export default function NewTranslationPopup({triggerButton}: PopupFormProps){
+     const [isCreating, startTransition] = useTransition()
+     const [open, setOpen] = useState(false)
+     const {setTable} = useAppTranslation()
      const form = useForm<NewTranslationType>({
           resolver: zodResolver(NewTranslationSchema),
           defaultValues: {
@@ -30,10 +38,28 @@ export default function NewTranslationPopup({triggerButton}: PopupFormProps){
           }
      })
      const onSubmit = (values: NewTranslationType) => {
-          FilesystemActions.newTranslation(values)
+          if (isCreating) return;
+          startTransition(async()=>{
+               try {
+                    const res = await FilesystemActions.newTranslation(values);
+                    if(res.error) toast.error(res.error)
+                    if(res.success) {
+                         toast.success(res.success)
+                         setTable(res.data)
+                         setOpen(false)
+                         form.reset()
+                    }
+               } catch (err) {
+                    toast.error("Failed to create translation",{
+                         description: getErrorMessage(err)
+                    })
+               }
+          })
      }
      return (
           <AppModal
+               open={open}
+               onOpenChange={setOpen}
                title="Create New Translation"
                description="Create a new translation file"
                triggerButton={triggerButton}
@@ -43,6 +69,7 @@ export default function NewTranslationPopup({triggerButton}: PopupFormProps){
                          <Controller
                               control={form.control}
                               name="path"
+                              disabled={isCreating}
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
                                         <FieldLabel htmlFor={field.name}>Base Language File Path</FieldLabel>
@@ -61,6 +88,7 @@ export default function NewTranslationPopup({triggerButton}: PopupFormProps){
                          <Controller
                               control={form.control}
                               name="targetLanguageCode"
+                              disabled={isCreating}
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
                                         <FieldLabel htmlFor={field.name}>Translation file name</FieldLabel>
@@ -82,6 +110,7 @@ export default function NewTranslationPopup({triggerButton}: PopupFormProps){
                          <Controller
                               control={form.control}
                               name="format"
+                              disabled={isCreating}
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
                                         <FieldLabel htmlFor={field.name}>File Format</FieldLabel>
@@ -100,7 +129,15 @@ export default function NewTranslationPopup({triggerButton}: PopupFormProps){
                     </FieldGroup>
                </form>
                <DialogFooter>
-                    <Button type="submit" form="new-translation">Create a translation</Button>
+                    <LoadingButton
+                         type="submit"
+                         form="new-translation"
+                         isLoading={isCreating}
+                         loaderText="Creating..."
+                    >
+                         <FilePlus2/>
+                         Create a translation
+                    </LoadingButton>
                </DialogFooter>
           </AppModal>
      )

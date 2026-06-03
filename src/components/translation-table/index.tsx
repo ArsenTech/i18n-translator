@@ -1,21 +1,7 @@
 "use client"
-import {
-     flexRender,
-     getCoreRowModel,
-     getSortedRowModel,
-     SortingState,
-     useReactTable,
-     VisibilityState,
-} from "@tanstack/react-table"
-import {
-     Table,
-     TableBody,
-     TableCell,
-     TableHead,
-     TableHeader,
-     TableRow,
-} from "@/components/ui/table"
-import { ITranslation } from "@/lib/types"
+import { flexRender, getCoreRowModel, getSortedRowModel, SortingState, useReactTable, VisibilityState } from "@tanstack/react-table"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import type { ITranslation } from "@/lib/types/data"
 import { getColumns } from "./columns"
 import { ButtonGroup } from "@/components/ui/button-group";
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@/components/ui/input-group";
@@ -25,6 +11,7 @@ import SortBy from "./sort-by"
 import React from "react"
 import { cn } from "@/lib/utils"
 import { useAppTranslation } from "@/context/translation"
+import { Spinner } from "../ui/spinner"
 
 interface DataTableProps {
      data: ITranslation[],
@@ -42,7 +29,7 @@ export type FilterType =
   | "repeatedStr"
 
 const matchesSearch = (value: string, query: string, reverse = false) => {
-     const matched = value.toLowerCase().includes(query.toLowerCase())
+     const matched = value.toLowerCase().includes(query)
      return reverse ? !matched : matched
 }
 
@@ -58,47 +45,65 @@ export default function TranslationTable({data, selected, onSelectTranslation, c
      })
      const [sorting, setSorting] = React.useState<SortingState>([])
      const [filter, setFilter] = React.useState<FilterType>("all")
-     const normalized = (value: string) => value.trim().toLowerCase()
+     const [visibleCount, setVisibleCount] = React.useState(100)
      const repeatedSources = React.useMemo(() => {
           const counts = new Map<string, number>()
           for (const item of data) {
-               const source = normalized(item.baseString)
+               const source = item.baseString.trim().toLowerCase()
                if (!source) continue
                counts.set(source, (counts.get(source) ?? 0) + 1)
           }
           return counts
      }, [data])
+     const query = React.useMemo(() => search.trim().toLowerCase(), [search])
+     const columns = React.useMemo(
+          () => getColumns(selected ? selected.trim() !== "" : false),
+          [selected]
+     )
+     React.useEffect(() => {
+          setVisibleCount(100)
+     }, [search, searchMode, filter, missingOnly])
      const filteredData = React.useMemo(() => {
           return data.filter((item) => {
                const source = item.baseString.trim()
                const translation = item.translationString.trim()
-               const query = search.trim()
-               if(missingOnly && translation.length > 0) return false;
-               const passesFilter = (() => {
-                    switch (filter) {
-                         case "translated": return translation.length > 0
-                         case "untranslated": return !translation
-                         case "transEqSrc": return source.length > 0 && source === translation
-                         case "repeatedStr": return (repeatedSources.get(normalized(item.baseString)) ?? 0) > 1
-                         default: return true
-                    }
-               })()
-               if (!passesFilter) return false
+
+               if (missingOnly && translation.length > 0) return false
+
+               switch (filter) {
+                    case "translated":
+                         if (translation.length === 0) return false
+                         break
+                    case "untranslated":
+                         if (translation.length > 0) return false
+                         break
+                    case "transEqSrc":
+                         if (!(source.length > 0 && source === translation)) return false
+                         break
+                    case "repeatedStr":
+                         if ((repeatedSources.get(source.toLowerCase()) ?? 0) <= 1) return false
+                         break
+               }
+
                if (!query) return true
+
                switch (searchMode) {
                     case "name": return matchesSearch(item.keyName, query)
                     case "name-not": return matchesSearch(item.keyName, query, true)
                     case "translation": return matchesSearch(item.translationString, query)
                     case "translation-not": return matchesSearch(item.translationString, query, true)
-                    case "source-not": return matchesSearch(item.baseString, query, true)
                     case "source": return matchesSearch(item.baseString, query)
+                    case "source-not": return matchesSearch(item.baseString, query, true)
                     default: return true
                }
           })
-     }, [data, filter, search, searchMode, missingOnly])
-     const columns = getColumns(selected ? selected.trim()!=="" : false)
+     }, [data, filter, query, searchMode, missingOnly, repeatedSources])
+     const visibleRows = React.useMemo(
+          () => filteredData.slice(0, visibleCount),
+          [filteredData, visibleCount]
+     )
      const table = useReactTable({
-          data: filteredData,
+          data: visibleRows,
           columns,
           getCoreRowModel: getCoreRowModel(),
           onSortingChange: setSorting,
@@ -109,6 +114,26 @@ export default function TranslationTable({data, selected, onSelectTranslation, c
                columnVisibility,
           },
      })
+     const scrollRef = React.useRef<HTMLDivElement>(null)
+
+     React.useEffect(() => {
+          const container = scrollRef.current
+          if (!container) return
+          const handleScroll = () => {
+               const threshold = 100
+               const reachedBottom =
+                    container.scrollTop + container.clientHeight >=
+                    container.scrollHeight - threshold
+               if (!reachedBottom) return
+               setVisibleCount(prev =>
+                    Math.min(prev + 100, filteredData.length)
+               )
+          }
+          container.addEventListener("scroll", handleScroll)
+          return () => {
+               container.removeEventListener("scroll", handleScroll)
+          }
+     }, [filteredData.length])
      const placeholderMap: Record<typeof searchMode,string> = {
           source: "Search for source text",
           "source-not": "Source doesn't contain",
@@ -155,7 +180,7 @@ export default function TranslationTable({data, selected, onSelectTranslation, c
                          setSorting([{ id: column, desc }])
                     }}/>
                </div>
-               <div className="flex-1 min-h-0 overflow-auto rounded-md border bg-card text-card-foreground shadow-xs">
+               <div ref={scrollRef} className="flex-1 min-h-0 overflow-auto rounded-md border bg-card text-card-foreground shadow-xs">
                     <Table className="min-w-[900px] relative scroll-mt-0">
                          <TableHeader>
                               {table.getHeaderGroups().map((headerGroup) => (
@@ -217,6 +242,12 @@ export default function TranslationTable({data, selected, onSelectTranslation, c
                               )}
                          </TableBody>
                     </Table>
+                    {visibleCount < filteredData.length && (
+                         <div className="p-2 flex items-center gap-2 text-muted-foreground font-semibold">
+                              <Spinner/>
+                              Loading more data...
+                         </div>
+                    )}
                </div>
           </div>
      )

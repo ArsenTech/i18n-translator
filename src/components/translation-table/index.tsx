@@ -16,8 +16,6 @@ import { Spinner } from "../ui/spinner"
 interface DataTableProps {
      data: ITranslation[],
      selected?: string | null,
-     onSelectTranslation: (translation: ITranslation) => void,
-     currKey: string,
      setInput: (input: string) => void
 }
 
@@ -28,8 +26,8 @@ export type FilterType =
   | "transEqSrc"
   | "repeatedStr"
 
-export default function TranslationTable({data, selected, onSelectTranslation, currKey, setInput}: DataTableProps) {
-     const {missingOnly} = useAppTranslation()
+export default function TranslationTable({data, selected, setInput}: DataTableProps) {
+     const {missingOnly, setCurrentTranslation, currTranslation} = useAppTranslation()
      const [search, setSearch] = React.useState("")
      const [searchMode, setSearchMode] = React.useState<"name" | "translation" | "source" | "source-not" | "translation-not" | "name-not">("source")
      const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({
@@ -198,13 +196,13 @@ export default function TranslationTable({data, selected, onSelectTranslation, c
                                    table.getRowModel().rows.map((row) => (
                                         <TableRow
                                              key={row.id}
-                                             data-state={(row.getIsSelected() || row.original.keyName===currKey) && "selected"}
+                                             data-state={(row.getIsSelected() || row.original.keyName===currTranslation?.keyName) && "selected"}
                                              className={cn(
                                                   !row.original.translationString && "bg-destructive/5",
                                                   row.original.baseString===row.original.translationString && "bg-amber-50 dark:bg-amber-900"
                                              )}
                                              onClick={()=>{
-                                                  onSelectTranslation(row.original)
+                                                  setCurrentTranslation(row.original)
                                                   setInput(row.original.translationString)
                                              }}
                                         >

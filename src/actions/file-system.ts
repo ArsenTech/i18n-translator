@@ -1,6 +1,7 @@
 import type { ITranslation } from "@/lib/types/data"
-import type { IBackendTranslation } from "@/lib/types/data/backend"
-import { NewTranslationSchema, OpenTranslationSchema } from "@/schemas"
+import type { CreateTranslationResult, IBackendTranslation } from "@/lib/types/data/backend"
+import { getErrorMessage } from "@/lib/utils"
+import { BatchRenameKeysSchema, NewTranslationSchema, OpenTranslationSchema, ReplaceTranslationSchema } from "@/schemas"
 import { BatchRenameKeysType, NewTranslationType, OpenTranslationType, ReplaceTranslationType } from "@/schemas/types"
 import { invoke } from "@tauri-apps/api/core"
 import { save } from "@tauri-apps/plugin-dialog"
@@ -9,29 +10,31 @@ export default class FilesystemActions{
      public static async newTranslation(values: NewTranslationType): Promise<{
           error?: string,
           success?: string,
-          data: ITranslation[]
+          data: ITranslation[],
+          targetPath?: string
      }>{
           try {
                const validatedFields = NewTranslationSchema.safeParse(values)
                if(!validatedFields.success) return {error: "All fields are invalid", data: []}
                const {path, targetLanguageCode, format} = validatedFields.data
-               const res = await invoke<IBackendTranslation[]>("create_translation", {
+               const res = await invoke<CreateTranslationResult>("create_translation", {
                     basePath: path,
                     targetLanguageCode: targetLanguageCode,
                     format: format
                })
                return {
                     success: "Translation created successfully",
-                    data: res.map(val=>({
+                    data: res.entries.map(val=>({
                          keyName: val.key_name,
                          translationString: val.translation_string,
                          lineNumber: val.line_number,
                          baseString: val.base_string
-                    }))
+                    })),
+                    targetPath: res.target_path
                }
           } catch (err) {
                console.error(err)
-               return {error: "Something went wrong", data: []}
+               return {error: getErrorMessage(err), data: []}
           }
      }
      public static async openTranslation(values: OpenTranslationType){
@@ -54,43 +57,73 @@ export default class FilesystemActions{
                }
           } catch (err) {
                console.error(err)
-               return {error: "Something went wrong", data: []}
+               return {error: getErrorMessage(err), data: []}
           }
      }
-     public static openRecent(){
-          console.log("TODO: Implement Open Recent translations (by path ofc) Action")
+     public static async saveAll(table: ITranslation[], targetPath: string){
+          if(!targetPath || targetPath.trim()==="") return {error: "Target Path is empty. Save cancelled"}
+          if(table.length<=0) return {error: "Table itself is empty"}
+          try {
+               const entries: IBackendTranslation[] = table.map(val=>({
+                    key_name: val.keyName,
+                    base_string: val.baseString,
+                    translation_string: val.translationString,
+                    line_number: val.lineNumber
+               }))
+               await invoke("save_translation", {
+                    targetPath,
+                    entries
+               })
+               return {success: "Translation saved successfully"}
+          } catch (err) {
+               console.error(err)
+               return {error: getErrorMessage(err)}
+          }
      }
-     public static saveAll(){
-          console.log("TODO: Implement Save All Action")
-     }
-     public static async saveAs(){
-          const path = await save({
-               title: "Save Translation As",
-               filters: [
-                    {
-                         name: "JSON Files",
-                         extensions: ["json"]
-                    },
-                    {
-                         name: "XML Files",
-                         extensions: ["xml"]
-                    },
-                    {
-                         name: "GNU gettext",
-                         extensions: ["po", "pot", "mo"]
-                    },
-                    {
-                         name: "XLIFF Files",
-                         extensions: ["xliff", "xlf"]
-                    },
-                    {
-                         name: "Microsoft RESX Files",
-                         extensions: ["resx"]
-                    },
-               ]
-          })
-          if(!path) return;
-          console.log(`TODO: Implement Save as Action into ${path}`)
+     public static async saveAs(table: ITranslation[]){
+          if(table.length<=0) return {error: "Table itself is empty"}
+          try {
+               const targetPath = await save({
+                    title: "Save Translation As",
+                    filters: [
+                         {
+                              name: "JSON Files",
+                              extensions: ["json"]
+                         },
+                         {
+                              name: "XML Files",
+                              extensions: ["xml"]
+                         },
+                         {
+                              name: "GNU gettext",
+                              extensions: ["po", "pot", "mo"]
+                         },
+                         {
+                              name: "XLIFF Files",
+                              extensions: ["xliff", "xlf"]
+                         },
+                         {
+                              name: "Microsoft RESX Files",
+                              extensions: ["resx"]
+                         },
+                    ]
+               })
+               if(!targetPath) return;
+               const entries: IBackendTranslation[] = table.map(val=>({
+                    key_name: val.keyName,
+                    base_string: val.baseString,
+                    translation_string: val.translationString,
+                    line_number: val.lineNumber
+               }))
+               await invoke("save_translation", {
+                    targetPath,
+                    entries
+               })
+               return {success: "Translation saved successfully"}
+          } catch (err) {
+               console.error(err)
+               return {error: getErrorMessage(err)}
+          }
      }
      public static undo(){
           console.log("TODO: Implement Undo Action")
@@ -99,11 +132,24 @@ export default class FilesystemActions{
           console.log("TODO: Implement Redo Action")
      }
      public static replaceTranslation(values: ReplaceTranslationType){
-          console.log(`TODO: Implement Replace translation Action from ${values.from} to ${values.to}`)
+          try {
+               const validatedFields = ReplaceTranslationSchema.safeParse(values)
+               if(!validatedFields.success) return {error: "All fields are invalid", data: []}
+               console.log(`TODO: Implement Replace translation Action from ${validatedFields.data.from} to ${validatedFields.data.to}`)
+          } catch (err) {
+               console.error(err)
+               return {error: getErrorMessage(err), data: []}
+          }
      }
      public static batchRename(values: BatchRenameKeysType){
-          console.log(values)
-          console.log("TODO: Implement batch rename Action")
+          try {
+               const validatedFields = BatchRenameKeysSchema.safeParse(values)
+               if(!validatedFields.success) return {error: "All fields are invalid", data: []}
+               console.log(`TODO: Implement batch rename Action from ${validatedFields.data.from} to ${validatedFields.data.to}`)
+          } catch (err) {
+               console.error(err)
+               return {error: getErrorMessage(err), data: []}
+          }
      }
      public static cut(){
           console.log("TODO: Implement Cut Action")

@@ -1,19 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Textarea } from "@/components/ui/textarea";
-import type { ITranslation } from "@/lib/types/data"
 import { ChevronRight, Copy, Save } from "lucide-react";
 import { useMemo } from "react";
 import TranslatorActions from "@/actions/translator";
 import { useAppTranslation } from "@/context/translation";
 
 interface TranslationInputProps{
-     currTranslation?: ITranslation | null,
      input: string,
      onInputChange: (input: string) => void
 }
-export default function TranslationInput({currTranslation, input, onInputChange}: TranslationInputProps){
-     const {table} = useAppTranslation()
+export default function TranslationInput({input, onInputChange}: TranslationInputProps){
+     const {table, currTranslation, setTable} = useAppTranslation()
      const total = useMemo(()=>table.length,[table])
      const translatedCount = useMemo(()=>table.filter(val=>val.translationString.trim()!=="").length,[table])
      const percentage = useMemo(()=>{
@@ -40,7 +38,7 @@ export default function TranslationInput({currTranslation, input, onInputChange}
                          <Copy/>
                          Copy from Source
                     </Button>
-                    <Button className="flex-1" onClick={TranslatorActions.saveString}>
+                    <Button className="flex-1" onClick={()=>TranslatorActions.saveString({input, setTable, currTranslation})}>
                          <Save/>
                          Save String
                     </Button>

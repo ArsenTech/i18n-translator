@@ -6,5 +6,5 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function getErrorMessage(err: unknown){
-  return err instanceof Error ? err.message : String(err)
+  return err instanceof Error ? err.message : "Something went wrong"
 }

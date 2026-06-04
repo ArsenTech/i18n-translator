@@ -38,6 +38,7 @@
     "core:window:allow-close",
     "core:window:allow-toggle-maximize",
     "process:default",
-    "dialog:default"
+    "dialog:default",
+    "store:default"
   ]
 }

@@ -10,3 +10,7 @@ export interface TreeNode {
 }
 export type SetStateType<T> = React.Dispatch<React.SetStateAction<T>>
 export type SelectType = {label: string, value: string}
+export interface ILangInputState{
+     base: string,
+     target: string
+}

@@ -16,6 +16,8 @@ import { FilePlus2 } from "lucide-react";
 import { toast } from "sonner";
 import { getErrorMessage } from "@/lib/utils";
 import { useAppTranslation } from "@/context/translation";
+import { detectLanguageCode } from "@/lib/helpers";
+import RecentTranslations from "@/lib/store/recent-translations";
 
 const items = [
      {value: "json", label: "JSON File"},
@@ -28,7 +30,7 @@ const items = [
 export default function NewTranslationPopup({triggerButton}: PopupFormProps){
      const [isCreating, startTransition] = useTransition()
      const [open, setOpen] = useState(false)
-     const {setTable} = useAppTranslation()
+     const {setTable, updateLangs, setFiles} = useAppTranslation()
      const form = useForm<NewTranslationType>({
           resolver: zodResolver(NewTranslationSchema),
           defaultValues: {
@@ -39,15 +41,35 @@ export default function NewTranslationPopup({triggerButton}: PopupFormProps){
      })
      const onSubmit = (values: NewTranslationType) => {
           if (isCreating) return;
+          const code = detectLanguageCode(values.path)
           startTransition(async()=>{
                try {
                     const res = await FilesystemActions.newTranslation(values);
-                    if(res.error) toast.error(res.error)
+                    if(res.error) toast.error("Failed to create translation",{
+                         description: res.error
+                    })
                     if(res.success) {
                          toast.success(res.success)
                          setTable(res.data)
+                         updateLangs({
+                              base: code,
+                              target: values.targetLanguageCode
+                         })
                          setOpen(false)
                          form.reset()
+                    }
+                    if(res.targetPath) {
+                         await RecentTranslations.addRecent({
+                              name: `${values.targetLanguageCode}.${values.format}`,
+                              basePath: values.path,
+                              targetPath: res.targetPath,
+                              baseLang: code,
+                              targetLang: values.targetLanguageCode
+                         })
+                         setFiles({
+                              basePath: values.path,
+                              targetPath: res.targetPath
+                         })
                     }
                } catch (err) {
                     toast.error("Failed to create translation",{

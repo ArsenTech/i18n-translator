@@ -1,12 +1,8 @@
 import { useAppTranslation } from "@/context/translation";
-import type { ITranslation } from "@/lib/types/data"
 import { useMemo } from "react";
 
-interface TranslatorStatsProps{
-     currTranslation?: ITranslation | null,
-}
-export default function TranslatorStats({currTranslation}: TranslatorStatsProps){
-     const {table} = useAppTranslation()
+export default function TranslatorStats(){
+     const {table, currTranslation} = useAppTranslation()
      const stats = useMemo(() => {
           let translated = 0, borrowed = 0
           for (const item of table) {

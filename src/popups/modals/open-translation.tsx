@@ -15,11 +15,13 @@ import { FolderOpen } from "lucide-react";
 import { getErrorMessage } from "@/lib/utils";
 import { toast } from "sonner";
 import { useAppTranslation } from "@/context/translation";
+import { detectLanguageCode, getFileName } from "@/lib/helpers";
+import RecentTranslations from "@/lib/store/recent-translations";
 
 export default function OpenTranslationPopup({triggerButton}: PopupFormProps){
      const [isOpening, startTransition] = useTransition()
      const [open, setOpen] = useState(false)
-     const {setTable} = useAppTranslation()
+     const {setTable, updateLangs, setFiles} = useAppTranslation()
      const form = useForm<OpenTranslationType>({
           resolver: zodResolver(OpenTranslationSchema),
           defaultValues: {
@@ -34,10 +36,27 @@ export default function OpenTranslationPopup({triggerButton}: PopupFormProps){
           startTransition(async()=>{
                try {
                     const res = await FilesystemActions.openTranslation(values)
-                    if(res.error) toast.error(res.error)
+                    if(res.error) toast.error("Failed to create translation",{
+                         description: res.error
+                    })
                     if(res.success) {
                          toast.success(res.success)
                          setTable(res.data)
+                         await RecentTranslations.addRecent({
+                              name: getFileName(values.targetPath),
+                              baseLang: values.baseLang,
+                              targetLang: values.targetLang,
+                              basePath: values.basePath,
+                              targetPath: values.targetPath
+                         })
+                         updateLangs({
+                              base: values.baseLang,
+                              target: values.targetLang,
+                         }),
+                         setFiles({
+                              basePath: values.basePath,
+                              targetPath: values.targetPath
+                         })
                          setOpen(false)
                          form.reset()
                     }
@@ -71,6 +90,13 @@ export default function OpenTranslationPopup({triggerButton}: PopupFormProps){
                                              <FieldLabel htmlFor={field.name}>File Path</FieldLabel>
                                              <FilePicker
                                                   {...field}
+                                                  onChange={val=>{
+                                                       field.onChange(val)
+                                                       const code = detectLanguageCode(val)
+                                                       if (code) {
+                                                            form.setValue("baseLang", code)
+                                                       }
+                                                  }}
                                                   invalid={fieldState.invalid}
                                                   placeholder="C:/Users/username/Desktop/en.json"
                                                   openText="Open the base language file"
@@ -114,6 +140,13 @@ export default function OpenTranslationPopup({triggerButton}: PopupFormProps){
                                              <FieldLabel htmlFor={field.name}>File Path</FieldLabel>
                                              <FilePicker
                                                   {...field}
+                                                  onChange={val=>{
+                                                       field.onChange(val)
+                                                       const code = detectLanguageCode(val)
+                                                       if (code) {
+                                                            form.setValue("targetLang", code)
+                                                       }
+                                                  }}
                                                   invalid={fieldState.invalid}
                                                   placeholder="C:/Users/username/Desktop/hy.json"
                                                   openText="Open the translation file"

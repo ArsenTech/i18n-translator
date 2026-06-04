@@ -1,13 +1,7 @@
-import { Menubar, MenubarContent, MenubarGroup, MenubarItem, MenubarMenu, MenubarSeparator, MenubarShortcut, MenubarSub, MenubarSubContent, MenubarSubTrigger, MenubarTrigger } from "../ui/menubar";
-import { exit } from '@tauri-apps/plugin-process';
+import { Menubar, MenubarContent, MenubarGroup, MenubarItem, MenubarMenu, MenubarSeparator, MenubarShortcut, MenubarSub, MenubarSubContent, MenubarSubTrigger, MenubarTrigger } from "../../ui/menubar";
 import FilesystemActions from "@/actions/file-system";
 import FindActions from "@/actions/find";
 import TranslatorActions from "@/actions/translator";
-import { useTreeSidebar } from "@/context/sidebar";
-import ViewActions from "@/actions/view";
-import { useAppTranslation } from "@/context/translation";
-import NewTranslationPopup from "@/popups/modals/new-translation";
-import OpenTranslationPopup from "@/popups/modals/open-translation";
 import FindPopup from "@/popups/modals/find";
 import ReplaceTranslationPopup from "@/popups/modals/replace-translation";
 import GoToKeyNamePopup from "@/popups/modals/go-to-key";
@@ -18,33 +12,13 @@ import { PROVIDER_NAMES } from "@/lib/constants";
 import { AutoTranslateProvider } from "@/schemas/types";
 import SpellCheckPopup from "@/popups/modals/spell-check"
 import CompareDifferencePopup from "@/popups/modals/compare-diff";
+import FileMenu from "./file-menu";
+import ViewMenu from "./view-menu";
 
 export default function MenuBar(){
-     const {setOpen} = useTreeSidebar()
-     const {setMissingOnly} = useAppTranslation()
      return (
           <Menubar className="h-full border-0 bg-transparent shadow-none rounded-none">
-               <MenubarMenu>
-                    <MenubarTrigger className="tracking-tight">File</MenubarTrigger>
-                    <MenubarContent>
-                         <MenubarGroup>
-                              <NewTranslationPopup triggerButton={(
-                                   <MenubarItem onSelect={(e) => e.preventDefault()}>New Translation</MenubarItem>
-                              )}/>
-                              <OpenTranslationPopup triggerButton={(
-                                   <MenubarItem onSelect={(e) => e.preventDefault()}>Open Translations</MenubarItem>
-                              )}/>
-                              <MenubarItem onClick={FilesystemActions.openRecent}>Recent Translations</MenubarItem>
-                         </MenubarGroup>
-                         <MenubarSeparator/>
-                         <MenubarGroup>
-                              <MenubarItem onClick={FilesystemActions.saveAll}>Save <MenubarShortcut>Ctrl+S</MenubarShortcut></MenubarItem>
-                              <MenubarItem onClick={FilesystemActions.saveAs}>Save As... <MenubarShortcut>Ctrl+Shift+S</MenubarShortcut></MenubarItem>
-                         </MenubarGroup>
-                         <MenubarSeparator/>
-                         <MenubarItem onClick={()=>exit(0)}>Exit <MenubarShortcut>Alt+F4</MenubarShortcut></MenubarItem>
-                    </MenubarContent>
-               </MenubarMenu>
+               <FileMenu/>
                <MenubarMenu>
                     <MenubarTrigger className="tracking-tight">Edit</MenubarTrigger>
                     <MenubarContent>
@@ -102,30 +76,7 @@ export default function MenuBar(){
                          </MenubarGroup>
                     </MenubarContent>
                </MenubarMenu>
-               <MenubarMenu>
-                    <MenubarTrigger className="tracking-tight">View</MenubarTrigger>
-                    <MenubarContent>
-                         <MenubarItem onClick={()=>setOpen(prev=>!prev)}>Toggle Sidebar</MenubarItem>
-                         <MenubarItem onClick={()=>setMissingOnly(prev => !prev)}>Toggle Missing Only</MenubarItem>
-                         <MenubarSub>
-                              <MenubarSubTrigger>Zoom</MenubarSubTrigger>
-                              <MenubarSubContent>
-                                   <MenubarItem onClick={ViewActions.zoomIn}>
-                                        Zoom In
-                                        <MenubarShortcut>Ctrl+Plus</MenubarShortcut>
-                                   </MenubarItem>
-                                   <MenubarItem onClick={ViewActions.zoomOut}>
-                                        Zoom Out
-                                        <MenubarShortcut>Ctrl+Minus</MenubarShortcut>
-                                   </MenubarItem>
-                                   <MenubarItem onClick={ViewActions.resetZoom}>
-                                        Reset Zoom
-                                        <MenubarShortcut>Ctrl+0</MenubarShortcut>
-                                   </MenubarItem>
-                              </MenubarSubContent>
-                         </MenubarSub>
-                    </MenubarContent>
-               </MenubarMenu>
+               <ViewMenu/>
                <MenubarMenu>
                     <MenubarTrigger className="tracking-tight">Tools</MenubarTrigger>
                     <MenubarContent>

@@ -4,3 +4,8 @@ export interface IBackendTranslation{
      translation_string: string,
      line_number: number
 }
+
+export interface CreateTranslationResult {
+    entries: IBackendTranslation[],
+    target_path: string,
+}

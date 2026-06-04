@@ -4,19 +4,17 @@ import { useTreeSidebar } from "@/context/sidebar";
 import { useAppTranslation } from "@/context/translation";
 import useKeyboardShortcuts from "@/hooks/use-kbd-shortcuts";
 import { buildTree } from "@/lib/helpers";
-import type { ITranslation } from "@/lib/types/data"
 import { cn } from "@/lib/utils";
 import { lazy, Suspense, useMemo, useState } from "react";
 
 const TranslationTable = lazy(()=>import("@/components/translation-table"))
 const TreeSidebar = lazy(()=>import("@/components/main-translation/tree-sidebar"))
 const TranslatorStats = lazy(()=>import("@/components/main-translation/stats"))
-const TranslationInput = lazy(()=>import("@/components/main-translation/translation-input"))
+const TranslationInput = lazy(()=>import("@/components/main-translation/input"))
 const QuickAccessToolbar = lazy(()=>import("@/components/main-translation/quick-access"))
 const LanguageSelect = lazy(()=>import("@/components/main-translation/language-select"))
 
 export default function MainPage(){
-     const [currTranslation, setCurrentTranslation] = useState<ITranslation | null>(null)
      const [input, setInput] = useState("")
      const {table} = useAppTranslation()
      const {open} = useTreeSidebar()
@@ -62,18 +60,13 @@ export default function MainPage(){
                               <TranslationTable
                                    data={tableData}
                                    selected={selectedNamespace}
-                                   onSelectTranslation={setCurrentTranslation}
-                                   currKey={currTranslation?.keyName ?? ""}
                                    setInput={setInput}
                               />
                               <TranslationInput
-                                   currTranslation={currTranslation}
                                    input={input}
                                    onInputChange={setInput}
                               />
-                              <TranslatorStats
-                                   currTranslation={currTranslation}
-                              />
+                              <TranslatorStats/>
                          </Suspense>
                     </div>
                </div>

@@ -11,8 +11,32 @@ import AutoTranslatePopup from "@/popups/modals/auto-translate";
 import { AutoTranslateProvider } from "@/schemas/types";
 import ReplaceTranslationPopup from "@/popups/modals/replace-translation";
 import SpellCheckPopup from "@/popups/modals/spell-check";
+import { useState } from "react";
+import { getErrorMessage } from "@/lib/utils";
+import { toast } from "sonner";
+import { useAppTranslation } from "@/context/translation";
+import { Spinner } from "../ui/spinner";
 
 export default function QuickAccessToolbar(){
+     const [isSaving, setIsSaving] = useState(false)
+     const {table, files} = useAppTranslation()
+     const save = async() => {
+          if(isSaving) return;
+          setIsSaving(true)
+          try {
+               const res = await FilesystemActions.saveAll(table, files.targetPath)
+               if(res?.error) toast.error("Failed to save the file",{
+                    description: res.error
+               })
+               if(res?.success) toast.success(res.success)
+          } catch (err){
+               toast.error("Failed to save the file",{
+                    description: getErrorMessage(err)
+               })
+          } finally {
+               setIsSaving(false)
+          }
+     }
      return (
           <div className="px-4 pt-2 gap-1 flex items-center justify-center flex-wrap">
                <NewTranslationPopup triggerButton={(
@@ -25,8 +49,8 @@ export default function QuickAccessToolbar(){
                          <FolderOpen/>
                     </Button>
                )}/>
-               <Button variant="secondary" className="flex-1 aspect-square" title="Save Translation" onClick={FilesystemActions.saveAll}>
-                    <Save/>
+               <Button variant="secondary" className="flex-1 aspect-square" title="Save Translation" onClick={save} disabled={isSaving}>
+                    {isSaving ? <Spinner/> : <Save/>}
                </Button>
                <Button variant="secondary" className="flex-1 aspect-square" title="Find Missing Keys" onClick={FindActions.findMissing}>
                     <Search/>

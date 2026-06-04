@@ -1,5 +1,6 @@
 import { TreeNode } from "./types"
 import type { ITranslation } from "@/lib/types/data"
+import { IBackendTranslation } from "./types/data/backend"
 
 export function buildTree(data: ITranslation[]): TreeNode[] {
      const root: TreeNode = {
@@ -43,4 +44,22 @@ export function buildTree(data: ITranslation[]): TreeNode[] {
 export const wordCount = (value: string) => {
      const text = value.trim()
      return text ? text.split(/\s+/).length : 0
+}
+export function detectLanguageCode(path: string) {
+     const parts = path.split(/[\\/]/)
+     for (const part of parts) 
+          if (/^[a-z]{2}(?:-[a-z]{2})?$/i.test(part)) 
+               return part.toLowerCase()
+     return ""
+}
+export function getFileName(path: string) {
+     return path.split(/[\\/]/).pop() ?? path
+}
+export function toBackendEntries(table: ITranslation[]): IBackendTranslation[] {
+     return table.map(val => ({
+          key_name: val.keyName,
+          base_string: val.baseString,
+          translation_string: val.translationString,
+          line_number: val.lineNumber,
+     }))
 }

@@ -5,14 +5,23 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 ## [0.2.2] - Unreleased
+> [!NOTE]
+> This release focuses on making the File and View menu actions functional.
 ### Added
 - New Translation action
-- Toggle Sidebar on desktop
 - Open Translation action
+- Save actions
+  - Save String
+  - Save All
+  - Save As
+- Open Recent submenu (up to 25 recent translations)
+- Toggle Sidebar action on desktop
+- Keyboard shortcuts for saving
 ### Improved
-- **Table** - Optimized for performance (few rerenders)
-- **Stats** - Correctly calculated
-- **Sidebar** - Improved Sidebar UX
+- **Table** - Optimized rendering and filtering performance
+- **Stats** - Correctly calculated values based on current data
+- **Sidebar** - Improved desktop and mobile UX
+- **Language Selector** - Linked with a context value
 
 ## [0.2.1] - 2026-06-02
 ### Added

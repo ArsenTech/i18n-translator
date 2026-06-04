@@ -12,11 +12,11 @@ interface TranslationInputProps{
 }
 export default function TranslationInput({input, onInputChange}: TranslationInputProps){
      const {table, currTranslation, setTable} = useAppTranslation()
-     const total = useMemo(()=>table.length,[table])
-     const translatedCount = useMemo(()=>table.filter(val=>val.translationString.trim()!=="").length,[table])
      const percentage = useMemo(()=>{
-          return total > 0 ? Math.min(100,Math.floor((translatedCount / total) * 100)) : 0
-     },[translatedCount, total])
+          const total = table.length;
+          const translated = table.filter(val=>val.translationString.trim()!=="").length
+          return total > 0 ? Math.min(100,Math.floor((translated / total) * 100)) : 0
+     },[table])
      return (
           <>
           <div className="flex items-center gap-2">
@@ -31,10 +31,7 @@ export default function TranslationInput({input, onInputChange}: TranslationInpu
                     rows={3}
                />
                <div className="flex items-center gap-1 flex-wrap flex-1">
-                    <Button className="flex-1" variant="secondary" onClick={()=>{
-                         if(!currTranslation) return;
-                         onInputChange(currTranslation.baseString)
-                    }}>
+                    <Button className="flex-1" variant="secondary" onClick={()=>TranslatorActions.borrowFromSource(currTranslation,onInputChange)}>
                          <Copy/>
                          Copy from Source
                     </Button>

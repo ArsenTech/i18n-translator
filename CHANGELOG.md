@@ -4,6 +4,10 @@ All notable changes of I18N Translator will be documented here.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [0.2.3] - Unreleased
+### Improved
+- Optimized Translation Input
+
 ## [0.2.2] - 2026-06-04
 > [!NOTE]
 > This release focuses on making the File and View menu actions functional.
@@ -100,6 +104,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Initialized
 - Main Page with a sample test
 
+[0.2.3]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.3
+[0.2.2]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.2
 [0.2.1]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.1
 [0.2.0]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.0
 [0.1.3]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.1.3

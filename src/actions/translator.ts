@@ -77,6 +77,10 @@ export default class TranslatorActions{
                return {error: getErrorMessage(err), data: []}
           }
      }
+     public static borrowFromSource(currTranslation: ITranslation | null, onInputChange: (input: string) => void){
+          if(!currTranslation) return;
+          onInputChange(currTranslation.baseString)
+     }
      public static jumpToNextBlankField(){
           console.log("TODO: Implement next blank field")
      }

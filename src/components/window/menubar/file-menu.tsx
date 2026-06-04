@@ -10,7 +10,7 @@ import { getErrorMessage } from "@/lib/utils";
 import RecentTranslations, {RecentTranslation} from "@/lib/store/recent-translations";
 
 export default function FileMenu(){
-     const {table, files, setTable} = useAppTranslation()
+     const {table, files, setTable, setFiles, updateLangs} = useAppTranslation()
      const [isSaving, setIsSaving] = useState(false)
      const [isOpening, setIsOpening] = useState(false)
      const [recentTranslations, setRecentTranslations] = useState<RecentTranslation[]>([])
@@ -45,8 +45,18 @@ export default function FileMenu(){
                if(res.error) toast.error("Failed to save the file",{
                     description: res.error
                })
-               if(res.success) toast.success(res.success);
-               if(res.data) setTable(res.data)
+               if(res.success) {
+                    toast.success(res.success);
+                    setTable(res.data)
+                    setFiles({
+                         basePath: item.basePath,
+                         targetPath: item.targetPath
+                    })
+                    updateLangs({
+                         base: item.baseLang,
+                         target: item.targetLang
+                    })
+               }
           } catch (err){
                toast.error("Failed to save the file",{
                     description: getErrorMessage(err)

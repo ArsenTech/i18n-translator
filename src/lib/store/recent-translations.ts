@@ -36,7 +36,7 @@ export default class RecentTranslations{
      public static async openRecent(item: RecentTranslation): Promise<{
           error?: string,
           success?: string,
-          data?: ITranslation[]
+          data: ITranslation[]
      }>{
           try {
                const res = await invoke<IBackendTranslation[]>("open_translation", {
@@ -50,7 +50,7 @@ export default class RecentTranslations{
                          translationString: val.translation_string,
                          lineNumber: val.line_number,
                          baseString: val.base_string
-                    }))
+                    })),
                }
           } catch (err) {
                console.error(err)

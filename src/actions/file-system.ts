@@ -1,8 +1,8 @@
 import type { ITranslation } from "@/lib/types/data"
 import type { CreateTranslationResult, IBackendTranslation } from "@/lib/types/data/backend"
 import { getErrorMessage } from "@/lib/utils"
-import { BatchRenameKeysSchema, NewTranslationSchema, OpenTranslationSchema, ReplaceTranslationSchema } from "@/schemas"
-import { BatchRenameKeysType, NewTranslationType, OpenTranslationType, ReplaceTranslationType } from "@/schemas/types"
+import { NewTranslationSchema, OpenTranslationSchema } from "@/schemas"
+import { NewTranslationType, OpenTranslationType } from "@/schemas/types"
 import { invoke } from "@tauri-apps/api/core"
 import { save } from "@tauri-apps/plugin-dialog"
 
@@ -61,7 +61,7 @@ export default class FilesystemActions{
           }
      }
      public static async saveAll(table: ITranslation[], targetPath: string){
-          if(!targetPath || targetPath.trim()==="") return {error: "Target Path is empty. Save cancelled"}
+          if(!targetPath) return {error: "Target Path is empty. Save cancelled"}
           if(table.length<=0) return {error: "Table itself is empty"}
           try {
                const entries: IBackendTranslation[] = table.map(val=>({
@@ -130,26 +130,6 @@ export default class FilesystemActions{
      }
      public static redo(){
           console.log("TODO: Implement Redo Action")
-     }
-     public static replaceTranslation(values: ReplaceTranslationType){
-          try {
-               const validatedFields = ReplaceTranslationSchema.safeParse(values)
-               if(!validatedFields.success) return {error: "All fields are invalid", data: []}
-               console.log(`TODO: Implement Replace translation Action from ${validatedFields.data.from} to ${validatedFields.data.to}`)
-          } catch (err) {
-               console.error(err)
-               return {error: getErrorMessage(err), data: []}
-          }
-     }
-     public static batchRename(values: BatchRenameKeysType){
-          try {
-               const validatedFields = BatchRenameKeysSchema.safeParse(values)
-               if(!validatedFields.success) return {error: "All fields are invalid", data: []}
-               console.log(`TODO: Implement batch rename Action from ${validatedFields.data.from} to ${validatedFields.data.to}`)
-          } catch (err) {
-               console.error(err)
-               return {error: getErrorMessage(err), data: []}
-          }
      }
      public static cut(){
           console.log("TODO: Implement Cut Action")

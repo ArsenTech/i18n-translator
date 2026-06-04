@@ -1,9 +1,9 @@
 import { SetStateType } from "@/lib/types"
 import { ITranslation } from "@/lib/types/data"
 import { getErrorMessage } from "@/lib/utils"
-import { GoToKeyNameSchema, SpellCheckSchema, TransliterateScriptSchema } from "@/schemas"
+import { BatchRenameKeysSchema, GoToKeyNameSchema, ReplaceTranslationSchema, SpellCheckSchema, TransliterateScriptSchema } from "@/schemas"
 import { AutoTranslateSchema } from "@/schemas/auto-translate"
-import { AutoTranslateType, GoToKeyNameType, SpellCheckType, TransliterateScriptType } from "@/schemas/types"
+import { AutoTranslateType, BatchRenameKeysType, GoToKeyNameType, ReplaceTranslationType, SpellCheckType, TransliterateScriptType } from "@/schemas/types"
 
 export default class TranslatorActions{
      public static autoTranslate(values: AutoTranslateType){
@@ -47,7 +47,6 @@ export default class TranslatorActions{
                console.error(err)
                return {error: getErrorMessage(err)}
           }
-          
      }
      public static transliterateScript(values: TransliterateScriptType){
           try {
@@ -72,5 +71,25 @@ export default class TranslatorActions{
                translationString: input
           }
           : item))
+     }
+     public static replaceTranslation(values: ReplaceTranslationType){
+          try {
+               const validatedFields = ReplaceTranslationSchema.safeParse(values)
+               if(!validatedFields.success) return {error: "All fields are invalid", data: []}
+               console.log(`TODO: Implement Replace translation Action from ${validatedFields.data.from} to ${validatedFields.data.to}`)
+          } catch (err) {
+               console.error(err)
+               return {error: getErrorMessage(err), data: []}
+          }
+     }
+     public static batchRename(values: BatchRenameKeysType){
+          try {
+               const validatedFields = BatchRenameKeysSchema.safeParse(values)
+               if(!validatedFields.success) return {error: "All fields are invalid", data: []}
+               console.log(`TODO: Implement batch rename Action from ${validatedFields.data.from} to ${validatedFields.data.to}`)
+          } catch (err) {
+               console.error(err)
+               return {error: getErrorMessage(err), data: []}
+          }
      }
 }

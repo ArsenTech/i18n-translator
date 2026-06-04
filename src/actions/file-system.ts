@@ -1,6 +1,6 @@
 import type { ITranslation } from "@/lib/types/data"
 import type { IBackendTranslation } from "@/lib/types/data/backend"
-import { NewTranslationSchema } from "@/schemas"
+import { NewTranslationSchema, OpenTranslationSchema } from "@/schemas"
 import { BatchRenameKeysType, NewTranslationType, OpenTranslationType, ReplaceTranslationType } from "@/schemas/types"
 import { invoke } from "@tauri-apps/api/core"
 import { save } from "@tauri-apps/plugin-dialog"
@@ -34,8 +34,28 @@ export default class FilesystemActions{
                return {error: "Something went wrong", data: []}
           }
      }
-     public static openTranslation(values: OpenTranslationType){
-          console.log(`TODO: Implement Open Translation Action from ${values.targetPath}`)
+     public static async openTranslation(values: OpenTranslationType){
+          try {
+               const validatedFields = OpenTranslationSchema.safeParse(values)
+               if(!validatedFields.success) return {error: "All fields are invalid", data: []}
+               const {basePath, targetPath} = validatedFields.data
+               const res = await invoke<IBackendTranslation[]>("open_translation", {
+                    basePath,
+                    targetPath
+               })
+               return {
+                    success: "Translation opened successfully",
+                    data: res.map(val=>({
+                         keyName: val.key_name,
+                         translationString: val.translation_string,
+                         lineNumber: val.line_number,
+                         baseString: val.base_string
+                    }))
+               }
+          } catch (err) {
+               console.error(err)
+               return {error: "Something went wrong", data: []}
+          }
      }
      public static openRecent(){
           console.log("TODO: Implement Open Recent translations (by path ofc) Action")

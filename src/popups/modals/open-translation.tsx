@@ -1,5 +1,4 @@
 import AppModal from "@/components/popups/modal";
-import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldGroup, FieldLabel, FieldLegend, FieldSeparator, FieldSet } from "@/components/ui/field";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
@@ -10,8 +9,17 @@ import LangSelector from "@/components/lang-selector";
 import FilePicker from "@/components/fields/file-picker";
 import FilesystemActions from "@/actions/file-system";
 import { PopupFormProps } from "@/lib/types";
+import { useState, useTransition } from "react";
+import LoadingButton from "@/components/loading-button";
+import { FolderOpen } from "lucide-react";
+import { getErrorMessage } from "@/lib/utils";
+import { toast } from "sonner";
+import { useAppTranslation } from "@/context/translation";
 
 export default function OpenTranslationPopup({triggerButton}: PopupFormProps){
+     const [isOpening, startTransition] = useTransition()
+     const [open, setOpen] = useState(false)
+     const {setTable} = useAppTranslation()
      const form = useForm<OpenTranslationType>({
           resolver: zodResolver(OpenTranslationSchema),
           defaultValues: {
@@ -22,10 +30,28 @@ export default function OpenTranslationPopup({triggerButton}: PopupFormProps){
           }
      })
      const onSubmit = (values: OpenTranslationType) => {
-          FilesystemActions.openTranslation(values)
+          if (isOpening) return;
+          startTransition(async()=>{
+               try {
+                    const res = await FilesystemActions.openTranslation(values)
+                    if(res.error) toast.error(res.error)
+                    if(res.success) {
+                         toast.success(res.success)
+                         setTable(res.data)
+                         setOpen(false)
+                         form.reset()
+                    }
+               } catch (err) {
+                    toast.error("Failed to create translation",{
+                         description: getErrorMessage(err)
+                    })
+               }
+          })
      }
      return (
           <AppModal
+               open={open}
+               onOpenChange={setOpen}
                title="Open Translation"
                description="Open base and target language translations to start translating"
                triggerButton={triggerButton}
@@ -39,6 +65,7 @@ export default function OpenTranslationPopup({triggerButton}: PopupFormProps){
                               <Controller
                                    control={form.control}
                                    name="basePath"
+                                   disabled={isOpening}
                                    render={({field, fieldState})=>(
                                         <Field data-invalid={fieldState.invalid}>
                                              <FieldLabel htmlFor={field.name}>File Path</FieldLabel>
@@ -57,6 +84,7 @@ export default function OpenTranslationPopup({triggerButton}: PopupFormProps){
                               <Controller
                                    control={form.control}
                                    name="baseLang"
+                                   disabled={isOpening}
                                    render={({field, fieldState})=>(
                                         <Field data-invalid={fieldState.invalid}>
                                              <FieldLabel htmlFor={field.name}>Language</FieldLabel>
@@ -80,6 +108,7 @@ export default function OpenTranslationPopup({triggerButton}: PopupFormProps){
                               <Controller
                                    control={form.control}
                                    name="targetPath"
+                                   disabled={isOpening}
                                    render={({field, fieldState})=>(
                                         <Field data-invalid={fieldState.invalid}>
                                              <FieldLabel htmlFor={field.name}>File Path</FieldLabel>
@@ -98,6 +127,7 @@ export default function OpenTranslationPopup({triggerButton}: PopupFormProps){
                               <Controller
                                    control={form.control}
                                    name="targetLang"
+                                   disabled={isOpening}
                                    render={({field, fieldState})=>(
                                         <Field data-invalid={fieldState.invalid}>
                                              <FieldLabel htmlFor={field.name}>Language</FieldLabel>
@@ -116,7 +146,10 @@ export default function OpenTranslationPopup({triggerButton}: PopupFormProps){
                     </FieldGroup>
                </form>
                <DialogFooter>
-                    <Button type="submit" form="open-translation">Open Translation</Button>
+                    <LoadingButton isLoading={isOpening} loaderText="Opening..." type="submit" form="open-translation">
+                         <FolderOpen/>
+                         Open Translation
+                    </LoadingButton>
                </DialogFooter>
           </AppModal>
      )

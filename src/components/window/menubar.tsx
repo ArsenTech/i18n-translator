@@ -20,7 +20,7 @@ import SpellCheckPopup from "@/popups/modals/spell-check"
 import CompareDifferencePopup from "@/popups/modals/compare-diff";
 
 export default function MenuBar(){
-     const {setOpen, isMobile} = useTreeSidebar()
+     const {setOpen} = useTreeSidebar()
      const {setMissingOnly} = useAppTranslation()
      return (
           <Menubar className="h-full border-0 bg-transparent shadow-none rounded-none">
@@ -105,7 +105,7 @@ export default function MenuBar(){
                <MenubarMenu>
                     <MenubarTrigger className="tracking-tight">View</MenubarTrigger>
                     <MenubarContent>
-                         <MenubarItem disabled={!isMobile} onClick={()=>setOpen(prev=>!prev)}>Toggle Sidebar</MenubarItem>
+                         <MenubarItem onClick={()=>setOpen(prev=>!prev)}>Toggle Sidebar</MenubarItem>
                          <MenubarItem onClick={()=>setMissingOnly(prev => !prev)}>Toggle Missing Only</MenubarItem>
                          <MenubarSub>
                               <MenubarSubTrigger>Zoom</MenubarSubTrigger>

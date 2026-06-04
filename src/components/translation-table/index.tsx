@@ -200,8 +200,8 @@ export default function TranslationTable({data, selected, onSelectTranslation, c
                                              key={row.id}
                                              data-state={(row.getIsSelected() || row.original.keyName===currKey) && "selected"}
                                              className={cn(
-                                                  row.original.baseString===row.original.translationString && "bg-amber-50 dark:bg-amber-900",
-                                                  !row.original.translationString && "bg-destructive/5"
+                                                  !row.original.translationString && "bg-destructive/5",
+                                                  row.original.baseString===row.original.translationString && "bg-amber-50 dark:bg-amber-900"
                                              )}
                                              onClick={()=>{
                                                   onSelectTranslation(row.original)

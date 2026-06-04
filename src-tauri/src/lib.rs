@@ -9,13 +9,14 @@ mod helpers;
 use tauri_specta::{collect_commands, Builder};
 
 use crate::{
-    translator::file_system::create_translation
+    translator::file_system::{create_translation, open_translation}
 };
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let specta_builder = Builder::<tauri::Wry>::new().commands(collect_commands![
-        create_translation
+        create_translation,
+        open_translation
     ]);
     tauri::Builder::default()
         .plugin(tauri_plugin_dialog::init())

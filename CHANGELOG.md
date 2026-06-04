@@ -4,6 +4,16 @@ All notable changes of I18N Translator will be documented here.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [0.2.2] - Unreleased
+### Added
+- New Translation action
+- Toggle Sidebar on desktop
+- Open Translation action
+### Improved
+- **Table** - Optimized for performance (few rerenders)
+- **Stats** - Correctly calculated
+- **Sidebar** - Improved Sidebar UX
+
 ## [0.2.1] - 2026-06-02
 ### Added
 - Spell Checker Popups

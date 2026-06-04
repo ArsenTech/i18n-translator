@@ -1,9 +1,11 @@
 import { TranslationInputLoader, LanguageSelectLoader, QuickAccessToolbarLoader, TreeSidebarLoader, TranslatorStatsLoader, TableLoader} from "@/components/loaders/translator"
 import WindowWrapper from "@/components/window";
+import { useTreeSidebar } from "@/context/sidebar";
 import { useAppTranslation } from "@/context/translation";
 import useKeyboardShortcuts from "@/hooks/use-kbd-shortcuts";
 import { buildTree } from "@/lib/helpers";
 import type { ITranslation } from "@/lib/types/data"
+import { cn } from "@/lib/utils";
 import { lazy, Suspense, useMemo, useState } from "react";
 
 const TranslationTable = lazy(()=>import("@/components/translation-table"))
@@ -17,6 +19,7 @@ export default function MainPage(){
      const [currTranslation, setCurrentTranslation] = useState<ITranslation | null>(null)
      const [input, setInput] = useState("")
      const {table} = useAppTranslation()
+     const {open} = useTreeSidebar()
 
      const [selectedNamespace, setSelectedNamespace] = useState<string>("")
      const tree = useMemo(() => buildTree(table), [table])
@@ -30,22 +33,22 @@ export default function MainPage(){
      useKeyboardShortcuts()
      return (
           <WindowWrapper>
-               <div className="grid grid-cols-1 md:grid-cols-[0.5fr_1fr] lg:grid-cols-[0.4fr_1fr] xl:grid-cols-[0.3fr_1fr] px-4 py-2 gap-4 md:h-[calc(100dvh-40px)] overflow-hidden">
-                    <div className="w-full flex flex-col gap-1 min-h-0 overflow-hidden">
-                         <Suspense fallback={(
-                              <>
-                              <QuickAccessToolbarLoader/>
-                              <TreeSidebarLoader/>
-                              </>
-                         )}>
-                              <QuickAccessToolbar/>
+               <Suspense fallback={<QuickAccessToolbarLoader/>}>
+                    <QuickAccessToolbar/>
+               </Suspense>
+               <div className={cn(
+                    "grid grid-cols-1 px-4 py-2 gap-4 md:h-[calc(100dvh-80px)] overflow-hidden",
+                    open ? "md:grid-cols-[300px_1fr]" : "md:grid-cols-1"
+               )}>
+                    {open && (
+                         <Suspense fallback={<TreeSidebarLoader/>}>
                               <TreeSidebar
                                    tree={tree}
                                    onSelectNamespace={setSelectedNamespace}
                                    selectedNamespace={selectedNamespace}
                               />
                          </Suspense>
-                    </div>
+                    )}
                     <div className="w-full flex flex-col gap-2 min-h-0 overflow-hidden">
                          <Suspense fallback={(
                               <>

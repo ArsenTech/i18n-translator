@@ -14,7 +14,7 @@ import SpellCheckPopup from "@/popups/modals/spell-check";
 
 export default function QuickAccessToolbar(){
      return (
-          <div className="py-2 gap-1 flex items-center justify-center flex-wrap">
+          <div className="px-4 pt-2 gap-1 flex items-center justify-center flex-wrap">
                <NewTranslationPopup triggerButton={(
                     <Button variant="secondary" className="flex-1 aspect-square" title="New Translation">
                          <FilePlus/>

@@ -72,7 +72,7 @@ export function LanguageSelectLoader(){
 }
 export function QuickAccessToolbarLoader(){
      return (
-          <div className="py-2 gap-1 flex items-center justify-center flex-wrap">
+          <div className="px-4 pt-2 gap-1 flex items-center justify-center flex-wrap">
                {Array.from({length: 8}).map((_,i)=>(
                     <Skeleton className="h-8 flex-1 aspect-square" key={i+1}/>
                ))}
@@ -107,7 +107,7 @@ export function TreeSidebarLoader(){
 }
 export default function MainContentLoader(){
      return (
-          <div className="grid grid-cols-1 md:grid-cols-[0.5fr_1fr] lg:grid-cols-[0.4fr_1fr] xl:grid-cols-[0.3fr_1fr] px-4 py-2 gap-4 md:h-[calc(100dvh-40px)] overflow-hidden">
+          <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] px-4 py-2 gap-4 md:h-[calc(100dvh-40px)] overflow-hidden">
                <div className="w-full flex flex-col gap-1 min-h-0 overflow-hidden">
                     <QuickAccessToolbarLoader/>
                     <TreeSidebarLoader/>

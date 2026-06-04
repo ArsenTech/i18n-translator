@@ -82,7 +82,7 @@ function TreeSidebarContainer({children}: {children: React.ReactNode}){
                </Sheet>
           )
      }
-     return content
+     return open ? content : null
 }
 
 interface TreeNodeItemProps{
@@ -94,7 +94,7 @@ function TreeNodeItem({node, onSelectNamespace, selectedNamespace}: TreeNodeItem
      const [open, setOpen] = useState(node.name === "Root")
      const hasChildren = node.children.length > 0
      const selected = selectedNamespace === node.fullPath
-     const {setOpen: setSidebarOpen} = useTreeSidebar()
+     const {closeMobileSidebar} = useTreeSidebar()
      return (
           <TreeSidebarItem>
                <Collapsible open={open} onOpenChange={setOpen}>
@@ -113,7 +113,7 @@ function TreeNodeItem({node, onSelectNamespace, selectedNamespace}: TreeNodeItem
                                    selected={selected}
                                    onClick={() => {
                                         onSelectNamespace(node.fullPath)
-                                        setSidebarOpen(false)
+                                        closeMobileSidebar()
                                    }}
                               >
                                    <List className="size-4" />
@@ -146,7 +146,7 @@ interface TreeSidebarProps{
      onSelectNamespace: (namespace: string) => void
 }
 export default function TreeSidebar({tree, onSelectNamespace, selectedNamespace}: TreeSidebarProps) {
-     const {setOpen} = useTreeSidebar()
+     const {closeMobileSidebar} = useTreeSidebar()
      return (
           <TreeSidebarContainer>
                <TreeSidebarMenu>
@@ -156,7 +156,7 @@ export default function TreeSidebar({tree, onSelectNamespace, selectedNamespace}
                               selected={selectedNamespace===""}
                               onClick={() => {
                                    onSelectNamespace("")
-                                   setOpen(false)
+                                   closeMobileSidebar()
                               }}
                          >
                               <List className="size-4" />

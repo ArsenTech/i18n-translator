@@ -81,8 +81,17 @@ export default class TranslatorActions{
           if(!currTranslation) return;
           onInputChange(currTranslation.baseString)
      }
-     public static jumpToNextBlankField(){
-          console.log("TODO: Implement next blank field")
+     public static jumpToNextBlankField({ table, currTranslation, onSelectTranslation, setInput }: {
+          table: ITranslation[]
+          currTranslation: ITranslation | null
+          onSelectTranslation: (translation: ITranslation) => void
+          setInput: (input: string) => void
+     }) {
+          const currentIndex = currTranslation ? table.findIndex(item => item.keyName === currTranslation.keyName) : -1
+          const next = table.slice(currentIndex + 1).find(item => item.translationString.trim() === "")
+          if (!next) return
+          onSelectTranslation(next)
+          setInput(next.translationString)
      }
      public static compareDiff(){
           console.log("TODO: Implement Compare diff")

@@ -11,12 +11,20 @@ interface TranslationInputProps{
      onInputChange: (input: string) => void
 }
 export default function TranslationInput({input, onInputChange}: TranslationInputProps){
-     const {table, currTranslation, setTable} = useAppTranslation()
+     const {table, currTranslation, setTable, setCurrentTranslation} = useAppTranslation()
      const percentage = useMemo(()=>{
           const total = table.length;
           const translated = table.filter(val=>val.translationString.trim()!=="").length
           return total > 0 ? Math.min(100,Math.floor((translated / total) * 100)) : 0
      },[table])
+     const saveAndNext = () => {
+          TranslatorActions.saveString({input, setTable, currTranslation})
+          TranslatorActions.jumpToNextBlankField({
+               table, currTranslation,
+               setInput: onInputChange,
+               onSelectTranslation: setCurrentTranslation
+          })
+     }
      return (
           <>
           <div className="flex items-center gap-2">
@@ -29,6 +37,12 @@ export default function TranslationInput({input, onInputChange}: TranslationInpu
                     onChange={e=>onInputChange(e.target.value)}
                     className="flex-2"
                     rows={3}
+                    onKeyDown={e => {
+                         if (e.key === "Tab") {
+                              e.preventDefault()
+                              saveAndNext()
+                         }
+                    }}
                />
                <div className="flex items-center gap-1 flex-wrap flex-1">
                     <Button className="flex-1" variant="secondary" onClick={()=>TranslatorActions.borrowFromSource(currTranslation,onInputChange)}>
@@ -39,7 +53,11 @@ export default function TranslationInput({input, onInputChange}: TranslationInpu
                          <Save/>
                          Save String
                     </Button>
-                    <Button className="flex-1" onClick={TranslatorActions.jumpToNextBlankField}>
+                    <Button className="flex-1" onClick={()=>TranslatorActions.jumpToNextBlankField({
+                         table, currTranslation,
+                         setInput: onInputChange,
+                         onSelectTranslation: setCurrentTranslation
+                    })}>
                          Next Blank Field
                          <ChevronRight/>
                     </Button>

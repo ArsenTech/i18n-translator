@@ -18,6 +18,7 @@ interface TitleBarProps{
 export default function TitleBar({hideMaximize, hideMenubar, title}: TitleBarProps){
      const appWindow = getCurrentWindow()
      const [isMaximized, setIsMaximized] = useState(false)
+     // TODO: Use The Tauri dialog to save changes or cancel
      const handleClose = async () => appWindow.close();
      const handleToggleMaximize = async () => {
           if(hideMaximize) return;

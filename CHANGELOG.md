@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 ## [0.2.3] - Unreleased
+### Added
+- Jump to Next Blank Field function
+- Save and Next function if `Tab` key is entered on the Translation Input component
 ### Improved
 - Optimized Translation Input
 

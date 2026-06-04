@@ -93,6 +93,21 @@ export default class TranslatorActions{
           onSelectTranslation(next)
           setInput(next.translationString)
      }
+     public static jumpToPrevBlankField({ table, currTranslation, onSelectTranslation, setInput }: {
+          table: ITranslation[]
+          currTranslation: ITranslation | null
+          onSelectTranslation: (translation: ITranslation) => void
+          setInput: (input: string) => void
+     }) {
+          const currentIndex = currTranslation ? table.findIndex(item => item.keyName === currTranslation.keyName) : -1
+          for (let i = currentIndex - 1; i >= 0; i--) {
+               if (table[i].translationString.trim() === "") {
+                    onSelectTranslation(table[i])
+                    setInput(table[i].translationString)
+                    return
+               }
+          }
+     }
      public static compareDiff(){
           console.log("TODO: Implement Compare diff")
      }

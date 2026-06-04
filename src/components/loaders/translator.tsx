@@ -55,6 +55,7 @@ export function TranslationInputLoader(){
                     <Skeleton className="flex-1 h-8 min-w-[165px]"/>
                     <Skeleton className="flex-1 h-8 min-w-32"/>
                     <Skeleton className="flex-1 h-8 min-w-[150px]"/>
+                    <Skeleton className="flex-1 h-8 min-w-[150px]"/>
                </div>
           </div>
           </>

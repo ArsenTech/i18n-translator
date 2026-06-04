@@ -63,6 +63,7 @@ export default function MainPage(){
                                    setInput={setInput}
                               />
                               <TranslationInput
+                                   visibleTable={tableData}
                                    input={input}
                                    onInputChange={setInput}
                               />

@@ -7,7 +7,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [0.2.3] - Unreleased
 ### Added
 - Jump to Next Blank Field function
-- Save and Next function if `Tab` key is entered on the Translation Input component
+- Jump to Prev Blank Field option
+- Keyboard shortcuts to save and navigate
+### Temporarily added
+- **Current Namespace switch** - It will be moved once the settings is implemented
 ### Improved
 - Optimized Translation Input
 

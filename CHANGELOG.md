@@ -21,7 +21,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - **Table** - Optimized rendering and filtering performance
 - **Stats** - Correctly calculated values based on current data
 - **Sidebar** - Improved desktop and mobile UX
-- **Language Selector** - Linked with a context value
+- **Language Selector** - Made it working with the `useState` approach
 
 ## [0.2.1] - 2026-06-02
 ### Added

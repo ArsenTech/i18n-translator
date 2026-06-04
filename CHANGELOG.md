@@ -6,13 +6,13 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ---
 ## [0.2.3] - Unreleased
 ### Added
-- Jump to Next Blank Field function
-- Jump to Prev Blank Field option
-- Keyboard shortcuts to save and navigate
-### Temporarily added
-- **Current Namespace switch** - It will be moved once the settings is implemented
+- Jump to Next Blank Field
+- Jump to Previous Blank Field
+- Keyboard shortcuts for saving and navigation
+### Temporarily Added
+- **Current Namespace switch** — Will be moved to Settings once the Settings page is implemented
 ### Improved
-- Optimized Translation Input
+- **Translation Input** — Optimized save and navigation workflow
 
 ## [0.2.2] - 2026-06-04
 > [!NOTE]

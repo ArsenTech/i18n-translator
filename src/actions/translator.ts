@@ -26,18 +26,6 @@ export default class TranslatorActions{
                return {error: getErrorMessage(err)}
           }
      }
-     public static selectUntranslated(){
-          console.log("TODO: Implement Select untranslated")
-     }
-     public static compareDiff(){
-          console.log("TODO: Implement Compare diff")
-     }
-     public static validateKeys(){
-          console.log("TODO: Implement key validation")
-     }
-     public static removeUnusedKeys(){
-          console.log("TODO: Implement remove unused keys")
-     }
      public static hunspellCheck(values: SpellCheckType){
           try {
                const validatedFields = SpellCheckSchema.safeParse(values)
@@ -57,9 +45,6 @@ export default class TranslatorActions{
                console.error(err)
                return {error: getErrorMessage(err)}
           }
-     }
-     public static jumpToNextBlankField(){
-          console.log("TODO: Implement next blank field")
      }
      public static saveString({ input, setTable, currTranslation }: {
           input: string
@@ -91,5 +76,17 @@ export default class TranslatorActions{
                console.error(err)
                return {error: getErrorMessage(err), data: []}
           }
+     }
+     public static jumpToNextBlankField(){
+          console.log("TODO: Implement next blank field")
+     }
+     public static compareDiff(){
+          console.log("TODO: Implement Compare diff")
+     }
+     public static validateKeys(){
+          console.log("TODO: Implement key validation")
+     }
+     public static removeUnusedKeys(){
+          console.log("TODO: Implement remove unused keys")
      }
 }

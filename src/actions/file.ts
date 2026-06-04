@@ -6,7 +6,7 @@ import { NewTranslationType, OpenTranslationType } from "@/schemas/types"
 import { invoke } from "@tauri-apps/api/core"
 import { save } from "@tauri-apps/plugin-dialog"
 
-export default class FilesystemActions{
+export default class FileActions{
      public static async newTranslation(values: NewTranslationType): Promise<{
           error?: string,
           success?: string,
@@ -124,23 +124,5 @@ export default class FilesystemActions{
                console.error(err)
                return {error: getErrorMessage(err)}
           }
-     }
-     public static undo(){
-          console.log("TODO: Implement Undo Action")
-     }
-     public static redo(){
-          console.log("TODO: Implement Redo Action")
-     }
-     public static cut(){
-          console.log("TODO: Implement Cut Action")
-     }
-     public static copy(){
-          console.log("TODO: Implement Copy Action")
-     }
-     public static paste(){
-          console.log("TODO: Implement Paste Action")
-     }
-     public static selectAll(){
-          console.log("TODO: Implement Select All Action")
      }
 }

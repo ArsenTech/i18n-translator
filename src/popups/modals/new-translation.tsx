@@ -8,7 +8,7 @@ import { DialogFooter } from "@/components/ui/dialog";
 import SelectorField from "@/components/fields/selector";
 import LanguageInput from "@/components/lang-input";
 import FilePicker from "@/components/fields/file-picker";
-import FilesystemActions from "@/actions/file-system";
+import FileActions from "@/actions/file";
 import { PopupFormProps } from "@/lib/types";
 import { useState, useTransition } from "react";
 import LoadingButton from "@/components/loading-button";
@@ -44,7 +44,7 @@ export default function NewTranslationPopup({triggerButton}: PopupFormProps){
           const code = detectLanguageCode(values.path)
           startTransition(async()=>{
                try {
-                    const res = await FilesystemActions.newTranslation(values);
+                    const res = await FileActions.newTranslation(values);
                     if(res.error) toast.error("Failed to create translation",{
                          description: res.error
                     })

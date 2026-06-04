@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import FilesystemActions from "@/actions/file-system";
+import FileActions from "@/actions/file";
 import FindActions from "@/actions/find";
 import TranslatorActions from "@/actions/translator";
 import { FilePlus, FolderOpen, Languages, RotateCcw, Save, Search, SearchCheck, SpellCheckIcon } from "lucide-react";
@@ -24,7 +24,7 @@ export default function QuickAccessToolbar(){
           if(isSaving) return;
           setIsSaving(true)
           try {
-               const res = await FilesystemActions.saveAll(table, files.targetPath)
+               const res = await FileActions.saveAll(table, files.targetPath)
                if(res?.error) toast.error("Failed to save the file",{
                     description: res.error
                })

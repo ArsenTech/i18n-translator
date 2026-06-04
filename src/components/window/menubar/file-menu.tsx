@@ -1,6 +1,6 @@
 import { MenubarContent, MenubarGroup, MenubarItem, MenubarMenu, MenubarSeparator, MenubarShortcut, MenubarSub, MenubarSubContent, MenubarSubTrigger, MenubarTrigger } from "../../ui/menubar";
 import { exit } from '@tauri-apps/plugin-process';
-import FilesystemActions from "@/actions/file-system";
+import FileActions from "@/actions/file";
 import { useAppTranslation } from "@/context/translation";
 import NewTranslationPopup from "@/popups/modals/new-translation";
 import OpenTranslationPopup from "@/popups/modals/open-translation";
@@ -18,7 +18,7 @@ export default function FileMenu(){
           if(isSaving) return;
           setIsSaving(true)
           try {
-               const res = type==="save-as" ? await FilesystemActions.saveAs(table) : await FilesystemActions.saveAll(table,files.targetPath)
+               const res = type==="save-as" ? await FileActions.saveAs(table) : await FileActions.saveAll(table,files.targetPath)
                if(res?.error) toast.error("Failed to save the file",{
                     description: res.error
                })

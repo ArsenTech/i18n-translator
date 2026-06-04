@@ -6,9 +6,9 @@ import { Controller, useForm } from "react-hook-form"
 import { BatchRenameKeysType } from "@/schemas/types";
 import { BatchRenameKeysSchema } from "@/schemas";
 import { DialogFooter } from "@/components/ui/dialog";
-import FilesystemActions from "@/actions/file-system";
 import { Input } from "@/components/ui/input";
 import { PopupFormProps } from "@/lib/types";
+import TranslatorActions from "@/actions/translator";
 
 export default function BatchRenameKeysPopup({triggerButton}: PopupFormProps){
      const form = useForm<BatchRenameKeysType>({
@@ -19,7 +19,7 @@ export default function BatchRenameKeysPopup({triggerButton}: PopupFormProps){
           }
      })
      const onSubmit = (values: BatchRenameKeysType) => {
-          FilesystemActions.batchRename(values)
+          TranslatorActions.batchRename(values)
      }
      return (
           <AppModal

@@ -1,5 +1,4 @@
 import { Menubar, MenubarContent, MenubarGroup, MenubarItem, MenubarMenu, MenubarSeparator, MenubarShortcut, MenubarSub, MenubarSubContent, MenubarSubTrigger, MenubarTrigger } from "../../ui/menubar";
-import FilesystemActions from "@/actions/file-system";
 import FindActions from "@/actions/find";
 import TranslatorActions from "@/actions/translator";
 import FindPopup from "@/popups/modals/find";
@@ -14,6 +13,7 @@ import SpellCheckPopup from "@/popups/modals/spell-check"
 import CompareDifferencePopup from "@/popups/modals/compare-diff";
 import FileMenu from "./file-menu";
 import ViewMenu from "./view-menu";
+import EditActions from "@/actions/edit";
 
 export default function MenuBar(){
      return (
@@ -23,8 +23,8 @@ export default function MenuBar(){
                     <MenubarTrigger className="tracking-tight">Edit</MenubarTrigger>
                     <MenubarContent>
                          <MenubarGroup>
-                              <MenubarItem onClick={FilesystemActions.undo}>Undo <MenubarShortcut>Ctrl+Z</MenubarShortcut></MenubarItem>
-                              <MenubarItem onClick={FilesystemActions.redo}>Redo <MenubarShortcut>Ctrl+Y</MenubarShortcut></MenubarItem>
+                              <MenubarItem onClick={EditActions.undo}>Undo <MenubarShortcut>Ctrl+Z</MenubarShortcut></MenubarItem>
+                              <MenubarItem onClick={EditActions.redo}>Redo <MenubarShortcut>Ctrl+Y</MenubarShortcut></MenubarItem>
                          </MenubarGroup>
                          <MenubarSeparator />
                          <MenubarGroup>
@@ -62,17 +62,17 @@ export default function MenuBar(){
                               <GoToKeyNamePopup triggerButton={(
                                    <MenubarItem onSelect={(e) => e.preventDefault()}>Go to key name</MenubarItem>
                               )}/>
-                              <MenubarItem onClick={TranslatorActions.selectUntranslated}>Select untranslated</MenubarItem>
+                              <MenubarItem onClick={EditActions.selectUntranslated}>Select untranslated</MenubarItem>
                               <CompareDifferencePopup triggerButton={(
                                    <MenubarItem onSelect={(e) => e.preventDefault()}>Compare difference</MenubarItem>
                               )}/>
                          </MenubarGroup>
                          <MenubarSeparator />
                          <MenubarGroup>
-                              <MenubarItem onClick={FilesystemActions.cut}>Cut <MenubarShortcut>Ctrl+X</MenubarShortcut></MenubarItem>
-                              <MenubarItem onClick={FilesystemActions.copy}>Copy <MenubarShortcut>Ctrl+C</MenubarShortcut></MenubarItem>
-                              <MenubarItem onClick={FilesystemActions.paste}>Paste <MenubarShortcut>Ctrl+V</MenubarShortcut></MenubarItem>
-                              <MenubarItem onClick={FilesystemActions.selectAll}>Select All <MenubarShortcut>Ctrl+A</MenubarShortcut></MenubarItem>
+                              <MenubarItem onClick={EditActions.cut}>Cut <MenubarShortcut>Ctrl+X</MenubarShortcut></MenubarItem>
+                              <MenubarItem onClick={EditActions.copy}>Copy <MenubarShortcut>Ctrl+C</MenubarShortcut></MenubarItem>
+                              <MenubarItem onClick={EditActions.paste}>Paste <MenubarShortcut>Ctrl+V</MenubarShortcut></MenubarItem>
+                              <MenubarItem onClick={EditActions.selectAll}>Select All <MenubarShortcut>Ctrl+A</MenubarShortcut></MenubarItem>
                          </MenubarGroup>
                     </MenubarContent>
                </MenubarMenu>

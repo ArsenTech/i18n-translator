@@ -1,4 +1,4 @@
-import FilesystemActions from "@/actions/file-system";
+import FileActions from "@/actions/file";
 import ViewActions from "@/actions/view";
 import { useAppTranslation } from "@/context/translation";
 import { ITranslation } from "@/lib/types/data";
@@ -12,13 +12,13 @@ const KBD_SHORTCUTS: Record<string,({table, targetPath}: {
      "ctrl++": _ => ViewActions.zoomIn(),
      "ctrl+-": _ => ViewActions.zoomOut(),
      "ctrl+0": _ => ViewActions.resetZoom(),
-     "ctrl+s": ({table, targetPath}) => FilesystemActions.saveAll(table, targetPath).then(res=>{
+     "ctrl+s": ({table, targetPath}) => FileActions.saveAll(table, targetPath).then(res=>{
           if(res?.error) toast.error("Failed to save the file",{
                description: res.error
           })
           if(res?.success) toast.success(res.success)
      }),
-     "ctrl+shift+s": ({table}) => FilesystemActions.saveAs(table).then(res=>{
+     "ctrl+shift+s": ({table}) => FileActions.saveAs(table).then(res=>{
           if(res?.error) toast.error("Failed to save the file",{
                description: res.error
           })

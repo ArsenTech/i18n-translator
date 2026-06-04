@@ -6,10 +6,10 @@ import { Controller, useForm } from "react-hook-form"
 import { ReplaceTranslationType } from "@/schemas/types";
 import { ReplaceTranslationSchema } from "@/schemas";
 import { DialogFooter } from "@/components/ui/dialog";
-import FilesystemActions from "@/actions/file-system";
 import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import { PopupFormProps } from "@/lib/types";
+import TranslatorActions from "@/actions/translator";
 
 export default function ReplaceTranslationPopup({triggerButton}: PopupFormProps){
      const form = useForm<ReplaceTranslationType>({
@@ -21,7 +21,7 @@ export default function ReplaceTranslationPopup({triggerButton}: PopupFormProps)
           }
      })
      const onSubmit = (values: ReplaceTranslationType) => {
-          FilesystemActions.replaceTranslation(values)
+          TranslatorActions.replaceTranslation(values)
      }
      return (
           <AppModal

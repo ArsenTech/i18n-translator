@@ -8,21 +8,25 @@ interface TranslatorStatsProps{
 export default function TranslatorStats({currTranslation}: TranslatorStatsProps){
      const {table} = useAppTranslation()
      const stats = useMemo(() => {
-          let translated = 0
-          let borrowed = 0
-
+          let translated = 0, borrowed = 0
           for (const item of table) {
-               if (item.translationString.trim() !== "") translated++
-               if (item.baseString === item.translationString) borrowed++
+               const source = item.baseString.trim();
+               const translation = item.translationString.trim();
+               if (translation !== "") translated++
+               if (source.length > 0 && source === translation) borrowed++
           }
-
-          return { translated, borrowed }
+          return {
+               translated,
+               borrowed,
+               untranslated: table.length - translated,
+               total: table.length,
+          }
      }, [table])
      return (
           <div className="flex justify-between items-center text-xs md:text-sm flex-wrap gap-2">
                <div className="flex items-center gap-2">
                     <div className="flex gap-2 justify-center items-center bg-card border rounded-md px-3 py-1">
-                         <span className="text-base md:text-lg">{table.length-stats.translated}</span>
+                         <span className="text-base md:text-lg">{stats.untranslated}</span>
                          <span className="text-muted-foreground">Untranslated</span>
                     </div>
                     <div className="flex gap-2 justify-center items-center bg-card border rounded-md px-3 py-1">
@@ -36,7 +40,7 @@ export default function TranslatorStats({currTranslation}: TranslatorStatsProps)
                          </div>
                     )}
                     <div className="flex gap-2 justify-center items-center bg-card border rounded-md px-3 py-1">
-                         <span className="text-base md:text-lg">{table.length}</span>
+                         <span className="text-base md:text-lg">{stats.total}</span>
                          <span className="text-muted-foreground">Total</span>
                     </div>
                </div>

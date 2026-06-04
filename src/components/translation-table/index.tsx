@@ -28,11 +28,6 @@ export type FilterType =
   | "transEqSrc"
   | "repeatedStr"
 
-const matchesSearch = (value: string, query: string, reverse = false) => {
-     const matched = value.toLowerCase().includes(query)
-     return reverse ? !matched : matched
-}
-
 export default function TranslationTable({data, selected, onSelectTranslation, currKey, setInput}: DataTableProps) {
      const {missingOnly} = useAppTranslation()
      const [search, setSearch] = React.useState("")
@@ -56,52 +51,50 @@ export default function TranslationTable({data, selected, onSelectTranslation, c
           return counts
      }, [data])
      const query = React.useMemo(() => search.trim().toLowerCase(), [search])
-     const columns = React.useMemo(
-          () => getColumns(selected ? selected.trim() !== "" : false),
-          [selected]
-     )
-     React.useEffect(() => {
-          setVisibleCount(100)
-     }, [search, searchMode, filter, missingOnly])
+     const columns = React.useMemo(() => getColumns(selected ? selected.trim() !== "" : false),[selected])
+     const searchableData = React.useMemo(() => {
+          return data.map(item => ({
+               item,
+               key: item.keyName.toLowerCase(),
+               source: item.baseString.toLowerCase(),
+               translation: item.translationString.toLowerCase(),
+               sourceTrimmed: item.baseString.trim(),
+               translationTrimmed: item.translationString.trim(),
+          }))
+     }, [data])
      const filteredData = React.useMemo(() => {
-          return data.filter((item) => {
-               const source = item.baseString.trim()
-               const translation = item.translationString.trim()
-
-               if (missingOnly && translation.length > 0) return false
-
+          return searchableData.filter(({ key, source, translation, sourceTrimmed, translationTrimmed }) => {
+               let passesFilter = true
+               if (missingOnly && translationTrimmed.length > 0) return false
                switch (filter) {
-                    case "translated":
-                         if (translation.length === 0) return false
-                         break
-                    case "untranslated":
-                         if (translation.length > 0) return false
-                         break
-                    case "transEqSrc":
-                         if (!(source.length > 0 && source === translation)) return false
-                         break
-                    case "repeatedStr":
-                         if ((repeatedSources.get(source.toLowerCase()) ?? 0) <= 1) return false
-                         break
+                    case "translated": 
+                         passesFilter = translationTrimmed.length!==0;
+                         break;
+                    case "untranslated": 
+                         passesFilter = translationTrimmed.length<=0;
+                         break;
+                    case "transEqSrc": 
+                         passesFilter = sourceTrimmed.length > 0 && sourceTrimmed === translationTrimmed
+                         break;
+                    case "repeatedStr": 
+                         passesFilter = (repeatedSources.get(sourceTrimmed.toLowerCase()) ?? 0) > 1;
+                         break;
                }
-
+               if (!passesFilter) return false
                if (!query) return true
-
                switch (searchMode) {
-                    case "name": return matchesSearch(item.keyName, query)
-                    case "name-not": return matchesSearch(item.keyName, query, true)
-                    case "translation": return matchesSearch(item.translationString, query)
-                    case "translation-not": return matchesSearch(item.translationString, query, true)
-                    case "source": return matchesSearch(item.baseString, query)
-                    case "source-not": return matchesSearch(item.baseString, query, true)
+                    case "name": return key.includes(query)
+                    case "name-not": return !key.includes(query)
+                    case "translation": return translation.includes(query)
+                    case "translation-not": return !translation.includes(query)
+                    case "source": return source.includes(query)
+                    case "source-not": return !source.includes(query)
                     default: return true
                }
           })
-     }, [data, filter, query, searchMode, missingOnly, repeatedSources])
-     const visibleRows = React.useMemo(
-          () => filteredData.slice(0, visibleCount),
-          [filteredData, visibleCount]
-     )
+          .map(({ item }) => item)
+     }, [searchableData, filter, query, searchMode, missingOnly, repeatedSources])
+     const visibleRows = React.useMemo(() => filteredData.slice(0, visibleCount),[filteredData, visibleCount])
      const table = useReactTable({
           data: visibleRows,
           columns,
@@ -115,19 +108,17 @@ export default function TranslationTable({data, selected, onSelectTranslation, c
           },
      })
      const scrollRef = React.useRef<HTMLDivElement>(null)
-
+     React.useEffect(() => {
+          setVisibleCount(100)
+     }, [query, searchMode, filter, missingOnly, data])
      React.useEffect(() => {
           const container = scrollRef.current
           if (!container) return
           const handleScroll = () => {
                const threshold = 100
-               const reachedBottom =
-                    container.scrollTop + container.clientHeight >=
-                    container.scrollHeight - threshold
+               const reachedBottom = container.scrollTop + container.clientHeight >= container.scrollHeight - threshold
                if (!reachedBottom) return
-               setVisibleCount(prev =>
-                    Math.min(prev + 100, filteredData.length)
-               )
+               setVisibleCount(prev =>Math.min(prev + 100, filteredData.length))
           }
           container.addEventListener("scroll", handleScroll)
           return () => {

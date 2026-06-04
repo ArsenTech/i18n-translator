@@ -57,8 +57,6 @@
 <!-- TODO: Add some Features into the list -->
 
 ### Planned Improvements
-#### v0.2.x
-- [ ] Recent Translations as a submenu
 #### Nice to have
 - [ ] Write the Documentation on the `docs/` folder.
   - [ ] Usage Guide

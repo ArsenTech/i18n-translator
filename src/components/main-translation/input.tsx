@@ -10,12 +10,10 @@ import { Label } from "../ui/label";
 import { Switch } from "../ui/switch";
 
 interface TranslationInputProps{
-     input: string,
-     onInputChange: (input: string) => void
      visibleTable: ITranslation[]
 }
-export default function TranslationInput({input, onInputChange, visibleTable}: TranslationInputProps){
-     const {table, currTranslation, setTable, setCurrentTranslation} = useAppTranslation()
+export default function TranslationInput({visibleTable}: TranslationInputProps){
+     const {table, currTranslation, setTable, setCurrentTranslation, input, setInput} = useAppTranslation()
      const [checked, setChecked] = useState(false)
      const percentage = useMemo(()=>{
           const data = checked ? visibleTable : table
@@ -27,16 +25,14 @@ export default function TranslationInput({input, onInputChange, visibleTable}: T
           TranslatorActions.saveString({input, setTable, currTranslation})
           TranslatorActions.jumpToNextBlankField({
                table: visibleTable, currTranslation,
-               setInput: onInputChange,
-               onSelectTranslation: setCurrentTranslation
+               setInput, onSelectTranslation: setCurrentTranslation
           })
      }
      const saveAndPrev = () => {
           TranslatorActions.saveString({input, setTable, currTranslation})
           TranslatorActions.jumpToPrevBlankField({
                table: visibleTable, currTranslation,
-               setInput: onInputChange,
-               onSelectTranslation: setCurrentTranslation
+               setInput, onSelectTranslation: setCurrentTranslation
           })
      }
      return (
@@ -53,7 +49,7 @@ export default function TranslationInput({input, onInputChange, visibleTable}: T
           <div className="flex gap-2">
                <Textarea
                     value={input}
-                    onChange={e=>onInputChange(e.target.value)}
+                    onChange={e=>setInput(e.target.value)}
                     className="flex-2"
                     rows={3}
                     onKeyDown={e => {
@@ -67,7 +63,7 @@ export default function TranslationInput({input, onInputChange, visibleTable}: T
                     }}
                />
                <div className="flex items-center gap-1 flex-wrap flex-1">
-                    <Button className="flex-1" variant="secondary" onClick={()=>TranslatorActions.borrowFromSource(currTranslation,onInputChange)}>
+                    <Button className="flex-1" variant="secondary" onClick={()=>TranslatorActions.borrowFromSource(currTranslation,setInput)}>
                          <Copy/>
                          Copy from Source
                     </Button>
@@ -77,16 +73,14 @@ export default function TranslationInput({input, onInputChange, visibleTable}: T
                     </Button>
                     <Button className="flex-1" onClick={()=>TranslatorActions.jumpToPrevBlankField({
                          table: visibleTable, currTranslation,
-                         setInput: onInputChange,
-                         onSelectTranslation: setCurrentTranslation
+                         setInput, onSelectTranslation: setCurrentTranslation
                     })}>
                          <ChevronLeft/>
                          Previous Blank Field
                     </Button>
                     <Button className="flex-1" onClick={()=>TranslatorActions.jumpToNextBlankField({
                          table: visibleTable, currTranslation,
-                         setInput: onInputChange,
-                         onSelectTranslation: setCurrentTranslation
+                         setInput, onSelectTranslation: setCurrentTranslation
                     })}>
                          Next Blank Field
                          <ChevronRight/>

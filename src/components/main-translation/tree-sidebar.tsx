@@ -7,6 +7,7 @@ import { useState } from "react"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetClose, SheetFooter } from "../ui/sheet"
 import { TreeNode } from "@/lib/types"
 import { useTreeSidebar } from "@/context/sidebar"
+import { useAppTranslation } from "@/context/translation"
 
 const SIDEBAR_WIDTH_MOBILE = "18rem"
 
@@ -87,10 +88,9 @@ function TreeSidebarContainer({children}: {children: React.ReactNode}){
 
 interface TreeNodeItemProps{
      node: TreeNode
-     selectedNamespace: string
-     onSelectNamespace: (namespace: string) => void
 }
-function TreeNodeItem({node, onSelectNamespace, selectedNamespace}: TreeNodeItemProps){
+function TreeNodeItem({node}: TreeNodeItemProps){
+     const {selectedNamespace, setSelectedNamespace} = useAppTranslation()
      const [open, setOpen] = useState(node.name === "Root")
      const hasChildren = node.children.length > 0
      const selected = selectedNamespace === node.fullPath
@@ -112,7 +112,7 @@ function TreeNodeItem({node, onSelectNamespace, selectedNamespace}: TreeNodeItem
                                    variant="ghost"
                                    selected={selected}
                                    onClick={() => {
-                                        onSelectNamespace(node.fullPath)
+                                        setSelectedNamespace(node.fullPath)
                                         closeMobileSidebar()
                                    }}
                               >
@@ -128,8 +128,6 @@ function TreeNodeItem({node, onSelectNamespace, selectedNamespace}: TreeNodeItem
                                         <TreeNodeItem
                                              key={child.fullPath}
                                              node={child}
-                                             onSelectNamespace={onSelectNamespace}
-                                             selectedNamespace={selectedNamespace}
                                         />
                                    ))}
                               </TreeSidebarSubmenu>
@@ -142,11 +140,10 @@ function TreeNodeItem({node, onSelectNamespace, selectedNamespace}: TreeNodeItem
 
 interface TreeSidebarProps{
      tree: TreeNode[]
-     selectedNamespace: string
-     onSelectNamespace: (namespace: string) => void
 }
-export default function TreeSidebar({tree, onSelectNamespace, selectedNamespace}: TreeSidebarProps) {
+export default function TreeSidebar({tree}: TreeSidebarProps) {
      const {closeMobileSidebar} = useTreeSidebar()
+     const {selectedNamespace, setSelectedNamespace} = useAppTranslation()
      return (
           <TreeSidebarContainer>
                <TreeSidebarMenu>
@@ -155,7 +152,7 @@ export default function TreeSidebar({tree, onSelectNamespace, selectedNamespace}
                               variant="ghost"
                               selected={selectedNamespace===""}
                               onClick={() => {
-                                   onSelectNamespace("")
+                                   setSelectedNamespace("")
                                    closeMobileSidebar()
                               }}
                          >
@@ -167,8 +164,6 @@ export default function TreeSidebar({tree, onSelectNamespace, selectedNamespace}
                          <TreeNodeItem
                               key={node.fullPath}
                               node={node}
-                              onSelectNamespace={onSelectNamespace}
-                              selectedNamespace={selectedNamespace}
                          />
                     ))}
                </TreeSidebarMenu>

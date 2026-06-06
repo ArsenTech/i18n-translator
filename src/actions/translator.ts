@@ -16,11 +16,18 @@ export default class TranslatorActions{
                return {error: getErrorMessage(err)}
           }
      }
-     public static goToKeyName(values: GoToKeyNameType){
+     public static goToKeyName(values: GoToKeyNameType, table: ITranslation[]){
           try {
                const validatedFields = GoToKeyNameSchema.safeParse(values)
                if(!validatedFields.success) return {error: "All fields are invalid"}
-               console.log(`TODO: Implement Go to key name and jump into ${validatedFields.data.keyName}`)
+               const translation = table.find(val=>val.keyName===validatedFields.data.keyName)
+               if(!translation) return {error: "Translation from the specified key name is not found"};
+               const index = table.findIndex(val => val.keyName === validatedFields.data.keyName)
+               return {
+                    success: true,
+                    translation,
+                    index
+               }
           } catch (err) {
                console.error(err)
                return {error: getErrorMessage(err)}
@@ -46,17 +53,6 @@ export default class TranslatorActions{
                return {error: getErrorMessage(err)}
           }
      }
-     public static saveString({ input, setTable, currTranslation }: {
-          input: string
-          setTable: SetStateType<ITranslation[]>,
-          currTranslation: ITranslation | null
-     }){
-          setTable(prev => prev.map(item => item.keyName === currTranslation?.keyName ? {
-               ...item,
-               translationString: input
-          }
-          : item))
-     }
      public static replaceTranslation(values: ReplaceTranslationType){
           try {
                const validatedFields = ReplaceTranslationSchema.safeParse(values)
@@ -76,6 +72,17 @@ export default class TranslatorActions{
                console.error(err)
                return {error: getErrorMessage(err), data: []}
           }
+     }
+     public static saveString({ input, setTable, currTranslation }: {
+          input: string
+          setTable: SetStateType<ITranslation[]>,
+          currTranslation: ITranslation | null
+     }){
+          setTable(prev => prev.map(item => item.keyName === currTranslation?.keyName ? {
+               ...item,
+               translationString: input
+          }
+          : item))
      }
      public static borrowFromSource(currTranslation: ITranslation | null, onInputChange: (input: string) => void){
           if(!currTranslation) return;

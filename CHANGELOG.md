@@ -9,10 +9,14 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Jump to Next Blank Field
 - Jump to Previous Blank Field
 - Keyboard shortcuts for saving and navigation
+- Go to key name action
 ### Temporarily Added
 - **Current Namespace switch** — Will be moved to Settings once the Settings page is implemented
 ### Improved
 - **Translation Input** — Optimized save and navigation workflow
+- **Language Selector** - Added search inside the selector for faster accessibility
+### Changed
+- Moved few states into the context for performance
 
 ## [0.2.2] - 2026-06-04
 > [!NOTE]

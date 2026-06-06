@@ -5,7 +5,7 @@ import { useAppTranslation } from "@/context/translation";
 import useKeyboardShortcuts from "@/hooks/use-kbd-shortcuts";
 import { buildTree } from "@/lib/helpers";
 import { cn } from "@/lib/utils";
-import { lazy, Suspense, useMemo, useState } from "react";
+import { lazy, Suspense, useMemo } from "react";
 
 const TranslationTable = lazy(()=>import("@/components/translation-table"))
 const TreeSidebar = lazy(()=>import("@/components/main-translation/tree-sidebar"))
@@ -15,13 +15,10 @@ const QuickAccessToolbar = lazy(()=>import("@/components/main-translation/quick-
 const LanguageSelect = lazy(()=>import("@/components/main-translation/language-select"))
 
 export default function MainPage(){
-     const [input, setInput] = useState("")
-     const {table} = useAppTranslation()
+     const {table, selectedNamespace} = useAppTranslation()
      const {open} = useTreeSidebar()
 
-     const [selectedNamespace, setSelectedNamespace] = useState<string>("")
      const tree = useMemo(() => buildTree(table), [table])
-
      const tableData = useMemo(() => {
           if (!selectedNamespace) return table
           if (selectedNamespace === "__general") return table.filter(item => !item.keyName.includes("."))
@@ -40,11 +37,7 @@ export default function MainPage(){
                )}>
                     {open && (
                          <Suspense fallback={<TreeSidebarLoader/>}>
-                              <TreeSidebar
-                                   tree={tree}
-                                   onSelectNamespace={setSelectedNamespace}
-                                   selectedNamespace={selectedNamespace}
-                              />
+                              <TreeSidebar tree={tree} />
                          </Suspense>
                     )}
                     <div className="w-full flex flex-col gap-2 min-h-0 overflow-hidden">
@@ -57,16 +50,8 @@ export default function MainPage(){
                               </>
                          )}>
                               <LanguageSelect/>
-                              <TranslationTable
-                                   data={tableData}
-                                   selected={selectedNamespace}
-                                   setInput={setInput}
-                              />
-                              <TranslationInput
-                                   visibleTable={tableData}
-                                   input={input}
-                                   onInputChange={setInput}
-                              />
+                              <TranslationTable data={tableData} />
+                              <TranslationInput visibleTable={tableData}/>
                               <TranslatorStats/>
                          </Suspense>
                     </div>

@@ -14,9 +14,7 @@ import { useAppTranslation } from "@/context/translation"
 import { Spinner } from "../ui/spinner"
 
 interface DataTableProps {
-     data: ITranslation[],
-     selected?: string | null,
-     setInput: (input: string) => void
+     data: ITranslation[]
 }
 
 export type FilterType =
@@ -26,8 +24,8 @@ export type FilterType =
   | "transEqSrc"
   | "repeatedStr"
 
-export default function TranslationTable({data, selected, setInput}: DataTableProps) {
-     const {missingOnly, setCurrentTranslation, currTranslation} = useAppTranslation()
+export default function TranslationTable({data}: DataTableProps) {
+     const {missingOnly, setCurrentTranslation, currTranslation, visibleCount, setVisibleCount, selectedNamespace, setInput} = useAppTranslation()
      const [search, setSearch] = React.useState("")
      const [searchMode, setSearchMode] = React.useState<"name" | "translation" | "source" | "source-not" | "translation-not" | "name-not">("source")
      const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({
@@ -38,7 +36,6 @@ export default function TranslationTable({data, selected, setInput}: DataTablePr
      })
      const [sorting, setSorting] = React.useState<SortingState>([])
      const [filter, setFilter] = React.useState<FilterType>("all")
-     const [visibleCount, setVisibleCount] = React.useState(100)
      const repeatedSources = React.useMemo(() => {
           const counts = new Map<string, number>()
           for (const item of data) {
@@ -49,7 +46,7 @@ export default function TranslationTable({data, selected, setInput}: DataTablePr
           return counts
      }, [data])
      const query = React.useMemo(() => search.trim().toLowerCase(), [search])
-     const columns = React.useMemo(() => getColumns(selected ? selected.trim() !== "" : false),[selected])
+     const columns = React.useMemo(() => getColumns(selectedNamespace ? selectedNamespace.trim() !== "" : false),[selectedNamespace])
      const searchableData = React.useMemo(() => {
           return data.map(item => ({
                item,
@@ -116,7 +113,7 @@ export default function TranslationTable({data, selected, setInput}: DataTablePr
                const threshold = 100
                const reachedBottom = container.scrollTop + container.clientHeight >= container.scrollHeight - threshold
                if (!reachedBottom) return
-               setVisibleCount(prev =>Math.min(prev + 100, filteredData.length))
+               setVisibleCount(prev=>Math.min(prev + 100, filteredData.length))
           }
           container.addEventListener("scroll", handleScroll)
           return () => {
@@ -196,6 +193,7 @@ export default function TranslationTable({data, selected, setInput}: DataTablePr
                                    table.getRowModel().rows.map((row) => (
                                         <TableRow
                                              key={row.id}
+                                             id={`row-${row.original.keyName}`}
                                              data-state={(row.getIsSelected() || row.original.keyName===currTranslation?.keyName) && "selected"}
                                              className={cn(
                                                   !row.original.translationString && "bg-destructive/5",

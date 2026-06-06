@@ -4,19 +4,19 @@ All notable changes of I18N Translator will be documented here.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
-## [0.2.3] - Unreleased
+## [0.2.3] - 2026-06-06
 ### Added
 - Jump to Next Blank Field
 - Jump to Previous Blank Field
 - Keyboard shortcuts for saving and navigation
-- Go to key name action
+- Go to Key Name action
 ### Temporarily Added
 - **Current Namespace switch** — Will be moved to Settings once the Settings page is implemented
 ### Improved
 - **Translation Input** — Optimized save and navigation workflow
-- **Language Selector** - Added search inside the selector for faster accessibility
+- **Language Selector** — Added search for faster language selection
 ### Changed
-- Moved few states into the context for performance
+- Moved several states into context to reduce rerenders and improve performance
 
 ## [0.2.2] - 2026-06-04
 > [!NOTE]

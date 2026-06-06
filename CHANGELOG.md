@@ -4,6 +4,8 @@ All notable changes of I18N Translator will be documented here.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [0.2.4] - Unreleased
+
 ## [0.2.3] - 2026-06-06
 ### Added
 - Jump to Next Blank Field
@@ -114,6 +116,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Initialized
 - Main Page with a sample test
 
+[0.2.4]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.4
 [0.2.3]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.3
 [0.2.2]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.2
 [0.2.1]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.1

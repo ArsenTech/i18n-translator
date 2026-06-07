@@ -25,7 +25,7 @@ const items = [
 ]
 
 export default function FindPopup({triggerButton}: PopupFormProps){
-     const {visibleTable, setVisibleCount, keyNames, setCurrentTranslation, setInput} = useAppTranslation()
+     const {visibleTable, setVisibleCount, keyNames, setCurrentTranslation, setInput, setFindState} = useAppTranslation()
      const [open, setOpen] = useState(false)
      const form = useForm<FindType>({
           resolver: zodResolver(FindSchema),
@@ -37,10 +37,8 @@ export default function FindPopup({triggerButton}: PopupFormProps){
      })
      const onSubmit = (values: FindType) => {
           const res = FindActions.find(values, visibleTable)
-          if(res.error) toast.error("Failed to jump into the specified key name",{
-               description: res.error
-          })
           if(res.success) {
+               if(res.findState) setFindState(res.findState)
                TranslatorActions.jumpToTranslation({
                     translation: res.translation,
                     index: res.index,
@@ -50,6 +48,10 @@ export default function FindPopup({triggerButton}: PopupFormProps){
                })
                setOpen(false);
                form.reset()
+          } else {
+               toast.error("Failed to find the query inside the translation",{
+                    description: res.error
+               })
           }
      }
      const mode = useWatch({

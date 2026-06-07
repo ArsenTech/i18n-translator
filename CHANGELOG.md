@@ -6,7 +6,11 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ---
 ## [0.2.4] - Unreleased
 ### Added
-- Find Action
+- Find Actions
+  - Find
+  - Find Next
+  - Find Previous
+  - Find Missing Keys
 ### Removed
 - **Go to Key Name action** - Key name search is done on Key mode inside the Find Action
 

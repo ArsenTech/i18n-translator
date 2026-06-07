@@ -3,36 +3,80 @@ import { getErrorMessage } from "@/lib/utils"
 import { FindSchema } from "@/schemas"
 import { FindType } from "@/schemas/types"
 
-const findValue = (value: string, query: string, caseSensitive: boolean) =>
-     caseSensitive ? value.includes(query) : value.toLowerCase().includes(query.toLowerCase())
+export interface FindState {
+     matches: { translation: ITranslation; index: number }[]
+     currentIndex: number
+}
+
+function getField(item: ITranslation, mode: FindType["mode"]) {
+     if (mode === "source") return item.baseString
+     if (mode === "translation") return item.translationString
+     return item.keyName
+}
+
+function findValue(value: string, query: string, caseSensitive: boolean){
+     if(caseSensitive) return value.includes(query);
+     return value.toLowerCase().includes(query.toLowerCase());
+}
+
+type FindSuccess = {
+     success: true
+     translation: ITranslation
+     index: number
+     findState?: FindState
+}
+type FindError = {
+     success: false
+     error: string
+}
+export type FindResult = FindSuccess | FindError
 
 export default class FindActions{
-     public static find(values: FindType, table: ITranslation[]){
+     public static find(values: FindType, table: ITranslation[]): FindResult{
           try {
                const validatedFields = FindSchema.safeParse(values)
-               if(!validatedFields.success) return {error: "All fields are invalid"}
+               if(!validatedFields.success) return {success: false, error: "All fields are invalid"}
                const {mode, query, caseSensitive} = validatedFields.data
-               const translation = table.find(val => {
-                    return mode==="source" ? findValue(val.baseString,query,caseSensitive) : mode==="translation" ? findValue(val.translationString,query,caseSensitive) : findValue(val.keyName,query,caseSensitive)
-               })
-               if(!translation) return {error: "No results found"}
+               const matches = table.map((translation, index) => ({ translation, index })) .filter(({ translation }) =>findValue(getField(translation, mode), query, caseSensitive))
+               if (matches.length === 0) return { success: false, error: "No results found" }
                return {
                     success: true,
-                    index: table.indexOf(translation),
-                    translation
+                    findState: {
+                         matches,
+                         currentIndex: 0,
+                    },
+                    ...matches[0],
                }
           } catch (err) {
                console.error(err)
-               return {error: getErrorMessage(err)}
+               return {success: false, error: getErrorMessage(err)}
           }
      }
-     public static findNext(){
-          console.log("TODO: Implement Find Next")
+     public static findNext(state: FindState | null): FindResult {
+          if (!state || state.matches.length === 0) return { success: false, error: "No active search" }
+          const currentIndex = (state.currentIndex + 1) % state.matches.length
+          return {
+               success: true,
+               findState: { ...state, currentIndex },
+               ...state.matches[currentIndex],
+          }
      }
-     public static findPrev(){
-          console.log("TODO: Implement Find Previous")
+     public static findPrev(state: FindState | null): FindResult {
+          if (!state || state.matches.length === 0) return { success: false, error: "No active search" }
+          const currentIndex = (state.currentIndex - 1 + state.matches.length) % state.matches.length
+          return {
+               success: true,
+               findState: { ...state, currentIndex },
+               ...state.matches[currentIndex],
+          }
      }
-     public static findMissing(){
-          console.log("TODO: Implement Find Missing keys")
+     public static findMissing(table: ITranslation[]): FindResult {
+          const index = table.findIndex(item => item.translationString.trim() === "")
+          if (index === -1) return { success: false, error: "No missing translations found" }
+          return {
+               success: true,
+               index,
+               translation: table[index],
+          }
      }
 }

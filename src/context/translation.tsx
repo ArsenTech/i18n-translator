@@ -1,3 +1,4 @@
+import { FindState } from "@/actions/find";
 import type { ILangInputState, SetStateType } from "@/lib/types";
 import type { ITranslation } from "@/lib/types/data"
 import { createContext, useContext, useMemo, useState } from "react"
@@ -26,6 +27,8 @@ interface AppTranslationContextValues{
      setSelectedNamespace: SetStateType<string>
      input: string,
      setInput: SetStateType<string>
+     findState: FindState | null
+     setFindState: SetStateType<FindState | null>
 }
 const AppTranslationContext = createContext<AppTranslationContextValues | null>(null)
 
@@ -44,6 +47,7 @@ export function AppTranslationProvider({ children, initialLimit=100 }: { childre
      const [visibleCount, setVisibleCount] = useState(initialLimit)
      const [selectedNamespace, setSelectedNamespace] = useState<string>("")
      const [input, setInput] = useState("")
+     const [findState, setFindState] = useState<FindState | null>(null)
      const updateLangs = (overrides: Partial<ILangInputState>) => setLangs(prev=>({
           ...prev,
           ...overrides
@@ -63,8 +67,9 @@ export function AppTranslationProvider({ children, initialLimit=100 }: { childre
           visibleCount, setVisibleCount,
           selectedNamespace, setSelectedNamespace,
           input, setInput,
+          findState, setFindState,
           visibleTable, keyNames
-     }),[missingOnly, table, currTranslation, langs, files, visibleCount, selectedNamespace, input, visibleTable, keyNames])
+     }),[missingOnly, table, currTranslation, langs, files, visibleCount, selectedNamespace, input, visibleTable, keyNames, findState])
      return (
           <AppTranslationContext.Provider value={values}>
                {children}

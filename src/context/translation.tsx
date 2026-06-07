@@ -28,7 +28,9 @@ interface AppTranslationContextValues{
      input: string,
      setInput: SetStateType<string>
      findState: FindState | null
-     setFindState: SetStateType<FindState | null>
+     setFindState: SetStateType<FindState | null>,
+     baseKeys: Set<string>,
+     setBaseKeys: SetStateType<Set<string>>
 }
 const AppTranslationContext = createContext<AppTranslationContextValues | null>(null)
 
@@ -48,6 +50,7 @@ export function AppTranslationProvider({ children, initialLimit=100 }: { childre
      const [selectedNamespace, setSelectedNamespace] = useState<string>("")
      const [input, setInput] = useState("")
      const [findState, setFindState] = useState<FindState | null>(null)
+     const [baseKeys, setBaseKeys] = useState<Set<string>>(new Set())
      const updateLangs = (overrides: Partial<ILangInputState>) => setLangs(prev=>({
           ...prev,
           ...overrides
@@ -68,8 +71,9 @@ export function AppTranslationProvider({ children, initialLimit=100 }: { childre
           selectedNamespace, setSelectedNamespace,
           input, setInput,
           findState, setFindState,
+          baseKeys, setBaseKeys,
           visibleTable, keyNames
-     }),[missingOnly, table, currTranslation, langs, files, visibleCount, selectedNamespace, input, visibleTable, keyNames, findState])
+     }),[missingOnly, table, currTranslation, langs, files, visibleCount, selectedNamespace, input, visibleTable, keyNames, findState, baseKeys])
      return (
           <AppTranslationContext.Provider value={values}>
                {children}

@@ -10,7 +10,7 @@ import { getErrorMessage } from "@/lib/utils";
 import RecentTranslations, {RecentTranslation} from "@/lib/store/recent-translations";
 
 export default function FileMenu(){
-     const {table, files, setTable, setFiles, updateLangs} = useAppTranslation()
+     const {table, files, setTable, setFiles, updateLangs, setBaseKeys} = useAppTranslation()
      const [isSaving, setIsSaving] = useState(false)
      const [isOpening, setIsOpening] = useState(false)
      const [recentTranslations, setRecentTranslations] = useState<RecentTranslation[]>([])
@@ -48,6 +48,7 @@ export default function FileMenu(){
                if(res.success) {
                     toast.success(res.success);
                     setTable(res.data)
+                    setBaseKeys(new Set(res.data.map(item => item.keyName)))
                     setFiles({
                          basePath: item.basePath,
                          targetPath: item.targetPath

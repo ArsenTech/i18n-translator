@@ -30,7 +30,7 @@ const items = [
 export default function NewTranslationPopup({triggerButton}: PopupFormProps){
      const [isCreating, startTransition] = useTransition()
      const [open, setOpen] = useState(false)
-     const {setTable, updateLangs, setFiles} = useAppTranslation()
+     const {setTable, updateLangs, setFiles, setBaseKeys} = useAppTranslation()
      const form = useForm<NewTranslationType>({
           resolver: zodResolver(NewTranslationSchema),
           defaultValues: {
@@ -51,6 +51,7 @@ export default function NewTranslationPopup({triggerButton}: PopupFormProps){
                     if(res.success) {
                          toast.success(res.success)
                          setTable(res.data)
+                         setBaseKeys(new Set(res.data.map(item => item.keyName)))
                          updateLangs({
                               base: code,
                               target: values.targetLanguageCode

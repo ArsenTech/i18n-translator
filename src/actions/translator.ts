@@ -145,13 +145,37 @@ export default class TranslatorActions{
                     })
           })
      }
-     public static compareDiff(){
-          console.log("TODO: Implement Compare diff")
+     public static compareDiff = (table: ITranslation[]) =>
+          table.filter(item => {
+               const source = item.baseString.trim()
+               const translation = item.translationString.trim()
+               return (
+                    translation !== "" &&
+                    source !== translation
+               )
+          })
+          .map(item => ({
+               keyName: item.keyName,
+               source: item.baseString,
+               translation: item.translationString,
+          }))
+     public static validateKeys(
+          table: ITranslation[],
+          baseKeys: Set<string>
+     ) {
+          const invalid = table.filter(item => !baseKeys.has(item.keyName))
+          return {
+               success: invalid.length === 0,
+               data: invalid,
+               count: invalid.length,
+          }
      }
-     public static validateKeys(){
-          console.log("TODO: Implement key validation")
-     }
-     public static removeUnusedKeys(){
-          console.log("TODO: Implement remove unused keys")
+     public static removeUnusedKeys(table: ITranslation[], baseKeys: Set<string>) {
+          const data = table.filter(item => baseKeys.has(item.keyName))
+          const removed = table.length - data.length
+          return {
+               success: `${removed} unused key${removed === 1 ? "" : "s"} removed`,
+               data,
+          }
      }
 }

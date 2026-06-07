@@ -16,9 +16,12 @@ export const getColumns = (isSelected: boolean): ColumnDef<ITranslation>[] => [
           cell: ({getValue}) => {
                const array = getValue<string>().split(".");
                return (
-                    <div className="truncate font-mono max-w-[200px]">
-                         {isSelected ? array[array.length-1] : getValue<string>()}
-                    </div>
+                    <Tooltip>
+                         <TooltipTrigger className="truncate font-mono max-w-[200px]">
+                              {isSelected ? array[array.length-1] : getValue<string>()}
+                         </TooltipTrigger>
+                         <TooltipContent className="font-mono">{getValue<string>()}</TooltipContent>
+                    </Tooltip>
                )
           }
      },

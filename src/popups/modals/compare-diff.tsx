@@ -1,15 +1,18 @@
 import TranslatorActions from "@/actions/translator";
 import AppModal from "@/components/popups/modal";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { useAppTranslation } from "@/context/translation";
 import { PopupFormProps } from "@/lib/types";
 import { useEffect, useState } from "react";
 
 export default function CompareDifferencePopup({triggerButton}: PopupFormProps){
+     const {table} = useAppTranslation()
      const [open, setOpen] = useState(false);
-     useEffect(()=>{
-          if(!open) return
-          TranslatorActions.compareDiff()
-     },[open])
+     const [diffTable, setDiffTable] = useState<ReturnType<typeof TranslatorActions.compareDiff>>([])
+     useEffect(() => {
+          setDiffTable(open ? TranslatorActions.compareDiff(table) : [])
+     }, [open, table])
      return (
           <AppModal
                size="xl"
@@ -23,22 +26,40 @@ export default function CompareDifferencePopup({triggerButton}: PopupFormProps){
                     <Table className="min-w-[900px] table-fixed">
                          <TableHeader>
                               <TableRow>
-                                   <TableHead className="sticky top-0 z-20 bg-card">Key</TableHead>
-                                   <TableHead className="sticky top-0 z-20 bg-card">Before</TableHead>
-                                   <TableHead className="sticky top-0 z-20 bg-card">After</TableHead>
+                                   <TableHead className="sticky top-0 z-20 bg-card" style={{width: "200px"}}>Key</TableHead>
+                                   <TableHead className="sticky top-0 z-20 bg-card">Source</TableHead>
+                                   <TableHead className="sticky top-0 z-20 bg-card">Translation</TableHead>
                               </TableRow>
                          </TableHeader>
                          <TableBody>
-                              <TableRow>
-                                   <TableCell className="font-mono">menu.sync</TableCell>
-                                   <TableCell className="bg-destructive/10">Համաժամեցում</TableCell>
-                                   <TableCell className="bg-emerald-500/10 font-semibold">Սինքրոնացում</TableCell>
-                              </TableRow>
-                              <TableRow>
-                                   <TableCell className="font-mono">audio.spectrum</TableCell>
-                                   <TableCell className="bg-destructive/10">Սպեկտոգրամ</TableCell>
-                                   <TableCell className="bg-emerald-500/10 font-semibold">Սպեկտրոգրամ</TableCell>
-                              </TableRow>
+                              {diffTable.map(item => (
+                                   <TableRow key={item.keyName}>
+                                        <Tooltip>
+                                             <TooltipTrigger asChild>
+                                                  <TableCell className="font-mono truncate max-w-[200px]">
+                                                       {item.keyName}
+                                                  </TableCell>
+                                             </TooltipTrigger>
+                                             <TooltipContent className="font-mono">{item.keyName}</TooltipContent>
+                                        </Tooltip>
+                                        <TableCell className="truncate">
+                                             {item.source}
+                                        </TableCell>
+                                        <TableCell className="bg-emerald-500/10 font-semibold truncate">
+                                             {item.translation}
+                                        </TableCell>
+                                   </TableRow>
+                              ))}
+                              {diffTable.length === 0 && (
+                                   <TableRow>
+                                        <TableCell
+                                             colSpan={3}
+                                             className="text-center text-muted-foreground"
+                                        >
+                                             No differences found.
+                                        </TableCell>
+                                   </TableRow>
+                              )}
                          </TableBody>
                     </Table>
                </div>

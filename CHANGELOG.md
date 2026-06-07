@@ -13,6 +13,12 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
   - Find Missing Keys
 - Replace Translations
 - Batch Rename Keys
+- Compare Difference
+- Remove Unused Keys
+- Validate Keys
+### Improved
+- **Differences Table** - Changed columns from `Key | Before | After` to `Key | Source | Translation`
+- **Key column** - Added a tooltip showing the entire key name
 ### Removed
 - **Go to Key Name action** - Key name search is done on Key mode inside the Find Action
 

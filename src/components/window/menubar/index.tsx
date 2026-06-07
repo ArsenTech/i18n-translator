@@ -12,8 +12,26 @@ import FileMenu from "./file-menu";
 import ViewMenu from "./view-menu";
 import EditActions from "@/actions/edit";
 import FindSubmenu from "./find-submenu";
+import { useAppTranslation } from "@/context/translation";
+import { toast } from "sonner";
 
 export default function MenuBar(){
+     const {setTable, table, baseKeys} = useAppTranslation()
+     const removeUnusedKeys = () => {
+          const res = TranslatorActions.removeUnusedKeys(table,baseKeys)
+          if(res.success) {
+               toast.success(res.success)
+               setTable(res.data)
+          }
+     }
+     const validateKeys = () => {
+          const res = TranslatorActions.validateKeys(table, baseKeys)
+          if (res.success) {
+               toast.success("All keys are valid")
+          } else {
+               toast.error(`${res.count} invalid keys found`)
+          }
+     }
      return (
           <Menubar className="h-full border-0 bg-transparent shadow-none rounded-none">
                <FileMenu/>
@@ -75,8 +93,8 @@ export default function MenuBar(){
                          <MenubarSub>
                               <MenubarSubTrigger>Validation</MenubarSubTrigger>
                               <MenubarSubContent>
-                                   <MenubarItem onClick={TranslatorActions.validateKeys}>Validate Keys</MenubarItem>
-                                   <MenubarItem onClick={TranslatorActions.removeUnusedKeys}>Remove Unused Keys</MenubarItem>
+                                   <MenubarItem onClick={validateKeys}>Validate Keys</MenubarItem>
+                                   <MenubarItem onClick={removeUnusedKeys}>Remove Unused Keys</MenubarItem>
                                    <SpellCheckPopup triggerButton={(
                                         <MenubarItem onSelect={(e) => e.preventDefault()}>Spell check (using Hunspell)</MenubarItem>
                                    )}/>

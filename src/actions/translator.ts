@@ -36,21 +36,43 @@ export default class TranslatorActions{
                return {error: getErrorMessage(err)}
           }
      }
-     public static replaceTranslation(values: ReplaceTranslationType){
+     public static replaceTranslation(values: ReplaceTranslationType, table: ITranslation[]){
           try {
                const validatedFields = ReplaceTranslationSchema.safeParse(values)
                if(!validatedFields.success) return {error: "All fields are invalid", data: []}
-               console.log(`TODO: Implement Replace translation Action from ${validatedFields.data.from} to ${validatedFields.data.to}`)
+               const {from, to, caseSensitive} = validatedFields.data
+               const data = table.map(val => ({
+                    ...val,
+                    translationString: caseSensitive
+                         ? val.translationString.replaceAll(from, to)
+                         : val.translationString.replace(
+                              new RegExp(from.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),"gi"),
+                              to
+                         ),
+               }))
+               return {
+                    success: "Translations replaced successfully",
+                    data
+               }
           } catch (err) {
                console.error(err)
                return {error: getErrorMessage(err), data: []}
           }
      }
-     public static batchRename(values: BatchRenameKeysType){
+     public static batchRename(values: BatchRenameKeysType, table: ITranslation[]){
           try {
                const validatedFields = BatchRenameKeysSchema.safeParse(values)
                if(!validatedFields.success) return {error: "All fields are invalid", data: []}
-               console.log(`TODO: Implement batch rename Action from ${validatedFields.data.from} to ${validatedFields.data.to}`)
+               const {from, to} = validatedFields.data
+               const regex = new RegExp(from.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),"gi")
+               const data = table.map(val => ({
+                    ...val,
+                    keyName: val.keyName.replace(regex,to),
+               }))
+               return {
+                    success: "Key names renamed successfully",
+                    data
+               }
           } catch (err) {
                console.error(err)
                return {error: getErrorMessage(err), data: []}

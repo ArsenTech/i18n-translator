@@ -11,6 +11,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
   - Find Next
   - Find Previous
   - Find Missing Keys
+- Replace Translations
+- Batch Rename Keys
 ### Removed
 - **Go to Key Name action** - Key name search is done on Key mode inside the Find Action
 

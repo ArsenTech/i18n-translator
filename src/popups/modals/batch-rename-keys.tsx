@@ -6,11 +6,17 @@ import { Controller, useForm } from "react-hook-form"
 import { BatchRenameKeysType } from "@/schemas/types";
 import { BatchRenameKeysSchema } from "@/schemas";
 import { DialogFooter } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
 import { PopupFormProps } from "@/lib/types";
 import TranslatorActions from "@/actions/translator";
+import { useAppTranslation } from "@/context/translation";
+import { useState } from "react";
+import { toast } from "sonner";
+import ComboboxField from "@/components/fields/combobox-field";
+import { Input } from "@/components/ui/input";
 
 export default function BatchRenameKeysPopup({triggerButton}: PopupFormProps){
+     const {table, setTable, keyNames} = useAppTranslation()
+     const [open, setOpen] = useState(false)
      const form = useForm<BatchRenameKeysType>({
           resolver: zodResolver(BatchRenameKeysSchema),
           defaultValues: {
@@ -19,7 +25,16 @@ export default function BatchRenameKeysPopup({triggerButton}: PopupFormProps){
           }
      })
      const onSubmit = (values: BatchRenameKeysType) => {
-          TranslatorActions.batchRename(values)
+          const res = TranslatorActions.batchRename(values, table)
+          if(res.error) toast.error("Failed to replace translations",{
+               description: res.error
+          })
+          if(res.success) {
+               toast.success(res.success)
+               setOpen(false)
+               setTable(res.data)
+               form.reset()
+          }
      }
      return (
           <AppModal
@@ -27,6 +42,7 @@ export default function BatchRenameKeysPopup({triggerButton}: PopupFormProps){
                title="Batch rename keys"
                description="Rename many keys at once"
                triggerButton={triggerButton}
+               open={open} onOpenChange={setOpen}
           >
                <form id="batch-rename" onSubmit={form.handleSubmit(onSubmit)}>
                     <FieldGroup>
@@ -36,11 +52,11 @@ export default function BatchRenameKeysPopup({triggerButton}: PopupFormProps){
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
                                         <FieldLabel htmlFor={field.name}>From</FieldLabel>
-                                        <Input
+                                        <ComboboxField
                                              {...field}
-                                             id={field.name}
-                                             aria-invalid={fieldState.invalid}
+                                             invalid={fieldState.invalid}
                                              placeholder="common.button.cancel"
+                                             items={keyNames}
                                         />
                                         {fieldState.invalid && (
                                              <FieldError errors={[fieldState.error]} />

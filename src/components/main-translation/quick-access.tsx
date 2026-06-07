@@ -19,7 +19,23 @@ import { Spinner } from "../ui/spinner";
 
 export default function QuickAccessToolbar(){
      const [isSaving, setIsSaving] = useState(false)
-     const {table, files} = useAppTranslation()
+     const {table, files, baseKeys, setCurrentTranslation, setInput, setVisibleCount, visibleTable} = useAppTranslation()
+     const findMissing = () => {
+          const res = FindActions.findMissing(visibleTable)
+          if(res.success) {
+               TranslatorActions.jumpToTranslation({
+                    translation: res.translation,
+                    index: res.index,
+                    setCurrentTranslation,
+                    setInput,
+                    setVisibleCount,
+               })
+          } else {
+               toast.error("Failed to find the query inside the translation",{
+                    description: res.error
+               })
+          }
+     }
      const save = useCallback(async() => {
           if(isSaving) return;
           setIsSaving(true)
@@ -37,6 +53,14 @@ export default function QuickAccessToolbar(){
                setIsSaving(false)
           }
      }, [isSaving, table, files.targetPath])
+     const validateKeys = () => {
+          const res = TranslatorActions.validateKeys(table, baseKeys)
+          if (res.success) {
+               toast.success("All keys are valid")
+          } else {
+               toast.error(`${res.count} invalid keys found`)
+          }
+     }
      return (
           <div className="px-4 pt-2 gap-1 flex items-center justify-center flex-wrap">
                <NewTranslationPopup triggerButton={(
@@ -52,7 +76,7 @@ export default function QuickAccessToolbar(){
                <Button variant="secondary" className="flex-1 aspect-square" title="Save Translation" onClick={save} disabled={isSaving}>
                     {isSaving ? <Spinner/> : <Save/>}
                </Button>
-               <Button variant="secondary" className="flex-1 aspect-square" title="Find Missing Keys" onClick={FindActions.findMissing}>
+               <Button variant="secondary" className="flex-1 aspect-square" title="Find Missing Keys" onClick={findMissing}>
                     <Search/>
                </Button>
                <DropdownMenu modal={false}>
@@ -73,7 +97,7 @@ export default function QuickAccessToolbar(){
                          ))}
                     </DropdownMenuContent>
                </DropdownMenu>
-               <Button variant="secondary" className="flex-1 aspect-square" title="Validate Keys" onClick={TranslatorActions.validateKeys}>
+               <Button variant="secondary" className="flex-1 aspect-square" title="Validate Keys" onClick={validateKeys}>
                     <SearchCheck/>
                </Button>
                <ReplaceTranslationPopup triggerButton={(

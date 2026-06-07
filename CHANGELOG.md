@@ -4,7 +4,7 @@ All notable changes of I18N Translator will be documented here.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
-## [0.2.4] - Unreleased
+## [0.2.4] - 2026-06-07
 ### Added
 - Find Actions
   - Find
@@ -17,10 +17,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Remove Unused Keys
 - Validate Keys
 ### Improved
-- **Differences Table** - Changed columns from `Key | Before | After` to `Key | Source | Translation`
-- **Key column** - Added a tooltip showing the entire key name
+- **Differences Table** — Changed columns from `Key | Before | After` to `Key | Source | Translation`
+- **Key Column** — Added a tooltip displaying the full key name
 ### Removed
-- **Go to Key Name action** - Key name search is done on Key mode inside the Find Action
+- **Go to Key Name** — Merged into **Find** using **Key** search mode
 
 ## [0.2.3] - 2026-06-06
 ### Added

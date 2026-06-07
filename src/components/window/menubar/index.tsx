@@ -3,7 +3,6 @@ import FindActions from "@/actions/find";
 import TranslatorActions from "@/actions/translator";
 import FindPopup from "@/popups/modals/find";
 import ReplaceTranslationPopup from "@/popups/modals/replace-translation";
-import GoToKeyNamePopup from "@/popups/modals/go-to-key";
 import BatchRenameKeysPopup from "@/popups/modals/batch-rename-keys";
 import AutoTranslatePopup from "@/popups/modals/auto-translate";
 import TransliterateScriptPopup from "@/popups/modals/transliterate-script";
@@ -59,9 +58,6 @@ export default function MenuBar(){
                          </MenubarGroup>
                          <MenubarSeparator/>
                          <MenubarGroup>
-                              <GoToKeyNamePopup triggerButton={(
-                                   <MenubarItem onSelect={(e) => e.preventDefault()}>Go to key name</MenubarItem>
-                              )}/>
                               <MenubarItem onClick={EditActions.selectUntranslated}>Select untranslated</MenubarItem>
                               <CompareDifferencePopup triggerButton={(
                                    <MenubarItem onSelect={(e) => e.preventDefault()}>Compare difference</MenubarItem>

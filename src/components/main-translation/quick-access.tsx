@@ -11,7 +11,7 @@ import AutoTranslatePopup from "@/popups/modals/auto-translate";
 import { AutoTranslateProvider } from "@/schemas/types";
 import ReplaceTranslationPopup from "@/popups/modals/replace-translation";
 import SpellCheckPopup from "@/popups/modals/spell-check";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { getErrorMessage } from "@/lib/utils";
 import { toast } from "sonner";
 import { useAppTranslation } from "@/context/translation";
@@ -20,7 +20,7 @@ import { Spinner } from "../ui/spinner";
 export default function QuickAccessToolbar(){
      const [isSaving, setIsSaving] = useState(false)
      const {table, files} = useAppTranslation()
-     const save = async() => {
+     const save = useCallback(async() => {
           if(isSaving) return;
           setIsSaving(true)
           try {
@@ -36,7 +36,7 @@ export default function QuickAccessToolbar(){
           } finally {
                setIsSaving(false)
           }
-     }
+     }, [isSaving, table, files.targetPath])
      return (
           <div className="px-4 pt-2 gap-1 flex items-center justify-center flex-wrap">
                <NewTranslationPopup triggerButton={(

@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 ## [0.2.4] - Unreleased
+### Added
+- Find Action
+### Removed
+- **Go to Key Name action** - Key name search is done on Key mode inside the Find Action
 
 ## [0.2.3] - 2026-06-06
 ### Added

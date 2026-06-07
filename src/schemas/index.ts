@@ -24,9 +24,6 @@ export const ReplaceTranslationSchema = z.object({
      to: z.string().min(1,"Please enter the new translation").trim(),
      caseSensitive: z.boolean()
 })
-export const GoToKeyNameSchema = z.object({
-     keyName: z.string().min(1,"Enter the key name").trim()
-})
 export const BatchRenameKeysSchema = z.object({
      from: z.string().min(1,"Please enter the key to replace").trim(),
      to: z.string().min(1,"Please enter the new key name").trim(),

@@ -1,9 +1,9 @@
 import { SetStateType } from "@/lib/types"
 import { ITranslation } from "@/lib/types/data"
 import { getErrorMessage } from "@/lib/utils"
-import { BatchRenameKeysSchema, GoToKeyNameSchema, ReplaceTranslationSchema, SpellCheckSchema, TransliterateScriptSchema } from "@/schemas"
+import { BatchRenameKeysSchema, ReplaceTranslationSchema, SpellCheckSchema, TransliterateScriptSchema } from "@/schemas"
 import { AutoTranslateSchema } from "@/schemas/auto-translate"
-import { AutoTranslateType, BatchRenameKeysType, GoToKeyNameType, ReplaceTranslationType, SpellCheckType, TransliterateScriptType } from "@/schemas/types"
+import { AutoTranslateType, BatchRenameKeysType, ReplaceTranslationType, SpellCheckType, TransliterateScriptType } from "@/schemas/types"
 
 export default class TranslatorActions{
      public static autoTranslate(values: AutoTranslateType){
@@ -11,23 +11,6 @@ export default class TranslatorActions{
                const validatedFields = AutoTranslateSchema.safeParse(values)
                if(!validatedFields.success) return {error: "All fields are invalid"}
                console.log(`TODO: Implement ${validatedFields.data.provider} Auto translation using ${JSON.stringify(values,undefined,2)}`)
-          } catch (err) {
-               console.error(err)
-               return {error: getErrorMessage(err)}
-          }
-     }
-     public static goToKeyName(values: GoToKeyNameType, table: ITranslation[]){
-          try {
-               const validatedFields = GoToKeyNameSchema.safeParse(values)
-               if(!validatedFields.success) return {error: "All fields are invalid"}
-               const translation = table.find(val=>val.keyName===validatedFields.data.keyName)
-               if(!translation) return {error: "Translation from the specified key name is not found"};
-               const index = table.findIndex(val => val.keyName === validatedFields.data.keyName)
-               return {
-                    success: true,
-                    translation,
-                    index
-               }
           } catch (err) {
                console.error(err)
                return {error: getErrorMessage(err)}
@@ -114,6 +97,31 @@ export default class TranslatorActions{
                     return
                }
           }
+     }
+     public static jumpToTranslation({
+          translation,
+          index,
+          setCurrentTranslation,
+          setInput,
+          setVisibleCount,
+     }: {
+          translation: ITranslation
+          index: number
+          setCurrentTranslation: (value: ITranslation) => void
+          setInput: (value: string) => void
+          setVisibleCount: React.Dispatch<React.SetStateAction<number>>
+     }) {
+          setCurrentTranslation(translation)
+          setInput(translation.translationString)
+          setVisibleCount(prev => Math.max(prev, index + 1))
+          requestAnimationFrame(() => {
+               document
+                    .getElementById(`row-${translation.keyName}`)
+                    ?.scrollIntoView({
+                         behavior: "smooth",
+                         block: "center",
+                    })
+          })
      }
      public static compareDiff(){
           console.log("TODO: Implement Compare diff")

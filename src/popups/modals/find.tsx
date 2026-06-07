@@ -2,7 +2,7 @@ import AppModal from "@/components/popups/modal";
 import { Button } from "@/components/ui/button";
 import { Field, FieldContent, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Controller, useForm } from "react-hook-form"
+import { Controller, useForm, useWatch } from "react-hook-form"
 import { FindType } from "@/schemas/types";
 import { FindSchema } from "@/schemas";
 import { DialogFooter } from "@/components/ui/dialog";
@@ -12,6 +12,11 @@ import { Search } from "lucide-react";
 import RadioField from "@/components/fields/radio-field";
 import { Switch } from "@/components/ui/switch";
 import { PopupFormProps } from "@/lib/types";
+import { useAppTranslation } from "@/context/translation";
+import { useState } from "react";
+import { toast } from "sonner";
+import ComboboxField from "@/components/fields/combobox-field";
+import TranslatorActions from "@/actions/translator";
 
 const items = [
      {value: "key", label: "Key"},
@@ -20,6 +25,8 @@ const items = [
 ]
 
 export default function FindPopup({triggerButton}: PopupFormProps){
+     const {visibleTable, setVisibleCount, keyNames, setCurrentTranslation, setInput} = useAppTranslation()
+     const [open, setOpen] = useState(false)
      const form = useForm<FindType>({
           resolver: zodResolver(FindSchema),
           defaultValues: {
@@ -29,14 +36,33 @@ export default function FindPopup({triggerButton}: PopupFormProps){
           }
      })
      const onSubmit = (values: FindType) => {
-          FindActions.find(values)
+          const res = FindActions.find(values, visibleTable)
+          if(res.error) toast.error("Failed to jump into the specified key name",{
+               description: res.error
+          })
+          if(res.success) {
+               TranslatorActions.jumpToTranslation({
+                    translation: res.translation,
+                    index: res.index,
+                    setCurrentTranslation,
+                    setInput,
+                    setVisibleCount,
+               })
+               setOpen(false);
+               form.reset()
+          }
      }
+     const mode = useWatch({
+          control: form.control,
+          name: "mode"
+     })
      return (
           <AppModal
                size="sm"
                title="Find the translation"
                description="Search for a translation you're looking for"
                triggerButton={triggerButton}
+               open={open} onOpenChange={setOpen}
           >
                <form id="find" onSubmit={form.handleSubmit(onSubmit)}>
                     <FieldGroup>
@@ -46,17 +72,27 @@ export default function FindPopup({triggerButton}: PopupFormProps){
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
                                         <FieldLabel htmlFor={field.name}>Keyword</FieldLabel>
-                                        <InputGroup>
-                                             <InputGroupInput
+                                        {mode==="key" ? (
+                                             <ComboboxField
                                                   {...field}
-                                                  id={field.name}
-                                                  aria-invalid={fieldState.invalid}
-                                                  placeholder="Search translation keys"
+                                                  invalid={fieldState.invalid}
+                                                  placeholder="command.buttons.cancel"
+                                                  items={keyNames}
+                                                  Icon={Search}
                                              />
-                                             <InputGroupAddon>
-                                                  <Search/>
-                                             </InputGroupAddon>
-                                        </InputGroup>
+                                        ) : (
+                                             <InputGroup>
+                                                  <InputGroupInput
+                                                       {...field}
+                                                       id={field.name}
+                                                       aria-invalid={fieldState.invalid}
+                                                       placeholder="Search translation keys"
+                                                  />
+                                                  <InputGroupAddon>
+                                                       <Search/>
+                                                  </InputGroupAddon>
+                                             </InputGroup>
+                                        )}
                                         {fieldState.invalid && (
                                              <FieldError errors={[fieldState.error]} />
                                         )}

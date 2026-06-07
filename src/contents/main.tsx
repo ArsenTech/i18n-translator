@@ -15,16 +15,9 @@ const QuickAccessToolbar = lazy(()=>import("@/components/main-translation/quick-
 const LanguageSelect = lazy(()=>import("@/components/main-translation/language-select"))
 
 export default function MainPage(){
-     const {table, selectedNamespace} = useAppTranslation()
+     const {table} = useAppTranslation()
      const {open} = useTreeSidebar()
-
      const tree = useMemo(() => buildTree(table), [table])
-     const tableData = useMemo(() => {
-          if (!selectedNamespace) return table
-          if (selectedNamespace === "__general") return table.filter(item => !item.keyName.includes("."))
-          return table.filter(item =>item.keyName.startsWith(`${selectedNamespace}.`))
-     }, [selectedNamespace, table])
-
      useKeyboardShortcuts()
      return (
           <WindowWrapper>
@@ -50,8 +43,8 @@ export default function MainPage(){
                               </>
                          )}>
                               <LanguageSelect/>
-                              <TranslationTable data={tableData} />
-                              <TranslationInput visibleTable={tableData}/>
+                              <TranslationTable/>
+                              <TranslationInput/>
                               <TranslatorStats/>
                          </Suspense>
                     </div>

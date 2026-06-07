@@ -5,15 +5,11 @@ import { ChevronLeft, ChevronRight, Copy, Save } from "lucide-react";
 import { useMemo, useState } from "react";
 import TranslatorActions from "@/actions/translator";
 import { useAppTranslation } from "@/context/translation";
-import { ITranslation } from "@/lib/types/data";
 import { Label } from "../ui/label";
 import { Switch } from "../ui/switch";
 
-interface TranslationInputProps{
-     visibleTable: ITranslation[]
-}
-export default function TranslationInput({visibleTable}: TranslationInputProps){
-     const {table, currTranslation, setTable, setCurrentTranslation, input, setInput} = useAppTranslation()
+export default function TranslationInput(){
+     const {table, currTranslation, setTable, setCurrentTranslation, input, setInput, visibleTable} = useAppTranslation()
      const [checked, setChecked] = useState(false)
      const percentage = useMemo(()=>{
           const data = checked ? visibleTable : table

@@ -1,7 +1,6 @@
 "use client"
 import { flexRender, getCoreRowModel, getSortedRowModel, SortingState, useReactTable, VisibilityState } from "@tanstack/react-table"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import type { ITranslation } from "@/lib/types/data"
 import { getColumns } from "./columns"
 import { ButtonGroup } from "@/components/ui/button-group";
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@/components/ui/input-group";
@@ -13,10 +12,6 @@ import { cn } from "@/lib/utils"
 import { useAppTranslation } from "@/context/translation"
 import { Spinner } from "../ui/spinner"
 
-interface DataTableProps {
-     data: ITranslation[]
-}
-
 export type FilterType =
   | "all"
   | "translated"
@@ -24,8 +19,8 @@ export type FilterType =
   | "transEqSrc"
   | "repeatedStr"
 
-export default function TranslationTable({data}: DataTableProps) {
-     const {missingOnly, setCurrentTranslation, currTranslation, visibleCount, setVisibleCount, selectedNamespace, setInput} = useAppTranslation()
+export default function TranslationTable() {
+     const {missingOnly, setCurrentTranslation, currTranslation, visibleCount, setVisibleCount, selectedNamespace, setInput, visibleTable} = useAppTranslation()
      const [search, setSearch] = React.useState("")
      const [searchMode, setSearchMode] = React.useState<"name" | "translation" | "source" | "source-not" | "translation-not" | "name-not">("source")
      const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({
@@ -38,17 +33,17 @@ export default function TranslationTable({data}: DataTableProps) {
      const [filter, setFilter] = React.useState<FilterType>("all")
      const repeatedSources = React.useMemo(() => {
           const counts = new Map<string, number>()
-          for (const item of data) {
+          for (const item of visibleTable) {
                const source = item.baseString.trim().toLowerCase()
                if (!source) continue
                counts.set(source, (counts.get(source) ?? 0) + 1)
           }
           return counts
-     }, [data])
+     }, [visibleTable])
      const query = React.useMemo(() => search.trim().toLowerCase(), [search])
      const columns = React.useMemo(() => getColumns(selectedNamespace ? selectedNamespace.trim() !== "" : false),[selectedNamespace])
      const searchableData = React.useMemo(() => {
-          return data.map(item => ({
+          return visibleTable.map(item => ({
                item,
                key: item.keyName.toLowerCase(),
                source: item.baseString.toLowerCase(),
@@ -56,7 +51,7 @@ export default function TranslationTable({data}: DataTableProps) {
                sourceTrimmed: item.baseString.trim(),
                translationTrimmed: item.translationString.trim(),
           }))
-     }, [data])
+     }, [visibleTable])
      const filteredData = React.useMemo(() => {
           return searchableData.filter(({ key, source, translation, sourceTrimmed, translationTrimmed }) => {
                let passesFilter = true
@@ -105,7 +100,7 @@ export default function TranslationTable({data}: DataTableProps) {
      const scrollRef = React.useRef<HTMLDivElement>(null)
      React.useEffect(() => {
           setVisibleCount(100)
-     }, [query, searchMode, filter, missingOnly, data])
+     }, [query, searchMode, filter, missingOnly, visibleTable])
      React.useEffect(() => {
           const container = scrollRef.current
           if (!container) return

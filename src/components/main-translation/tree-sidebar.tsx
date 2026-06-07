@@ -8,6 +8,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetCl
 import { TreeNode } from "@/lib/types"
 import { useTreeSidebar } from "@/context/sidebar"
 import { useAppTranslation } from "@/context/translation"
+import React from "react"
 
 const SIDEBAR_WIDTH_MOBILE = "18rem"
 
@@ -89,7 +90,7 @@ function TreeSidebarContainer({children}: {children: React.ReactNode}){
 interface TreeNodeItemProps{
      node: TreeNode
 }
-function TreeNodeItem({node}: TreeNodeItemProps){
+const TreeNodeItem = React.memo(({node}: TreeNodeItemProps) => {
      const {selectedNamespace, setSelectedNamespace} = useAppTranslation()
      const [open, setOpen] = useState(node.name === "Root")
      const hasChildren = node.children.length > 0
@@ -136,7 +137,7 @@ function TreeNodeItem({node}: TreeNodeItemProps){
                </Collapsible>
           </TreeSidebarItem>
      )
-}
+})
 
 interface TreeSidebarProps{
      tree: TreeNode[]

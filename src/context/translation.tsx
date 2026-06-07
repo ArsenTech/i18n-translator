@@ -11,6 +11,7 @@ interface AppTranslationContextValues{
      missingOnly: boolean,
      setMissingOnly: SetStateType<boolean>,
      table: ITranslation[],
+     visibleTable: ITranslation[],
      setTable: SetStateType<ITranslation[]>,
      currTranslation: ITranslation | null
      setCurrentTranslation: SetStateType<ITranslation | null>,
@@ -47,21 +48,23 @@ export function AppTranslationProvider({ children, initialLimit=100 }: { childre
           ...prev,
           ...overrides
      }))
-     const keyNames = useMemo(()=>{
-          if (!selectedNamespace) return table.map(val=>val.keyName)
-          if (selectedNamespace === "__general") return table.filter(item => !item.keyName.includes(".")).map(val=>val.keyName)
-          return table.filter(item =>item.keyName.startsWith(`${selectedNamespace}.`)).map(val=>val.keyName)
-     },[selectedNamespace, table])
+     const visibleTable = useMemo(() => {
+          if (!selectedNamespace) return table
+          if (selectedNamespace === "__general") return table.filter(item => !item.keyName.includes("."))
+          return table.filter(item =>item.keyName.startsWith(`${selectedNamespace}.`))
+     }, [selectedNamespace, table])
+     const keyNames = useMemo(() => visibleTable.map(val => val.keyName),[visibleTable])
      const values: AppTranslationContextValues = useMemo(()=>({
           missingOnly, setMissingOnly,
           table, setTable,
           currTranslation, setCurrentTranslation,
           langs, updateLangs,
-          files, setFiles, keyNames,
+          files, setFiles,
           visibleCount, setVisibleCount,
           selectedNamespace, setSelectedNamespace,
-          input, setInput
-     }),[missingOnly, table, currTranslation, langs, files, visibleCount, selectedNamespace, input])
+          input, setInput,
+          visibleTable, keyNames
+     }),[missingOnly, table, currTranslation, langs, files, visibleCount, selectedNamespace, input, visibleTable, keyNames])
      return (
           <AppTranslationContext.Provider value={values}>
                {children}

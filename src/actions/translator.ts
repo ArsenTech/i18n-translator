@@ -8,7 +8,6 @@ import { AutoTranslateType, BatchRenameKeysType, ReplaceTranslationType, SpellCh
 export default class TranslatorActions{
      public static autoTranslate(values: AutoTranslateType){
           try {
-               // TODO: Add a dirty state there
                const validatedFields = AutoTranslateSchema.safeParse(values)
                if(!validatedFields.success) return {error: "All fields are invalid"}
                console.log(`TODO: Implement ${validatedFields.data.provider} Auto translation using ${JSON.stringify(values,undefined,2)}`)
@@ -19,7 +18,6 @@ export default class TranslatorActions{
      }
      public static hunspellCheck(values: SpellCheckType){
           try {
-               // TODO: Add a dirty state there
                const validatedFields = SpellCheckSchema.safeParse(values)
                if(!validatedFields.success) return {error: "All fields are invalid"}
                console.log(`TODO: Implement Spell check (using Hunspell with dictionary: ${validatedFields.data.dictionary})`)
@@ -30,7 +28,6 @@ export default class TranslatorActions{
      }
      public static transliterateScript(values: TransliterateScriptType){
           try {
-               // TODO: Add a dirty state there
                const validatedFields = TransliterateScriptSchema.safeParse(values)
                if(!validatedFields.success) return {error: "All fields are invalid"}
                console.log(`TODO: Implement Script transliteration (e.g. ${validatedFields.data.source} to ${validatedFields.data.target})`)

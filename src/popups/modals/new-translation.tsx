@@ -30,7 +30,7 @@ const items = [
 export default function NewTranslationPopup({triggerButton}: PopupFormProps){
      const [isCreating, startTransition] = useTransition()
      const [open, setOpen] = useState(false)
-     const {setTable, updateLangs, setFiles, setBaseKeys} = useAppTranslation()
+     const {setTable, updateLangs, setFiles, setBaseKeys, setIsDirty} = useAppTranslation()
      const form = useForm<NewTranslationType>({
           resolver: zodResolver(NewTranslationSchema),
           defaultValues: {
@@ -57,6 +57,7 @@ export default function NewTranslationPopup({triggerButton}: PopupFormProps){
                               target: values.targetLanguageCode
                          })
                          setOpen(false)
+                         setIsDirty(false)
                          form.reset()
                     }
                     if(res.targetPath) {

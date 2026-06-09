@@ -15,7 +15,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 export default function ReplaceTranslationPopup({triggerButton}: PopupFormProps){
-     const {table, setTable} = useAppTranslation()
+     const {table, setTable, setIsDirty} = useAppTranslation()
      const [open, setOpen] = useState(false)
      const form = useForm<ReplaceTranslationType>({
           resolver: zodResolver(ReplaceTranslationSchema),
@@ -34,6 +34,7 @@ export default function ReplaceTranslationPopup({triggerButton}: PopupFormProps)
                toast.success(res.success)
                setOpen(false)
                setTable(res.data)
+               setIsDirty(true)
                form.reset()
           }
      }

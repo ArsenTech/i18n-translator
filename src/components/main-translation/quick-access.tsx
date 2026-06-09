@@ -19,7 +19,7 @@ import { Spinner } from "../ui/spinner";
 
 export default function QuickAccessToolbar(){
      const [isSaving, setIsSaving] = useState(false)
-     const {table, files, baseKeys, setCurrentTranslation, setInput, setVisibleCount, visibleTable} = useAppTranslation()
+     const {table, files, baseKeys, setCurrentTranslation, setInput, setVisibleCount, visibleTable, setIsDirty} = useAppTranslation()
      const findMissing = () => {
           const res = FindActions.findMissing(visibleTable)
           if(res.success) {
@@ -44,7 +44,10 @@ export default function QuickAccessToolbar(){
                if(res?.error) toast.error("Failed to save the file",{
                     description: res.error
                })
-               if(res?.success) toast.success(res.success)
+               if(res?.success) {
+                    toast.success(res.success)
+                    setIsDirty(false)
+               }
           } catch (err){
                toast.error("Failed to save the file",{
                     description: getErrorMessage(err)

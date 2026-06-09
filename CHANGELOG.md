@@ -4,6 +4,16 @@ All notable changes of I18N Translator will be documented here.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [0.2.5] - 2026-06-09
+### Added
+- Edit Actions
+  - Undo and Redo
+  - Cut, Copy, and Paste
+  - Select Untranslated
+  - Select All
+  - Clear Selection
+- Save Confirmation Dialog before closing
+
 ## [0.2.4] - 2026-06-07
 ### Added
 - Find Actions

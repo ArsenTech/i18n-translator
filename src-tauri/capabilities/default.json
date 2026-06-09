@@ -39,6 +39,7 @@
     "core:window:allow-toggle-maximize",
     "process:default",
     "dialog:default",
+    "dialog:allow-message",
     "store:default"
   ]
 }

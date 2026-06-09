@@ -20,7 +20,7 @@ export type FilterType =
   | "repeatedStr"
 
 export default function TranslationTable() {
-     const {missingOnly, setCurrentTranslation, currTranslation, visibleCount, setVisibleCount, selectedNamespace, setInput, visibleTable} = useAppTranslation()
+     const {missingOnly, setCurrentTranslation, currTranslation, visibleCount, setVisibleCount, selectedNamespace, setInput, visibleTable, selectedKeys, setSelectedKeys, selectKey} = useAppTranslation()
      const [search, setSearch] = React.useState("")
      const [searchMode, setSearchMode] = React.useState<"name" | "translation" | "source" | "source-not" | "translation-not" | "name-not">("source")
      const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({
@@ -189,14 +189,20 @@ export default function TranslationTable() {
                                         <TableRow
                                              key={row.id}
                                              id={`row-${row.original.keyName}`}
-                                             data-state={(row.getIsSelected() || row.original.keyName===currTranslation?.keyName) && "selected"}
+                                             data-state={(row.getIsSelected() || row.original.keyName===currTranslation?.keyName || selectedKeys.has(row.original.keyName)) && "selected"}
                                              className={cn(
                                                   !row.original.translationString && "bg-destructive/5",
                                                   row.original.baseString===row.original.translationString && "bg-amber-50 dark:bg-amber-900"
                                              )}
-                                             onClick={()=>{
+                                             onClick={e=>{
                                                   setCurrentTranslation(row.original)
                                                   setInput(row.original.translationString)
+
+                                                  if (e.ctrlKey) {
+                                                       selectKey(row.original.keyName)
+                                                  } else {
+                                                       setSelectedKeys(new Set([row.original.keyName]))
+                                                  }
                                              }}
                                         >
                                              {row.getVisibleCells().map((cell) => (

@@ -9,7 +9,7 @@ import { Label } from "../ui/label";
 import { Switch } from "../ui/switch";
 
 export default function TranslationInput(){
-     const {table, currTranslation, setTable, setCurrentTranslation, input, setInput, visibleTable} = useAppTranslation()
+     const {table, currTranslation, setTable, setCurrentTranslation, input, setInput, visibleTable, setIsDirty, inputRef} = useAppTranslation()
      const [checked, setChecked] = useState(false)
      const percentage = useMemo(()=>{
           const data = checked ? visibleTable : table
@@ -23,6 +23,7 @@ export default function TranslationInput(){
                table: visibleTable, currTranslation,
                setInput, onSelectTranslation: setCurrentTranslation
           })
+          setIsDirty(true)
      }
      const saveAndPrev = () => {
           TranslatorActions.saveString({input, setTable, currTranslation})
@@ -30,6 +31,7 @@ export default function TranslationInput(){
                table: visibleTable, currTranslation,
                setInput, onSelectTranslation: setCurrentTranslation
           })
+          setIsDirty(true)
      }
      return (
           <>
@@ -44,6 +46,7 @@ export default function TranslationInput(){
           </div>
           <div className="flex gap-2">
                <Textarea
+                    ref={inputRef}
                     value={input}
                     onChange={e=>setInput(e.target.value)}
                     className="flex-2"
@@ -59,11 +62,17 @@ export default function TranslationInput(){
                     }}
                />
                <div className="flex items-center gap-1 flex-wrap flex-1">
-                    <Button className="flex-1" variant="secondary" onClick={()=>TranslatorActions.borrowFromSource(currTranslation,setInput)}>
+                    <Button className="flex-1" variant="secondary" onClick={()=>{
+                         TranslatorActions.borrowFromSource(currTranslation,setInput)
+                         setIsDirty(true)
+                    }}>
                          <Copy/>
                          Copy from Source
                     </Button>
-                    <Button className="flex-1" onClick={()=>TranslatorActions.saveString({input, setTable, currTranslation})}>
+                    <Button className="flex-1" onClick={()=>{
+                         TranslatorActions.saveString({input, setTable, currTranslation})
+                         setIsDirty(true)
+                    }}>
                          <Save/>
                          Save String
                     </Button>

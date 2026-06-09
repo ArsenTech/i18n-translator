@@ -15,7 +15,7 @@ import ComboboxField from "@/components/fields/combobox-field";
 import { Input } from "@/components/ui/input";
 
 export default function BatchRenameKeysPopup({triggerButton}: PopupFormProps){
-     const {table, setTable, keyNames} = useAppTranslation()
+     const {table, setTable, keyNames, setIsDirty} = useAppTranslation()
      const [open, setOpen] = useState(false)
      const form = useForm<BatchRenameKeysType>({
           resolver: zodResolver(BatchRenameKeysSchema),
@@ -33,6 +33,7 @@ export default function BatchRenameKeysPopup({triggerButton}: PopupFormProps){
                toast.success(res.success)
                setOpen(false)
                setTable(res.data)
+               setIsDirty(true)
                form.reset()
           }
      }

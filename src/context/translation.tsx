@@ -1,7 +1,7 @@
 import { FindState } from "@/actions/find";
 import type { ILangInputState, SetStateType } from "@/lib/types";
 import type { ITranslation } from "@/lib/types/data"
-import { createContext, useContext, useMemo, useState } from "react"
+import { createContext, useCallback, useContext, useMemo, useRef, useState } from "react"
 
 interface TranslationFiles {
      basePath: string
@@ -30,7 +30,13 @@ interface AppTranslationContextValues{
      findState: FindState | null
      setFindState: SetStateType<FindState | null>,
      baseKeys: Set<string>,
-     setBaseKeys: SetStateType<Set<string>>
+     setBaseKeys: SetStateType<Set<string>>,
+     isDirty: boolean,
+     setIsDirty: SetStateType<boolean>,
+     inputRef: React.RefObject<HTMLTextAreaElement | null>,
+     selectedKeys: Set<string>,
+     setSelectedKeys: SetStateType<Set<string>>,
+     selectKey: (key: string) => void
 }
 const AppTranslationContext = createContext<AppTranslationContextValues | null>(null)
 
@@ -51,16 +57,28 @@ export function AppTranslationProvider({ children, initialLimit=100 }: { childre
      const [input, setInput] = useState("")
      const [findState, setFindState] = useState<FindState | null>(null)
      const [baseKeys, setBaseKeys] = useState<Set<string>>(new Set())
-     const updateLangs = (overrides: Partial<ILangInputState>) => setLangs(prev=>({
+     const [isDirty, setIsDirty] = useState(false)
+     const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set())
+     const inputRef = useRef<HTMLTextAreaElement>(null)
+     const updateLangs = useCallback((overrides: Partial<ILangInputState>) => setLangs(prev=>({
           ...prev,
           ...overrides
-     }))
+     })),[])
      const visibleTable = useMemo(() => {
           if (!selectedNamespace) return table
           if (selectedNamespace === "__general") return table.filter(item => !item.keyName.includes("."))
           return table.filter(item =>item.keyName.startsWith(`${selectedNamespace}.`))
      }, [selectedNamespace, table])
      const keyNames = useMemo(() => visibleTable.map(val => val.keyName),[visibleTable])
+     const selectKey = useCallback((key: string) => setSelectedKeys(prev => {
+          const next = new Set(prev)
+          if (next.has(key)) {
+               next.delete(key)
+          } else {
+               next.add(key)
+          }
+          return next
+     }),[])
      const values: AppTranslationContextValues = useMemo(()=>({
           missingOnly, setMissingOnly,
           table, setTable,
@@ -72,8 +90,10 @@ export function AppTranslationProvider({ children, initialLimit=100 }: { childre
           input, setInput,
           findState, setFindState,
           baseKeys, setBaseKeys,
-          visibleTable, keyNames
-     }),[missingOnly, table, currTranslation, langs, files, visibleCount, selectedNamespace, input, visibleTable, keyNames, findState, baseKeys])
+          visibleTable, keyNames,
+          isDirty, setIsDirty, inputRef,
+          selectedKeys, setSelectedKeys, selectKey
+     }),[missingOnly, table, currTranslation, langs, files, visibleCount, selectedNamespace, input, visibleTable, keyNames, findState, baseKeys, isDirty, selectedKeys])
      return (
           <AppTranslationContext.Provider value={values}>
                {children}

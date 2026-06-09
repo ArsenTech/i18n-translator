@@ -21,7 +21,7 @@ import RecentTranslations from "@/lib/store/recent-translations";
 export default function OpenTranslationPopup({triggerButton}: PopupFormProps){
      const [isOpening, startTransition] = useTransition()
      const [open, setOpen] = useState(false)
-     const {setTable, updateLangs, setFiles, setBaseKeys} = useAppTranslation()
+     const {setTable, updateLangs, setFiles, setBaseKeys, setIsDirty} = useAppTranslation()
      const form = useForm<OpenTranslationType>({
           resolver: zodResolver(OpenTranslationSchema),
           defaultValues: {
@@ -59,6 +59,7 @@ export default function OpenTranslationPopup({triggerButton}: PopupFormProps){
                               targetPath: values.targetPath
                          })
                          setOpen(false)
+                         setIsDirty(false)
                          form.reset()
                     }
                } catch (err) {

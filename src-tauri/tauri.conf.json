@@ -37,7 +37,10 @@
     "windows": {
       "nsis": {
         "compression": "zlib",
-        "installMode": "both"
+        "installMode": "both",
+        "sidebarImage": "assets/sidebar-image.bmp",
+        "headerImage": "assets/header-image.bmp",
+        "installerIcon": "assets/installer.ico"
       }
     }
   }

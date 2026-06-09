@@ -57,14 +57,17 @@
 <!-- TODO: Add some Features into the list -->
 
 ### Planned Improvements
+#### v0.4.x or later (Expansion)
+- [ ] Auto-Translation backend
+- [ ] Transliteration backend
+- [ ] Spell checking backend
 #### Nice to have
 - [ ] Write the Documentation on the `docs/` folder.
   - [ ] Usage Guide
   - [ ] Installation Guide
   - [ ] Troubleshooting
   - [ ] FAQs
-
-### Future Expansions
+#### Future Expansions
 - [ ] The "All Glossaries" page providing Glossaries to download and use
 - [ ] Glossary page that'll save words to Glossary (Needs Rust to save as json)
   ```json

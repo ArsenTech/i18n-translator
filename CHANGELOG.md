@@ -18,7 +18,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - **Save Confirmation Dialog**
   - Prompt to save unsaved changes before closing the application
 ### Changed
-- **NSIX Installer**
+- **NSIS Installer**
   - Icon
   - Sidebar image
   - Header image

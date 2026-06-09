@@ -6,13 +6,22 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ---
 ## [0.2.5] - 2026-06-09
 ### Added
-- Edit Actions
-  - Undo and Redo
-  - Cut, Copy, and Paste
-  - Select Untranslated
+- **Edit Actions**
+  - Undo
+  - Redo
+  - Cut
+  - Copy
+  - Paste
   - Select All
+  - Select Untranslated
   - Clear Selection
-- Save Confirmation Dialog before closing
+- **Save Confirmation Dialog**
+  - Prompt to save unsaved changes before closing the application
+### Changed
+- **NSIX Installer**
+  - Icon
+  - Sidebar image
+  - Header image
 
 ## [0.2.4] - 2026-06-07
 ### Added

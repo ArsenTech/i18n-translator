@@ -1,12 +1,20 @@
 import { RESOURCE_TYPE, SUPPORTED_SCRIPTS } from "@/lib/constants"
+import { TranslationFormat } from "@/lib/types/enums"
 import * as z from "zod"
 
 const scriptField = z.enum([...SUPPORTED_SCRIPTS.map(s => s.value)],"Choose a Script to transliterate")
+const fileFormats: TranslationFormat[] = [
+     TranslationFormat.Json,
+     TranslationFormat.Xml,
+     TranslationFormat.Po,
+     TranslationFormat.Resx,
+     TranslationFormat.Xliff,
+]
 
 export const NewTranslationSchema = z.object({
      path: z.string().min(1,"Please enter the path of the base language file").trim(),
      targetLanguageCode: z.string().min(1,"Please select a target language").trim(),
-     format: z.enum(["json","xml","po","xliff","resx"],"Choose the file type of the new translation")
+     format: z.enum([...fileFormats],"Choose the file type of the new translation")
 })
 export const OpenTranslationSchema = z.object({
      basePath: z.string().min(1,"Please enter the path of the base language file").trim(),

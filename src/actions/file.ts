@@ -5,6 +5,7 @@ import { NewTranslationSchema, OpenTranslationSchema } from "@/schemas"
 import { NewTranslationType, OpenTranslationType } from "@/schemas/types"
 import { invoke } from "@tauri-apps/api/core"
 import { save } from "@tauri-apps/plugin-dialog"
+import { getFormatFromPath } from "@/lib/helpers"
 
 export default class FileActions{
      public static async newTranslation(values: NewTranslationType): Promise<{
@@ -20,7 +21,7 @@ export default class FileActions{
                const res = await invoke<CreateTranslationResult>("create_translation", {
                     basePath: path,
                     targetLanguageCode: targetLanguageCode,
-                    format: format
+                    format
                })
                return {
                     success: "Translation created successfully",
@@ -42,9 +43,13 @@ export default class FileActions{
                const validatedFields = OpenTranslationSchema.safeParse(values)
                if(!validatedFields.success) return {error: "All fields are invalid", data: []}
                const {basePath, targetPath} = validatedFields.data
+               const baseFormat = await getFormatFromPath(basePath);
+               const targetFormat = await getFormatFromPath(targetPath)
+               if (baseFormat!==targetFormat) return {error: "Translation format should match the Base language format"}
                const res = await invoke<IBackendTranslation[]>("open_translation", {
                     basePath,
-                    targetPath
+                    targetPath,
+                    format: baseFormat
                })
                return {
                     success: "Translation opened successfully",
@@ -72,7 +77,8 @@ export default class FileActions{
                }))
                await invoke("save_translation", {
                     targetPath,
-                    entries
+                    entries,
+                    format: await getFormatFromPath(targetPath)
                })
                return {success: "Translation saved successfully"}
           } catch (err) {
@@ -117,7 +123,8 @@ export default class FileActions{
                }))
                await invoke("save_translation", {
                     targetPath,
-                    entries
+                    entries,
+                    format: await getFormatFromPath(targetPath)
                })
                return {success: "Translation saved successfully"}
           } catch (err) {

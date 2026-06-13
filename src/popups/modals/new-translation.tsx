@@ -18,6 +18,7 @@ import { getErrorMessage } from "@/lib/utils";
 import { useAppTranslation } from "@/context/translation";
 import { detectLanguageCode } from "@/lib/helpers";
 import RecentTranslations from "@/lib/store/recent-translations";
+import { TranslationFormat } from "@/lib/types/enums";
 
 const items = [
      {value: "json", label: "JSON File"},
@@ -36,7 +37,7 @@ export default function NewTranslationPopup({triggerButton}: PopupFormProps){
           defaultValues: {
                path: "",
                targetLanguageCode: "",
-               format: "json"
+               format: TranslationFormat.Json
           }
      })
      const onSubmit = (values: NewTranslationType) => {
@@ -66,11 +67,13 @@ export default function NewTranslationPopup({triggerButton}: PopupFormProps){
                               basePath: values.path,
                               targetPath: res.targetPath,
                               baseLang: code,
-                              targetLang: values.targetLanguageCode
+                              targetLang: values.targetLanguageCode,
+                              format: values.format
                          })
                          setFiles({
                               basePath: values.path,
-                              targetPath: res.targetPath
+                              targetPath: res.targetPath,
+                              format: values.format
                          })
                     }
                } catch (err) {

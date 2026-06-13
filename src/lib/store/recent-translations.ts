@@ -2,13 +2,15 @@ import { invoke } from "@tauri-apps/api/core"
 import { LazyStore } from "@tauri-apps/plugin-store"
 import { IBackendTranslation } from "../types/data/backend"
 import { ITranslation } from "../types/data"
+import { TranslationFormat } from "../types/enums"
 
 export interface RecentTranslation {
      name: string
      basePath: string
      targetPath: string
      baseLang: string
-     targetLang: string
+     targetLang: string,
+     format: TranslationFormat
 }
 
 const store = new LazyStore("recent-translations.json")
@@ -41,7 +43,8 @@ export default class RecentTranslations{
           try {
                const res = await invoke<IBackendTranslation[]>("open_translation", {
                     basePath: item.basePath,
-                    targetPath: item.targetPath
+                    targetPath: item.targetPath,
+                    format: item.format
                })
                return {
                     success: "Translation opened successfully",

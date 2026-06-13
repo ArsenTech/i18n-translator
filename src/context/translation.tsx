@@ -1,11 +1,13 @@
 import { FindState } from "@/actions/find";
 import type { ILangInputState, SetStateType } from "@/lib/types";
 import type { ITranslation } from "@/lib/types/data"
+import { TranslationFormat } from "@/lib/types/enums";
 import { createContext, useCallback, useContext, useMemo, useRef, useState } from "react"
 
 interface TranslationFiles {
      basePath: string
-     targetPath: string
+     targetPath: string,
+     format: TranslationFormat | null
 }
 
 interface AppTranslationContextValues{
@@ -50,7 +52,8 @@ export function AppTranslationProvider({ children, initialLimit=100 }: { childre
      })
      const [files, setFiles] = useState<TranslationFiles>({
           basePath: "",
-          targetPath: ""
+          targetPath: "",
+          format: null
      })
      const [visibleCount, setVisibleCount] = useState(initialLimit)
      const [selectedNamespace, setSelectedNamespace] = useState<string>("")

@@ -15,7 +15,7 @@ import { FolderOpen } from "lucide-react";
 import { getErrorMessage } from "@/lib/utils";
 import { toast } from "sonner";
 import { useAppTranslation } from "@/context/translation";
-import { detectLanguageCode, getFileName } from "@/lib/helpers";
+import { detectLanguageCode, getFileName, getFormatFromPath } from "@/lib/helpers";
 import RecentTranslations from "@/lib/store/recent-translations";
 
 export default function OpenTranslationPopup({triggerButton}: PopupFormProps){
@@ -48,7 +48,8 @@ export default function OpenTranslationPopup({triggerButton}: PopupFormProps){
                               baseLang: values.baseLang,
                               targetLang: values.targetLang,
                               basePath: values.basePath,
-                              targetPath: values.targetPath
+                              targetPath: values.targetPath,
+                              format: await getFormatFromPath(values.basePath)
                          })
                          updateLangs({
                               base: values.baseLang,
@@ -56,7 +57,8 @@ export default function OpenTranslationPopup({triggerButton}: PopupFormProps){
                          }),
                          setFiles({
                               basePath: values.basePath,
-                              targetPath: values.targetPath
+                              targetPath: values.targetPath,
+                              format: await getFormatFromPath(values.basePath)
                          })
                          setOpen(false)
                          setIsDirty(false)

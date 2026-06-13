@@ -54,7 +54,8 @@ export default function FileMenu(){
                     setBaseKeys(new Set(res.data.map(item => item.keyName)))
                     setFiles({
                          basePath: item.basePath,
-                         targetPath: item.targetPath
+                         targetPath: item.targetPath,
+                         format: item.format
                     })
                     updateLangs({
                          base: item.baseLang,

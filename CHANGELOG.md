@@ -4,6 +4,10 @@ All notable changes of I18N Translator will be documented here.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [0.2.6] - Unreleased
+### Added
+- XML Support
+
 ## [0.2.5] - 2026-06-09
 ### Added
 - **Edit Actions**

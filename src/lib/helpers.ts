@@ -1,6 +1,8 @@
 import { TreeNode } from "./types"
 import type { ITranslation } from "@/lib/types/data"
 import { IBackendTranslation } from "./types/data/backend"
+import { TranslationFormat } from "./types/enums"
+import { extname } from "@tauri-apps/api/path"
 
 export function buildTree(data: ITranslation[]): TreeNode[] {
      const root: TreeNode = {
@@ -62,4 +64,17 @@ export function toBackendEntries(table: ITranslation[]): IBackendTranslation[] {
           translation_string: val.translationString,
           line_number: val.lineNumber,
      }))
+}
+
+const extensions: Record<string,TranslationFormat> = {
+     "json": TranslationFormat.Json,
+     "xml": TranslationFormat.Xml,
+     "po": TranslationFormat.Po,
+     "resx": TranslationFormat.Resx,
+     "xliff": TranslationFormat.Xliff
+}
+export async function getFormatFromPath(path: string): Promise<TranslationFormat> {
+     const extension = await extname(path)
+     console.log(extension)
+     return extensions[extension]
 }

@@ -1,9 +1,9 @@
 use std::fs;
 
 use crate::{
-    helpers::{json, xml_desktop, resx},
+    helpers::{detect_xml_format, json, resx, xml_desktop},
     types::{
-        enums::TranslationFormat,
+        enums::{TranslationFormat, XmlFormat},
         structs::{CreateTranslationResult, TranslationEntry},
     },
 };
@@ -19,10 +19,9 @@ pub fn create_translation(
         TranslationFormat::Json => json::create(base_path, target_language_code),
         TranslationFormat::Xml => {
             let content = fs::read_to_string(&base_path).map_err(|e|e.to_string())?;
-            if content.contains("<resources") {
-                Err("Unsupported format".into())
-            } else {
-                xml_desktop::create(base_path, target_language_code)
+            match detect_xml_format(&content) {
+                XmlFormat::Desktop => Err("Unsupported format".into()),
+                XmlFormat::Android => xml_desktop::create(base_path, target_language_code),
             }
         }
         // TranslationFormat::Po => po::create(base_path, target_language_code),
@@ -43,10 +42,9 @@ pub fn open_translation(
         TranslationFormat::Json => json::open(base_path, target_path),
         TranslationFormat::Xml => {
             let content = fs::read_to_string(&base_path).map_err(|e|e.to_string())?;
-            if content.contains("<resources") {
-                Err("Unsupported format".into())
-            } else {
-                xml_desktop::open(base_path, target_path)
+            match detect_xml_format(&content) {
+                XmlFormat::Desktop => Err("Unsupported format".into()),
+                XmlFormat::Android => xml_desktop::open(base_path, target_path),
             }
         }
         // TranslationFormat::Po => po::open(base_path, target_path),
@@ -67,10 +65,9 @@ pub fn save_translation(
         TranslationFormat::Json => json::save(target_path, entries),
         TranslationFormat::Xml => {
             let content = fs::read_to_string(&target_path).map_err(|e|e.to_string())?;
-            if content.contains("<resources") {
-                Err("Unsupported format".into())
-            } else {
-                xml_desktop::save(target_path, entries)
+            match detect_xml_format(&content) {
+                XmlFormat::Desktop => Err("Unsupported format".into()),
+                XmlFormat::Android => xml_desktop::save(target_path, entries),
             }
         }
         // TranslationFormat::Po => po::save(target_path, entries),

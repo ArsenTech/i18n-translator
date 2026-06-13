@@ -1,4 +1,4 @@
-use crate::types::{structs::TranslationEntry};
+use crate::types::{enums::XmlFormat, structs::TranslationEntry};
 use serde_json::{Map, Value};
 
 pub mod json;
@@ -35,5 +35,13 @@ pub fn process(
             Value::String(String::new())
         }
         _ => value.clone(),
+    }
+}
+
+pub fn detect_xml_format(content: &str) -> XmlFormat {
+    if content.contains("<resources") {
+        XmlFormat::Android
+    } else {
+        XmlFormat::Desktop
     }
 }

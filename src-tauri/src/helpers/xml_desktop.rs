@@ -47,17 +47,32 @@ fn parse_xml(content: &str) -> Result<HashMap<String, String>, String> {
             }
             Event::Text(e) => {
                 if !stack.is_empty() {
-                    let text = e.xml10_content().map_err(|e| e.to_string())?.to_string();
+                    let key = stack.join(".");
+                    let raw = String::from_utf8_lossy(e.as_ref()).to_string();
 
-                    if !text.is_empty() {
-                        map.insert(stack.join("."), text);
-                    }
+                    map.entry(key)
+                        .and_modify(|value| value.push_str(&raw))
+                        .or_insert(raw);
+                }
+            }
+            Event::GeneralRef(e) => {
+                if !stack.is_empty() {
+                    let key = stack.join(".");
+                    let entity = format!("&{};", String::from_utf8_lossy(e.as_ref()));
+
+                    map.entry(key)
+                        .and_modify(|value| value.push_str(&entity))
+                        .or_insert(entity);
                 }
             }
             Event::CData(e) => {
                 if !stack.is_empty() {
                     let text = String::from_utf8_lossy(e.as_ref()).to_string();
-                    map.insert(stack.join("."), text);
+                    let key = stack.join(".");
+
+                    map.entry(key)
+                        .and_modify(|value| value.push_str(&text))
+                        .or_insert(text);
                 }
             }
             Event::End(e) => {
@@ -99,7 +114,7 @@ fn write_node(writer: &mut Writer<Vec<u8>>, name: &str, node: &XmlNode) -> Resul
                 writer.write_event(Event::Empty(BytesStart::new(name))).map_err(|e| e.to_string())?;
             } else {
                 writer.write_event(Event::Start(BytesStart::new(name))).map_err(|e| e.to_string())?;
-                writer.write_event(Event::Text(BytesText::new(text))).map_err(|e| e.to_string())?;
+                writer.write_event(Event::Text(BytesText::from_escaped(text))).map_err(|e| e.to_string())?;
                 writer.write_event(Event::End(BytesEnd::new(name))).map_err(|e| e.to_string())?;
             }
         }

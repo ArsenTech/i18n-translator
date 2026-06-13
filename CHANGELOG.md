@@ -4,12 +4,15 @@ All notable changes of I18N Translator will be documented here.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
-## [0.2.6] - Unreleased
+## [0.2.6] - 2026-06-13
 ### Added
-- XML Support
-- RESX Support
+- XML support
+- Microsoft RESX support
+- Close Current Translation action
 ### Changed
-- **Save Confirmation** - Renamed buttons to a simple Yes, No, Cancel Buttons
+- **Save Confirmation** dialog now uses simple **Yes**, **No**, and **Cancel** buttons
+### Fixed
+- XML parsing issue preserving raw XML entities (e.g. `&amp;`)
 
 ## [0.2.5] - 2026-06-09
 ### Added
@@ -158,6 +161,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Initialized
 - Main Page with a sample test
 
+[0.2.6]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.6
+[0.2.5]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.5
 [0.2.4]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.4
 [0.2.3]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.3
 [0.2.2]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.2

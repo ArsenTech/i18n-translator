@@ -38,7 +38,8 @@ interface AppTranslationContextValues{
      inputRef: React.RefObject<HTMLTextAreaElement | null>,
      selectedKeys: Set<string>,
      setSelectedKeys: SetStateType<Set<string>>,
-     selectKey: (key: string) => void
+     selectKey: (key: string) => void,
+     reset: () => void
 }
 const AppTranslationContext = createContext<AppTranslationContextValues | null>(null)
 
@@ -82,6 +83,26 @@ export function AppTranslationProvider({ children, initialLimit=100 }: { childre
           }
           return next
      }),[])
+     const reset = useCallback(()=>{
+          setMissingOnly(false);
+          setTable([]);
+          setCurrentTranslation(null);
+          updateLangs({
+               base: "", target: ""
+          });
+          setFiles({
+               basePath: "",
+               targetPath: "",
+               format: null
+          });
+          setVisibleCount(initialLimit);
+          setSelectedNamespace(""),
+          setInput(""),
+          setFindState(null),
+          setBaseKeys(new Set()),
+          setIsDirty(false),
+          setSelectedKeys(new Set())
+     },[])
      const values: AppTranslationContextValues = useMemo(()=>({
           missingOnly, setMissingOnly,
           table, setTable,
@@ -95,7 +116,7 @@ export function AppTranslationProvider({ children, initialLimit=100 }: { childre
           baseKeys, setBaseKeys,
           visibleTable, keyNames,
           isDirty, setIsDirty, inputRef,
-          selectedKeys, setSelectedKeys, selectKey
+          selectedKeys, setSelectedKeys, selectKey, reset
      }),[missingOnly, table, currTranslation, langs, files, visibleCount, selectedNamespace, input, visibleTable, keyNames, findState, baseKeys, isDirty, selectedKeys])
      return (
           <AppTranslationContext.Provider value={values}>

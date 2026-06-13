@@ -44,7 +44,17 @@ fn parse_resx(content: &str) -> Result<HashMap<String, String>, String> {
                }
                Event::Text(e) if inside_value => {
                     current_value.push_str(
-                         &e.xml10_content().map_err(|e| e.to_string())?,
+                         &String::from_utf8_lossy(e.as_ref())
+                    );
+               }
+               Event::GeneralRef(e) if inside_value => {
+                    current_value.push_str(
+                         &format!("&{};", String::from_utf8_lossy(e.as_ref()))
+                    );
+               }
+               Event::CData(e) if inside_value => {
+                    current_value.push_str(
+                         &String::from_utf8_lossy(e.as_ref())
                     );
                }
                Event::End(e) if e.name().as_ref() == b"value" => {
@@ -115,7 +125,7 @@ fn upsert_resx(content: &str, entries: &[TranslationEntry]) -> Result<String, St
 
                     if let Some(key) = &current_key {
                          if let Some(value) = lookup.get(key.as_str()) {
-                              writer.write_event(Event::Text(BytesText::new(value))).map_err(|e| e.to_string())?;
+                              writer.write_event(Event::Text(BytesText::from_escaped(value.to_string()))).map_err(|e| e.to_string())?;
                          }
                     }
                }
@@ -129,8 +139,8 @@ fn upsert_resx(content: &str, entries: &[TranslationEntry]) -> Result<String, St
                Event::End(e) if e.name().as_ref() == b"data" => {
                     if !saw_value {
                          writer.write_event(Event::Start(BytesStart::new("value"))).map_err(|e| e.to_string())?;
-                         writer.write_event(Event::Text(BytesText::new(
-                              lookup.get(current_key.as_deref().unwrap_or("")).unwrap_or(&""),
+                         writer.write_event(Event::Text(BytesText::from_escaped(
+                              lookup.get(current_key.as_deref().unwrap_or("")).unwrap_or(&"").to_string(),
                          ))).map_err(|e| e.to_string())?;
                          writer.write_event(Event::End(BytesEnd::new("value"))).map_err(|e| e.to_string())?;
                     }
@@ -147,11 +157,11 @@ fn upsert_resx(content: &str, entries: &[TranslationEntry]) -> Result<String, St
                          let mut data = BytesStart::new("data");
                          data.push_attribute(("name", entry.key_name.as_str()));
                          data.push_attribute(("xml:space", "preserve"));
-                         writer.write_event(Event::Text(BytesText::new("\n  "))).map_err(|e| e.to_string())?;
+                         writer.write_event(Event::Text(BytesText::from_escaped("\n  "))).map_err(|e| e.to_string())?;
                          writer.write_event(Event::Start(data)).map_err(|e| e.to_string())?;
 
                          writer.write_event(Event::Start(BytesStart::new("value"))).map_err(|e| e.to_string())?;
-                         writer.write_event(Event::Text(BytesText::new(&entry.translation_string))).map_err(|e| e.to_string())?;
+                         writer.write_event(Event::Text(BytesText::from_escaped(&entry.translation_string))).map_err(|e| e.to_string())?;
                          writer.write_event(Event::End(BytesEnd::new("value"))).map_err(|e| e.to_string())?;
                          writer.write_event(Event::End(BytesEnd::new("data"))).map_err(|e| e.to_string())?;
                     }

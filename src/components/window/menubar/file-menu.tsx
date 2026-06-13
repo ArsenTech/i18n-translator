@@ -10,7 +10,7 @@ import { getErrorMessage } from "@/lib/utils";
 import RecentTranslations, {RecentTranslation} from "@/lib/store/recent-translations";
 
 export default function FileMenu(){
-     const {table, files, setTable, setFiles, updateLangs, setBaseKeys, setIsDirty} = useAppTranslation()
+     const {table, files, setTable, setFiles, updateLangs, setBaseKeys, setIsDirty, reset} = useAppTranslation()
      const [isSaving, setIsSaving] = useState(false)
      const [isOpening, setIsOpening] = useState(false)
      const [recentTranslations, setRecentTranslations] = useState<RecentTranslation[]>([])
@@ -39,7 +39,7 @@ export default function FileMenu(){
                const recent = await RecentTranslations.getRecent();
                setRecentTranslations(recent)
           })()
-     },[recentTranslations])
+     },[])
      const openRecent = async(item: RecentTranslation) =>{
           if(isOpening) return;
           setIsOpening(true)
@@ -50,6 +50,7 @@ export default function FileMenu(){
                })
                if(res.success) {
                     toast.success(res.success);
+                    console.log(res.data.filter(val=>val.baseString.includes("xpression")))
                     setTable(res.data)
                     setBaseKeys(new Set(res.data.map(item => item.keyName)))
                     setFiles({
@@ -68,7 +69,7 @@ export default function FileMenu(){
                     description: getErrorMessage(err)
                })
           } finally {
-               setIsSaving(false)
+               setIsOpening(false)
           }
      }
      return (
@@ -90,9 +91,9 @@ export default function FileMenu(){
                                         Recent Translations
                                    </MenubarSubTrigger>
                                    <MenubarSubContent>
-                                        {recentTranslations.map(item => (
+                                        {recentTranslations.map((item,i) => (
                                              <MenubarItem
-                                                  key={item.targetPath}
+                                                  key={`${item.targetPath}-${i+1}`}
                                                   onClick={() => openRecent(item)}
                                              >
                                                   {item.name}
@@ -101,6 +102,7 @@ export default function FileMenu(){
                                    </MenubarSubContent>
                               </MenubarSub>
                          )}
+                         <MenubarItem onClick={reset}>Close Current Translation</MenubarItem>
                     </MenubarGroup>
                     <MenubarSeparator/>
                     <MenubarGroup>

@@ -13,6 +13,7 @@ import { message } from "@tauri-apps/plugin-dialog";
 import { useAppTranslation } from "@/context/translation";
 import FileActions from "@/actions/file";
 import { toast } from "sonner";
+import { getErrorMessage } from "@/lib/utils";
 
 interface TitleBarProps{
      hideMenubar?: boolean,
@@ -32,23 +33,25 @@ export default function TitleBar({hideMaximize, hideMenubar, title}: TitleBarPro
           const confirmation = await message(`Do you want to save changes to the translation "${paths[paths.length-1] || "Untitled"}"?`,{
                title: "I18N Translator",
                kind: "warning",
-               buttons: {
-                    yes: "Save",
-                    no: "Don't Save",
-                    cancel: "Cancel"
-               }
+               buttons: "YesNoCancel"
           })
-          if (confirmation === "Save") {
-               const res = files.targetPath ? await FileActions.saveAll(table, files.targetPath) : await FileActions.saveAs(table)
-               if (res?.success) {
-                    setIsDirty(false)
-                    await appWindow.close()
+          if (confirmation === "Yes") {
+               try {
+                    const res = files.targetPath ? await FileActions.saveAll(table, files.targetPath) : await FileActions.saveAs(table)
+                    if (res?.success) {
+                         setIsDirty(false)
+                         await appWindow.close();
+                    }
+                    if (res?.error) toast.error("Failed to save translation", {
+                         description: res.error,
+                    })
+               } catch (err) {
+                    toast.error("Failed to save translation", {
+                         description: getErrorMessage(err),
+                    })
                }
-               if (res?.error) toast.error("Failed to save translation", {
-                    description: res.error,
-               })
           }
-          if (confirmation === "Don't Save") await appWindow.close()
+          if (confirmation === "No") await appWindow.close()
      }
      const handleToggleMaximize = async () => {
           if(hideMaximize) return;

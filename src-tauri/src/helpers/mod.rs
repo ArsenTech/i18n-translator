@@ -3,6 +3,7 @@ use serde_json::{Map, Value};
 
 pub mod json;
 pub mod xml_desktop;
+pub mod resx;
 
 pub fn process(
     value: &Value,

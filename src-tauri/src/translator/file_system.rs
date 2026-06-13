@@ -1,7 +1,7 @@
 use std::fs;
 
 use crate::{
-    helpers::{json, xml_desktop},
+    helpers::{json, xml_desktop, resx},
     types::{
         enums::TranslationFormat,
         structs::{CreateTranslationResult, TranslationEntry},
@@ -25,9 +25,8 @@ pub fn create_translation(
                 xml_desktop::create(base_path, target_language_code)
             }
         }
-        // TranslationFormat::XmlAndroid => xml_android::create(base_path, target_language_code),
         // TranslationFormat::Po => po::create(base_path, target_language_code),
-        // TranslationFormat::Resx => resx::create(base_path, target_language_code),
+        TranslationFormat::Resx => resx::create(base_path, target_language_code),
         // TranslationFormat::Xliff => xliff::create(base_path, target_language_code),
         _ => Err("Unsupported format".into()),
     }
@@ -50,10 +49,9 @@ pub fn open_translation(
                 xml_desktop::open(base_path, target_path)
             }
         }
-        // TranslationFormat::XmlAndroid => xml_android::create(base_path, target_language_code),
-        // TranslationFormat::Po => po::create(base_path, target_language_code),
-        // TranslationFormat::Resx => resx::create(base_path, target_language_code),
-        // TranslationFormat::Xliff => xliff::create(base_path, target_language_code),
+        // TranslationFormat::Po => po::open(base_path, target_path),
+        TranslationFormat::Resx => resx::open(base_path, target_path),
+        // TranslationFormat::Xliff => xliff::open(base_path, target_path),
         _ => Err("Unsupported format".into()),
     }
 }
@@ -75,10 +73,9 @@ pub fn save_translation(
                 xml_desktop::save(target_path, entries)
             }
         }
-        // TranslationFormat::XmlAndroid => xml_android::create(base_path, target_language_code),
-        // TranslationFormat::Po => po::create(base_path, target_language_code),
-        // TranslationFormat::Resx => resx::create(base_path, target_language_code),
-        // TranslationFormat::Xliff => xliff::create(base_path, target_language_code),
+        // TranslationFormat::Po => po::save(target_path, entries),
+        TranslationFormat::Resx => resx::save(target_path, entries),
+        // TranslationFormat::Xliff => xliff::save(target_path, entries),
         _ => Err("Unsupported format".into()),
     }
 }

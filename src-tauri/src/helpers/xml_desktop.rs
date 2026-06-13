@@ -36,7 +36,6 @@ fn parse_xml(content: &str) -> Result<HashMap<String, String>, String> {
                     stack.push(name);
                 }
             }
-
             Event::Empty(e) => {
                 let name = String::from_utf8_lossy(e.name().as_ref()).to_string();
 
@@ -46,7 +45,6 @@ fn parse_xml(content: &str) -> Result<HashMap<String, String>, String> {
                     map.insert(key_parts.join("."), String::new());
                 }
             }
-
             Event::Text(e) => {
                 if !stack.is_empty() {
                     let text = e.xml10_content().map_err(|e| e.to_string())?.to_string();
@@ -56,14 +54,12 @@ fn parse_xml(content: &str) -> Result<HashMap<String, String>, String> {
                     }
                 }
             }
-
             Event::CData(e) => {
                 if !stack.is_empty() {
                     let text = String::from_utf8_lossy(e.as_ref()).to_string();
                     map.insert(stack.join("."), text);
                 }
             }
-
             Event::End(e) => {
                 let name = String::from_utf8_lossy(e.name().as_ref()).to_string();
 
@@ -71,7 +67,6 @@ fn parse_xml(content: &str) -> Result<HashMap<String, String>, String> {
                     stack.pop();
                 }
             }
-
             Event::Eof => break,
             _ => {}
         }
@@ -101,36 +96,19 @@ fn write_node(writer: &mut Writer<Vec<u8>>, name: &str, node: &XmlNode) -> Resul
     match node {
         XmlNode::Text(text) => {
             if text.is_empty() {
-                writer
-                    .write_event(Event::Empty(BytesStart::new(name)))
-                    .map_err(|e| e.to_string())?;
+                writer.write_event(Event::Empty(BytesStart::new(name))).map_err(|e| e.to_string())?;
             } else {
-                writer
-                    .write_event(Event::Start(BytesStart::new(name)))
-                    .map_err(|e| e.to_string())?;
-
-                writer
-                    .write_event(Event::Text(BytesText::new(text)))
-                    .map_err(|e| e.to_string())?;
-
-                writer
-                    .write_event(Event::End(BytesEnd::new(name)))
-                    .map_err(|e| e.to_string())?;
+                writer.write_event(Event::Start(BytesStart::new(name))).map_err(|e| e.to_string())?;
+                writer.write_event(Event::Text(BytesText::new(text))).map_err(|e| e.to_string())?;
+                writer.write_event(Event::End(BytesEnd::new(name))).map_err(|e| e.to_string())?;
             }
         }
-
         XmlNode::Children(children) => {
-            writer
-                .write_event(Event::Start(BytesStart::new(name)))
-                .map_err(|e| e.to_string())?;
-
+            writer.write_event(Event::Start(BytesStart::new(name))).map_err(|e| e.to_string())?;
             for (child_name, child_node) in children {
                 write_node(writer, child_name, child_node)?;
             }
-
-            writer
-                .write_event(Event::End(BytesEnd::new(name)))
-                .map_err(|e| e.to_string())?;
+            writer.write_event(Event::End(BytesEnd::new(name))).map_err(|e| e.to_string())?;
         }
     }
 
@@ -146,23 +124,14 @@ fn build_xml(entries: &[TranslationEntry]) -> Result<String, String> {
     }
 
     let mut writer = Writer::new_with_indent(Vec::new(), b' ', 4);
-
-    writer
-        .write_event(Event::Decl(BytesDecl::new("1.0", Some("utf-8"), None)))
-        .map_err(|e| e.to_string())?;
-
-    writer
-        .write_event(Event::Start(BytesStart::new("Language")))
-        .map_err(|e| e.to_string())?;
+    writer.write_event(Event::Decl(BytesDecl::new("1.0", Some("utf-8"), None))).map_err(|e| e.to_string())?;
+    writer.write_event(Event::Start(BytesStart::new("Language"))).map_err(|e| e.to_string())?;
 
     for (name, node) in &root {
         write_node(&mut writer, name, node)?;
     }
 
-    writer
-        .write_event(Event::End(BytesEnd::new("Language")))
-        .map_err(|e| e.to_string())?;
-
+    writer.write_event(Event::End(BytesEnd::new("Language"))).map_err(|e| e.to_string())?;
     String::from_utf8(writer.into_inner()).map_err(|e| e.to_string())
 }
 

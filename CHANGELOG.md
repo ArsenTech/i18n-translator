@@ -7,6 +7,9 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [0.2.6] - Unreleased
 ### Added
 - XML Support
+- RESX Support
+### Changed
+- **Save Confirmation** - Renamed buttons to a simple Yes, No, Cancel Buttons
 
 ## [0.2.5] - 2026-06-09
 ### Added

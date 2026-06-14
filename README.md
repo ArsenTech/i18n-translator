@@ -88,11 +88,11 @@ Future releases are planned to include glossary support, automatic translation t
 - [ ] `isDirty` changes inside new backend logic
 #### Nice to have
 - [ ] Write the Documentation on the `docs/` folder.
-  - [ ] Usage Guide
-  - [ ] Installation Guide
+  - [X] Usage Guide
+  - [X] Installation Guide
     - [ ] Extend the Installation guide to Mac and Linux Users
-  - [ ] Troubleshooting
-  - [ ] FAQs
+  - [X] Troubleshooting
+  - [X] FAQs
 #### Future Expansions
 - [ ] The "All Glossaries" page providing Glossaries to download and use
 - [ ] Glossary page that'll save words to Glossary (Needs Rust to save as json)

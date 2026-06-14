@@ -20,8 +20,8 @@ pub fn create_translation(
         TranslationFormat::Xml => {
             let content = fs::read_to_string(&base_path).map_err(|e|e.to_string())?;
             match detect_xml_format(&content) {
-                XmlFormat::Desktop => Err("Unsupported format".into()),
-                XmlFormat::Android => xml_desktop::create(base_path, target_language_code),
+                XmlFormat::Desktop => xml_desktop::create(base_path, target_language_code),
+                XmlFormat::Android => Err("Unsupported format".into()),
             }
         }
         // TranslationFormat::Po => po::create(base_path, target_language_code),
@@ -43,8 +43,8 @@ pub fn open_translation(
         TranslationFormat::Xml => {
             let content = fs::read_to_string(&base_path).map_err(|e|e.to_string())?;
             match detect_xml_format(&content) {
-                XmlFormat::Desktop => Err("Unsupported format".into()),
-                XmlFormat::Android => xml_desktop::open(base_path, target_path),
+                XmlFormat::Desktop => xml_desktop::open(base_path, target_path),
+                XmlFormat::Android => Err("Unsupported format".into()),
             }
         }
         // TranslationFormat::Po => po::open(base_path, target_path),
@@ -66,8 +66,8 @@ pub fn save_translation(
         TranslationFormat::Xml => {
             let content = fs::read_to_string(&target_path).map_err(|e|e.to_string())?;
             match detect_xml_format(&content) {
-                XmlFormat::Desktop => Err("Unsupported format".into()),
-                XmlFormat::Android => xml_desktop::save(target_path, entries),
+                XmlFormat::Desktop => xml_desktop::save(target_path, entries),
+                XmlFormat::Android => Err("Unsupported format".into()),
             }
         }
         // TranslationFormat::Po => po::save(target_path, entries),

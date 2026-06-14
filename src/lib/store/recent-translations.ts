@@ -60,6 +60,31 @@ export default class RecentTranslations{
                return {error: "Something went wrong", data: []}
           }
      }
+     public static async openRecentXliff(item: RecentTranslation): Promise<{
+          error?: string,
+          success?: string,
+          data: ITranslation[]
+     }>{
+          try {
+               console.log(item.basePath, item.targetPath)
+               if(item.basePath!==item.targetPath) return {error: "XLIFF requires 1 file to translate", data: []};
+               const res = await invoke<IBackendTranslation[]>("open_xliff", {
+                    path: item.basePath
+               })
+               return {
+                    success: "Translation opened successfully",
+                    data: res.map(val=>({
+                         keyName: val.key_name,
+                         translationString: val.translation_string,
+                         lineNumber: val.line_number,
+                         baseString: val.base_string
+                    })),
+               }
+          } catch (err) {
+               console.error(err)
+               return {error: "Something went wrong", data: []}
+          }
+     }
      public static async clearRecent(){
           await store.clear()
      }

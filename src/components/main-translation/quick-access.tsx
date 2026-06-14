@@ -16,10 +16,11 @@ import { getErrorMessage } from "@/lib/utils";
 import { toast } from "sonner";
 import { useAppTranslation } from "@/context/translation";
 import { Spinner } from "../ui/spinner";
+import OpenXliffPopup from "@/popups/modals/open-xliff";
 
 export default function QuickAccessToolbar(){
      const [isSaving, setIsSaving] = useState(false)
-     const {table, files, baseKeys, setCurrentTranslation, setInput, setVisibleCount, visibleTable, setIsDirty} = useAppTranslation()
+     const {table, files, baseKeys, setCurrentTranslation, setInput, setVisibleCount, visibleTable, setIsDirty, langs} = useAppTranslation()
      const findMissing = () => {
           const res = FindActions.findMissing(visibleTable)
           if(res.success) {
@@ -40,7 +41,7 @@ export default function QuickAccessToolbar(){
           if(isSaving) return;
           setIsSaving(true)
           try {
-               const res = await FileActions.saveAll(table, files.targetPath)
+               const res = await FileActions.saveAll(table, files.targetPath, langs)
                if(res?.error) toast.error("Failed to save the file",{
                     description: res.error
                })
@@ -71,11 +72,21 @@ export default function QuickAccessToolbar(){
                          <FilePlus/>
                     </Button>
                )}/>
-               <OpenTranslationPopup triggerButton={(
-                    <Button variant="secondary" className="flex-1 aspect-square" title="Open Translation">
+               <DropdownMenu modal={false}>
+                    <DropdownMenuTrigger asChild>
+                         <Button variant="secondary" className="flex-1 aspect-square" title="Open Translation">
                          <FolderOpen/>
                     </Button>
-               )}/>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-full min-w-48">
+                         <OpenTranslationPopup triggerButton={(
+                              <DropdownMenuItem onSelect={e=>e.preventDefault()}>Open Translation</DropdownMenuItem>
+                         )}/>
+                         <OpenXliffPopup triggerButton={(
+                              <DropdownMenuItem onSelect={e=>e.preventDefault()}>Open XLIFF File</DropdownMenuItem>
+                         )}/>
+                    </DropdownMenuContent>
+               </DropdownMenu>
                <Button variant="secondary" className="flex-1 aspect-square" title="Save Translation" onClick={save} disabled={isSaving}>
                     {isSaving ? <Spinner/> : <Save/>}
                </Button>

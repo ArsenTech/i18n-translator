@@ -9,3 +9,13 @@ export interface CreateTranslationResult {
     entries: IBackendTranslation[],
     target_path: string,
 }
+
+export interface XliffMetadata {
+    src_lang: string,
+    trg_lang: string,
+}
+
+export interface ParsedXliff {
+    meta: XliffMetadata,
+    entries: IBackendTranslation[],
+}

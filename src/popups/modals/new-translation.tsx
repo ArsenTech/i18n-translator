@@ -16,7 +16,7 @@ import { FilePlus2 } from "lucide-react";
 import { toast } from "sonner";
 import { getErrorMessage } from "@/lib/utils";
 import { useAppTranslation } from "@/context/translation";
-import { detectLanguageCode } from "@/lib/helpers";
+import { detectLanguageCode, getFormatFromPath } from "@/lib/helpers";
 import RecentTranslations from "@/lib/store/recent-translations";
 import { TranslationFormat } from "@/lib/types/enums";
 
@@ -30,6 +30,7 @@ const items = [
 
 export default function NewTranslationPopup({triggerButton}: PopupFormProps){
      const [isCreating, startTransition] = useTransition()
+     const [isFetching, startFetching] = useTransition()
      const [open, setOpen] = useState(false)
      const {setTable, updateLangs, setFiles, setBaseKeys, setIsDirty} = useAppTranslation()
      const form = useForm<NewTranslationType>({
@@ -40,6 +41,14 @@ export default function NewTranslationPopup({triggerButton}: PopupFormProps){
                format: TranslationFormat.Json
           }
      })
+     const handleChangeFormat = (val: string) => {
+          if(isFetching) return;
+          startFetching(async()=>{
+               const format = await getFormatFromPath(val);
+               if(!format) return;
+               form.setValue("format",format)
+          })
+     }
      const onSubmit = (values: NewTranslationType) => {
           if (isCreating) return;
           const code = detectLanguageCode(values.path)
@@ -49,6 +58,21 @@ export default function NewTranslationPopup({triggerButton}: PopupFormProps){
                     if(res.error) toast.error("Failed to create translation",{
                          description: res.error
                     })
+                    if(res.targetPath) {
+                         await RecentTranslations.addRecent({
+                              name: `${values.targetLanguageCode}.${values.format}`,
+                              basePath: values.format==="xliff" ? res.targetPath : values.path,
+                              targetPath: res.targetPath,
+                              baseLang: code,
+                              targetLang: values.targetLanguageCode,
+                              format: values.format
+                         })
+                         setFiles({
+                              basePath: values.format==="xliff" ? res.targetPath : values.path,
+                              targetPath: res.targetPath,
+                              format: values.format
+                         })
+                    }
                     if(res.success) {
                          toast.success(res.success)
                          setTable(res.data)
@@ -60,21 +84,6 @@ export default function NewTranslationPopup({triggerButton}: PopupFormProps){
                          setOpen(false)
                          setIsDirty(false)
                          form.reset()
-                    }
-                    if(res.targetPath) {
-                         await RecentTranslations.addRecent({
-                              name: `${values.targetLanguageCode}.${values.format}`,
-                              basePath: values.path,
-                              targetPath: res.targetPath,
-                              baseLang: code,
-                              targetLang: values.targetLanguageCode,
-                              format: values.format
-                         })
-                         setFiles({
-                              basePath: values.path,
-                              targetPath: res.targetPath,
-                              format: values.format
-                         })
                     }
                } catch (err) {
                     toast.error("Failed to create translation",{
@@ -105,6 +114,10 @@ export default function NewTranslationPopup({triggerButton}: PopupFormProps){
                                              invalid={fieldState.invalid}
                                              placeholder="C:/Users/username/Desktop/en.json"
                                              openText="Open the base language file"
+                                             onChange={val=>{
+                                                  field.onChange(val);
+                                                  handleChangeFormat(val)
+                                             }}
                                         />
                                         {fieldState.invalid && (
                                              <FieldError errors={[fieldState.error]} />

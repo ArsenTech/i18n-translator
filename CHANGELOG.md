@@ -4,6 +4,12 @@ All notable changes of I18N Translator will be documented here.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [0.2.7] - Unreleased
+### Added
+- XLIFF Translation support
+### Changed
+- **Open Translation** Menu items are now a sub menu to open separate XLIFF Files
+
 ## [0.2.6] - 2026-06-13
 ### Added
 - XML support

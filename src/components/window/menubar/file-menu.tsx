@@ -8,9 +8,11 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { getErrorMessage } from "@/lib/utils";
 import RecentTranslations, {RecentTranslation} from "@/lib/store/recent-translations";
+import OpenXliffPopup from "@/popups/modals/open-xliff";
+import { TranslationFormat } from "@/lib/types/enums";
 
 export default function FileMenu(){
-     const {table, files, setTable, setFiles, updateLangs, setBaseKeys, setIsDirty, reset} = useAppTranslation()
+     const {table, files, setTable, setFiles, updateLangs, setBaseKeys, setIsDirty, reset, langs} = useAppTranslation()
      const [isSaving, setIsSaving] = useState(false)
      const [isOpening, setIsOpening] = useState(false)
      const [recentTranslations, setRecentTranslations] = useState<RecentTranslation[]>([])
@@ -18,7 +20,7 @@ export default function FileMenu(){
           if(isSaving) return;
           setIsSaving(true)
           try {
-               const res = type==="save-as" ? await FileActions.saveAs(table) : await FileActions.saveAll(table,files.targetPath)
+               const res = type==="save-as" ? await FileActions.saveAs(table, langs) : await FileActions.saveAll(table, files.targetPath, langs)
                if(res?.error) toast.error("Failed to save the file",{
                     description: res.error
                })
@@ -44,7 +46,7 @@ export default function FileMenu(){
           if(isOpening) return;
           setIsOpening(true)
           try {
-               const res = await RecentTranslations.openRecent(item)
+               const res = item.format=== TranslationFormat.Xliff ? await RecentTranslations.openRecentXliff(item) : await RecentTranslations.openRecent(item)
                if(res.error) toast.error("Failed to save the file",{
                     description: res.error
                })
@@ -80,9 +82,19 @@ export default function FileMenu(){
                          <NewTranslationPopup triggerButton={(
                               <MenubarItem onSelect={(e) => e.preventDefault()}>New Translation</MenubarItem>
                          )}/>
-                         <OpenTranslationPopup triggerButton={(
-                              <MenubarItem onSelect={(e) => e.preventDefault()}>Open Translations</MenubarItem>
-                         )}/>
+                         <MenubarSub>
+                              <MenubarSubTrigger>
+                                   Open Translations
+                              </MenubarSubTrigger>
+                              <MenubarSubContent>
+                                   <OpenTranslationPopup triggerButton={(
+                                        <MenubarItem onSelect={(e) => e.preventDefault()} disabled={!!files.format}>Open...</MenubarItem>
+                                   )}/>
+                                   <OpenXliffPopup triggerButton={(
+                                        <MenubarItem onSelect={(e) => e.preventDefault()} disabled={!!files.format}>Open XLIFF File</MenubarItem>
+                                   )}/>
+                              </MenubarSubContent>
+                         </MenubarSub>
                          {recentTranslations.length<=0 ? (
                               <MenubarItem disabled>Recent Translations</MenubarItem>
                          ) : (
@@ -95,6 +107,7 @@ export default function FileMenu(){
                                              <MenubarItem
                                                   key={`${item.targetPath}-${i+1}`}
                                                   onClick={() => openRecent(item)}
+                                                  disabled={!!files.format}
                                              >
                                                   {item.name}
                                              </MenubarItem>
@@ -102,7 +115,7 @@ export default function FileMenu(){
                                    </MenubarSubContent>
                               </MenubarSub>
                          )}
-                         <MenubarItem onClick={reset}>Close Current Translation</MenubarItem>
+                         <MenubarItem onClick={reset} disabled={!files.format}>Close Current Translation</MenubarItem>
                     </MenubarGroup>
                     <MenubarSeparator/>
                     <MenubarGroup>

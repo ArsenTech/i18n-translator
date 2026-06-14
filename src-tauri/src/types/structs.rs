@@ -14,3 +14,15 @@ pub struct CreateTranslationResult {
     pub entries: Vec<TranslationEntry>,
     pub target_path: String,
 }
+
+#[derive(Serialize, Type, Deserialize)]
+pub struct XliffMetadata {
+    pub src_lang: String,
+    pub trg_lang: String,
+}
+
+#[derive(Serialize, Type, Deserialize)]
+pub struct ParsedXliff {
+    pub meta: XliffMetadata,
+    pub entries: Vec<TranslationEntry>,
+}

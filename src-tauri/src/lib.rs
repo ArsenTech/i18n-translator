@@ -8,14 +8,16 @@ mod types;
 
 use tauri_specta::{collect_commands, Builder};
 
-use crate::translator::file_system::{create_translation, open_translation, save_translation};
+use crate::translator::file_system::{create_translation, open_translation, save_translation, get_xliff_meta, open_xliff};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let specta_builder = Builder::<tauri::Wry>::new().commands(collect_commands![
         create_translation,
         open_translation,
-        save_translation
+        save_translation,
+        get_xliff_meta,
+        open_xliff
     ]);
     tauri::Builder::default()
         .plugin(tauri_plugin_store::Builder::new().build())

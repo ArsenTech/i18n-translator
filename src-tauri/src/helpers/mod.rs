@@ -4,6 +4,7 @@ use serde_json::{Map, Value};
 pub mod json;
 pub mod xml_desktop;
 pub mod resx;
+pub mod xliff;
 
 pub fn process(
     value: &Value,

@@ -1,10 +1,10 @@
 import { Noop } from "react-hook-form";
-import { Button } from "../ui/button";
-import { ButtonGroup } from "../ui/button-group";
-import { Input } from "../ui/input";
+import { Button } from "../../ui/button";
+import { ButtonGroup } from "../../ui/button-group";
+import { Input } from "../../ui/input";
 import { open } from "@tauri-apps/plugin-dialog";
 
-interface FilePickerProps{
+interface XliffFilePickerProps{
      onChange: (value: string) => void;
      onBlur?: Noop;
      value: string;
@@ -12,9 +12,9 @@ interface FilePickerProps{
      name: string;
      invalid?: boolean,
      placeholder?: string,
-     openText?: string
+     openText?: string,
 }
-export default function FilePicker({invalid, openText="Open the base language file", ...field}: FilePickerProps){
+export default function XliffFilePicker({invalid, openText="Open the base language file", ...field}: XliffFilePickerProps){
      const handleChooseFile = async () => {
           const path = await open({
                multiple: false,
@@ -22,24 +22,8 @@ export default function FilePicker({invalid, openText="Open the base language fi
                title: openText,
                filters: [
                     {
-                         name: "JSON Files",
-                         extensions: ["json"]
-                    },
-                    {
-                         name: "XML Files",
-                         extensions: ["xml"]
-                    },
-                    {
-                         name: "GNU gettext",
-                         extensions: ["po", "pot", "mo"]
-                    },
-                    {
-                         name: "XLIFF Files",
+                         name: "XLIFF Translation File",
                          extensions: ["xliff", "xlf"]
-                    },
-                    {
-                         name: "Microsoft RESX Files",
-                         extensions: ["resx"]
                     },
                ]
           });

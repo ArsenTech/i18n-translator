@@ -22,6 +22,11 @@ export const OpenTranslationSchema = z.object({
      targetPath: z.string().min(1,"Please enter the path of the translation").trim(),
      targetLang: z.string().min(1,"Please select a language of the translation").trim(),
 })
+export const OpenXliffSchema = z.object({
+     translationPath: z.string().min(1,"Please enter the path of the base language file").trim(),
+     baseLang: z.string().min(1,"Please select a language of the base file").trim(),
+     targetLang: z.string().min(1,"Please select a language of the translation").trim(),
+})
 export const FindSchema = z.object({
      query: z.string().min(1,"Please enter the query to find").trim(),
      mode: z.enum(["key","source","translation"],"Choose the search mode"),

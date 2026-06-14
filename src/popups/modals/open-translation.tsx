@@ -104,6 +104,7 @@ export default function OpenTranslationPopup({triggerButton}: PopupFormProps){
                                                   invalid={fieldState.invalid}
                                                   placeholder="C:/Users/username/Desktop/en.json"
                                                   openText="Open the base language file"
+                                                  state="open"
                                              />
                                              {fieldState.invalid && (
                                                   <FieldError errors={[fieldState.error]} />
@@ -154,6 +155,7 @@ export default function OpenTranslationPopup({triggerButton}: PopupFormProps){
                                                   invalid={fieldState.invalid}
                                                   placeholder="C:/Users/username/Desktop/hy.json"
                                                   openText="Open the translation file"
+                                                  state="open"
                                              />
                                              {fieldState.invalid && (
                                                   <FieldError errors={[fieldState.error]} />

@@ -9,7 +9,7 @@ import { Label } from "../ui/label";
 import { Switch } from "../ui/switch";
 
 export default function TranslationInput(){
-     const {table, currTranslation, setTable, setCurrentTranslation, input, setInput, visibleTable, setIsDirty, inputRef} = useAppTranslation()
+     const {table, currTranslation, setTable, setCurrentTranslation, input, setInput, visibleTable, setIsDirty, inputRef, files} = useAppTranslation()
      const [checked, setChecked] = useState(false)
      const percentage = useMemo(()=>{
           const data = checked ? visibleTable : table
@@ -18,7 +18,7 @@ export default function TranslationInput(){
           return total > 0 ? Math.min(100,Math.floor((translated / total) * 100)) : 0
      },[table, visibleTable, checked])
      const saveAndNext = () => {
-          TranslatorActions.saveString({input, setTable, currTranslation})
+          TranslatorActions.saveString({input, setTable, currTranslation, format: files.format})
           TranslatorActions.jumpToNextBlankField({
                table: visibleTable, currTranslation,
                setInput, onSelectTranslation: setCurrentTranslation
@@ -26,7 +26,7 @@ export default function TranslationInput(){
           setIsDirty(true)
      }
      const saveAndPrev = () => {
-          TranslatorActions.saveString({input, setTable, currTranslation})
+          TranslatorActions.saveString({input, setTable, currTranslation, format: files.format})
           TranslatorActions.jumpToPrevBlankField({
                table: visibleTable, currTranslation,
                setInput, onSelectTranslation: setCurrentTranslation
@@ -70,7 +70,7 @@ export default function TranslationInput(){
                          Copy from Source
                     </Button>
                     <Button className="flex-1" onClick={()=>{
-                         TranslatorActions.saveString({input, setTable, currTranslation})
+                         TranslatorActions.saveString({input, setTable, currTranslation, format: files.format})
                          setIsDirty(true)
                     }}>
                          <Save/>

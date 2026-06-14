@@ -2,7 +2,7 @@ import EditActions from "@/actions/edit";
 import FileActions from "@/actions/file";
 import ViewActions from "@/actions/view";
 import { useAppTranslation } from "@/context/translation";
-import { SetStateType } from "@/lib/types";
+import { ILangInputState, SetStateType } from "@/lib/types";
 import { ITranslation } from "@/lib/types/data";
 import { useEffect } from "react";
 import { toast } from "sonner";
@@ -11,12 +11,13 @@ const KBD_SHORTCUTS: Record<string,({table, targetPath, setIsDirty}: {
      table: ITranslation[],
      targetPath: string,
      setIsDirty: SetStateType<boolean>,
-     setSelectedKeys: SetStateType<Set<string>>
+     setSelectedKeys: SetStateType<Set<string>>,
+     langs: ILangInputState
 })=>void> = {
      "ctrl++": _ => ViewActions.zoomIn(),
      "ctrl+-": _ => ViewActions.zoomOut(),
      "ctrl+0": _ => ViewActions.resetZoom(),
-     "ctrl+s": ({table, targetPath, setIsDirty}) => FileActions.saveAll(table, targetPath).then(res=>{
+     "ctrl+s": ({table, targetPath, setIsDirty, langs}) => FileActions.saveAll(table, targetPath, langs).then(res=>{
           if(res?.error) toast.error("Failed to save the file",{
                description: res.error
           })
@@ -25,7 +26,7 @@ const KBD_SHORTCUTS: Record<string,({table, targetPath, setIsDirty}: {
                setIsDirty(false)
           }
      }),
-     "ctrl+shift+s": ({table, setIsDirty}) => FileActions.saveAs(table).then(res=>{
+     "ctrl+shift+s": ({table, setIsDirty, langs}) => FileActions.saveAs(table, langs).then(res=>{
           if(res?.error) toast.error("Failed to save the file",{
                description: res.error
           })
@@ -39,7 +40,7 @@ const KBD_SHORTCUTS: Record<string,({table, targetPath, setIsDirty}: {
 }
 
 export default function useKeyboardShortcuts(){
-     const {table, files, setIsDirty, setSelectedKeys} = useAppTranslation()
+     const {table, files, setIsDirty, setSelectedKeys, langs} = useAppTranslation()
      useEffect(() => {
           const handleKeyDown = (event: KeyboardEvent) => {
                const key = event.key==="Escape" ? "esc" : event.key.toLowerCase()
@@ -55,7 +56,8 @@ export default function useKeyboardShortcuts(){
                     table,
                     targetPath: files.targetPath,
                     setIsDirty,
-                    setSelectedKeys
+                    setSelectedKeys,
+                    langs
                })
           };
           window.addEventListener("keydown", handleKeyDown);

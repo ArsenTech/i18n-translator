@@ -1,5 +1,5 @@
 import * as z from "zod"
-import { BatchRenameKeysSchema, FindSchema, NewTranslationSchema, OpenTranslationSchema, ReplaceTranslationSchema, SpellCheckSchema, TransliterateScriptSchema } from "."
+import { BatchRenameKeysSchema, FindSchema, NewTranslationSchema, OpenTranslationSchema, OpenXliffSchema, ReplaceTranslationSchema, SpellCheckSchema, TransliterateScriptSchema } from "."
 import { AutoTranslateSchema, providerField } from "./auto-translate"
 
 export type NewTranslationType = z.infer<typeof NewTranslationSchema>
@@ -11,3 +11,4 @@ export type AutoTranslateType = z.infer<typeof AutoTranslateSchema>
 export type AutoTranslateProvider = z.infer<typeof providerField>
 export type TransliterateScriptType = z.infer<typeof TransliterateScriptSchema>
 export type SpellCheckType = z.infer<typeof SpellCheckSchema>
+export type OpenXliffType = z.infer<typeof OpenXliffSchema>

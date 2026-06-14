@@ -23,7 +23,7 @@ interface TitleBarProps{
 export default function TitleBar({hideMaximize, hideMenubar, title}: TitleBarProps){
      const appWindow = getCurrentWindow()
      const [isMaximized, setIsMaximized] = useState(false)
-     const {isDirty, files, setIsDirty, table} = useAppTranslation()
+     const {isDirty, files, setIsDirty, table, langs} = useAppTranslation()
      const handleClose = async () => {
           if(!isDirty) {
                await appWindow.close();
@@ -37,7 +37,7 @@ export default function TitleBar({hideMaximize, hideMenubar, title}: TitleBarPro
           })
           if (confirmation === "Yes") {
                try {
-                    const res = files.targetPath ? await FileActions.saveAll(table, files.targetPath) : await FileActions.saveAs(table)
+                    const res = files.targetPath ? await FileActions.saveAll(table, files.targetPath, langs) : await FileActions.saveAs(table, langs)
                     if (res?.success) {
                          setIsDirty(false)
                          await appWindow.close();

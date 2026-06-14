@@ -62,6 +62,7 @@
 - [ ] Transliteration backend
 - [ ] Spell checking backend
 - [ ] `isDirty` changes inside new backend logic
+- [ ] Updated automatic base language detection inside new translation
 #### Nice to have
 - [ ] Write the Documentation on the `docs/` folder.
   - [ ] Usage Guide

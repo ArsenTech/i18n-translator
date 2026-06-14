@@ -1,5 +1,6 @@
 import { SetStateType } from "@/lib/types"
 import { ITranslation } from "@/lib/types/data"
+import { TranslationFormat } from "@/lib/types/enums"
 import { getErrorMessage } from "@/lib/utils"
 import { BatchRenameKeysSchema, ReplaceTranslationSchema, SpellCheckSchema, TransliterateScriptSchema } from "@/schemas"
 import { AutoTranslateSchema } from "@/schemas/auto-translate"
@@ -78,14 +79,15 @@ export default class TranslatorActions{
                return {error: getErrorMessage(err), data: []}
           }
      }
-     public static saveString({ input, setTable, currTranslation }: {
+     public static saveString({ input, setTable, currTranslation, format }: {
           input: string
           setTable: SetStateType<ITranslation[]>,
-          currTranslation: ITranslation | null
+          currTranslation: ITranslation | null,
+          format: TranslationFormat | null
      }){
           setTable(prev => prev.map(item => item.keyName === currTranslation?.keyName ? {
                ...item,
-               translationString: input
+               translationString: !format ? input : format==="json" ? input : String.raw`${input}`
           }
           : item))
      }

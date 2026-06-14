@@ -4,7 +4,7 @@ All notable changes of I18N Translator will be documented here.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
-## [0.2.7] - Unreleased
+## [0.2.7] - 2026-06-14
 ### Added
 - XLIFF translation support
 - Android XML support
@@ -12,10 +12,16 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Changed
 - **Open Translation** menu items are now grouped into a submenu, including a dedicated option for opening XLIFF files
 - Refactored XML open and save functions
+### Initialized Docs
+- Installation
+- Usage Guide
+- Troubleshooting
+- Frequently asked questions
 ### Improved
 - **File Menu** eligibility state
   - No translation open: **Open** actions enabled, **Close Current Translation** disabled
   - Translation open: **Close Current Translation** enabled, **Open** actions disabled
+- **Readme** - Now completed
 
 ## [0.2.6] - 2026-06-13
 ### Added
@@ -174,6 +180,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Initialized
 - Main Page with a sample test
 
+[0.2.7]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.7
 [0.2.6]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.6
 [0.2.5]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.5
 [0.2.4]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.4

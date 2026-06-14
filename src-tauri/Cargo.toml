@@ -1,6 +1,6 @@
 [package]
 name = "i18n-translator"
-version = "0.2.6"
+version = "0.2.7"
 description = "A Universal Translator that helps you localize and translate some apps into your native language. Perfect for dev-translators localizing the app!"
 authors = ["ArsenTech"]
 edition = "2021"

@@ -6,44 +6,8 @@
      </picture>
 </p>
 
-<h1 align="center">Getting Started</h1>
-
-## Creating a translation
-
-1. Open **File → New Translation**.
-2. Select the base language file.
-3. Choose the target language code.
-4. Select the appropriate file format.
-5. Create the translation.
-
----
-
-## Opening an existing translation
-
-1. Open **File → Open Translation**.
-2. Select the base language file.
-3. Select the translated file.
-4. Start translating.
-
-For XLIFF projects, use **Open XLIFF Translation**.
-
----
-
-## Saving
-
-Use:
-- **Save** to overwrite the current translation.
-- **Save As** to write to a new file.
-
-Unsaved changes are tracked automatically.
-
----
-
-## Finding untranslated strings
-
-Use the search box to locate specific keys or translations.
-
-Enable **Missing Only** to display entries that have not yet been translated.
+<h1 align="center">Translating I18N Translator</h1>
+<!-- TODO: Write the Translation Guide -->
 
 ---
 ### Navigation

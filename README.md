@@ -87,13 +87,17 @@ Future releases are planned to include glossary support, automatic translation t
 - [ ] Spell checking backend
   - [ ] Dictionary Support
 - [ ] `isDirty` changes inside new backend logic
+- [ ] I18N Support
 #### Nice to have
 - [ ] Write the Documentation on the `docs/` folder.
   - [X] Usage Guide
   - [X] Installation Guide
     - [ ] Extend the Installation guide to Mac and Linux Users
   - [X] Troubleshooting
+    - [ ] Continue writing the Troubleshooting Guide once it has new info
   - [X] FAQs
+    - [ ] Continue writing the Troubleshooting Guide once it has new info
+  - [ ] Translation Guide
 #### Future Expansions
 - [ ] The "All Glossaries" page providing Glossaries to download and use
 - [ ] Glossary page that'll save words to Glossary (Needs Rust to save as json)
@@ -149,6 +153,7 @@ Full documentation is available here:
   - [Installation Guide](./docs/installation.md)
   - [Troubleshooting](./docs/troubleshooting.md)
   - [FAQs](./docs/faq.md)
+  - [Translation Guide](./docs/faq.md)
 
 ## Versioning
 This website follows [Semantic Versioning](https://semver.org/). You can view the full [Changelog][changelog-url] for details on each website version.

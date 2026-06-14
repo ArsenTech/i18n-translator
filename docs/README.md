@@ -1,4 +1,13 @@
-# Welcome!
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" style="object-fit: contain;" srcset="https://raw.githubusercontent.com/ArsenTech/i18n-translator/refs/heads/main/.github/logo-mark.png" />
+    <source media="(prefers-color-scheme: light)" style="object-fit: contain;" srcset="https://raw.githubusercontent.com/ArsenTech/i18n-translator/refs/heads/main/.github/logo-mark-alt.png" />
+    <img alt="i18n-translator" width="283" height="130" style="object-fit: contain;" src="https://raw.githubusercontent.com/ArsenTech/i18n-translator/refs/heads/main/.github/logo-mark-alt.png" />
+  </picture>
+</p>
+
+<h1 align="center">I18N Translator Documentation</h1>
+
 Welcome to the documentation of the **I18N Translator** version 0.2.7!
 
 Here are some quick links to get you started:

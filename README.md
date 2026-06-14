@@ -50,23 +50,47 @@
 </details>
 
 ## About
-**I18N Translator** is a professional i18n tool that lets you localize and translate some apps into your native language.
-<!-- TODO: Add More Info -->
+**I18N Translator** is a desktop localization tool designed to help translators and developers create, edit, and maintain application translations in multiple file formats.
+
+It provides a simple spreadsheet-like interface for editing translation keys while preserving the original file structure whenever possible.
+
+Whether you are translating a small application or maintaining a large localization project, **I18N Translator** aims to provide a fast and straightforward workflow.
 
 ### Features
-<!-- TODO: Add some Features into the list -->
+- 🌍 Multi-language translation editor
+- 📂 Create and open translation projects
+- 💾 Safe saving with format-aware serialization
+- 🔍 Search and filter translation keys
+- ⚠️ Missing translation filtering
+- 📊 Translation progress tracking
+- 📁 Recent translation history
+- 🔄 Preserve XML entities and escaped characters
+- 📝 JSON support
+- 📝 XML Desktop support
+- 📝 Android XML support
+- 📝 Microsoft RESX support
+- 📝 XLIFF 2.0 support
+- 🎨 Modern desktop interface built with Tauri and React
+- 🌐 Cross-platform support
+
+Future releases are planned to include glossary support, automatic translation tools, transliteration, spell checking, and additional localization formats.
 
 ### Planned Improvements
+#### v0.3.x or later (next)
+- [ ] Update automatic base language detection inside new translation and open translation
+- [ ] Settings Window
+- [ ] About Window
 #### v0.4.x or later (Expansion)
 - [ ] Auto-Translation backend
 - [ ] Transliteration backend
 - [ ] Spell checking backend
+  - [ ] Dictionary Support
 - [ ] `isDirty` changes inside new backend logic
-- [ ] Update automatic base language detection inside new translation and open translation
 #### Nice to have
 - [ ] Write the Documentation on the `docs/` folder.
   - [ ] Usage Guide
   - [ ] Installation Guide
+    - [ ] Extend the Installation guide to Mac and Linux Users
   - [ ] Troubleshooting
   - [ ] FAQs
 #### Future Expansions
@@ -102,6 +126,7 @@
 - [ ] Glossary-related items like
   - [ ] Edit => Add to Glossary
   - [ ] Tools => Glossary
+- [ ] PO Language Support
 
 ### Built With
 - [![Tauri][tauri-shield]][tauri-url]

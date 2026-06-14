@@ -1,5 +1,9 @@
 <p align="center">
-     <img alt="i18n-translator" width="500" height="130" style="object-fit: contain;" src="https://raw.githubusercontent.com/ArsenTech/i18n-translator/refs/heads/main/.github/logo-mark.png" />
+     <picture>
+          <source media="(prefers-color-scheme: dark)" style="object-fit: contain;" srcset="https://raw.githubusercontent.com/ArsenTech/i18n-translator/refs/heads/main/.github/logo-mark.png" />
+          <source media="(prefers-color-scheme: light)" style="object-fit: contain;" srcset="https://raw.githubusercontent.com/ArsenTech/i18n-translator/refs/heads/main/.github/logo-mark-alt.png" />
+          <img alt="i18n-translator" width="283" height="130" style="object-fit: contain;" src="https://raw.githubusercontent.com/ArsenTech/i18n-translator/refs/heads/main/.github/logo-mark-alt.png" />
+     </picture>
 </p>
 
 <h1 align="center">Contributing Guide to I18N Translator</h1>

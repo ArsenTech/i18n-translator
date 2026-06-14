@@ -109,6 +109,7 @@ No. The application only overwrites the target translation file when you explici
   - [Installation Guide](./installation.md)
   - [Troubleshooting](./troubleshooting.md)
   - [FAQs](./faq.md)
+  - [Translation Guide](./docs/translation.md)
   - [Contribution Guide](./CONTRIBUTING.md)
 - [← Back to README](./README.md)
 

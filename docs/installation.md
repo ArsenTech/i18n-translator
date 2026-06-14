@@ -43,6 +43,7 @@ No additional runtime configuration is required.
   - [Usage Guide](./usage.md)
   - [Installation Guide](./installation.md)
   - [Troubleshooting](./troubleshooting.md)
+  - [Translation Guide](./docs/translation.md)
   - [FAQs](./faq.md)
   - [Contribution Guide](./CONTRIBUTING.md)
 - [← Back to README](./README.md)

@@ -153,7 +153,7 @@ Full documentation is available here:
   - [Installation Guide](./docs/installation.md)
   - [Troubleshooting](./docs/troubleshooting.md)
   - [FAQs](./docs/faq.md)
-  - [Translation Guide](./docs/faq.md)
+  - [Translation Guide](./docs/translation.md)
 
 ## Versioning
 This website follows [Semantic Versioning](https://semver.org/). You can view the full [Changelog][changelog-url] for details on each website version.

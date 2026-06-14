@@ -26,3 +26,11 @@ pub struct ParsedXliff {
     pub meta: XliffMetadata,
     pub entries: Vec<TranslationEntry>,
 }
+
+#[derive(Serialize, Deserialize)]
+pub struct SaveXmlOptions {
+    pub content: String,
+    pub entries: Vec<TranslationEntry>,
+    pub base_lang: Option<String>,
+    pub target_lang: Option<String>,
+}

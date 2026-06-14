@@ -6,7 +6,7 @@ use std::{
     fs,
     path::Path,
 };
-use crate::types::structs::{ParsedXliff, TranslationEntry, XliffMetadata, CreateTranslationResult};
+use crate::{helpers::save_xml_with_callback, types::structs::{CreateTranslationResult, ParsedXliff, TranslationEntry, XliffMetadata}};
 
 pub fn parse_xliff(content: &str) -> Result<ParsedXliff, String> {
      let mut reader = Reader::from_str(content.trim_start_matches('\u{FEFF}'));
@@ -275,7 +275,6 @@ pub fn create(
           target_path: target_file.to_string_lossy().to_string(),
      })
 }
-
 pub fn open(path: String) -> Result<Vec<TranslationEntry>, String> {
      let content = fs::read_to_string(path).map_err(|e| e.to_string())?;
      if content.trim().is_empty() {
@@ -283,14 +282,21 @@ pub fn open(path: String) -> Result<Vec<TranslationEntry>, String> {
      }
      Ok(parse_xliff(&content)?.entries)
 }
-
 pub fn save(
      target_path: String,
      entries: Vec<TranslationEntry>,
      base_lang: String,
      target_lang: String,
 ) -> Result<(), String> {
-     let original = fs::read_to_string(&target_path).map_err(|e| e.to_string())?;
-     fs::write(target_path, upsert_xliff(&original, &entries, &base_lang, &target_lang)?).map_err(|e| e.to_string())?;
-     Ok(())
+     save_xml_with_callback(
+          target_path,
+          entries,
+          Some(base_lang),
+          Some(target_lang),
+          |o| {
+               let base_lang = o.base_lang.ok_or("Base language is missing")?;
+               let target_lang = o.target_lang.ok_or("Target language is missing")?;
+               upsert_xliff(&o.content, &o.entries, &base_lang, &target_lang)
+          }
+     )
 }

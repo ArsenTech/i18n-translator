@@ -7,8 +7,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [0.2.7] - Unreleased
 ### Added
 - XLIFF Translation support
+- Android XML Support
 ### Changed
-- **Open Translation** Menu items are now a sub menu to open separate XLIFF Files
+- **Open Translation** menu items are now a sub menu to open separate XLIFF Files
+- Refactored XML Save and Open Functions
 
 ## [0.2.6] - 2026-06-13
 ### Added

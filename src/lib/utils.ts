@@ -6,5 +6,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function getErrorMessage(err: unknown){
-  return err instanceof Error ? err.message : "Something went wrong"
+  const stringErr = String(err);
+  const fallback = stringErr.trim()==="" ? "Something went wrong" : stringErr
+  return err instanceof Error ? err.message : String(err) ?? fallback
 }

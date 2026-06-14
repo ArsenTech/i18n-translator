@@ -3,6 +3,7 @@ import { LazyStore } from "@tauri-apps/plugin-store"
 import { IBackendTranslation } from "../types/data/backend"
 import { ITranslation } from "../types/data"
 import { TranslationFormat } from "../types/enums"
+import { getErrorMessage } from "../utils"
 
 export interface RecentTranslation {
      name: string
@@ -57,7 +58,7 @@ export default class RecentTranslations{
                }
           } catch (err) {
                console.error(err)
-               return {error: "Something went wrong", data: []}
+               return {error: getErrorMessage(err), data: []}
           }
      }
      public static async openRecentXliff(item: RecentTranslation): Promise<{
@@ -82,7 +83,7 @@ export default class RecentTranslations{
                }
           } catch (err) {
                console.error(err)
-               return {error: "Something went wrong", data: []}
+               return {error: getErrorMessage(err), data: []}
           }
      }
      public static async clearRecent(){

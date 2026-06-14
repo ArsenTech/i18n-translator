@@ -7,7 +7,7 @@ use std::{
     path::Path,
 };
 
-use crate::types::structs::{CreateTranslationResult, TranslationEntry};
+use crate::{helpers::{open_xml_with_callback, save_xml_with_callback}, types::structs::{CreateTranslationResult, TranslationEntry}};
 
 fn parse_resx(content: &str) -> Result<HashMap<String, String>, String> {
      let mut reader = Reader::from_str(content.trim_start_matches('\u{FEFF}'));
@@ -185,7 +185,7 @@ pub fn create(
 ) -> Result<CreateTranslationResult, String> {
      let base = Path::new(&base_path);
      let parent = base.parent().ok_or("Invalid base language file")?;
-     let target_file = parent.join(format!("{}.xml", target_language_code));
+     let target_file = parent.join(format!("{}.resx", target_language_code));
 
      let content = fs::read_to_string(base).map_err(|e| e.to_string())?;
      if content.trim().is_empty() {
@@ -214,42 +214,22 @@ pub fn create(
           target_path: target_file.to_string_lossy().to_string(),
      })
 }
-
 pub fn open(base_path: String, target_path: String) -> Result<Vec<TranslationEntry>, String> {
-     let base_content = fs::read_to_string(base_path).map_err(|e| e.to_string())?;
-     let target_content = fs::read_to_string(target_path).map_err(|e| e.to_string())?;
-
-     if base_content.trim().is_empty() {
-          return Err("Base file is empty".into());
-     }
-
-     if target_content.trim().is_empty() {
-          return Err("Target file is empty".into());
-     }
-
-     let base_map = parse_resx(&base_content)?;
-     let target_map = parse_resx(&target_content)?;
-
-     let mut keys: Vec<_> = base_map.keys().cloned().collect();
-     keys.sort();
-
-     Ok(keys
-          .into_iter()
-          .enumerate()
-          .map(|(index, key)| TranslationEntry {
-               key_name: key.clone(),
-               base_string: base_map.get(&key).cloned().unwrap_or_default(),
-               translation_string: target_map.get(&key).cloned().unwrap_or_default(),
-               line_number: index + 1,
-          })
-          .collect())
+     open_xml_with_callback(
+          base_path,
+          target_path,
+          |c| parse_resx(c)
+     )
 }
-
 pub fn save(
     target_path: String,
     entries: Vec<TranslationEntry>,
 ) -> Result<(), String> {
-     let original = fs::read_to_string(&target_path).map_err(|e| e.to_string())?;
-     fs::write(target_path, upsert_resx(&original, &entries)?).map_err(|e|e.to_string())?;
-     Ok(())
+     save_xml_with_callback(
+          target_path,
+          entries,
+          None,
+          None,
+          |o| upsert_resx(&o.content, &o.entries)
+     )
 }

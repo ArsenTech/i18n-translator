@@ -145,10 +145,10 @@ You can find the latest stable version of the I18N Translator right here
 ## Usage Manual
 Full documentation is available here:
 ➡️ [Documentation][docs-url]
-  - [Usage Guide](./usage.md)
-  - [Installation Guide](./installation.md)
-  - [Troubleshooting](./troubleshooting.md)
-  - [FAQs](./faq.md)
+  - [Usage Guide](./docs/usage.md)
+  - [Installation Guide](./docs/installation.md)
+  - [Troubleshooting](./docs/troubleshooting.md)
+  - [FAQs](./docs/faq.md)
 
 ## Versioning
 This website follows [Semantic Versioning](https://semver.org/). You can view the full [Changelog][changelog-url] for details on each website version.

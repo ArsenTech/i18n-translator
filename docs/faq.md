@@ -24,7 +24,7 @@ Refer to the [repository license][license-url] for licensing information and con
 ### What platforms does I18N Translator run on?
 **I18N Translator** is built with Tauri + React + Typescript and runs on:
 - Windows 10 and later
-- Linux
+- Linux depending on which distro
 - macOS High Sierra or later (Apple Silicon / arm64)
 
 ---

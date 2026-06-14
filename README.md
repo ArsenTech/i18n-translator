@@ -209,7 +209,7 @@ This project is distributed under the Apache-2.0 License. See [`LICENSE`][licens
 [contributing-url]: https://github.com/ArsenTech/i18n-translator/blob/main/docs/CONTRIBUTING.md
 [changelog-url]: https://github.com/ArsenTech/i18n-translator/blob/main/CHANGELOG.md
 [website-url]: https://arsentech.github.io
-[docs-url]: https://github.com/ArsenTech/i18n-translator/blob/main/docs/usage.md
+[docs-url]: https://github.com/ArsenTech/i18n-translator/blob/main/docs/README.md
 [sponsors-list]: https://raw.githubusercontent.com/ArsenTech/i18n-translator/main/public/sponsors/sponsors.svg
 [sponsors-link]: https://github.com/sponsors/ArsenTech
 [sponsors-badge]: https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86&style=for-the-badge

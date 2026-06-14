@@ -20,7 +20,7 @@ import OpenXliffPopup from "@/popups/modals/open-xliff";
 
 export default function QuickAccessToolbar(){
      const [isSaving, setIsSaving] = useState(false)
-     const {table, files, baseKeys, setCurrentTranslation, setInput, setVisibleCount, visibleTable, setIsDirty, langs} = useAppTranslation()
+     const {table, files, baseKeys, setCurrentTranslation, setInput, setVisibleCount, visibleTable, setIsDirty, langs, reset} = useAppTranslation()
      const findMissing = () => {
           const res = FindActions.findMissing(visibleTable)
           if(res.success) {
@@ -80,11 +80,13 @@ export default function QuickAccessToolbar(){
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-full min-w-48">
                          <OpenTranslationPopup triggerButton={(
-                              <DropdownMenuItem onSelect={e=>e.preventDefault()}>Open Translation</DropdownMenuItem>
+                              <DropdownMenuItem onSelect={e=>e.preventDefault()} disabled={!!files.format}>Open Translation</DropdownMenuItem>
                          )}/>
                          <OpenXliffPopup triggerButton={(
-                              <DropdownMenuItem onSelect={e=>e.preventDefault()}>Open XLIFF File</DropdownMenuItem>
+                              <DropdownMenuItem onSelect={e=>e.preventDefault()} disabled={!!files.format}>Open XLIFF File</DropdownMenuItem>
                          )}/>
+                         <DropdownMenuSeparator/>
+                         <DropdownMenuItem onClick={reset} disabled={!files.format}>Close Current Translation</DropdownMenuItem>
                     </DropdownMenuContent>
                </DropdownMenu>
                <Button variant="secondary" className="flex-1 aspect-square" title="Save Translation" onClick={save} disabled={isSaving}>

@@ -6,11 +6,16 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ---
 ## [0.2.7] - Unreleased
 ### Added
-- XLIFF Translation support
-- Android XML Support
+- XLIFF translation support
+- Android XML support
+- **Close Current Translation** item inside the **Open** Quick Action
 ### Changed
-- **Open Translation** menu items are now a sub menu to open separate XLIFF Files
-- Refactored XML Save and Open Functions
+- **Open Translation** menu items are now grouped into a submenu, including a dedicated option for opening XLIFF files
+- Refactored XML open and save functions
+### Improved
+- **File Menu** eligibility state
+  - No translation open: **Open** actions enabled, **Close Current Translation** disabled
+  - Translation open: **Close Current Translation** enabled, **Open** actions disabled
 
 ## [0.2.6] - 2026-06-13
 ### Added

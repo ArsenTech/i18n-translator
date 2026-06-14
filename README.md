@@ -80,6 +80,7 @@ Future releases are planned to include glossary support, automatic translation t
 - [ ] Update automatic base language detection inside new translation and open translation
 - [ ] Settings Window
 - [ ] About Window
+- [ ] Translatable switch as a separate column if the translation type is Android XML
 #### v0.4.x or later (Expansion)
 - [ ] Auto-Translation backend
 - [ ] Transliteration backend

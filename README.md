@@ -104,6 +104,7 @@ Future releases are planned to include glossary support, automatic translation t
     - Import/export glossary packs to CSV or JSON
     - Create new entries without opening a translation
 - [ ] Show All Button => Show Few on Glossary Sidebar
+- [ ] Input action buttons as a grid (2x2)
 #### v0.4.x or later (Expansion)
 - [ ] Auto-Translation backend
 - [ ] Transliteration backend

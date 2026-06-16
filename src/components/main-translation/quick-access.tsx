@@ -4,19 +4,19 @@ import FindActions from "@/actions/find";
 import TranslatorActions from "@/actions/translator";
 import { FilePlus, FolderOpen, Languages, RotateCcw, Save, Search, SearchCheck, SpellCheckIcon } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
-import NewTranslationPopup from "@/popups/modals/new-translation";
-import OpenTranslationPopup from "@/popups/modals/open-translation";
+import NewTranslationPopup from "@/popups/new-translation";
+import OpenTranslationPopup from "@/popups/open-translation";
 import { PROVIDER_NAMES } from "@/lib/constants";
-import AutoTranslatePopup from "@/popups/modals/auto-translate";
+import AutoTranslatePopup from "@/popups/auto-translate";
 import { AutoTranslateProvider } from "@/schemas/types";
-import ReplaceTranslationPopup from "@/popups/modals/replace-translation";
-import SpellCheckPopup from "@/popups/modals/spell-check";
+import ReplaceTranslationPopup from "@/popups/replace-translation";
+import SpellCheckPopup from "@/popups/spell-check";
 import { useCallback, useState } from "react";
 import { getErrorMessage } from "@/lib/utils";
 import { toast } from "sonner";
 import { useAppTranslation } from "@/context/translation";
 import { Spinner } from "../ui/spinner";
-import OpenXliffPopup from "@/popups/modals/open-xliff";
+import OpenXliffPopup from "@/popups/open-xliff";
 
 export default function QuickAccessToolbar(){
      const [isSaving, setIsSaving] = useState(false)

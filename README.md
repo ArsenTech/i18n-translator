@@ -130,7 +130,7 @@ Future releases are planned to include glossary support, automatic translation t
 - [ ] Glossary sidebar under the tree sidebar, which lists Buttons only + active when the selected word has on a Glossary
 - [ ] Glossary-related items like
   - [ ] Edit => Add to Glossary
-  - [ ] View => Glossary
+  - [ ] Tools => Glossary
 - [ ] PO Language Support
 
 ### Built With

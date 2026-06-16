@@ -2,13 +2,13 @@ import { MenubarContent, MenubarGroup, MenubarItem, MenubarMenu, MenubarSeparato
 import { exit } from '@tauri-apps/plugin-process';
 import FileActions from "@/actions/file";
 import { useAppTranslation } from "@/context/translation";
-import NewTranslationPopup from "@/popups/modals/new-translation";
-import OpenTranslationPopup from "@/popups/modals/open-translation";
+import NewTranslationPopup from "@/popups/new-translation";
+import OpenTranslationPopup from "@/popups/open-translation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { getErrorMessage } from "@/lib/utils";
 import RecentTranslations, {RecentTranslation} from "@/lib/store/recent-translations";
-import OpenXliffPopup from "@/popups/modals/open-xliff";
+import OpenXliffPopup from "@/popups/open-xliff";
 import { TranslationFormat } from "@/lib/types/enums";
 
 export default function FileMenu(){

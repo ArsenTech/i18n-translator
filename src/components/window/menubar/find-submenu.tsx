@@ -1,7 +1,7 @@
 import { MenubarGroup, MenubarItem, MenubarShortcut, MenubarSub, MenubarSubContent, MenubarSubTrigger } from "../../ui/menubar";
 import FindActions, { FindResult } from "@/actions/find";
 import TranslatorActions from "@/actions/translator";
-import FindPopup from "@/popups/modals/find";
+import FindPopup from "@/popups/find";
 import { useAppTranslation } from "@/context/translation";
 import { toast } from "sonner";
 

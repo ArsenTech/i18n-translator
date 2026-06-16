@@ -1,7 +1,7 @@
 import { MenubarContent, MenubarGroup, MenubarItem, MenubarMenu, MenubarSeparator, MenubarShortcut, MenubarTrigger } from "../../ui/menubar";
-import ReplaceTranslationPopup from "@/popups/modals/replace-translation";
-import BatchRenameKeysPopup from "@/popups/modals/batch-rename-keys";
-import CompareDifferencePopup from "@/popups/modals/compare-diff";
+import ReplaceTranslationPopup from "@/popups/replace-translation";
+import BatchRenameKeysPopup from "@/popups/batch-rename-keys";
+import CompareDifferencePopup from "@/popups/compare-diff";
 import EditActions from "@/actions/edit";
 import FindSubmenu from "./find-submenu";
 import { useAppTranslation } from "@/context/translation";

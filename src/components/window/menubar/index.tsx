@@ -1,10 +1,10 @@
 import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarSub, MenubarSubContent, MenubarSubTrigger, MenubarTrigger } from "../../ui/menubar";
 import TranslatorActions from "@/actions/translator";
-import AutoTranslatePopup from "@/popups/modals/auto-translate";
-import TransliterateScriptPopup from "@/popups/modals/transliterate-script";
+import AutoTranslatePopup from "@/popups/auto-translate";
+import TransliterateScriptPopup from "@/popups/transliterate-script";
 import { PROVIDER_NAMES } from "@/lib/constants";
 import { AutoTranslateProvider } from "@/schemas/types";
-import SpellCheckPopup from "@/popups/modals/spell-check"
+import SpellCheckPopup from "@/popups/spell-check"
 import FileMenu from "./file-menu";
 import ViewMenu from "./view-menu";
 import { useAppTranslation } from "@/context/translation";

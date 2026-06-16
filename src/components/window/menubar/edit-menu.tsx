@@ -1,7 +1,6 @@
 import { MenubarContent, MenubarGroup, MenubarItem, MenubarMenu, MenubarSeparator, MenubarShortcut, MenubarTrigger } from "../../ui/menubar";
 import ReplaceTranslationPopup from "@/popups/replace-translation";
 import BatchRenameKeysPopup from "@/popups/batch-rename-keys";
-import CompareDifferencePopup from "@/popups/compare-diff";
 import EditActions from "@/actions/edit";
 import FindSubmenu from "./find-submenu";
 import { useAppTranslation } from "@/context/translation";
@@ -36,9 +35,7 @@ export default function EditMenu(){
                     <MenubarGroup>
                          <MenubarItem onClick={()=>EditActions.selectUntranslated(table, setSelectedKeys)}>Select untranslated</MenubarItem>
                          <MenubarItem onClick={()=>EditActions.clearSelection(setSelectedKeys)}>Clear Selection <MenubarShortcut>Esc</MenubarShortcut></MenubarItem>
-                         <CompareDifferencePopup triggerButton={(
-                              <MenubarItem onSelect={(e) => e.preventDefault()}>Compare difference</MenubarItem>
-                         )}/>
+                         <MenubarItem>Add to Glossary</MenubarItem>
                     </MenubarGroup>
                     <MenubarSeparator />
                     <MenubarGroup>

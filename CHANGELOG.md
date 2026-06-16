@@ -9,6 +9,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Glossary UI
 ### Improved
 - Skeleton Loaders to match the UI
+### Removed
+- Compare Difference - Will be replaced with Add to Glossary
 
 ## [0.2.7] - 2026-06-14
 ### Added

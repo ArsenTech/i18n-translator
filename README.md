@@ -132,6 +132,7 @@ Future releases are planned to include glossary support, automatic translation t
   - [ ] Edit => Add to Glossary
   - [ ] Tools => Glossary
 - [ ] PO Language Support
+- [ ] Compare difference popup
 
 ### Built With
 - [![Tauri][tauri-shield]][tauri-url]

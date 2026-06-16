@@ -1,4 +1,4 @@
-import { RESOURCE_TYPE, SUPPORTED_SCRIPTS } from "@/lib/constants"
+import { GLOSSARY_DOMAINS, PARTS_OF_SPEECH, RESOURCE_TYPE, SUPPORTED_SCRIPTS } from "@/lib/constants"
 import { TranslationFormat } from "@/lib/types/enums"
 import * as z from "zod"
 
@@ -54,4 +54,11 @@ export const TransliterateScriptSchema = z.object({
 export const SpellCheckSchema = z.object({
      dictionary: z.string().min(1,"Please choose the dictionary language").trim(),
      scope: z.enum([...RESOURCE_TYPE.map(s => s.value)], "Select the scope for a spell check")
+})
+export const AddToGlossarySchema = z.object({
+     term: z.string().min(1,"Please add the term on the base language").max(200,"The term is too long"),
+     partOfSpeech: z.enum([...PARTS_OF_SPEECH],"Please add the part of speech to the term"),
+     domain: z.enum([...GLOSSARY_DOMAINS],"Please select a domain"),
+     translation: z.string().min(1,"Please add the translation of this term").max(200,"The translation is too long"),
+     caseSensitive: z.boolean()
 })

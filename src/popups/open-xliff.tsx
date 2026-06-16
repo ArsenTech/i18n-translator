@@ -7,7 +7,7 @@ import { OpenXliffSchema } from "@/schemas";
 import { DialogFooter } from "@/components/ui/dialog";
 import LangSelector from "@/components/lang-selector";
 import FileActions from "@/actions/file";
-import { PopupFormProps } from "@/lib/types";
+import { ILangInputState, PopupFormProps } from "@/lib/types";
 import { useState, useTransition } from "react";
 import LoadingButton from "@/components/loading-button";
 import { FolderOpen } from "lucide-react";
@@ -20,12 +20,15 @@ import { XliffMetadata } from "@/lib/types/data/backend";
 import { invoke } from "@tauri-apps/api/core";
 import RecentTranslations from "@/lib/store/recent-translations";
 import { TranslationFormat } from "@/lib/types/enums";
+import { useGlossary } from "@/context/glossary-sidebar";
+import GlossaryActions from "@/lib/store/glossary";
 
 export default function OpenXliffPopup({triggerButton}: PopupFormProps){
      const [isOpening, startTransition] = useTransition()
      const [isFetching, startFetching] = useTransition()
      const [open, setOpen] = useState(false)
      const {setTable, updateLangs, setFiles, setBaseKeys, setIsDirty} = useAppTranslation()
+     const {setGlossary} = useGlossary()
      const form = useForm<OpenXliffType>({
           resolver: zodResolver(OpenXliffSchema),
           defaultValues: {
@@ -62,10 +65,13 @@ export default function OpenXliffPopup({triggerButton}: PopupFormProps){
                               targetPath: values.translationPath,
                               format: TranslationFormat.Xliff
                          })
-                         updateLangs({
+                         const langs: ILangInputState = {
                               base: values.baseLang,
-                              target: values.targetLang,
-                         }),
+                              target: values.targetLang
+                         }
+                         updateLangs(langs)
+                         const glossary = await GlossaryActions.getGlossary(langs)
+                         setGlossary(glossary)
                          setFiles({
                               basePath: values.translationPath,
                               targetPath: values.translationPath,

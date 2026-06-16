@@ -75,6 +75,10 @@ const extensions: Record<string,TranslationFormat> = {
 }
 export async function getFormatFromPath(path: string): Promise<TranslationFormat> {
      const extension = await extname(path)
-     console.log(extension)
      return extensions[extension]
+}
+
+export function findValue(value: string, query: string, caseSensitive: boolean){
+     if(caseSensitive) return value.includes(query);
+     return value.toLowerCase().includes(query.toLowerCase());
 }

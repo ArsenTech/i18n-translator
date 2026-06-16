@@ -67,7 +67,6 @@ export default class RecentTranslations{
           data: ITranslation[]
      }>{
           try {
-               console.log(item.basePath, item.targetPath)
                if(item.basePath!==item.targetPath) return {error: "XLIFF requires 1 file to translate", data: []};
                const res = await invoke<IBackendTranslation[]>("open_xliff", {
                     path: item.basePath

@@ -2,11 +2,11 @@ import { MenubarContent, MenubarItem, MenubarMenu, MenubarShortcut, MenubarSub, 
 import { useTreeSidebar } from "@/context/tree-sidebar";
 import ViewActions from "@/actions/view";
 import { useAppTranslation } from "@/context/translation";
-import { useGlossarySidebar } from "@/context/glossary-sidebar";
+import { useGlossary } from "@/context/glossary-sidebar";
 
 export default function ViewMenu(){
      const {setOpen: setOpenTree} = useTreeSidebar()
-     const {setOpen: setOpenGlossary} = useGlossarySidebar()
+     const {setOpen: setOpenGlossary} = useGlossary()
      const {setMissingOnly} = useAppTranslation()
      return (
           <MenubarMenu>
@@ -15,8 +15,8 @@ export default function ViewMenu(){
                     <MenubarSub>
                          <MenubarSubTrigger>Toggle Sidebar</MenubarSubTrigger>
                          <MenubarSubContent>
-                              <MenubarItem onClick={()=>setOpenTree(prev=>!prev)}>Tree Sidebar</MenubarItem>
-                              <MenubarItem onClick={()=>setOpenGlossary(prev=>!prev)}>Glossary Sidebar</MenubarItem>
+                              <MenubarItem onClick={()=>setOpenTree(prev=>!prev)}>Translation Tree</MenubarItem>
+                              <MenubarItem onClick={()=>setOpenGlossary(prev=>!prev)}>Glossary</MenubarItem>
                          </MenubarSubContent>
                     </MenubarSub>
                     <MenubarItem onClick={()=>setMissingOnly(prev => !prev)}>Toggle Missing Only</MenubarItem>

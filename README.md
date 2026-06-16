@@ -81,6 +81,28 @@ Future releases are planned to include glossary support, automatic translation t
 - [ ] Settings Window
 - [ ] About Window
 - [ ] Translatable switch as a separate column if the translation type is Android XML
+- [X] Auto-detect glossary language pair from file names
+- [X] Glossary page that'll save words to Glossary
+  ```json
+  {
+     "[base]-[target]": {
+          "[base-word-1]": "[target-word-1]",
+          "[base-word-2]": "[target-word-2]",
+          "[base-word-3]": "[target-word-3]"
+     }
+  }
+  ```
+- [X] Glossary sidebar, which lists Buttons only + active when the selected word has on a Glossary
+- [ ] Glossary-related items in menubar
+  - [X] Edit => Add to Glossary
+  - [X] View => Toggle Sidebar => Glossary
+  - [ ] Tools => Glossary (Glossary Manager Popup)
+    - Browse all entries
+    - Search/filter
+    - Edit entries
+    - Delete entries
+    - Import/export glossary packs to CSV or JSON
+    - Create new entries without opening a translation
 #### v0.4.x or later (Expansion)
 - [ ] Auto-Translation backend
 - [ ] Transliteration backend
@@ -99,18 +121,7 @@ Future releases are planned to include glossary support, automatic translation t
     - [ ] Continue writing the Troubleshooting Guide once it has new info
   - [ ] Translation Guide
 #### Future Expansions
-- [ ] The "All Glossaries" page providing Glossaries to download and use
-- [ ] Glossary page that'll save words to Glossary (Needs Rust to save as json)
-  ```json
-  {
-     "[base]-[target]": {
-          "[base-word-1]": "[target-word-1]",
-          "[base-word-2]": "[target-word-2]",
-          "[base-word-3]": "[target-word-3]"
-     }
-  }
-  ```
-- [ ] Glossary Packs
+- [ ] The "All Glossaries" page providing Glossaries to download and use (Marketplace) + Glossary Packs (Needs Rust to update the current logic)
   > Example pack: en-hy (folder)
   > - Gaming: game.json (e.g. Skin will be "Սկին")
   > - Editing: editor.json (e.g. Track will be "Թրեք")
@@ -124,13 +135,7 @@ Future releases are planned to include glossary support, automatic translation t
   > - Translating Editors (Like OpenShot and Audacity) -> use the editor slang (en-hy/editor.json)
   > 
   > Uses the GitHub organization to store these packs (en-hy, ru-hy, etc)
-- [ ] Auto-detect glossary language pair from file names
-- [ ] Import/export glossary to CSV or JSON
 - [ ] Support ICU MessageFormat & pluralization rules
-- [ ] Glossary sidebar under the tree sidebar, which lists Buttons only + active when the selected word has on a Glossary
-- [ ] Glossary-related items like
-  - [ ] Edit => Add to Glossary
-  - [ ] Tools => Glossary
 - [ ] PO Language Support
 - [ ] Compare difference popup
 

@@ -1,3 +1,4 @@
+import { findValue } from "@/lib/helpers"
 import { ITranslation } from "@/lib/types/data"
 import { getErrorMessage } from "@/lib/utils"
 import { FindSchema } from "@/schemas"
@@ -12,11 +13,6 @@ function getField(item: ITranslation, mode: FindType["mode"]) {
      if (mode === "source") return item.baseString
      if (mode === "translation") return item.translationString
      return item.keyName
-}
-
-function findValue(value: string, query: string, caseSensitive: boolean){
-     if(caseSensitive) return value.includes(query);
-     return value.toLowerCase().includes(query.toLowerCase());
 }
 
 type FindSuccess = {

@@ -4,6 +4,7 @@ import BatchRenameKeysPopup from "@/popups/batch-rename-keys";
 import EditActions from "@/actions/edit";
 import FindSubmenu from "./find-submenu";
 import { useAppTranslation } from "@/context/translation";
+import AddToGlossaryPopup from "@/popups/add-to-glossary";
 
 export default function EditMenu(){
      const {inputRef, table, setSelectedKeys} = useAppTranslation()
@@ -35,7 +36,9 @@ export default function EditMenu(){
                     <MenubarGroup>
                          <MenubarItem onClick={()=>EditActions.selectUntranslated(table, setSelectedKeys)}>Select untranslated</MenubarItem>
                          <MenubarItem onClick={()=>EditActions.clearSelection(setSelectedKeys)}>Clear Selection <MenubarShortcut>Esc</MenubarShortcut></MenubarItem>
-                         <MenubarItem>Add to Glossary</MenubarItem>
+                         <AddToGlossaryPopup triggerButton={(
+                              <MenubarItem onSelect={(e) => e.preventDefault()}>Add to Glossary</MenubarItem>
+                         )}/>
                     </MenubarGroup>
                     <MenubarSeparator />
                     <MenubarGroup>

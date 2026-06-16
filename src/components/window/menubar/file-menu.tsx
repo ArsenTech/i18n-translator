@@ -10,9 +10,13 @@ import { getErrorMessage } from "@/lib/utils";
 import RecentTranslations, {RecentTranslation} from "@/lib/store/recent-translations";
 import OpenXliffPopup from "@/popups/open-xliff";
 import { TranslationFormat } from "@/lib/types/enums";
+import { useGlossary } from "@/context/glossary-sidebar";
+import GlossaryActions from "@/lib/store/glossary";
+import { ILangInputState } from "@/lib/types";
 
 export default function FileMenu(){
      const {table, files, setTable, setFiles, updateLangs, setBaseKeys, setIsDirty, reset, langs} = useAppTranslation()
+     const {setGlossary} = useGlossary()
      const [isSaving, setIsSaving] = useState(false)
      const [isOpening, setIsOpening] = useState(false)
      const [recentTranslations, setRecentTranslations] = useState<RecentTranslation[]>([])
@@ -52,7 +56,6 @@ export default function FileMenu(){
                })
                if(res.success) {
                     toast.success(res.success);
-                    console.log(res.data.filter(val=>val.baseString.includes("xpression")))
                     setTable(res.data)
                     setBaseKeys(new Set(res.data.map(item => item.keyName)))
                     setFiles({
@@ -60,10 +63,13 @@ export default function FileMenu(){
                          targetPath: item.targetPath,
                          format: item.format
                     })
-                    updateLangs({
+                    const langs: ILangInputState = {
                          base: item.baseLang,
                          target: item.targetLang
-                    })
+                    }
+                    updateLangs(langs)
+                    const glossary = await GlossaryActions.getGlossary(langs)
+                    setGlossary(glossary)
                     setIsDirty(false)
                }
           } catch (err){

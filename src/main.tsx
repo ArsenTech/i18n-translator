@@ -6,7 +6,7 @@ import { AppTranslationProvider } from "./context/translation";
 import MainContentLoader from "./components/loaders/translator";
 import { TooltipProvider } from "./components/ui/tooltip";
 import { Toaster } from "sonner";
-import { GlossarySidebarProvider } from "./context/glossary-sidebar";
+import { GlossaryProvider } from "./context/glossary-sidebar";
 
 const MainPage = lazy(()=>import("./contents/main"))
 
@@ -14,7 +14,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <AppTranslationProvider>
       <TreeSidebarProvider>
-        <GlossarySidebarProvider>
+        <GlossaryProvider>
           <TooltipProvider>
             <Suspense fallback={<MainContentLoader/>}>
               <MainPage/>
@@ -22,10 +22,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
             <Toaster
               richColors
               position="top-right"
-              duration={2000}
             />
           </TooltipProvider>
-        </GlossarySidebarProvider>
+        </GlossaryProvider>
       </TreeSidebarProvider>
     </AppTranslationProvider>
   </React.StrictMode>,

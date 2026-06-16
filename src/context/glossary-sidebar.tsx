@@ -1,38 +1,42 @@
 import { useIsMobile } from "@/hooks/use-mobile";
-import { SetStateType } from "@/lib/types";
+import { GlossaryEntry, SetStateType } from "@/lib/types";
 import { createContext, useContext, useMemo, useState } from "react"
 
-interface GlossarySidebarContextValues{
+interface GlossaryContextValues{
      open: boolean,
      setOpen: SetStateType<boolean>,
      isMobile: boolean,
-     closeMobileSidebar: () => void
+     closeMobileSidebar: () => void,
+     glossary: GlossaryEntry[],
+     setGlossary: SetStateType<GlossaryEntry[]>
 }
-const GlossarySidebarContext = createContext<GlossarySidebarContextValues | null>(null)
+const GlossaryContext = createContext<GlossaryContextValues | null>(null)
 
-export function GlossarySidebarProvider({ children }: { children: React.ReactNode }){
+export function GlossaryProvider({ children }: { children: React.ReactNode }){
+     const [glossary, setGlossary] = useState<GlossaryEntry[]>([])
      const [open, setOpen] = useState(true);
      const isMobile = useIsMobile();
      const closeMobileSidebar = () => {
           if (isMobile) setOpen(false)
      }
-     const values: GlossarySidebarContextValues = useMemo(()=>({
+     const values: GlossaryContextValues = useMemo(()=>({
           open,
           setOpen,
           isMobile,
-          closeMobileSidebar
-     }),[open, isMobile])
+          closeMobileSidebar,
+          glossary, setGlossary
+     }),[open, isMobile, glossary])
      return (
-          <GlossarySidebarContext.Provider value={values}>
+          <GlossaryContext.Provider value={values}>
                {children}
-          </GlossarySidebarContext.Provider>
+          </GlossaryContext.Provider>
      )
 }
 
-export function useGlossarySidebar(){
-     const ctx = useContext(GlossarySidebarContext);
+export function useGlossary(){
+     const ctx = useContext(GlossaryContext);
      if (!ctx) {
-          throw new Error("useGlossarySidebar must be used inside GlossarySidebarProvider");
+          throw new Error("useGlossary must be used inside GlossaryProvider");
      }
      return ctx;
 }

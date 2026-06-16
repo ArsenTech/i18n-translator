@@ -6,7 +6,7 @@ import useKeyboardShortcuts from "@/hooks/use-kbd-shortcuts";
 import { buildTree } from "@/lib/helpers";
 import { cn } from "@/lib/utils";
 import { lazy, Suspense, useMemo } from "react";
-import { useGlossarySidebar } from "@/context/glossary-sidebar";
+import { useGlossary } from "@/context/glossary-sidebar";
 
 const TranslationTable = lazy(()=>import("@/components/translation-table"))
 const TreeSidebar = lazy(()=>import("@/components/main-translation/tree-sidebar"))
@@ -19,7 +19,7 @@ const GlossarySidebar = lazy(()=>import("@/components/main-translation/glossary-
 export default function MainPage(){
      const {table} = useAppTranslation()
      const {open: treeOpen} = useTreeSidebar()
-     const {open: glossaryOpen} = useGlossarySidebar()
+     const {open: glossaryOpen, glossary} = useGlossary()
      const tree = useMemo(() => buildTree(table), [table])
      useKeyboardShortcuts()
      return (
@@ -56,29 +56,7 @@ export default function MainPage(){
                     </div>
                     {glossaryOpen && (
                          <Suspense fallback={<GlossarySidebarLoader/>}>
-                              <GlossarySidebar glossary={[
-                                   {
-                                        source: "Bug",
-                                        target: "Բագ",
-                                        partOfSpeech: "noun",
-                                        domain: "Programming",
-                                        found: true
-                                   },
-                                   {
-                                        source: "Track",
-                                        target: "Թրեք",
-                                        partOfSpeech: "noun",
-                                        domain: "Editing",
-                                        found: false
-                                   },
-                                   {
-                                        source: "Skin",
-                                        target: "Սկին",
-                                        partOfSpeech: "noun",
-                                        domain: "Gaming",
-                                        found: false
-                                   },
-                              ]}/>
+                              <GlossarySidebar glossary={glossary.slice(0, 100)}/>
                          </Suspense>
                     )}
                </div>

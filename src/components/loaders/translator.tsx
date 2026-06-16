@@ -108,7 +108,7 @@ export function TreeSidebarLoader(){
           </div>
      )
 }
-function GlossarySidearItemLoader(){
+function GlossarySidebarSidearItemLoader(){
      return (
           <li className="space-y-1.5 first:pt-2 pb-2 border-b border-muted last:pb-0 last:border-b-0 text-center w-full">
                <div className="grid grid-cols-[1fr_16px_1fr] gap-2.5 place-items-center w-full">
@@ -133,7 +133,7 @@ export function GlossarySidebarLoader(){
                <ul className="space-y-1.5 flex-1 w-full">
                     <li className="space-y-1 pb-2 border-b last:pb-0 last:border-b-0 text-center w-full">
                          {Array.from({length: 5}).map((_,i)=>(
-                              <GlossarySidearItemLoader key={i+1}/>
+                              <GlossarySidebarSidearItemLoader key={i+1}/>
                          ))}
                     </li>
                </ul>

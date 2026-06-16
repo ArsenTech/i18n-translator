@@ -6,7 +6,12 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ---
 ## [0.3.0] - Unreleased
 ### Added
-- Glossary UI
+- Glossary Sidebar
+- Glossary Actions
+  - Add to Glossary
+  - Load Glossary
+  - Auto-load glossary on opening translation
+  - Toggle Glossary Sidebar
 ### Improved
 - Skeleton Loaders to match the UI
 ### Removed

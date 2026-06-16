@@ -14,7 +14,8 @@ interface ComboboxFieldProps{
      invalid?: boolean,
      items: string[],
      placeholder?: string,
-     Icon?: LucideIcon
+     Icon?: LucideIcon,
+     triggerBtn?: React.ReactNode
 }
 export default function ComboboxField({
      items,
@@ -26,6 +27,7 @@ export default function ComboboxField({
      disabled,
      name,
      onBlur,
+     triggerBtn
 }: ComboboxFieldProps){
      const [open, setOpen] = useState(false)
      const [search, setSearch] = useState("")
@@ -35,18 +37,20 @@ export default function ComboboxField({
      return (
           <Popover open={open} onOpenChange={setOpen}>
                <PopoverTrigger asChild>
-                    <Button
-                         name={name}
-                         aria-invalid={invalid}
-                         disabled={disabled}
-                         onBlur={onBlur}
-                         variant="outline"
-                         type="button"
-                         className="justify-start font-normal"
-                    >
-                         {Icon && <Icon className="size-4 text-muted-foreground"/>}
-                         {value || placeholder}
-                    </Button>
+                    {!triggerBtn ? (
+                         <Button
+                              name={name}
+                              aria-invalid={invalid}
+                              disabled={disabled}
+                              onBlur={onBlur}
+                              variant="outline"
+                              type="button"
+                              className="justify-start font-normal"
+                         >
+                              {Icon && <Icon className="size-4 text-muted-foreground"/>}
+                              {value || placeholder}
+                         </Button>
+                    ) : triggerBtn}
                </PopoverTrigger>
                <PopoverContent className="w-(--radix-popover-trigger-width) p-0 overflow-hidden">
                     <Command>

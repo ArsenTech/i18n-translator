@@ -1,3 +1,5 @@
+import { PARTS_OF_SPEECH } from "../constants"
+
 export interface PopupFormProps{
      triggerButton?: React.ReactNode
      open?: boolean,
@@ -14,10 +16,10 @@ export interface ILangInputState{
      base: string,
      target: string
 }
-export interface GlossaryItem {
-     source: string,
-     target: string,
-     partOfSpeech: "noun" | "verb" | "adjective",
-     domain: string,
-     found: boolean
+export interface GlossaryEntry {
+     term: string;
+     translation: string;
+     partOfSpeech: typeof PARTS_OF_SPEECH[number];
+     domain: string;
+     caseSensitive: boolean;
 }

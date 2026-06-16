@@ -21,6 +21,7 @@ export const RESOURCE_TYPE = [
      { value: "namescape", label: "Current Namescape"},
      { value: "translation", label: "Entire Translation"},
 ] as const
+export const SIDEBAR_WIDTH_MOBILE = "18rem"
 
 // TODO: Replace with a real data
 export const DEFAULT_DICTIONARIES = [

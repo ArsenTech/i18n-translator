@@ -1,11 +1,12 @@
-import { TranslationInputLoader, LanguageSelectLoader, QuickAccessToolbarLoader, TreeSidebarLoader, TranslatorStatsLoader, TableLoader} from "@/components/loaders/translator"
+import { TranslationInputLoader, LanguageSelectLoader, QuickAccessToolbarLoader, TreeSidebarLoader, TranslatorStatsLoader, TableLoader, GlossarySidebarLoader} from "@/components/loaders/translator"
 import WindowWrapper from "@/components/window";
-import { useTreeSidebar } from "@/context/sidebar";
+import { useTreeSidebar } from "@/context/tree-sidebar";
 import { useAppTranslation } from "@/context/translation";
 import useKeyboardShortcuts from "@/hooks/use-kbd-shortcuts";
 import { buildTree } from "@/lib/helpers";
 import { cn } from "@/lib/utils";
 import { lazy, Suspense, useMemo } from "react";
+import { useGlossarySidebar } from "@/context/glossary-sidebar";
 
 const TranslationTable = lazy(()=>import("@/components/translation-table"))
 const TreeSidebar = lazy(()=>import("@/components/main-translation/tree-sidebar"))
@@ -13,10 +14,12 @@ const TranslatorStats = lazy(()=>import("@/components/main-translation/stats"))
 const TranslationInput = lazy(()=>import("@/components/main-translation/input"))
 const QuickAccessToolbar = lazy(()=>import("@/components/main-translation/quick-access"))
 const LanguageSelect = lazy(()=>import("@/components/main-translation/language-select"))
+const GlossarySidebar = lazy(()=>import("@/components/main-translation/glossary-sidebar"))
 
 export default function MainPage(){
      const {table} = useAppTranslation()
-     const {open} = useTreeSidebar()
+     const {open: treeOpen} = useTreeSidebar()
+     const {open: glossaryOpen} = useGlossarySidebar()
      const tree = useMemo(() => buildTree(table), [table])
      useKeyboardShortcuts()
      return (
@@ -26,9 +29,12 @@ export default function MainPage(){
                </Suspense>
                <div className={cn(
                     "grid grid-cols-1 px-4 py-2 gap-4 md:h-[calc(100dvh-80px)] overflow-hidden",
-                    open ? "md:grid-cols-[300px_1fr]" : "md:grid-cols-1"
+                    (!treeOpen && !glossaryOpen) && "md:grid-cols-1",
+                    (treeOpen && !glossaryOpen) && "md:grid-cols-[250px_1fr]",
+                    (!treeOpen && glossaryOpen) && "md:grid-cols-[1fr_200px]",
+                    (treeOpen && glossaryOpen) && "md:grid-cols-[250px_1fr_200px]"
                )}>
-                    {open && (
+                    {treeOpen && (
                          <Suspense fallback={<TreeSidebarLoader/>}>
                               <TreeSidebar tree={tree} />
                          </Suspense>
@@ -48,6 +54,33 @@ export default function MainPage(){
                               <TranslatorStats/>
                          </Suspense>
                     </div>
+                    {glossaryOpen && (
+                         <Suspense fallback={<GlossarySidebarLoader/>}>
+                              <GlossarySidebar glossary={[
+                                   {
+                                        source: "Bug",
+                                        target: "Բագ",
+                                        partOfSpeech: "noun",
+                                        domain: "Programming",
+                                        found: true
+                                   },
+                                   {
+                                        source: "Track",
+                                        target: "Թրեք",
+                                        partOfSpeech: "noun",
+                                        domain: "Editing",
+                                        found: false
+                                   },
+                                   {
+                                        source: "Skin",
+                                        target: "Սկին",
+                                        partOfSpeech: "noun",
+                                        domain: "Gaming",
+                                        found: false
+                                   },
+                              ]}/>
+                         </Suspense>
+                    )}
                </div>
           </WindowWrapper>
      )

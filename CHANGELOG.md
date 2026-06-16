@@ -4,6 +4,12 @@ All notable changes of I18N Translator will be documented here.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [0.3.0] - Unreleased
+### Added
+- Glossary UI
+### Improved
+- Skeleton Loaders to match the UI
+
 ## [0.2.7] - 2026-06-14
 ### Added
 - XLIFF translation support

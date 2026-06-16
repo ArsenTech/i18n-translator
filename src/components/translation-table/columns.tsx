@@ -11,13 +11,13 @@ export const getColumns = (isSelected: boolean): ColumnDef<ITranslation>[] => [
           header: ({column})=>(
                <DataTableColumnHeader title="Name" column={column}/>
           ),
-          size: 200,
-          maxSize: 200,
+          size: 150,
+          maxSize: 150,
           cell: ({getValue}) => {
                const array = getValue<string>().split(".");
                return (
                     <Tooltip>
-                         <TooltipTrigger className="truncate font-mono max-w-[200px]">
+                         <TooltipTrigger className="truncate font-mono max-w-[150px]">
                               {isSelected ? array[array.length-1] : getValue<string>()}
                          </TooltipTrigger>
                          <TooltipContent className="font-mono">{getValue<string>()}</TooltipContent>
@@ -76,7 +76,7 @@ export const getColumns = (isSelected: boolean): ColumnDef<ITranslation>[] => [
           header: "Status",
           cell: ({row}) => (
                <Tooltip>
-                    <TooltipTrigger className="flex justify-center max-w-[60px]">
+                    <TooltipTrigger className="flex justify-center max-w-[50px]">
                          {row.original.baseString===row.original.translationString ? (
                               <TriangleAlert className="size-5 text-amber-600 dark:text-amber-400"/>
                          ) : !row.original.translationString ? (
@@ -92,7 +92,7 @@ export const getColumns = (isSelected: boolean): ColumnDef<ITranslation>[] => [
                     </TooltipContent>
                </Tooltip>
           ),
-          size: 60,
-          maxSize: 60,
+          size: 50,
+          maxSize: 50,
      }
 ]

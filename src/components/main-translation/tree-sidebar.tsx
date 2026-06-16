@@ -6,11 +6,10 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../ui/colla
 import { useState } from "react"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetClose, SheetFooter } from "../ui/sheet"
 import { TreeNode } from "@/lib/types"
-import { useTreeSidebar } from "@/context/sidebar"
+import { useTreeSidebar } from "@/context/tree-sidebar"
 import { useAppTranslation } from "@/context/translation"
 import React from "react"
-
-const SIDEBAR_WIDTH_MOBILE = "18rem"
+import { SIDEBAR_WIDTH_MOBILE } from "@/lib/constants"
 
 function TreeSidebarMenu({children}: {children: React.ReactNode}){
      return (

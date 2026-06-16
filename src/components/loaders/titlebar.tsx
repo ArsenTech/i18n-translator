@@ -2,7 +2,7 @@ import { Skeleton } from "../ui/skeleton";
 
 export default function TitlebarLoader(){
      return (
-          <div className="flex items-center justify-between gap-2 border-b shadow-xs pl-2 sticky top-0 left-0 z-30 w-full h-9 backdrop-blur-md">
+          <div className="flex items-center justify-between gap-2 border-b border-muted pl-2 sticky top-0 left-0 z-30 w-full h-9 backdrop-blur-md">
                <div className="flex items-center gap-2 w-full">
                     <Skeleton className="size-6 rounded-full"/>
                     <div className="flex items-center gap-0.5 p-[3px] h-full border-0 bg-transparent shadow-none rounded-none">

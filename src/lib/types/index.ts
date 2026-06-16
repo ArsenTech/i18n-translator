@@ -14,3 +14,10 @@ export interface ILangInputState{
      base: string,
      target: string
 }
+export interface GlossaryItem {
+     source: string,
+     target: string,
+     partOfSpeech: "noun" | "verb" | "adjective",
+     domain: string,
+     found: boolean
+}

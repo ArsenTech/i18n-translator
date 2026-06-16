@@ -130,6 +130,7 @@ export function GlossarySidebarLoader(){
      return (
           <div className="w-full flex flex-col gap-2 min-h-0 overflow-hidden">
                <Skeleton className="h-7 w-full"/>
+               <Skeleton className="h-5 w-1/4"/>
                <ul className="space-y-1.5 flex-1 w-full">
                     <li className="space-y-1 pb-2 border-b last:pb-0 last:border-b-0 text-center w-full">
                          {Array.from({length: 5}).map((_,i)=>(

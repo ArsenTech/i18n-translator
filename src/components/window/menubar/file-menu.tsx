@@ -10,13 +10,9 @@ import { getErrorMessage } from "@/lib/utils";
 import RecentTranslations, {RecentTranslation} from "@/lib/store/recent-translations";
 import OpenXliffPopup from "@/popups/open-xliff";
 import { TranslationFormat } from "@/lib/types/enums";
-import { useGlossary } from "@/context/glossary-sidebar";
-import GlossaryActions from "@/lib/store/glossary";
-import { ILangInputState } from "@/lib/types";
 
 export default function FileMenu(){
      const {table, files, setTable, setFiles, updateLangs, setBaseKeys, setIsDirty, reset, langs} = useAppTranslation()
-     const {setGlossary} = useGlossary()
      const [isSaving, setIsSaving] = useState(false)
      const [isOpening, setIsOpening] = useState(false)
      const [recentTranslations, setRecentTranslations] = useState<RecentTranslation[]>([])
@@ -63,13 +59,10 @@ export default function FileMenu(){
                          targetPath: item.targetPath,
                          format: item.format
                     })
-                    const langs: ILangInputState = {
+                    updateLangs({
                          base: item.baseLang,
                          target: item.targetLang
-                    }
-                    updateLangs(langs)
-                    const glossary = await GlossaryActions.getGlossary(langs)
-                    setGlossary(glossary)
+                    })
                     setIsDirty(false)
                }
           } catch (err){

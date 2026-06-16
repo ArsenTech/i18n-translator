@@ -103,6 +103,7 @@ Future releases are planned to include glossary support, automatic translation t
     - Delete entries
     - Import/export glossary packs to CSV or JSON
     - Create new entries without opening a translation
+- [ ] Show All Button => Show Few on Glossary Sidebar
 #### v0.4.x or later (Expansion)
 - [ ] Auto-Translation backend
 - [ ] Transliteration backend

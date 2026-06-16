@@ -4,7 +4,7 @@ import { ScrollArea, ScrollBar } from "../ui/scroll-area"
 import { cn, getErrorMessage } from "@/lib/utils"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetClose, SheetFooter } from "../ui/sheet"
 import { GlossaryEntry } from "@/lib/types"
-import React, { useTransition } from "react"
+import React, { useEffect, useMemo, useTransition } from "react"
 import { SIDEBAR_WIDTH_MOBILE } from "@/lib/constants"
 import { Empty, EmptyHeader, EmptyMedia, EmptyTitle, EmptyDescription, EmptyContent } from "../ui/empty"
 import { useGlossary } from "@/context/glossary-sidebar"
@@ -44,11 +44,12 @@ function GlossarySidebarItem({data, found=false}: GlossarySidearItemProps){
           </li>
      )
 }
-function GlossarySidebarContainer({children, count}: {children: React.ReactNode, count: number}){
+function GlossarySidebarContainer({children, count, total}: {children: React.ReactNode, count: number, total: number}){
      const {isMobile, open, setOpen} = useGlossary()
      const content = (
           <div className="w-full flex flex-col gap-2 min-h-0 overflow-hidden">
                <h2 className="text-lg font-semibold">Glossary ({count})</h2>
+               <p className="text-sm text-muted-foreground">Total: {total}</p>
                <ScrollArea className={cn(
                     "min-h-0 h-full flex-1",
                )}>
@@ -114,9 +115,25 @@ export default function GlossarySidebar({glossary}: GlossarySidebarProps) {
                }
           })
      }
+     const sorted = useMemo(()=>[...glossary].sort((a, b) =>
+          a.term.localeCompare(b.term)
+     ),[glossary]);
+     const glossaryItems = useMemo(() => {
+          return sorted.map(item => ({
+               ...item,
+               found: currTranslation
+                    ? findValue(currTranslation.baseString, item.term, item.caseSensitive) ||
+                    findValue(currTranslation.translationString, item.translation, item.caseSensitive)
+                    : false,
+          })).filter(val=>val.found)
+     }, [sorted, currTranslation])
+     useEffect(() => {
+          if (!langs.base || !langs.target) return;
+          loadPack();
+     }, [langs.base, langs.target]);
      return (
-          <GlossarySidebarContainer count={glossary.length}>
-               {glossary.length<=0 ? (
+          <GlossarySidebarContainer count={glossaryItems.length} total={sorted.length}>
+               {glossaryItems.length<=0 ? (
                     <Empty>
                          <EmptyHeader>
                               <EmptyMedia variant="icon">
@@ -126,16 +143,16 @@ export default function GlossarySidebar({glossary}: GlossarySidebarProps) {
                               <EmptyDescription>Select a translation key or load a local glossary pack.</EmptyDescription>
                          </EmptyHeader>
                          <EmptyContent>
-                              <LoadingButton isLoading={isLoading} onClick={loadPack}>Load pack</LoadingButton>
+                              <LoadingButton disabled={glossary.length>0} isLoading={isLoading} onClick={loadPack}>Load pack</LoadingButton>
                          </EmptyContent>
                     </Empty>
                ) : (
                     <GlossarySidebarMenu>
-                         {glossary.map(item=>(
+                         {glossaryItems.map(item=>(
                               <GlossarySidebarItem
-                                   key={`${item.domain}-${item.term}`}
+                                   key={`${item.domain}-${item.partOfSpeech}-${item.term}-${item.translation}`}
                                    data={item}
-                                   found={currTranslation ? findValue(currTranslation.translationString,item.translation,item.caseSensitive) : false}
+                                   found={item.found}
                               />
                          ))}
                     </GlossarySidebarMenu>

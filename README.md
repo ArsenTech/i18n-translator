@@ -104,7 +104,7 @@ Future releases are planned to include glossary support, automatic translation t
     - [X] Import/export glossary packs to CSV or JSON
 - [X] Show All Button => Show Few on Glossary Sidebar
 - [X] Input action buttons as a grid (2x2)
-- [ ] Lazy-load SelectorField and ComboboxField with a Skeleton Loader (h-8)
+- [X] Lazy-load SelectorField and ComboboxField with a Skeleton Loader
 #### v0.4.x or later (Expansion)
 - [ ] Auto-Translation backend
 - [ ] Transliteration backend

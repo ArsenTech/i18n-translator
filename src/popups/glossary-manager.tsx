@@ -1,7 +1,5 @@
-import { LanguageSelectLoader } from "@/components/loaders/translator";
-import GlossaryInput from "@/components/main-translation/glossary-input";
+import { GlossaryInputLoader, LanguageSelectLoader, TableLoader } from "@/components/loaders/translator";
 import AppModal from "@/components/popups/modal";
-import GlossaryTable from "@/components/tables/glossary";
 import { DialogFooter } from "@/components/ui/dialog";
 import { useGlossary } from "@/context/glossary";
 import { PopupComponentProps } from "@/lib/types";
@@ -20,6 +18,8 @@ import { exportCSV, exportJSON } from "@/lib/helpers";
 import { PARTS_OF_SPEECH } from "@/lib/constants";
 
 const LanguageSelect = lazy(()=>import("@/components/main-translation/language-select"))
+const GlossaryTable = lazy(()=>import("@/components/tables/glossary"))
+const GlossaryInput = lazy(()=>import("@/components/main-translation/glossary-input"))
 
 export default function GlossaryManagerPopup({triggerButton}: PopupComponentProps){
      const [isImporting, setIsImporting] = useState(false);
@@ -105,11 +105,17 @@ export default function GlossaryManagerPopup({triggerButton}: PopupComponentProp
                size="xl"
                triggerButton={triggerButton}
           >
-               <Suspense fallback={<LanguageSelectLoader/>}>
+               <Suspense fallback={(
+                    <>
+                    <LanguageSelectLoader/>
+                    <TableLoader rows={8} cols={[200,200,32,50,50]}/>
+                    <GlossaryInputLoader/>
+                    </>
+               )}>
                     <LanguageSelect/>
+                    <GlossaryTable/>
+                    <GlossaryInput/>
                </Suspense>
-               <GlossaryTable/>
-               <GlossaryInput/>
                <DialogFooter>
                     <ButtonGroup>
                          <LoadingButton onClick={importGlossary} isLoading={isImporting} loaderText="Importing..." variant="outline">

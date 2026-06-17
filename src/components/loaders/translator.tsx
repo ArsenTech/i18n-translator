@@ -7,9 +7,9 @@ import TitlebarLoader from "./titlebar";
 
 interface Props{
      rows?: number,
+     cols: number[]
 }
-export function TableLoader({rows=12}: Props){
-     const colsArr = [200,400,400,60]
+export function TableLoader({rows=12, cols}: Props){
      const rowsArr = useMemo(()=>Array.from({length: rows}).map((_,i)=>i),[rows]);
      return (
           <>
@@ -21,7 +21,7 @@ export function TableLoader({rows=12}: Props){
                <Table className="min-w-[900px] table-fixed">
                     <TableHeader>
                          <TableRow>
-                              {colsArr.map((size,col)=>(
+                              {cols.map((size,col)=>(
                                    <TableHead key={`col-${col+1}`} style={{width: size}}>
                                         <Skeleton className="h-4 w-full" aria-label={`col-${col+1}`}/>
                                    </TableHead>
@@ -31,7 +31,7 @@ export function TableLoader({rows=12}: Props){
                     <TableBody>
                          {rowsArr.map(row=>(
                               <TableRow key={`row-${row+1}`}>
-                                   {colsArr.map((_,col)=>(
+                                   {cols.map((_,col)=>(
                                         <TableCell key={`cell-${row+1}-${col+1}`}>
                                              <Skeleton className="h-4 w-full" aria-label={`cell-${row+1}-${col+1}`}/>
                                         </TableCell>
@@ -149,11 +149,28 @@ export default function MainContentLoader(){
                <TreeSidebarLoader/>
                <div className="w-full flex flex-col gap-2 min-h-0 overflow-hidden">
                     <LanguageSelectLoader/>
-                    <TableLoader/>
+                    <TableLoader cols={[150, 400, 400, 50]}/>
                     <TranslationInputLoader/>
                     <TranslatorStatsLoader/>
                </div>
                <GlossarySidebarLoader/>
+          </div>
+          </>
+     )
+}
+export function GlossaryInputLoader(){
+     return (
+          <>
+          <div className="flex items-center gap-2">
+               <Skeleton className="h-3.5 w-8"/>
+               <Skeleton className="h-3 flex-1 rounded-full"/>
+          </div>
+          <div className="flex gap-2">
+               <Skeleton className="flex-2 h-8"/>
+               <div className="flex items-center gap-1 justify-center flex-wrap">
+                    <Skeleton className="flex-1 size-8"/>
+                    <Skeleton className="flex-1 size-8"/>
+               </div>
           </div>
           </>
      )

@@ -105,12 +105,10 @@ export default function GlossaryInput(){
                     </Button>
                </ButtonGroup>
                <div className="flex items-center gap-1 justify-center flex-wrap">
-                    <Button disabled={isSaving} className="flex-1" onClick={saveAndPrev}>
+                    <Button disabled={isSaving} className="flex-1" onClick={saveAndPrev} size="icon" title="Previous">
                          <ChevronLeft/>
-                         Previous
                     </Button>
-                    <Button disabled={isSaving} className="flex-1" onClick={saveAndNext}>
-                         Next
+                    <Button disabled={isSaving} className="flex-1" onClick={saveAndNext} size="icon" title="Next">
                          <ChevronRight/>
                     </Button>
                </div>

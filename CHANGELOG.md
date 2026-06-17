@@ -13,11 +13,12 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
   - Edit entries
   - Delete entries
   - Import/export glossary packs to CSV or JSON
-- Skeleton Loader on Specific Fields
+- Skeleton Loader Support
   - SelectorField
   - ComboboxField
   - FilePicker / XliffFilePicker
   - LangSelector
+  - Entire Glossary Manager except the Import / Export button
 ### Improved
 - Input buttons grid layout
 ### Replaced

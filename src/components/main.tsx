@@ -43,7 +43,7 @@ export default function MainPage(){
                          <Suspense fallback={(
                               <>
                               <LanguageSelectLoader/>
-                              <TableLoader/>
+                              <TableLoader cols={[150, 400, 400, 50]}/>
                               <TranslationInputLoader/>
                               <TranslatorStatsLoader/>
                               </>

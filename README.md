@@ -76,11 +76,7 @@ Whether you are translating a small application or maintaining a large localizat
 Future releases are planned to include glossary support, automatic translation tools, transliteration, spell checking, and additional localization formats.
 
 ### Planned Improvements
-#### v0.3.2 (Next)
-- [ ] About Popup
-- [ ] Translatable switch as a separate column if the translation type is Android XML
-#### v0.3.x or later (next)
-- [ ] Settings Popup
+#### v0.3.1
 - [X] Auto-detect glossary language pair from file names
 - [X] Glossary page that'll save words to Glossary
   ```json
@@ -105,6 +101,12 @@ Future releases are planned to include glossary support, automatic translation t
 - [X] Show All Button => Show Few on Glossary Sidebar
 - [X] Input action buttons as a grid (2x2)
 - [X] Lazy-load SelectorField and ComboboxField with a Skeleton Loader
+#### v0.3.2 (Next)
+- [ ] About Popup
+- [ ] Translatable switch as a separate column if the translation type is Android XML
+#### v0.3.x or later (next)
+- [ ] Settings Popup
+- [ ] Refactor, Optimize, Lazy-load things after changing
 #### v0.4.x or later (Expansion)
 - [ ] Auto-Translation backend
 - [ ] Transliteration backend

@@ -76,11 +76,11 @@ Whether you are translating a small application or maintaining a large localizat
 Future releases are planned to include glossary support, automatic translation tools, transliteration, spell checking, and additional localization formats.
 
 ### Planned Improvements
-#### v0.3.x or later (next)
-- [ ] Update automatic base language detection inside new translation and open translation
-- [ ] Settings Popup
+#### v0.3.2 (Next)
 - [ ] About Popup
 - [ ] Translatable switch as a separate column if the translation type is Android XML
+#### v0.3.x or later (next)
+- [ ] Settings Popup
 - [X] Auto-detect glossary language pair from file names
 - [X] Glossary page that'll save words to Glossary
   ```json
@@ -113,6 +113,7 @@ Future releases are planned to include glossary support, automatic translation t
 - [ ] `isDirty` changes inside new backend logic
 - [ ] I18N Support
 - [ ] Refactor, Optimize, Lazy-load things
+- [ ] Update automatic base language detection inside new translation and open translation
 #### Nice to have
 - [ ] Write the Documentation on the `docs/` folder.
   - [X] Usage Guide

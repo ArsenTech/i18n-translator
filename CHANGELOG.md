@@ -4,7 +4,7 @@ All notable changes of I18N Translator will be documented here.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
-## [0.3.1] - Unreleased
+## [0.3.1] - 2026-06-07
 ### Added
 - Glossary Visibility Toggler (Show All / Show Few)
 - Tools -> Glossary Menu Bar Item
@@ -26,6 +26,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Settings Window => Settings Popup
 
 ## [0.3.0] - 2026-06-17
+> [!NOTE]
+> The planned release of v0.3.0 has been rescheduled from 2026-06-16 to 2026-06-17 (morning-afternoon) to allow for final polishing and quality improvements before publication.
 ### Added
 - Glossary Sidebar
 - Glossary Actions
@@ -214,6 +216,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Initialized
 - Main Page with a sample test
 
+[0.3.1]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.3.1
 [0.3.0]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.3.0
 [0.2.7]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.7
 [0.2.6]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.6

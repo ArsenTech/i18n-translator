@@ -1,6 +1,4 @@
-import { PARTS_OF_SPEECH } from "../constants"
-
-export interface PopupFormProps{
+export interface PopupComponentProps{
      triggerButton?: React.ReactNode
      open?: boolean,
      setOpen?: (open: boolean) => void
@@ -15,12 +13,5 @@ export type SelectType = {label: string, value: string}
 export interface ILangInputState{
      base: string,
      target: string
-}
-export interface GlossaryEntry {
-     term: string;
-     translation: string;
-     partOfSpeech: typeof PARTS_OF_SPEECH[number];
-     domain: string;
-     caseSensitive: boolean;
 }
 export type GlossaryTogglerType = "all" | "few"

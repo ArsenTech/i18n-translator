@@ -1,7 +1,7 @@
 import { useIsMobile } from "@/hooks/use-mobile";
-import { GlossaryEntry, SetStateType, GlossaryTogglerType } from "@/lib/types";
-import { createContext, useContext, useMemo, useState } from "react"
-
+import type { GlossaryEntry } from "@/lib/types/data"
+import type { SetStateType, GlossaryTogglerType } from "@/lib/types";
+import { createContext, useCallback, useContext, useMemo, useState } from "react"
 interface GlossaryContextValues{
      open: boolean,
      setOpen: SetStateType<boolean>,
@@ -10,26 +10,36 @@ interface GlossaryContextValues{
      glossary: GlossaryEntry[],
      setGlossary: SetStateType<GlossaryEntry[]>,
      showType: GlossaryTogglerType,
-     setShowType: SetStateType<GlossaryTogglerType>
+     setShowType: SetStateType<GlossaryTogglerType>,
+     currEntry: GlossaryEntry | null,
+     setCurrentEntry: SetStateType<GlossaryEntry | null>
+     visibleCount: number,
+     setVisibleCount: SetStateType<number>
+     input: string,
+     setInput: SetStateType<string>
 }
 const GlossaryContext = createContext<GlossaryContextValues | null>(null)
 
 export function GlossaryProvider({ children }: { children: React.ReactNode }){
      const [glossary, setGlossary] = useState<GlossaryEntry[]>([])
      const [open, setOpen] = useState(true);
+     const [currEntry, setCurrentEntry] = useState<GlossaryEntry | null>(null)
+     const [visibleCount, setVisibleCount] = useState(50)
+     const [input, setInput] = useState("")
      const [showType, setShowType] = useState<GlossaryTogglerType>("few")
      const isMobile = useIsMobile();
-     const closeMobileSidebar = () => {
+     const closeMobileSidebar = useCallback(()=>() => {
           if (isMobile) setOpen(false)
-     }
+     },[isMobile])
      const values: GlossaryContextValues = useMemo(()=>({
-          open,
-          setOpen,
-          isMobile,
-          closeMobileSidebar,
+          open, setOpen,
+          isMobile, closeMobileSidebar,
           glossary, setGlossary,
-          showType, setShowType
-     }),[open, isMobile, glossary, showType])
+          showType, setShowType,
+          currEntry, setCurrentEntry,
+          visibleCount, setVisibleCount,
+          input, setInput
+     }),[open, isMobile, glossary, showType, currEntry, visibleCount, input])
      return (
           <GlossaryContext.Provider value={values}>
                {children}

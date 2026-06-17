@@ -1,19 +1,19 @@
 import { ArrowRight, CheckCircle, Dot, Languages } from "lucide-react"
-import { Button } from "../ui/button"
-import { ScrollArea, ScrollBar } from "../ui/scroll-area"
+import { Button } from "@/components/ui/button"
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { cn, getErrorMessage } from "@/lib/utils"
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetClose, SheetFooter } from "../ui/sheet"
-import { GlossaryEntry } from "@/lib/types"
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetClose, SheetFooter } from "@/components/ui/sheet"
+import type { GlossaryEntry } from "@/lib/types/data"
 import React, { useEffect, useMemo, useTransition } from "react"
 import { SIDEBAR_WIDTH_MOBILE } from "@/lib/constants"
-import { Empty, EmptyHeader, EmptyMedia, EmptyTitle, EmptyDescription, EmptyContent } from "../ui/empty"
-import { useGlossary } from "@/context/glossary-sidebar"
+import { Empty, EmptyHeader, EmptyMedia, EmptyTitle, EmptyDescription, EmptyContent } from "@/components/ui/empty"
+import { useGlossary } from "@/context/glossary"
 import LoadingButton from "../loading-button"
 import GlossaryActions from "@/lib/store/glossary"
 import { useAppTranslation } from "@/context/translation"
 import { toast } from "sonner"
 import { findValue } from "@/lib/helpers"
-import { ButtonGroup } from "../ui/button-group"
+import { ButtonGroup } from "@/components/ui/button-group"
 
 function GlossarySidebarMenu({children}: {children: React.ReactNode}){
      return (
@@ -21,11 +21,11 @@ function GlossarySidebarMenu({children}: {children: React.ReactNode}){
      )
 }
 
-interface GlossarySidearItemProps {
+interface GlossarySidebarItemProps {
      data: GlossaryEntry,
      found?: boolean
 }
-function GlossarySidebarItem({data, found=false}: GlossarySidearItemProps){
+function GlossarySidebarItem({data, found=false}: GlossarySidebarItemProps){
      return (
           <li className="space-y-1 first:pt-2 pb-2 border-b last:pb-0 last:border-b-0 text-center">
                <div className="grid grid-cols-[1fr_16px_1fr] gap-2 place-items-center">

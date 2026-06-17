@@ -8,13 +8,13 @@ import { ReplaceTranslationSchema } from "@/schemas";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
-import { PopupFormProps } from "@/lib/types";
+import { PopupComponentProps } from "@/lib/types";
 import TranslatorActions from "@/actions/translator";
 import { useAppTranslation } from "@/context/translation";
 import { useState } from "react";
 import { toast } from "sonner";
 
-export default function ReplaceTranslationPopup({triggerButton}: PopupFormProps){
+export default function ReplaceTranslationPopup({triggerButton}: PopupComponentProps){
      const {table, setTable, setIsDirty} = useAppTranslation()
      const [open, setOpen] = useState(false)
      const form = useForm<ReplaceTranslationType>({

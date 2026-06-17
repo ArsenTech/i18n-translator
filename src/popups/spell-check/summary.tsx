@@ -2,11 +2,11 @@ import AppModal from "@/components/popups/modal";
 import { Button } from "@/components/ui/button";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
-import { PopupFormProps } from "@/lib/types";
+import { PopupComponentProps } from "@/lib/types";
 import { BookPlus, CheckCircle, List, NotebookText, SkipForward } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 
-export default function SpellCheckSummaryPopup({open, setOpen}: PopupFormProps){
+export default function SpellCheckSummaryPopup({open, setOpen}: PopupComponentProps){
      return (
           <AppModal
                size="sm"

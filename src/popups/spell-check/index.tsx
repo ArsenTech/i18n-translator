@@ -6,13 +6,13 @@ import { Controller, useForm } from "react-hook-form"
 import { SpellCheckType } from "@/schemas/types";
 import { SpellCheckSchema } from "@/schemas";
 import { DialogFooter } from "@/components/ui/dialog";
-import { PopupFormProps } from "@/lib/types";
+import { PopupComponentProps } from "@/lib/types";
 import SelectorField from "@/components/fields/selector";
 import { DEFAULT_DICTIONARIES, RESOURCE_TYPE } from "@/lib/constants";
 import RadioField from "@/components/fields/radio-field";
 import TranslatorActions from "@/actions/translator";
 
-export default function SpellCheckPopup({triggerButton}: PopupFormProps){
+export default function SpellCheckPopup({triggerButton}: PopupComponentProps){
      const form = useForm<SpellCheckType>({
           resolver: zodResolver(SpellCheckSchema),
           defaultValues: {

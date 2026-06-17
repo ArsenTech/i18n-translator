@@ -3,7 +3,7 @@ import FileActions from "@/actions/file";
 import FindActions from "@/actions/find";
 import TranslatorActions from "@/actions/translator";
 import { FilePlus, FolderOpen, Languages, RotateCcw, Save, Search, SearchCheck, SpellCheckIcon } from "lucide-react";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import NewTranslationPopup from "@/popups/new-translation";
 import OpenTranslationPopup from "@/popups/open-translation";
 import { PROVIDER_NAMES } from "@/lib/constants";
@@ -15,7 +15,7 @@ import { useCallback, useState } from "react";
 import { getErrorMessage } from "@/lib/utils";
 import { toast } from "sonner";
 import { useAppTranslation } from "@/context/translation";
-import { Spinner } from "../ui/spinner";
+import { Spinner } from "@/components/ui/spinner";
 import OpenXliffPopup from "@/popups/open-xliff";
 
 export default function QuickAccessToolbar(){

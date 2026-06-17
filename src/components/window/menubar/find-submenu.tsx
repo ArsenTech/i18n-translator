@@ -1,4 +1,4 @@
-import { MenubarGroup, MenubarItem, MenubarShortcut, MenubarSub, MenubarSubContent, MenubarSubTrigger } from "../../ui/menubar";
+import { MenubarGroup, MenubarItem, MenubarShortcut, MenubarSub, MenubarSubContent, MenubarSubTrigger } from "@/components/ui/menubar";
 import FindActions, { FindResult } from "@/actions/find";
 import TranslatorActions from "@/actions/translator";
 import FindPopup from "@/popups/find";

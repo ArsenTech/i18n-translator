@@ -2,7 +2,6 @@ import { BookOpen, Code, Grid2X2Plus, Info, MessageCircleWarning, Settings } fro
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { SiGithub } from "react-icons/si"
 import { openUrl } from "@tauri-apps/plugin-opener"
-import { createAboutWindow, createSettingsWindow } from "@/lib/window";
 import { Copy, Minus, Square, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ButtonGroup } from "@/components/ui/button-group"
@@ -14,6 +13,8 @@ import { useAppTranslation } from "@/context/translation";
 import FileActions from "@/actions/file";
 import { toast } from "sonner";
 import { getErrorMessage } from "@/lib/utils";
+import AboutPopup from "@/popups/about";
+import SettingsPopup from "@/popups/settings";
 
 interface TitleBarProps{
      hideMenubar?: boolean,
@@ -72,7 +73,7 @@ export default function TitleBar({hideMaximize, hideMenubar, title}: TitleBarPro
      return (
           <div className="flex items-center justify-between gap-2 bg-secondary/80 dark:bg-card/80 text-secondary-foreground border-b shadow-xs pl-2 sticky top-0 left-0 z-30 w-full h-9 backdrop-blur-md">
                <div className="flex items-center gap-2">
-                    <DropdownMenu>
+                    <DropdownMenu modal={false}>
                          <DropdownMenuTrigger>
                               <img src="/logo.png" alt="I18N Translator" width={24} height={24} className="select-none"/> 
                          </DropdownMenuTrigger>
@@ -81,14 +82,18 @@ export default function TitleBar({hideMaximize, hideMenubar, title}: TitleBarPro
                               {!hideMenubar && (
                                    <>
                                    <DropdownMenuSeparator/>
-                                   <DropdownMenuItem onClick={()=>createAboutWindow()}>
-                                        <Info className="text-muted-foreground"/>
-                                        About I18N Translator
-                                   </DropdownMenuItem>
-                                   <DropdownMenuItem onClick={()=>createSettingsWindow()}>
-                                        <Settings className="text-muted-foreground"/>
-                                        Settings
-                                   </DropdownMenuItem>
+                                   <AboutPopup triggerButton={(
+                                        <DropdownMenuItem onSelect={e=>e.preventDefault()}>
+                                             <Info className="text-muted-foreground"/>
+                                             About I18N Translator
+                                        </DropdownMenuItem>
+                                   )}/>
+                                   <SettingsPopup triggerButton={(
+                                        <DropdownMenuItem onSelect={e=>e.preventDefault()}>
+                                             <Settings className="text-muted-foreground"/>
+                                             Settings
+                                        </DropdownMenuItem>
+                                   )}/>
                                    </>
                               )}
                               <DropdownMenuSeparator/>

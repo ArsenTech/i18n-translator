@@ -1,8 +1,8 @@
-import { MenubarContent, MenubarItem, MenubarMenu, MenubarShortcut, MenubarSub, MenubarSubContent, MenubarSubTrigger, MenubarTrigger } from "../../ui/menubar";
+import { MenubarContent, MenubarItem, MenubarMenu, MenubarShortcut, MenubarSub, MenubarSubContent, MenubarSubTrigger, MenubarTrigger } from "@/components/ui/menubar";
 import { useTreeSidebar } from "@/context/tree-sidebar";
 import ViewActions from "@/actions/view";
 import { useAppTranslation } from "@/context/translation";
-import { useGlossary } from "@/context/glossary-sidebar";
+import { useGlossary } from "@/context/glossary";
 
 export default function ViewMenu(){
      const {setOpen: setOpenTree} = useTreeSidebar()

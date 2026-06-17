@@ -9,9 +9,9 @@ import { DialogFooter } from "@/components/ui/dialog";
 import SelectorField from "@/components/fields/selector";
 import TranslatorActions from "@/actions/translator";
 import { SUPPORTED_SCRIPTS } from "@/lib/constants";
-import { PopupFormProps } from "@/lib/types";
+import { PopupComponentProps } from "@/lib/types";
 
-export default function TransliterateScriptPopup({triggerButton}: PopupFormProps){
+export default function TransliterateScriptPopup({triggerButton}: PopupComponentProps){
      const form = useForm<TransliterateScriptType>({
           resolver: zodResolver(TransliterateScriptSchema),
           defaultValues: {

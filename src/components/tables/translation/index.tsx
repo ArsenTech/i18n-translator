@@ -10,19 +10,21 @@ import SortBy from "./sort-by"
 import React from "react"
 import { cn } from "@/lib/utils"
 import { useAppTranslation } from "@/context/translation"
-import { Spinner } from "../ui/spinner"
+import { Spinner } from "@/components/ui/spinner"
 
-export type FilterType =
+export type TranslationFilterType =
   | "all"
   | "translated"
   | "untranslated"
   | "transEqSrc"
   | "repeatedStr"
 
+export type TranslationSearchType = "name" | "translation" | "source" | "source-not" | "translation-not" | "name-not"
+
 export default function TranslationTable() {
      const {missingOnly, setCurrentTranslation, currTranslation, visibleCount, setVisibleCount, selectedNamespace, setInput, visibleTable, selectedKeys, setSelectedKeys, selectKey} = useAppTranslation()
      const [search, setSearch] = React.useState("")
-     const [searchMode, setSearchMode] = React.useState<"name" | "translation" | "source" | "source-not" | "translation-not" | "name-not">("source")
+     const [searchMode, setSearchMode] = React.useState<TranslationSearchType>("source")
      const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({
           baseChars: false,
           baseWords: false,
@@ -30,7 +32,7 @@ export default function TranslationTable() {
           translationWords: false,
      })
      const [sorting, setSorting] = React.useState<SortingState>([])
-     const [filter, setFilter] = React.useState<FilterType>("all")
+     const [filter, setFilter] = React.useState<TranslationFilterType>("all")
      const repeatedSources = React.useMemo(() => {
           const counts = new Map<string, number>()
           for (const item of visibleTable) {

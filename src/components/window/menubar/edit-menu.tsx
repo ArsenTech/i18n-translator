@@ -1,4 +1,4 @@
-import { MenubarContent, MenubarGroup, MenubarItem, MenubarMenu, MenubarSeparator, MenubarShortcut, MenubarTrigger } from "../../ui/menubar";
+import { MenubarContent, MenubarGroup, MenubarItem, MenubarMenu, MenubarSeparator, MenubarShortcut, MenubarTrigger } from "@/components/ui/menubar";
 import ReplaceTranslationPopup from "@/popups/replace-translation";
 import BatchRenameKeysPopup from "@/popups/batch-rename-keys";
 import EditActions from "@/actions/edit";

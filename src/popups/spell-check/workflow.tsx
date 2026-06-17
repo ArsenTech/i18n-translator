@@ -3,14 +3,14 @@ import { Button } from "@/components/ui/button";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { PopupFormProps } from "@/lib/types";
+import { PopupComponentProps } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { CheckCircle } from "lucide-react";
 import { useState } from "react";
 
 const suggestions = ["Nope", "Node", "Not"];
 
-export default function SpellCheckWorkflowPopup({open, setOpen}: PopupFormProps){
+export default function SpellCheckWorkflowPopup({open, setOpen}: PopupComponentProps){
      const [selectedSuggestion, setSelectedSuggestion] = useState("")
      return (
           <AppModal

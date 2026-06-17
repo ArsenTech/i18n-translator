@@ -1,13 +1,13 @@
 import { Filter } from "lucide-react";
-import { Button } from "../ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "../ui/dropdown-menu";
-import { FilterType } from ".";
+import { Button } from "@/components/ui/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { TranslationFilterType, TranslationSearchType } from ".";
 
 interface FiltersProps {
-     filter: FilterType
-     onFilterChange: (filter: FilterType) => void
-     searchMode: "name" | "translation" | "source" | "source-not" | "translation-not" | "name-not"
-     onSearchModeChange: (mode: "name" | "translation" | "source" | "source-not" | "translation-not" | "name-not") => void
+     filter: TranslationFilterType
+     onFilterChange: (filter: TranslationFilterType) => void
+     searchMode: TranslationSearchType
+     onSearchModeChange: (mode: TranslationSearchType) => void
 }
 export default function Filters({filter, onFilterChange, onSearchModeChange, searchMode}: FiltersProps){
      return (
@@ -39,7 +39,7 @@ export default function Filters({filter, onFilterChange, onSearchModeChange, sea
                     </DropdownMenuSub>
                     <DropdownMenuRadioGroup
                          value={filter}
-                         onValueChange={(value) => onFilterChange(value as FilterType)}
+                         onValueChange={(value) => onFilterChange(value as TranslationFilterType)}
                     >
                          <DropdownMenuRadioItem value="all">All</DropdownMenuRadioItem>
                          <DropdownMenuRadioItem value="translated">Translated</DropdownMenuRadioItem>

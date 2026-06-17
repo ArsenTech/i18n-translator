@@ -7,7 +7,7 @@ import { OpenXliffSchema } from "@/schemas";
 import { DialogFooter } from "@/components/ui/dialog";
 import LangSelector from "@/components/lang-selector";
 import FileActions from "@/actions/file";
-import { PopupFormProps } from "@/lib/types";
+import { PopupComponentProps } from "@/lib/types";
 import { useState, useTransition } from "react";
 import LoadingButton from "@/components/loading-button";
 import { FolderOpen } from "lucide-react";
@@ -21,7 +21,7 @@ import { invoke } from "@tauri-apps/api/core";
 import RecentTranslations from "@/lib/store/recent-translations";
 import { TranslationFormat } from "@/lib/types/enums";
 
-export default function OpenXliffPopup({triggerButton}: PopupFormProps){
+export default function OpenXliffPopup({triggerButton}: PopupComponentProps){
      const [isOpening, startTransition] = useTransition()
      const [isFetching, startFetching] = useTransition()
      const [open, setOpen] = useState(false)

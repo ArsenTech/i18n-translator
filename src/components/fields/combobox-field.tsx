@@ -1,9 +1,9 @@
 import { Noop } from "react-hook-form";
-import { Command, CommandInput, CommandEmpty, CommandList, CommandGroup, CommandItem } from "../ui/command";
-import { Popover, PopoverTrigger, PopoverContent } from "../ui/popover";
-import { LucideIcon } from "lucide-react";
+import { Command, CommandInput, CommandEmpty, CommandList, CommandGroup, CommandItem } from "@/components/ui/command";
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
+import type { LucideIcon } from "lucide-react";
 import { useMemo, useState } from "react";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 
 interface ComboboxFieldProps{
      onChange: (value: string | null) => void;

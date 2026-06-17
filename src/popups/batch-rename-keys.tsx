@@ -6,7 +6,7 @@ import { Controller, useForm } from "react-hook-form"
 import { BatchRenameKeysType } from "@/schemas/types";
 import { BatchRenameKeysSchema } from "@/schemas";
 import { DialogFooter } from "@/components/ui/dialog";
-import { PopupFormProps } from "@/lib/types";
+import { PopupComponentProps } from "@/lib/types";
 import TranslatorActions from "@/actions/translator";
 import { useAppTranslation } from "@/context/translation";
 import { useState } from "react";
@@ -14,7 +14,7 @@ import { toast } from "sonner";
 import ComboboxField from "@/components/fields/combobox-field";
 import { Input } from "@/components/ui/input";
 
-export default function BatchRenameKeysPopup({triggerButton}: PopupFormProps){
+export default function BatchRenameKeysPopup({triggerButton}: PopupComponentProps){
      const {table, setTable, keyNames, setIsDirty} = useAppTranslation()
      const [open, setOpen] = useState(false)
      const form = useForm<BatchRenameKeysType>({

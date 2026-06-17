@@ -1,9 +1,9 @@
 import type { ITranslation } from "@/lib/types/data"
 import { ColumnDef } from "@tanstack/react-table"
-import { CheckCircle, CircleAlert, TriangleAlert } from "lucide-react"
-import { DataTableColumnHeader } from "./col-header"
+import { DataTableColumnHeader } from "../col-header"
 import { wordCount } from "@/lib/helpers"
-import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
+import StatusCell from "../status-cell"
 
 export const getColumns = (isSelected: boolean): ColumnDef<ITranslation>[] => [
      {
@@ -75,22 +75,10 @@ export const getColumns = (isSelected: boolean): ColumnDef<ITranslation>[] => [
           id: "status",
           header: "Status",
           cell: ({row}) => (
-               <Tooltip>
-                    <TooltipTrigger className="flex justify-center max-w-[50px]">
-                         {row.original.baseString===row.original.translationString ? (
-                              <TriangleAlert className="size-5 text-amber-600 dark:text-amber-400"/>
-                         ) : !row.original.translationString ? (
-                              <CircleAlert className="size-5 text-destructive"/>
-                         ) : (
-                              <CheckCircle className="size-5 text-emerald-600 dark:text-emerald-400" />
-                         )}
-                    </TooltipTrigger>
-                    <TooltipContent>
-                         {row.original.baseString===row.original.translationString
-                              ? "Translation is equal to source" : !row.original.translationString
-                              ? "Translation is missing" : "Translation is now set"}
-                    </TooltipContent>
-               </Tooltip>
+               <StatusCell
+                    base={row.original.baseString}
+                    target={row.original.translationString}
+               />
           ),
           size: 50,
           maxSize: 50,

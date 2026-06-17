@@ -9,7 +9,7 @@ import SelectorField from "@/components/fields/selector";
 import LanguageInput from "@/components/lang-input";
 import FilePicker from "@/components/fields/file-picker";
 import FileActions from "@/actions/file";
-import { PopupFormProps } from "@/lib/types";
+import { PopupComponentProps } from "@/lib/types";
 import { useState, useTransition } from "react";
 import LoadingButton from "@/components/loading-button";
 import { FilePlus2 } from "lucide-react";
@@ -28,7 +28,7 @@ const items = [
      {value: "resx", label: "Microsoft RESX File"}
 ]
 
-export default function NewTranslationPopup({triggerButton}: PopupFormProps){
+export default function NewTranslationPopup({triggerButton}: PopupComponentProps){
      const [isCreating, startTransition] = useTransition()
      const [isFetching, startFetching] = useTransition()
      const [open, setOpen] = useState(false)

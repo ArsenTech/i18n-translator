@@ -1,6 +1,6 @@
 import React from "react"
 import { ArrowDownUp } from "lucide-react"
-import { Button } from "../ui/button"
+import { Button } from "@/components/ui/button"
 import {
      DropdownMenu,
      DropdownMenuContent,
@@ -8,7 +8,7 @@ import {
      DropdownMenuRadioItem,
      DropdownMenuSeparator,
      DropdownMenuTrigger,
-} from "../ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu"
 
 interface SortByProps {
      onSort: (column: string | null, desc?: boolean) => void
@@ -23,12 +23,10 @@ export default function SortBy({ onSort }: SortByProps) {
      ) => {
           setColumn(nextColumn)
           setDirection(nextDirection)
-
           if (!nextColumn) {
                onSort(null)
                return
           }
-
           onSort(nextColumn, nextDirection === "desc")
      }
      return (
@@ -47,11 +45,11 @@ export default function SortBy({ onSort }: SortByProps) {
                          <DropdownMenuRadioItem value="">
                               Default
                          </DropdownMenuRadioItem>
-                         <DropdownMenuRadioItem value="baseWords">
-                              Source Words Count
+                         <DropdownMenuRadioItem value="termWords">
+                              Term words Count
                          </DropdownMenuRadioItem>
-                         <DropdownMenuRadioItem value="baseChars">
-                              Source Characters Count
+                         <DropdownMenuRadioItem value="termChars">
+                              Term characters Count
                          </DropdownMenuRadioItem>
                          <DropdownMenuRadioItem value="translationWords">
                               Translation Words Count

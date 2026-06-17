@@ -30,7 +30,7 @@ Refer to the [repository license][license-url] for licensing information and con
 ---
 
 ### Where is my data stored?
-I18N Translator stores settings, recent translations, and data in a platform-specific data folder (`%appdata%/com.arsentech.i18n-translator` on Windows for example).
+I18N Translator stores settings, recent translations, and glossaries in a platform-specific data folder (`%appdata%/com.arsentech.i18n-translator` on Windows for example).
 
 ---
 

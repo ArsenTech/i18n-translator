@@ -5,8 +5,8 @@ import { ChevronLeft, ChevronRight, Copy, Save } from "lucide-react";
 import { useMemo, useState } from "react";
 import TranslatorActions from "@/actions/translator";
 import { useAppTranslation } from "@/context/translation";
-import { Label } from "../ui/label";
-import { Switch } from "../ui/switch";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 
 export default function TranslationInput(){
      const {table, currTranslation, setTable, setCurrentTranslation, input, setInput, visibleTable, setIsDirty, inputRef, files} = useAppTranslation()

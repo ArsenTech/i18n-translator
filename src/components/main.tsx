@@ -6,9 +6,9 @@ import useKeyboardShortcuts from "@/hooks/use-kbd-shortcuts";
 import { buildTree } from "@/lib/helpers";
 import { cn } from "@/lib/utils";
 import { lazy, Suspense, useMemo } from "react";
-import { useGlossary } from "@/context/glossary-sidebar";
+import { useGlossary } from "@/context/glossary";
 
-const TranslationTable = lazy(()=>import("@/components/translation-table"))
+const TranslationTable = lazy(()=>import("@/components/tables/translation"))
 const TreeSidebar = lazy(()=>import("@/components/main-translation/tree-sidebar"))
 const TranslatorStats = lazy(()=>import("@/components/main-translation/stats"))
 const TranslationInput = lazy(()=>import("@/components/main-translation/input"))

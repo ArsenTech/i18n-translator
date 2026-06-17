@@ -7,8 +7,17 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [0.3.1] - Unreleased
 ### Added
 - Glossary Visibility Toggler (Show All / Show Few)
+- Tools -> Glossary Menu Bar Item
+  - Browse all entries
+  - Search/filter
+  - Edit entries
+  - Delete entries
+  - Import/export glossary packs to CSV or JSON
 ### Improved
 - Input buttons grid layout
+### Replaced
+- About Window => About Popup
+- Settings Window => Settings Popup
 
 ## [0.3.0] - 2026-06-17
 ### Added

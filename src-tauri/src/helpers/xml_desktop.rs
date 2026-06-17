@@ -8,7 +8,10 @@ use std::{
     path::Path,
 };
 
-use crate::{helpers::{open_xml_with_callback, save_xml_with_callback}, types::structs::{CreateTranslationResult, TranslationEntry}};
+use crate::{
+    helpers::{open_xml_with_callback, save_xml_with_callback},
+    types::structs::{CreateTranslationResult, TranslationEntry},
+};
 
 enum XmlNode {
     Text(String),
@@ -111,19 +114,31 @@ fn write_node(writer: &mut Writer<Vec<u8>>, name: &str, node: &XmlNode) -> Resul
     match node {
         XmlNode::Text(text) => {
             if text.is_empty() {
-                writer.write_event(Event::Empty(BytesStart::new(name))).map_err(|e| e.to_string())?;
+                writer
+                    .write_event(Event::Empty(BytesStart::new(name)))
+                    .map_err(|e| e.to_string())?;
             } else {
-                writer.write_event(Event::Start(BytesStart::new(name))).map_err(|e| e.to_string())?;
-                writer.write_event(Event::Text(BytesText::from_escaped(text))).map_err(|e| e.to_string())?;
-                writer.write_event(Event::End(BytesEnd::new(name))).map_err(|e| e.to_string())?;
+                writer
+                    .write_event(Event::Start(BytesStart::new(name)))
+                    .map_err(|e| e.to_string())?;
+                writer
+                    .write_event(Event::Text(BytesText::from_escaped(text)))
+                    .map_err(|e| e.to_string())?;
+                writer
+                    .write_event(Event::End(BytesEnd::new(name)))
+                    .map_err(|e| e.to_string())?;
             }
         }
         XmlNode::Children(children) => {
-            writer.write_event(Event::Start(BytesStart::new(name))).map_err(|e| e.to_string())?;
+            writer
+                .write_event(Event::Start(BytesStart::new(name)))
+                .map_err(|e| e.to_string())?;
             for (child_name, child_node) in children {
                 write_node(writer, child_name, child_node)?;
             }
-            writer.write_event(Event::End(BytesEnd::new(name))).map_err(|e| e.to_string())?;
+            writer
+                .write_event(Event::End(BytesEnd::new(name)))
+                .map_err(|e| e.to_string())?;
         }
     }
 
@@ -139,14 +154,20 @@ fn build_xml(entries: &[TranslationEntry]) -> Result<String, String> {
     }
 
     let mut writer = Writer::new_with_indent(Vec::new(), b' ', 4);
-    writer.write_event(Event::Decl(BytesDecl::new("1.0", Some("utf-8"), None))).map_err(|e| e.to_string())?;
-    writer.write_event(Event::Start(BytesStart::new("Language"))).map_err(|e| e.to_string())?;
+    writer
+        .write_event(Event::Decl(BytesDecl::new("1.0", Some("utf-8"), None)))
+        .map_err(|e| e.to_string())?;
+    writer
+        .write_event(Event::Start(BytesStart::new("Language")))
+        .map_err(|e| e.to_string())?;
 
     for (name, node) in &root {
         write_node(&mut writer, name, node)?;
     }
 
-    writer.write_event(Event::End(BytesEnd::new("Language"))).map_err(|e| e.to_string())?;
+    writer
+        .write_event(Event::End(BytesEnd::new("Language")))
+        .map_err(|e| e.to_string())?;
     String::from_utf8(writer.into_inner()).map_err(|e| e.to_string())
 }
 
@@ -186,18 +207,8 @@ pub fn create(
     })
 }
 pub fn open(base_path: String, target_path: String) -> Result<Vec<TranslationEntry>, String> {
-    open_xml_with_callback(
-        base_path,
-        target_path,
-        |c| parse_xml(c)
-    )
+    open_xml_with_callback(base_path, target_path, |c| parse_xml(c))
 }
 pub fn save(target_path: String, entries: Vec<TranslationEntry>) -> Result<(), String> {
-    save_xml_with_callback(
-        target_path,
-        entries,
-        None,
-        None,
-        |o| build_xml(&o.entries)
-    )
+    save_xml_with_callback(target_path, entries, None, None, |o| build_xml(&o.entries))
 }

@@ -8,7 +8,7 @@ import { DialogFooter } from "@/components/ui/dialog";
 import LangSelector from "@/components/lang-selector";
 import FilePicker from "@/components/fields/file-picker";
 import FileActions from "@/actions/file";
-import { PopupFormProps } from "@/lib/types";
+import { PopupComponentProps } from "@/lib/types";
 import { useState, useTransition } from "react";
 import LoadingButton from "@/components/loading-button";
 import { FolderOpen } from "lucide-react";
@@ -18,7 +18,7 @@ import { useAppTranslation } from "@/context/translation";
 import { detectLanguageCode, getFileName, getFormatFromPath } from "@/lib/helpers";
 import RecentTranslations from "@/lib/store/recent-translations";
 
-export default function OpenTranslationPopup({triggerButton}: PopupFormProps){
+export default function OpenTranslationPopup({triggerButton}: PopupComponentProps){
      const [isOpening, startTransition] = useTransition()
      const [open, setOpen] = useState(false)
      const {setTable, updateLangs, setFiles, setBaseKeys, setIsDirty} = useAppTranslation()

@@ -1,13 +1,16 @@
 use std::{collections::HashMap, fs};
 
-use crate::types::{enums::XmlFormat, structs::{SaveXmlOptions, TranslationEntry}};
+use crate::types::{
+    enums::XmlFormat,
+    structs::{SaveXmlOptions, TranslationEntry},
+};
 use serde_json::{Map, Value};
 
 pub mod json;
-pub mod xml_desktop;
 pub mod resx;
 pub mod xliff;
 pub mod xml_android;
+pub mod xml_desktop;
 
 pub fn process(
     value: &Value,
@@ -65,9 +68,9 @@ pub fn save_xml_with_callback(
         content: original,
         entries,
         base_lang,
-        target_lang
+        target_lang,
     };
-    fs::write(target_path,upsert_callback(options)?).map_err(|e| e.to_string())?;
+    fs::write(target_path, upsert_callback(options)?).map_err(|e| e.to_string())?;
     Ok(())
 }
 
@@ -75,7 +78,7 @@ pub fn open_xml_with_callback(
     base_path: String,
     target_path: String,
     parse_callback: impl Fn(&String) -> Result<HashMap<String, String>, String>,
-) -> Result<Vec<TranslationEntry>, String>{
+) -> Result<Vec<TranslationEntry>, String> {
     let base_content = fs::read_to_string(base_path).map_err(|e| e.to_string())?;
     if base_content.trim().is_empty() {
         return Err("Base file is empty".into());

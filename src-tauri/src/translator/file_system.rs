@@ -1,7 +1,7 @@
 use std::fs;
 
 use crate::{
-    helpers::{detect_xml_format, json, resx, xliff, xml_desktop, xml_android},
+    helpers::{detect_xml_format, json, resx, xliff, xml_android, xml_desktop},
     types::{
         enums::{TranslationFormat, XmlFormat},
         structs::{CreateTranslationResult, TranslationEntry, XliffMetadata},
@@ -19,10 +19,10 @@ pub fn create_translation(
     match format {
         TranslationFormat::Json => json::create(base_path, target_lang),
         TranslationFormat::Xml => {
-            let content = fs::read_to_string(&base_path).map_err(|e|e.to_string())?;
+            let content = fs::read_to_string(&base_path).map_err(|e| e.to_string())?;
             match detect_xml_format(&content) {
                 XmlFormat::Desktop => xml_desktop::create(base_path, target_lang),
-                XmlFormat::Android => xml_android::create(base_path, target_lang)
+                XmlFormat::Android => xml_android::create(base_path, target_lang),
             }
         }
         // TranslationFormat::Po => po::create(base_path, target_lang),
@@ -42,10 +42,10 @@ pub fn open_translation(
     match format {
         TranslationFormat::Json => json::open(base_path, target_path),
         TranslationFormat::Xml => {
-            let content = fs::read_to_string(&base_path).map_err(|e|e.to_string())?;
+            let content = fs::read_to_string(&base_path).map_err(|e| e.to_string())?;
             match detect_xml_format(&content) {
                 XmlFormat::Desktop => xml_desktop::open(base_path, target_path),
-                XmlFormat::Android => xml_android::open(base_path, target_path)
+                XmlFormat::Android => xml_android::open(base_path, target_path),
             }
         }
         // TranslationFormat::Po => po::open(base_path, target_path),
@@ -66,10 +66,10 @@ pub fn save_translation(
     match format {
         TranslationFormat::Json => json::save(target_path, entries),
         TranslationFormat::Xml => {
-            let content = fs::read_to_string(&target_path).map_err(|e|e.to_string())?;
+            let content = fs::read_to_string(&target_path).map_err(|e| e.to_string())?;
             match detect_xml_format(&content) {
                 XmlFormat::Desktop => xml_desktop::save(target_path, entries),
-                XmlFormat::Android => xml_android::save(target_path, entries)
+                XmlFormat::Android => xml_android::save(target_path, entries),
             }
         }
         // TranslationFormat::Po => po::save(target_path, entries),

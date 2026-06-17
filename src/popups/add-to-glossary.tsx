@@ -6,7 +6,7 @@ import { AddToGlossaryType } from "@/schemas/types";
 import { AddToGlossarySchema } from "@/schemas";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Switch } from "@/components/ui/switch";
-import { PopupFormProps } from "@/lib/types";
+import { PopupComponentProps } from "@/lib/types";
 import { useTransition } from "react";
 import { Input } from "@/components/ui/input";
 import SelectorField from "@/components/fields/selector";
@@ -17,9 +17,9 @@ import { toast } from "sonner";
 import LoadingButton from "@/components/loading-button";
 import { getErrorMessage } from "@/lib/utils";
 import { useAppTranslation } from "@/context/translation";
-import { useGlossary } from "@/context/glossary-sidebar";
+import { useGlossary } from "@/context/glossary";
 
-export default function AddToGlossaryPopup({triggerButton}: PopupFormProps){
+export default function AddToGlossaryPopup({triggerButton}: PopupComponentProps){
      const {langs} = useAppTranslation()
      const {setGlossary} = useGlossary()
      const [isAdding, startTransition] = useTransition()

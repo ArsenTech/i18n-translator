@@ -10,9 +10,9 @@ import TranslatorActions from "@/actions/translator";
 import RadioField from "@/components/fields/radio-field";
 import { GeminiFields, LibreTranslateFields, LlamaAIFields } from "./fields";
 import { PROVIDER_NAMES, RESOURCE_TYPE } from "@/lib/constants";
-import { PopupFormProps } from "@/lib/types";
+import { PopupComponentProps } from "@/lib/types";
 
-interface AutoTranslatePopupProps extends PopupFormProps{
+interface AutoTranslatePopupProps extends PopupComponentProps{
      provider: AutoTranslateProvider
 }
 export default function AutoTranslatePopup({provider, triggerButton}: AutoTranslatePopupProps){

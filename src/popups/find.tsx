@@ -11,7 +11,7 @@ import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/in
 import { Search } from "lucide-react";
 import RadioField from "@/components/fields/radio-field";
 import { Switch } from "@/components/ui/switch";
-import { PopupFormProps } from "@/lib/types";
+import { PopupComponentProps } from "@/lib/types";
 import { useAppTranslation } from "@/context/translation";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -24,7 +24,7 @@ const items = [
      {value: "translation", label: "Translation"},
 ]
 
-export default function FindPopup({triggerButton}: PopupFormProps){
+export default function FindPopup({triggerButton}: PopupComponentProps){
      const {visibleTable, setVisibleCount, keyNames, setCurrentTranslation, setInput, setFindState} = useAppTranslation()
      const [open, setOpen] = useState(false)
      const form = useForm<FindType>({

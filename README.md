@@ -78,8 +78,8 @@ Future releases are planned to include glossary support, automatic translation t
 ### Planned Improvements
 #### v0.3.x or later (next)
 - [ ] Update automatic base language detection inside new translation and open translation
-- [ ] Settings Window
-- [ ] About Window
+- [ ] Settings Popup
+- [ ] About Popup
 - [ ] Translatable switch as a separate column if the translation type is Android XML
 - [X] Auto-detect glossary language pair from file names
 - [X] Glossary page that'll save words to Glossary
@@ -93,18 +93,18 @@ Future releases are planned to include glossary support, automatic translation t
   }
   ```
 - [X] Glossary sidebar, which lists Buttons only + active when the selected word has on a Glossary
-- [ ] Glossary-related items in menubar
+- [X] Glossary-related items in menubar
   - [X] Edit => Add to Glossary
   - [X] View => Toggle Sidebar => Glossary
-  - [ ] Tools => Glossary (Glossary Manager Popup)
-    - Browse all entries
-    - Search/filter
-    - Edit entries
-    - Delete entries
-    - Import/export glossary packs to CSV or JSON
-    - Create new entries without opening a translation
+  - [X] Tools => Glossary (Glossary Manager Popup)
+    - [X] Browse all entries
+    - [X] Search/filter
+    - [X] Edit entries
+    - [X] Delete entries
+    - [X] Import/export glossary packs to CSV or JSON
 - [X] Show All Button => Show Few on Glossary Sidebar
 - [X] Input action buttons as a grid (2x2)
+- [ ] Lazy-load SelectorField and ComboboxField with a Skeleton Loader (h-8)
 #### v0.4.x or later (Expansion)
 - [ ] Auto-Translation backend
 - [ ] Transliteration backend
@@ -112,6 +112,7 @@ Future releases are planned to include glossary support, automatic translation t
   - [ ] Dictionary Support
 - [ ] `isDirty` changes inside new backend logic
 - [ ] I18N Support
+- [ ] Refactor, Optimize, Lazy-load things
 #### Nice to have
 - [ ] Write the Documentation on the `docs/` folder.
   - [X] Usage Guide

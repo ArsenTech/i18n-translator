@@ -1,5 +1,5 @@
 import { useIsMobile } from "@/hooks/use-mobile";
-import { GlossaryEntry, SetStateType } from "@/lib/types";
+import { GlossaryEntry, SetStateType, GlossaryTogglerType } from "@/lib/types";
 import { createContext, useContext, useMemo, useState } from "react"
 
 interface GlossaryContextValues{
@@ -8,13 +8,16 @@ interface GlossaryContextValues{
      isMobile: boolean,
      closeMobileSidebar: () => void,
      glossary: GlossaryEntry[],
-     setGlossary: SetStateType<GlossaryEntry[]>
+     setGlossary: SetStateType<GlossaryEntry[]>,
+     showType: GlossaryTogglerType,
+     setShowType: SetStateType<GlossaryTogglerType>
 }
 const GlossaryContext = createContext<GlossaryContextValues | null>(null)
 
 export function GlossaryProvider({ children }: { children: React.ReactNode }){
      const [glossary, setGlossary] = useState<GlossaryEntry[]>([])
      const [open, setOpen] = useState(true);
+     const [showType, setShowType] = useState<GlossaryTogglerType>("few")
      const isMobile = useIsMobile();
      const closeMobileSidebar = () => {
           if (isMobile) setOpen(false)
@@ -24,8 +27,9 @@ export function GlossaryProvider({ children }: { children: React.ReactNode }){
           setOpen,
           isMobile,
           closeMobileSidebar,
-          glossary, setGlossary
-     }),[open, isMobile, glossary])
+          glossary, setGlossary,
+          showType, setShowType
+     }),[open, isMobile, glossary, showType])
      return (
           <GlossaryContext.Provider value={values}>
                {children}

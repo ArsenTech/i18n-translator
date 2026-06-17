@@ -23,3 +23,4 @@ export interface GlossaryEntry {
      domain: string;
      caseSensitive: boolean;
 }
+export type GlossaryTogglerType = "all" | "few"

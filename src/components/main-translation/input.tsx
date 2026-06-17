@@ -61,33 +61,33 @@ export default function TranslationInput(){
                          }
                     }}
                />
-               <div className="flex items-center gap-1 flex-wrap flex-1">
-                    <Button className="flex-1" variant="secondary" onClick={()=>{
+               <div className="grid grid-cols-2 gap-1">
+                    <Button className="w-full col-span-2" variant="secondary" onClick={()=>{
                          TranslatorActions.borrowFromSource(currTranslation,setInput)
                          setIsDirty(true)
                     }}>
                          <Copy/>
                          Copy from Source
                     </Button>
-                    <Button className="flex-1" onClick={()=>{
+                    <Button className="w-full col-span-2" onClick={()=>{
                          TranslatorActions.saveString({input, setTable, currTranslation, format: files.format})
                          setIsDirty(true)
                     }}>
                          <Save/>
                          Save String
                     </Button>
-                    <Button className="flex-1" onClick={()=>TranslatorActions.jumpToPrevBlankField({
+                    <Button className="w-full col-span-2 sm:col-span-1" onClick={()=>TranslatorActions.jumpToPrevBlankField({
                          table: visibleTable, currTranslation,
                          setInput, onSelectTranslation: setCurrentTranslation
                     })}>
                          <ChevronLeft/>
-                         Previous Blank Field
+                         Previous
                     </Button>
-                    <Button className="flex-1" onClick={()=>TranslatorActions.jumpToNextBlankField({
+                    <Button className="w-full col-span-2 sm:col-span-1" onClick={()=>TranslatorActions.jumpToNextBlankField({
                          table: visibleTable, currTranslation,
                          setInput, onSelectTranslation: setCurrentTranslation
                     })}>
-                         Next Blank Field
+                         Next
                          <ChevronRight/>
                     </Button>
                </div>

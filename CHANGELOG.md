@@ -4,6 +4,12 @@ All notable changes of I18N Translator will be documented here.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [0.3.1] - Unreleased
+### Added
+- Glossary Visibility Toggler (Show All / Show Few)
+### Improved
+- Input buttons grid layout
+
 ## [0.3.0] - 2026-06-17
 ### Added
 - Glossary Sidebar

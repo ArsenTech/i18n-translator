@@ -13,6 +13,7 @@ import GlossaryActions from "@/lib/store/glossary"
 import { useAppTranslation } from "@/context/translation"
 import { toast } from "sonner"
 import { findValue } from "@/lib/helpers"
+import { ButtonGroup } from "../ui/button-group"
 
 function GlossarySidebarMenu({children}: {children: React.ReactNode}){
      return (
@@ -45,7 +46,7 @@ function GlossarySidebarItem({data, found=false}: GlossarySidearItemProps){
      )
 }
 function GlossarySidebarContainer({children, count, total}: {children: React.ReactNode, count: number, total: number}){
-     const {isMobile, open, setOpen} = useGlossary()
+     const {isMobile, open, setOpen, showType, setShowType} = useGlossary()
      const content = (
           <div className="w-full flex flex-col gap-2 min-h-0 overflow-hidden">
                <h2 className="text-lg font-semibold">Glossary ({count})</h2>
@@ -57,9 +58,14 @@ function GlossarySidebarContainer({children, count, total}: {children: React.Rea
                     <ScrollBar orientation="vertical"/>
                     <ScrollBar orientation="horizontal"/>
                </ScrollArea>
-               {!isMobile && (
-                    <Button className="w-full" disabled={count<=0}>Apply</Button>
-               )}
+               <ButtonGroup className="w-full">
+                    {!isMobile && (
+                         <Button className="flex-1" disabled={count<=0}>Apply</Button>
+                    )}
+                    <Button className="flex-1" variant="secondary" disabled={total<=0} onClick={()=>setShowType(prev=>prev==="all" ? "few" : "all")}>
+                         {showType!=="all" ? "Show All" : "Show Few"}
+                    </Button>
+               </ButtonGroup>
           </div>
      )
      if (isMobile) {
@@ -101,7 +107,7 @@ interface GlossarySidebarProps{
 export default function GlossarySidebar({glossary}: GlossarySidebarProps) {
      const [isLoading, startTransition] = useTransition()
      const {langs, currTranslation} = useAppTranslation()
-     const {setGlossary} = useGlossary()
+     const {setGlossary, showType} = useGlossary()
      const loadPack = () => {
           startTransition(async()=>{
                try {
@@ -125,7 +131,7 @@ export default function GlossarySidebar({glossary}: GlossarySidebarProps) {
                     ? findValue(currTranslation.baseString, item.term, item.caseSensitive) ||
                     findValue(currTranslation.translationString, item.translation, item.caseSensitive)
                     : false,
-          })).filter(val=>val.found)
+          })).filter(val=>showType==="few" ? val.found : true)
      }, [sorted, currTranslation])
      useEffect(() => {
           if (!langs.base || !langs.target) return;

@@ -53,11 +53,11 @@ export function TranslationInputLoader(){
           </div>
           <div className="flex gap-2">
                <Skeleton className="flex-2 h-full min-h-0"/>
-               <div className="flex items-center gap-1 flex-wrap flex-1">
-                    <Skeleton className="flex-1 h-8 min-w-[165px]"/>
-                    <Skeleton className="flex-1 h-8 min-w-32"/>
-                    <Skeleton className="flex-1 h-8 min-w-[150px]"/>
-                    <Skeleton className="flex-1 h-8 min-w-[150px]"/>
+               <div className="grid grid-cols-2 gap-1">
+                    <Skeleton className="w-full h-8 min-w-[165px] col-span-2"/>
+                    <Skeleton className="w-full h-8 min-w-32 col-span-2"/>
+                    <Skeleton className="w-full h-8 min-w-[100px] col-span-2 sm:col-span-1"/>
+                    <Skeleton className="w-full h-8 min-w-[100px] col-span-2 sm:col-span-1"/>
                </div>
           </div>
           </>

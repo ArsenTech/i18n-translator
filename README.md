@@ -104,7 +104,7 @@ Future releases are planned to include glossary support, automatic translation t
 #### v0.3.2 (Next)
 - [ ] About Popup
 - [ ] Translatable switch as a separate column if the translation type is Android XML
-#### v0.3.x or later (next)
+#### v0.3.x or later
 - [ ] Settings Popup
 - [ ] Refactor, Optimize, Lazy-load things after changing
 #### v0.4.x or later (Expansion)

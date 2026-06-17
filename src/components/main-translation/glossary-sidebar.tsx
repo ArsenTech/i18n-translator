@@ -58,14 +58,14 @@ function GlossarySidebarContainer({children, count, total}: {children: React.Rea
                     <ScrollBar orientation="vertical"/>
                     <ScrollBar orientation="horizontal"/>
                </ScrollArea>
-               <ButtonGroup className="w-full">
-                    {!isMobile && (
+               {!isMobile && (
+                    <ButtonGroup className="w-full">
                          <Button className="flex-1" disabled={count<=0}>Apply</Button>
-                    )}
-                    <Button className="flex-1" variant="secondary" disabled={total<=0} onClick={()=>setShowType(prev=>prev==="all" ? "few" : "all")}>
-                         {showType!=="all" ? "Show All" : "Show Few"}
-                    </Button>
-               </ButtonGroup>
+                         <Button className="flex-1" variant="secondary" disabled={total<=0} onClick={()=>setShowType(prev=>prev==="all" ? "few" : "all")}>
+                              {showType!=="all" ? "Show All" : "Show Few"}
+                         </Button>
+                    </ButtonGroup>
+               )}
           </div>
      )
      if (isMobile) {
@@ -89,7 +89,12 @@ function GlossarySidebarContainer({children, count, total}: {children: React.Rea
                               {content}
                          </div>
                          <SheetFooter>
-                              <Button className="w-full">Apply</Button>
+                              <ButtonGroup className="w-full">
+                                   <Button className="flex-1" disabled={count<=0}>Apply</Button>
+                                   <Button className="flex-1" variant="secondary" disabled={total<=0} onClick={()=>setShowType(prev=>prev==="all" ? "few" : "all")}>
+                                        {showType!=="all" ? "Show All" : "Show Few"}
+                                   </Button>
+                              </ButtonGroup>
                               <SheetClose asChild>
                                    <Button variant="outline">Close</Button>
                               </SheetClose>

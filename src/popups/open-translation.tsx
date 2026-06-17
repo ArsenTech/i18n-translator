@@ -5,11 +5,9 @@ import { Controller, useForm } from "react-hook-form"
 import { OpenTranslationType } from "@/schemas/types";
 import { OpenTranslationSchema } from "@/schemas";
 import { DialogFooter } from "@/components/ui/dialog";
-import LangSelector from "@/components/lang-selector";
-import FilePicker from "@/components/fields/file-picker";
 import FileActions from "@/actions/file";
 import { PopupComponentProps } from "@/lib/types";
-import { useState, useTransition } from "react";
+import { lazy, Suspense, useState, useTransition } from "react";
 import LoadingButton from "@/components/loading-button";
 import { FolderOpen } from "lucide-react";
 import { getErrorMessage } from "@/lib/utils";
@@ -17,6 +15,10 @@ import { toast } from "sonner";
 import { useAppTranslation } from "@/context/translation";
 import { detectLanguageCode, getFileName, getFormatFromPath } from "@/lib/helpers";
 import RecentTranslations from "@/lib/store/recent-translations";
+import { Skeleton } from "@/components/ui/skeleton";
+
+const LangSelector = lazy(()=>import("@/components/lang-selector"))
+const FilePicker = lazy(()=>import("@/components/fields/file-picker"))
 
 export default function OpenTranslationPopup({triggerButton}: PopupComponentProps){
      const [isOpening, startTransition] = useTransition()
@@ -92,20 +94,22 @@ export default function OpenTranslationPopup({triggerButton}: PopupComponentProp
                                    render={({field, fieldState})=>(
                                         <Field data-invalid={fieldState.invalid}>
                                              <FieldLabel htmlFor={field.name}>File Path</FieldLabel>
-                                             <FilePicker
-                                                  {...field}
-                                                  onChange={val=>{
-                                                       field.onChange(val)
-                                                       const code = detectLanguageCode(val)
-                                                       if (code) {
-                                                            form.setValue("baseLang", code)
-                                                       }
-                                                  }}
-                                                  invalid={fieldState.invalid}
-                                                  placeholder="C:/Users/username/Desktop/en.json"
-                                                  openText="Open the base language file"
-                                                  state="open"
-                                             />
+                                             <Suspense fallback={<Skeleton className="h-8 w-full"/>}>
+                                                  <FilePicker
+                                                       {...field}
+                                                       onChange={val=>{
+                                                            field.onChange(val)
+                                                            const code = detectLanguageCode(val)
+                                                            if (code) {
+                                                                 form.setValue("baseLang", code)
+                                                            }
+                                                       }}
+                                                       invalid={fieldState.invalid}
+                                                       placeholder="C:/Users/username/Desktop/en.json"
+                                                       openText="Open the base language file"
+                                                       state="open"
+                                                  />
+                                             </Suspense>
                                              {fieldState.invalid && (
                                                   <FieldError errors={[fieldState.error]} />
                                              )}
@@ -119,11 +123,13 @@ export default function OpenTranslationPopup({triggerButton}: PopupComponentProp
                                    render={({field, fieldState})=>(
                                         <Field data-invalid={fieldState.invalid}>
                                              <FieldLabel htmlFor={field.name}>Language</FieldLabel>
-                                             <LangSelector
-                                                  {...field}
-                                                  invalid={fieldState.invalid}
-                                                  placeholder="Choose a Base Language"
-                                             />
+                                             <Suspense fallback={<Skeleton className="h-8 w-full"/>}>
+                                                  <LangSelector
+                                                       {...field}
+                                                       invalid={fieldState.invalid}
+                                                       placeholder="Choose a Base Language"
+                                                  />
+                                             </Suspense>
                                              {fieldState.invalid && (
                                                   <FieldError errors={[fieldState.error]} />
                                              )}
@@ -143,20 +149,22 @@ export default function OpenTranslationPopup({triggerButton}: PopupComponentProp
                                    render={({field, fieldState})=>(
                                         <Field data-invalid={fieldState.invalid}>
                                              <FieldLabel htmlFor={field.name}>File Path</FieldLabel>
-                                             <FilePicker
-                                                  {...field}
-                                                  onChange={val=>{
-                                                       field.onChange(val)
-                                                       const code = detectLanguageCode(val)
-                                                       if (code) {
-                                                            form.setValue("targetLang", code)
-                                                       }
-                                                  }}
-                                                  invalid={fieldState.invalid}
-                                                  placeholder="C:/Users/username/Desktop/hy.json"
-                                                  openText="Open the translation file"
-                                                  state="open"
-                                             />
+                                             <Suspense fallback={<Skeleton className="h-8 w-full"/>}>
+                                                  <FilePicker
+                                                       {...field}
+                                                       onChange={val=>{
+                                                            field.onChange(val)
+                                                            const code = detectLanguageCode(val)
+                                                            if (code) {
+                                                                 form.setValue("targetLang", code)
+                                                            }
+                                                       }}
+                                                       invalid={fieldState.invalid}
+                                                       placeholder="C:/Users/username/Desktop/hy.json"
+                                                       openText="Open the translation file"
+                                                       state="open"
+                                                  />
+                                             </Suspense>
                                              {fieldState.invalid && (
                                                   <FieldError errors={[fieldState.error]} />
                                              )}
@@ -170,11 +178,13 @@ export default function OpenTranslationPopup({triggerButton}: PopupComponentProp
                                    render={({field, fieldState})=>(
                                         <Field data-invalid={fieldState.invalid}>
                                              <FieldLabel htmlFor={field.name}>Language</FieldLabel>
-                                             <LangSelector
-                                                  {...field}
-                                                  invalid={fieldState.invalid}
-                                                  placeholder="Choose a Translation Language"
-                                             />
+                                             <Suspense fallback={<Skeleton className="h-8 w-full"/>}>
+                                                  <LangSelector
+                                                       {...field}
+                                                       invalid={fieldState.invalid}
+                                                       placeholder="Choose a Translation Language"
+                                                  />
+                                             </Suspense>
                                              {fieldState.invalid && (
                                                   <FieldError errors={[fieldState.error]} />
                                              )}

@@ -7,17 +7,19 @@ import { AddToGlossarySchema } from "@/schemas";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Switch } from "@/components/ui/switch";
 import { PopupComponentProps } from "@/lib/types";
-import { useTransition } from "react";
+import { lazy, Suspense, useTransition } from "react";
 import { Input } from "@/components/ui/input";
-import SelectorField from "@/components/fields/selector";
 import { GLOSSARY_DOMAINS, PARTS_OF_SPEECH } from "@/lib/constants";
-import ComboboxField from "@/components/fields/combobox-field";
 import GlossaryActions from "@/lib/store/glossary";
 import { toast } from "sonner";
 import LoadingButton from "@/components/loading-button";
 import { getErrorMessage } from "@/lib/utils";
 import { useAppTranslation } from "@/context/translation";
 import { useGlossary } from "@/context/glossary";
+import { Skeleton } from "@/components/ui/skeleton";
+
+const ComboboxField = lazy(()=>import("@/components/fields/combobox-field"))
+const SelectorField = lazy(()=>import("@/components/fields/selector"))
 
 export default function AddToGlossaryPopup({triggerButton}: PopupComponentProps){
      const {langs} = useAppTranslation()
@@ -134,15 +136,17 @@ export default function AddToGlossaryPopup({triggerButton}: PopupComponentProps)
                                    render={({field, fieldState})=>(
                                         <Field data-invalid={fieldState.invalid}>
                                              <FieldLabel htmlFor={field.name}>Part of Speech</FieldLabel>
-                                             <SelectorField
-                                                  {...field}
-                                                  items={PARTS_OF_SPEECH.map(part=>({
-                                                       label: part[0].toUpperCase() + part.slice(1),
-                                                       value: part
-                                                  }))}
-                                                  invalid={fieldState.invalid}
-                                                  placeholder="Choose a part of speech"
-                                             />
+                                             <Suspense fallback={<Skeleton className="h-8 w-full"/>}>
+                                                  <SelectorField
+                                                       {...field}
+                                                       items={PARTS_OF_SPEECH.map(part=>({
+                                                            label: part[0].toUpperCase() + part.slice(1),
+                                                            value: part
+                                                       }))}
+                                                       invalid={fieldState.invalid}
+                                                       placeholder="Choose a part of speech"
+                                                  />
+                                             </Suspense>
                                              {fieldState.invalid && (
                                                   <FieldError errors={[fieldState.error]} />
                                              )}
@@ -156,12 +160,14 @@ export default function AddToGlossaryPopup({triggerButton}: PopupComponentProps)
                                    render={({field, fieldState})=>(
                                         <Field data-invalid={fieldState.invalid}>
                                              <FieldLabel htmlFor={field.name}>Domain</FieldLabel>
-                                             <ComboboxField
-                                                  {...field}
-                                                  items={[...GLOSSARY_DOMAINS]}
-                                                  invalid={fieldState.invalid}
-                                                  placeholder="Choose a domain"
-                                             />
+                                             <Suspense fallback={<Skeleton className="h-8 w-full"/>}>
+                                                  <ComboboxField
+                                                       {...field}
+                                                       items={[...GLOSSARY_DOMAINS]}
+                                                       invalid={fieldState.invalid}
+                                                       placeholder="Choose a domain"
+                                                  />
+                                             </Suspense>
                                              {fieldState.invalid && (
                                                   <FieldError errors={[fieldState.error]} />
                                              )}

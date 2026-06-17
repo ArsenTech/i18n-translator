@@ -6,10 +6,13 @@ import { Controller, useForm } from "react-hook-form"
 import { TransliterateScriptType } from "@/schemas/types";
 import { TransliterateScriptSchema } from "@/schemas";
 import { DialogFooter } from "@/components/ui/dialog";
-import SelectorField from "@/components/fields/selector";
 import TranslatorActions from "@/actions/translator";
 import { SUPPORTED_SCRIPTS } from "@/lib/constants";
 import { PopupComponentProps } from "@/lib/types";
+import { lazy, Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+
+const SelectorField = lazy(()=>import("@/components/fields/selector"))
 
 export default function TransliterateScriptPopup({triggerButton}: PopupComponentProps){
      const form = useForm<TransliterateScriptType>({
@@ -37,12 +40,14 @@ export default function TransliterateScriptPopup({triggerButton}: PopupComponent
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
                                         <FieldLabel htmlFor={field.name}>Source script</FieldLabel>
-                                        <SelectorField
-                                             {...field}
-                                             items={[...SUPPORTED_SCRIPTS]}
-                                             invalid={fieldState.invalid}
-                                             placeholder="Choose a source script"
-                                        />
+                                        <Suspense fallback={<Skeleton className="h-8 w-full"/>}>
+                                             <SelectorField
+                                                  {...field}
+                                                  items={[...SUPPORTED_SCRIPTS]}
+                                                  invalid={fieldState.invalid}
+                                                  placeholder="Choose a source script"
+                                             />
+                                        </Suspense>
                                         {fieldState.invalid && (
                                              <FieldError errors={[fieldState.error]} />
                                         )}
@@ -55,12 +60,14 @@ export default function TransliterateScriptPopup({triggerButton}: PopupComponent
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
                                         <FieldLabel htmlFor={field.name}>Target script</FieldLabel>
-                                        <SelectorField
-                                             {...field}
-                                             items={[...SUPPORTED_SCRIPTS]}
-                                             invalid={fieldState.invalid}
-                                             placeholder="Choose a Target script"
-                                        />
+                                        <Suspense fallback={<Skeleton className="h-8 w-full"/>}>
+                                             <SelectorField
+                                                  {...field}
+                                                  items={[...SUPPORTED_SCRIPTS]}
+                                                  invalid={fieldState.invalid}
+                                                  placeholder="Choose a Target script"
+                                             />
+                                        </Suspense>
                                         {fieldState.invalid && (
                                              <FieldError errors={[fieldState.error]} />
                                         )}

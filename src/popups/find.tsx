@@ -13,16 +13,18 @@ import RadioField from "@/components/fields/radio-field";
 import { Switch } from "@/components/ui/switch";
 import { PopupComponentProps } from "@/lib/types";
 import { useAppTranslation } from "@/context/translation";
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { toast } from "sonner";
-import ComboboxField from "@/components/fields/combobox-field";
 import TranslatorActions from "@/actions/translator";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const items = [
      {value: "key", label: "Key"},
      {value: "source", label: "Source"},
      {value: "translation", label: "Translation"},
 ]
+
+const ComboboxField = lazy(()=>import("@/components/fields/combobox-field"))
 
 export default function FindPopup({triggerButton}: PopupComponentProps){
      const {visibleTable, setVisibleCount, keyNames, setCurrentTranslation, setInput, setFindState} = useAppTranslation()
@@ -75,13 +77,15 @@ export default function FindPopup({triggerButton}: PopupComponentProps){
                                    <Field data-invalid={fieldState.invalid}>
                                         <FieldLabel htmlFor={field.name}>Keyword</FieldLabel>
                                         {mode==="key" ? (
-                                             <ComboboxField
-                                                  {...field}
-                                                  invalid={fieldState.invalid}
-                                                  placeholder="command.buttons.cancel"
-                                                  items={keyNames}
-                                                  Icon={Search}
-                                             />
+                                             <Suspense fallback={<Skeleton className="h-8 w-full"/>}>
+                                                  <ComboboxField
+                                                       {...field}
+                                                       invalid={fieldState.invalid}
+                                                       placeholder="command.buttons.cancel"
+                                                       items={keyNames}
+                                                       Icon={Search}
+                                                  />
+                                             </Suspense>
                                         ) : (
                                              <InputGroup>
                                                   <InputGroupInput

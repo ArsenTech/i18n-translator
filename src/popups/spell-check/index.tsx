@@ -7,10 +7,13 @@ import { SpellCheckType } from "@/schemas/types";
 import { SpellCheckSchema } from "@/schemas";
 import { DialogFooter } from "@/components/ui/dialog";
 import { PopupComponentProps } from "@/lib/types";
-import SelectorField from "@/components/fields/selector";
 import { DEFAULT_DICTIONARIES, RESOURCE_TYPE } from "@/lib/constants";
 import RadioField from "@/components/fields/radio-field";
 import TranslatorActions from "@/actions/translator";
+import { lazy, Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+
+const SelectorField = lazy(()=>import("@/components/fields/selector"))
 
 export default function SpellCheckPopup({triggerButton}: PopupComponentProps){
      const form = useForm<SpellCheckType>({
@@ -38,12 +41,14 @@ export default function SpellCheckPopup({triggerButton}: PopupComponentProps){
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
                                         <FieldLabel htmlFor={field.name}>From</FieldLabel>
-                                        <SelectorField
-                                             {...field}
-                                             items={DEFAULT_DICTIONARIES}
-                                             invalid={fieldState.invalid}
-                                             placeholder="English"
-                                        />
+                                        <Suspense fallback={<Skeleton className="h-8 w-full"/>}>
+                                             <SelectorField
+                                                  {...field}
+                                                  items={DEFAULT_DICTIONARIES}
+                                                  invalid={fieldState.invalid}
+                                                  placeholder="English"
+                                             />
+                                        </Suspense>
                                         {fieldState.invalid && (
                                              <FieldError errors={[fieldState.error]} />
                                         )}

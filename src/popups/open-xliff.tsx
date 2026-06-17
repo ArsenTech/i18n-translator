@@ -5,21 +5,23 @@ import { Controller, useForm } from "react-hook-form"
 import { OpenXliffType } from "@/schemas/types";
 import { OpenXliffSchema } from "@/schemas";
 import { DialogFooter } from "@/components/ui/dialog";
-import LangSelector from "@/components/lang-selector";
 import FileActions from "@/actions/file";
 import { PopupComponentProps } from "@/lib/types";
-import { useState, useTransition } from "react";
+import { lazy, Suspense, useState, useTransition } from "react";
 import LoadingButton from "@/components/loading-button";
 import { FolderOpen } from "lucide-react";
 import { getErrorMessage } from "@/lib/utils";
 import { toast } from "sonner";
 import { useAppTranslation } from "@/context/translation";
 import { getFileName } from "@/lib/helpers";
-import XliffFilePicker from "@/components/fields/file-picker/xliff";
 import { XliffMetadata } from "@/lib/types/data/backend";
 import { invoke } from "@tauri-apps/api/core";
 import RecentTranslations from "@/lib/store/recent-translations";
 import { TranslationFormat } from "@/lib/types/enums";
+import { Skeleton } from "@/components/ui/skeleton";
+
+const LangSelector = lazy(()=>import("@/components/lang-selector"))
+const XliffFilePicker = lazy(()=>import("@/components/fields/file-picker/xliff"))
 
 export default function OpenXliffPopup({triggerButton}: PopupComponentProps){
      const [isOpening, startTransition] = useTransition()
@@ -99,16 +101,18 @@ export default function OpenXliffPopup({triggerButton}: PopupComponentProps){
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
                                         <FieldLabel htmlFor={field.name}>XLIFF File</FieldLabel>
-                                        <XliffFilePicker
-                                             {...field}
-                                             onChange={val=>{
-                                                  field.onChange(val)
-                                                  handleChangeLang(val)
-                                             }}
-                                             invalid={fieldState.invalid}
-                                             placeholder="C:/Users/username/Desktop/translation.xliff"
-                                             openText="Open the XLIFF Translation file"
-                                        />
+                                        <Suspense fallback={<Skeleton className="h-8 w-full"/>}>
+                                             <XliffFilePicker
+                                                  {...field}
+                                                  onChange={val=>{
+                                                       field.onChange(val)
+                                                       handleChangeLang(val)
+                                                  }}
+                                                  invalid={fieldState.invalid}
+                                                  placeholder="C:/Users/username/Desktop/translation.xliff"
+                                                  openText="Open the XLIFF Translation file"
+                                             />
+                                        </Suspense>
                                         {fieldState.invalid && (
                                              <FieldError errors={[fieldState.error]} />
                                         )}
@@ -122,11 +126,13 @@ export default function OpenXliffPopup({triggerButton}: PopupComponentProps){
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
                                         <FieldLabel htmlFor={field.name}>Base Language</FieldLabel>
-                                        <LangSelector
-                                             {...field}
-                                             invalid={fieldState.invalid}
-                                             placeholder="Choose a Base Language"
-                                        />
+                                        <Suspense fallback={<Skeleton className="h-8 w-full"/>}>
+                                             <LangSelector
+                                                  {...field}
+                                                  invalid={fieldState.invalid}
+                                                  placeholder="Choose a Base Language"
+                                             />
+                                        </Suspense>
                                         {fieldState.invalid && (
                                              <FieldError errors={[fieldState.error]} />
                                         )}
@@ -140,11 +146,13 @@ export default function OpenXliffPopup({triggerButton}: PopupComponentProps){
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
                                         <FieldLabel htmlFor={field.name}>Target Language</FieldLabel>
-                                        <LangSelector
-                                             {...field}
-                                             invalid={fieldState.invalid}
-                                             placeholder="Choose a Target Language"
-                                        />
+                                        <Suspense fallback={<Skeleton className="h-8 w-full"/>}>
+                                             <LangSelector
+                                                  {...field}
+                                                  invalid={fieldState.invalid}
+                                                  placeholder="Choose a Target Language"
+                                             />
+                                        </Suspense>
                                         {fieldState.invalid && (
                                              <FieldError errors={[fieldState.error]} />
                                         )}

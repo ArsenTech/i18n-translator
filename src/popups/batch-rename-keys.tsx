@@ -9,10 +9,12 @@ import { DialogFooter } from "@/components/ui/dialog";
 import { PopupComponentProps } from "@/lib/types";
 import TranslatorActions from "@/actions/translator";
 import { useAppTranslation } from "@/context/translation";
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { toast } from "sonner";
-import ComboboxField from "@/components/fields/combobox-field";
 import { Input } from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton";
+
+const ComboboxField = lazy(()=>import("@/components/fields/combobox-field"))
 
 export default function BatchRenameKeysPopup({triggerButton}: PopupComponentProps){
      const {table, setTable, keyNames, setIsDirty} = useAppTranslation()
@@ -53,12 +55,14 @@ export default function BatchRenameKeysPopup({triggerButton}: PopupComponentProp
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
                                         <FieldLabel htmlFor={field.name}>From</FieldLabel>
-                                        <ComboboxField
-                                             {...field}
-                                             invalid={fieldState.invalid}
-                                             placeholder="common.button.cancel"
-                                             items={keyNames}
-                                        />
+                                        <Suspense fallback={<Skeleton className="h-8 w-full"/>}>
+                                             <ComboboxField
+                                                  {...field}
+                                                  invalid={fieldState.invalid}
+                                                  placeholder="common.button.cancel"
+                                                  items={keyNames}
+                                             />
+                                        </Suspense>
                                         {fieldState.invalid && (
                                              <FieldError errors={[fieldState.error]} />
                                         )}

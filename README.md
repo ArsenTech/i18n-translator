@@ -102,7 +102,12 @@ Future releases are planned to include glossary support, automatic translation t
 - [X] Input action buttons as a grid (2x2)
 - [X] Lazy-load SelectorField and ComboboxField with a Skeleton Loader
 #### v0.3.2 (Next)
-- [ ] Addition / Replacement of the word with a translation used in Glossary
+- [ ] Glossary Apply Actions
+  - [ ] Apply glossary term using the "→" action button
+    - [ ] Replace matching term in current translation
+    - [ ] Insert translation if no matching term exists
+  - [ ] Apply All Matches button
+    - [ ] Replace every matching glossary term in one action
 - [ ] About Popup
 - [ ] Translatable switch as a separate column if the translation type is Android XML
 #### v0.3.x or later

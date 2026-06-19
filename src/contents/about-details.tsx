@@ -1,16 +1,6 @@
+import FetcherActions from "@/actions/fetcher"
 import { Skeleton } from "@/components/ui/skeleton"
-import {getName, getTauriVersion, getVersion, getIdentifier} from "@tauri-apps/api/app"
-import { cache, useEffect, useState } from "react"
-
-const fetchData = cache(async() => {
-     const [name, version, tauri, identifier] = await Promise.all([
-          getName(),
-          getVersion(),
-          getTauriVersion(),
-          getIdentifier()
-     ])
-     return {name, version, tauri, identifier}
-})
+import { useEffect, useState } from "react"
 
 export default function AboutDetails(){
      const [details, setDetails] = useState(()=>({
@@ -21,7 +11,7 @@ export default function AboutDetails(){
      }))
      useEffect(()=>{
           const getDetails = async() => {
-               const fetched = await fetchData();
+               const fetched = await FetcherActions.fetchDetails();
                setDetails(fetched)
           }
           getDetails()

@@ -2,6 +2,7 @@ import { ILangItem } from "@/lib/types/data";
 import { XliffMetadata } from "@/lib/types/data/backend";
 import { invoke } from "@tauri-apps/api/core";
 import { cache } from "react";
+import {getName, getTauriVersion, getVersion, getIdentifier} from "@tauri-apps/api/app"
 
 export default class FetcherActions{
      public static fetchLanguages = cache(async()=>{
@@ -22,5 +23,14 @@ export default class FetcherActions{
                console.error(err)
                return {src_lang: "", trg_lang: ""}
           }
+     })
+     public static fetchDetails = cache(async() => {
+          const [name, version, tauri, identifier] = await Promise.all([
+               getName(),
+               getVersion(),
+               getTauriVersion(),
+               getIdentifier()
+          ])
+          return {name, version, tauri, identifier}
      })
 }

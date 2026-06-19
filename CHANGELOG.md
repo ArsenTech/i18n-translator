@@ -4,7 +4,7 @@ All notable changes of I18N Translator will be documented here.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
-## [0.3.2] - Unreleased
+## [0.3.2] - 2026-06-19
 ### Added
 - Glossary Apply Actions
   - Apply glossary term using the card as a button
@@ -28,7 +28,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - About Popup Details
 ### Improved
 - XLIFF-related actions like getting the metadata are now cached
-## [0.3.1] - 2026-06-07
+
+## [0.3.1] - 2026-06-17
 ### Added
 - Glossary Visibility Toggler (Show All / Show Few)
 - Tools -> Glossary Menu Bar Item
@@ -240,6 +241,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Initialized
 - Main Page with a sample test
 
+[0.3.2]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.3.2
 [0.3.1]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.3.1
 [0.3.0]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.3.0
 [0.2.7]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.7

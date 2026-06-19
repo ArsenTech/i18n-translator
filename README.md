@@ -77,19 +77,19 @@ Whether you are translating a small application or maintaining a large localizat
 Future releases are planned to include automatic translation tools, transliteration, spell checking, and additional localization formats.
 
 ### Planned Improvements
-#### v0.3.x or later (Next)
+#### v0.3.3 or later (Next)
 - [ ] Translatable switch as a separate column if the translation type is Android XML
 - [ ] Settings Popup Content
 - [ ] Refactor, Optimize, Lazy-load things after changing
   - [X] Settings (with contents)
 - [ ] Update automatic base language detection inside new translation and open translation
-- [ ] I18N Support
 #### v1.0.x or later (Stability)
 - [ ] Auto-Translation backend
 - [ ] Transliteration backend
 - [ ] Spell checking backend
   - [ ] Dictionary Support
 - [ ] `isDirty` changes inside new backend logic
+- [ ] I18N Support
 #### Nice to have
 - [ ] Write the Documentation on the `docs/` folder.
   - [X] Usage Guide

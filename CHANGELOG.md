@@ -29,6 +29,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Improved
 - XLIFF-related actions like getting the metadata are now cached
 
+[0.3.2]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.3.2
+
 ## [0.3.1] - 2026-06-17
 ### Added
 - Glossary Visibility Toggler (Show All / Show Few)
@@ -50,6 +52,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - About Window => About Popup
 - Settings Window => Settings Popup
 
+[0.3.1]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.3.1
+
 ## [0.3.0] - 2026-06-17
 > [!NOTE]
 > The planned release of v0.3.0 has been rescheduled from 2026-06-16 to 2026-06-17 (morning-afternoon) to allow for final polishing and quality improvements before publication.
@@ -64,6 +68,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Skeleton Loaders to match the UI
 ### Removed
 - Compare Difference - Will be replaced with Add to Glossary
+
+[0.3.0]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.3.0
 
 ## [0.2.7] - 2026-06-14
 ### Added
@@ -84,6 +90,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
   - Translation open: **Close Current Translation** enabled, **Open** actions disabled
 - **Readme** - Now completed
 
+[0.2.7]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.7
+
 ## [0.2.6] - 2026-06-13
 ### Added
 - XML support
@@ -93,6 +101,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - **Save Confirmation** dialog now uses simple **Yes**, **No**, and **Cancel** buttons
 ### Fixed
 - XML parsing issue preserving raw XML entities (e.g. `&amp;`)
+
+[0.2.6]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.6
 
 ## [0.2.5] - 2026-06-09
 ### Added
@@ -113,6 +123,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
   - Sidebar image
   - Header image
 
+[0.2.5]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.5
+
 ## [0.2.4] - 2026-06-07
 ### Added
 - Find Actions
@@ -131,6 +143,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Removed
 - **Go to Key Name** — Merged into **Find** using **Key** search mode
 
+[0.2.4]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.4
+
 ## [0.2.3] - 2026-06-06
 ### Added
 - Jump to Next Blank Field
@@ -144,6 +158,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - **Language Selector** — Added search for faster language selection
 ### Changed
 - Moved several states into context to reduce rerenders and improve performance
+
+[0.2.3]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.3
 
 ## [0.2.2] - 2026-06-04
 > [!NOTE]
@@ -164,6 +180,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - **Sidebar** - Improved desktop and mobile UX
 - **Language Selector** - Made it working with the `useState` approach
 
+[0.2.2]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.2
+
 ## [0.2.1] - 2026-06-02
 ### Added
 - Spell Checker Popups
@@ -174,6 +192,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Improved
 - **Table design** - Fixed the UI sticky header issue
 - **Key names** - Now uses monospace font
+
+[0.2.1]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.1
 
 ## [0.2.0] - 2026-05-31
 ### Added
@@ -191,6 +211,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Skeleton loading inside the Title Bar and the language selector
 - Skeleton loading of the entire main content
 
+[0.2.0]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.0
+
 ## [0.1.3] - 2026-05-27
 ### Added
 - Skeleton loading inside the Main Window
@@ -202,6 +224,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - **Language Selector** - Cached the function
 ### Removed
 - The "Open Sidebar" button in favor of the Toggle Sidebar Menubar option
+
+[0.1.3]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.1.3
 
 ## [0.1.2] - 2026-05-26
 ### Added
@@ -222,6 +246,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - React Router Approach for the native Window approach
 - Settings from Quick Actions for the Settings dropdown menu item
 
+[0.1.2]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.1.2
+
 ## [0.1.1] - 2026-05-24
 ### Added
 - Initial Layout of the Translator
@@ -232,6 +258,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Improved
 - **Menubar and Logo dropdown menu** - Added links and more items
 
+[0.1.1]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.1.1
+
 ## [0.1.0] - 2026-05-23
 > [!IMPORTANT]
 > The first pre-release is mostly focused on UI design meaning that it won't work or some parts might work
@@ -241,18 +269,4 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Initialized
 - Main Page with a sample test
 
-[0.3.2]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.3.2
-[0.3.1]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.3.1
-[0.3.0]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.3.0
-[0.2.7]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.7
-[0.2.6]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.6
-[0.2.5]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.5
-[0.2.4]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.4
-[0.2.3]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.3
-[0.2.2]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.2
-[0.2.1]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.1
-[0.2.0]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.2.0
-[0.1.3]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.1.3
-[0.1.2]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.1.2
-[0.1.1]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.1.1
 [0.1.0]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.1.0

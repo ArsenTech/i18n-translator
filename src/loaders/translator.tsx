@@ -89,3 +89,13 @@ export function TranslatorStatsLoader(){
           </div>
      )
 }
+export function AboutDetailsLoader(){
+     return (
+          <div className="space-y-0.5 w-full">
+               <Skeleton className="h-5 md:h-6 lg:h-8 w-full max-w-64"/>
+               <Skeleton className="h-4 md:h-5 lg:h-6 w-full max-w-[100px]"/>
+               <Skeleton className="h-3 sm:h-4 w-1/3"/>
+               <Skeleton className="h-3 sm:h-4 w-full max-w-64"/>
+          </div>
+     )
+}

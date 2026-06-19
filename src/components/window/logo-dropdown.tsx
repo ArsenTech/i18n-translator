@@ -1,4 +1,4 @@
-import { BookOpen, Code, Grid2X2Plus, Info, MessageCircleWarning, RotateCcw, Settings } from "lucide-react"
+import { BookOpen, Code, Grid2X2Plus, Info, Languages, MessageCircleWarning, RotateCcw, Settings } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { SiGithub } from "react-icons/si"
 import { openUrl } from "@tauri-apps/plugin-opener"
@@ -59,6 +59,10 @@ export default function LogoDropdown({title}: LogoDropdownProps){
                     <DropdownMenuItem onClick={()=>openUrl("https://github.com/ArsenTech/i18n-translator/blob/main/docs/CONTRIBUTING.md")}>
                          <Code className="text-muted-foreground"/>
                          Contribute
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={()=>openUrl("https://github.com/ArsenTech/i18n-translator/blob/main/public/locales")}>
+                         <Languages className="text-muted-foreground"/>
+                         Add Your Language
                     </DropdownMenuItem>
                     <DropdownMenuSeparator/>
                     <DropdownMenuItem onClick={()=>openUrl("https://github.com/ArsenTech/i18n-translator/issues/new?assignees=&labels=&template=bug_report.md&title=")}>

@@ -13,11 +13,10 @@ import { getErrorMessage } from "@/lib/utils";
 import { toast } from "sonner";
 import { useAppTranslation } from "@/context/translation";
 import { getFileName } from "@/lib/helpers";
-import { XliffMetadata } from "@/lib/types/data/backend";
-import { invoke } from "@tauri-apps/api/core";
 import RecentTranslations from "@/lib/store/recent-translations";
 import { TranslationFormat } from "@/lib/types/enums";
 import { Skeleton } from "@/components/ui/skeleton";
+import FetcherActions from "@/actions/fetcher";
 
 const LangSelector = lazy(()=>import("@/components/fields/lang-selector"))
 const XliffFilePicker = lazy(()=>import("@/components/fields/file-picker/xliff"))
@@ -37,7 +36,7 @@ export default function OpenXliff({setOpen}: PopupComponentProps){
      const handleChangeLang = (val: string) => {
           if(isFetching) return;
           startFetching(async() => {
-               const meta = await invoke<XliffMetadata>("get_xliff_meta", { path: val })
+               const meta = await FetcherActions.getXliffMetadata(val);
                form.setValue("baseLang", meta.src_lang)
                form.setValue("targetLang", meta.trg_lang)
           })

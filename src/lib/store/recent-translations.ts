@@ -1,9 +1,8 @@
-import { invoke } from "@tauri-apps/api/core"
 import { LazyStore } from "@tauri-apps/plugin-store"
-import { IBackendTranslation } from "../types/data/backend"
 import { ITranslation } from "../types/data"
 import { TranslationFormat } from "../types/enums"
 import { getErrorMessage } from "../utils"
+import FileActions from "@/actions/file"
 
 export interface RecentTranslation {
      name: string
@@ -42,7 +41,7 @@ export default class RecentTranslations{
           data: ITranslation[]
      }>{
           try {
-               const res = await invoke<IBackendTranslation[]>("open_translation", {
+               const res = await FileActions.openBackendTranslation({
                     basePath: item.basePath,
                     targetPath: item.targetPath,
                     format: item.format
@@ -68,9 +67,7 @@ export default class RecentTranslations{
      }>{
           try {
                if(item.basePath!==item.targetPath) return {error: "XLIFF requires 1 file to translate", data: []};
-               const res = await invoke<IBackendTranslation[]>("open_xliff", {
-                    path: item.basePath
-               })
+               const res = await FileActions.openBackendXliffTranslation(item.basePath)
                return {
                     success: "Translation opened successfully",
                     data: res.map(val=>({

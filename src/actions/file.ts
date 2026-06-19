@@ -1,5 +1,5 @@
 import type { ITranslation } from "@/lib/types/data"
-import { XliffMetadata, type CreateTranslationResult, type IBackendTranslation } from "@/lib/types/data/backend"
+import { type CreateTranslationResult, type IBackendTranslation } from "@/lib/types/data/backend"
 import { getErrorMessage } from "@/lib/utils"
 import { NewTranslationSchema, OpenTranslationSchema, OpenXliffSchema } from "@/schemas"
 import { NewTranslationType, OpenTranslationType, OpenXliffType } from "@/schemas/types"
@@ -7,6 +7,8 @@ import { invoke } from "@tauri-apps/api/core"
 import { save } from "@tauri-apps/plugin-dialog"
 import { detectLanguageCode, getFormatFromPath } from "@/lib/helpers"
 import { ILangInputState } from "@/lib/types"
+import FetcherActions from "./fetcher"
+import { TranslationFormat } from "@/lib/types/enums"
 
 export default class FileActions{
      public static async newTranslation(values: NewTranslationType): Promise<{
@@ -19,7 +21,7 @@ export default class FileActions{
                const validatedFields = NewTranslationSchema.safeParse(values)
                if(!validatedFields.success) return {error: "All fields are invalid", data: []}
                const {path, targetLanguageCode, format} = validatedFields.data
-               const meta = await invoke<XliffMetadata>("get_xliff_meta", { path })
+               const meta = await FetcherActions.getXliffMetadata(path)
                const res = await invoke<CreateTranslationResult>("create_translation", {
                     basePath: path,
                     baseLang: !meta ? detectLanguageCode(path) : meta.src_lang,
@@ -49,7 +51,7 @@ export default class FileActions{
                const baseFormat = await getFormatFromPath(basePath);
                const targetFormat = await getFormatFromPath(targetPath)
                if (baseFormat!==targetFormat) return {error: "Translation format should match the Base language format"}
-               const res = await invoke<IBackendTranslation[]>("open_translation", {
+               const res = await this.openBackendTranslation({
                     basePath,
                     targetPath,
                     format: baseFormat
@@ -75,9 +77,7 @@ export default class FileActions{
                const {translationPath} = validatedFields.data
                const fileFormat = await getFormatFromPath(translationPath);
                if(!fileFormat) return {error: "Format doesn't exist"}
-               const res = await invoke<IBackendTranslation[]>("open_xliff", {
-                    path: translationPath
-               })
+               const res = await this.openBackendXliffTranslation(translationPath)
                return {
                     success: "Translation opened successfully",
                     data: res.map(val=>({
@@ -161,6 +161,32 @@ export default class FileActions{
           } catch (err) {
                console.error(err)
                return {error: getErrorMessage(err)}
+          }
+     }
+     public static async openBackendTranslation({basePath, targetPath, format}: {
+          basePath: string,
+          targetPath: string,
+          format: TranslationFormat
+     }) {
+          try {
+               const res = await invoke<IBackendTranslation[]>("open_translation", {
+                    basePath,
+                    targetPath,
+                    format
+               })
+               return res
+          } catch (err){
+               console.error(err)
+               return []
+          }
+     }
+     public static async openBackendXliffTranslation(path: string) {
+          try {
+               const res = await invoke<IBackendTranslation[]>("open_xliff", { path })
+               return res
+          } catch (err){
+               console.error(err)
+               return []
           }
      }
 }

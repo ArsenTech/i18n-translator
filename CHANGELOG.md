@@ -13,17 +13,21 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
   - Apply All Matches button
     - Replace every matching glossary term in one action
 - App Updater to update the app version directly
-- Skeleton Loader Support
-  - Logo Dropdown and Menubar
-  - Updater
-  - RadioField
-  - Glossary Manager
-  - Table Filtering and Sorting Functions
-  - Tree Node Item
-  - Every Popup Form posible
-  - LanguageInput
-  - Popup Triggers
-  - Status Cell and Other content
+- About Popup
+### New Skeleton loader support
+- Logo Dropdown and Menubar
+- Updater
+- RadioField
+- Glossary Manager
+- Table Filtering and Sorting Functions
+- Tree Node Item
+- Every Popup Form posible
+- LanguageInput
+- Popup Triggers
+- Status Cell and Other content
+- About Popup Details
+### Improved
+- XLIFF-related actions like getting the metadata are now cached
 ## [0.3.1] - 2026-06-07
 ### Added
 - Glossary Visibility Toggler (Show All / Show Few)

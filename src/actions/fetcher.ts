@@ -1,4 +1,6 @@
 import { ILangItem } from "@/lib/types/data";
+import { XliffMetadata } from "@/lib/types/data/backend";
+import { invoke } from "@tauri-apps/api/core";
 import { cache } from "react";
 
 export default class FetcherActions{
@@ -11,5 +13,14 @@ export default class FetcherActions{
                label: lang.name,
                value: lang.code,
           }))
+     })
+     public static getXliffMetadata = cache(async(path: string): Promise<XliffMetadata> => {
+          try {
+               const metadata = await invoke<XliffMetadata>("get_xliff_meta", { path })
+               return metadata
+          } catch (err){
+               console.error(err)
+               return {src_lang: "", trg_lang: ""}
+          }
      })
 }

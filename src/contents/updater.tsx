@@ -54,7 +54,7 @@ export default function UpdaterContent({open}: PopupContentProps){
                try {
                     const update = await check();
                     if(update){
-                         ["app-tauri-version","app-version"].map(val=>localStorage.removeItem(val))
+                         ["tauri-version","app-version","app-name","app-identifier"].map(val=>localStorage.removeItem(val))
                          let downloaded = 0, contentLength = 0;
                          await update.downloadAndInstall((event) => {
                               switch (event.event) {

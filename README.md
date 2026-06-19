@@ -84,7 +84,7 @@ Future releases are planned to include automatic translation tools, transliterat
     - [X] Insert translation if no matching term exists
   - [X] Apply All Matches button
     - [X] Replace every matching glossary term in one action
-- [ ] About Popup Content
+- [X] About Popup Content
 - [X] Updater Support
 #### v0.3.x or later
 - [ ] Translatable switch as a separate column if the translation type is Android XML

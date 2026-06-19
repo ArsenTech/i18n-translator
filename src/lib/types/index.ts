@@ -1,6 +1,7 @@
 import { AutoTranslateType } from "@/schemas/types"
 import { Control } from "react-hook-form"
-import { UpdaterStatus } from "./enums"
+import { SettingsTab, UpdaterStatus } from "./enums"
+import { LucideIcon } from "lucide-react"
 
 export interface PopupComponentProps{
      triggerButton?: React.ReactNode
@@ -29,4 +30,13 @@ export interface IUpdaterState{
      patchDate: Date | null,
      downloaded: number,
      total: number
+}
+export type DesignType = "default" | "danger";
+export interface ISettingsTab{
+     page: SettingsTab,
+     tabName: string,
+     Icon: LucideIcon,
+     Loader?: React.FC,
+     LazyComponent: React.LazyExoticComponent<React.FC>,
+     disabled?: boolean
 }

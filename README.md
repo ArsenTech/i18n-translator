@@ -81,6 +81,7 @@ Future releases are planned to include automatic translation tools, transliterat
 - [ ] Translatable switch as a separate column if the translation type is Android XML
 - [ ] Settings Popup Content
 - [ ] Refactor, Optimize, Lazy-load things after changing
+  - [X] Settings (with contents)
 - [ ] Update automatic base language detection inside new translation and open translation
 - [ ] I18N Support
 #### v1.0.x or later (Stability)

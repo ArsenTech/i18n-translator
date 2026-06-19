@@ -77,16 +77,7 @@ Whether you are translating a small application or maintaining a large localizat
 Future releases are planned to include automatic translation tools, transliteration, spell checking, and additional localization formats.
 
 ### Planned Improvements
-#### v0.3.2 (Next)
-- [X] Glossary Apply Actions
-  - [X] Apply glossary term using the card as a button
-    - [X] Replace matching term in current translation
-    - [X] Insert translation if no matching term exists
-  - [X] Apply All Matches button
-    - [X] Replace every matching glossary term in one action
-- [X] About Popup Content
-- [X] Updater Support
-#### v0.3.x or later
+#### v0.3.x or later (Next)
 - [ ] Translatable switch as a separate column if the translation type is Android XML
 - [ ] Settings Popup Content
 - [ ] Refactor, Optimize, Lazy-load things after changing

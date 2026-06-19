@@ -12,7 +12,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
     - Insert translation if no matching term exists
   - Apply All Matches button
     - Replace every matching glossary term in one action
-- App Updater to update the app version directly
+- Updater to update the app version directly
 - About Popup
 ### New Skeleton loader support
 - Logo Dropdown and Menubar
@@ -38,12 +38,12 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
   - Edit entries
   - Delete entries
   - Import/export glossary packs to CSV or JSON
-- Skeleton Loader Support
-  - SelectorField
-  - ComboboxField
-  - FilePicker / XliffFilePicker
-  - LangSelector
-  - Entire Glossary Manager except the Import / Export button
+### New Skeleton Loader Support
+- SelectorField
+- ComboboxField
+- FilePicker / XliffFilePicker
+- LangSelector
+- Entire Glossary Manager except the Import / Export button
 ### Improved
 - Input buttons grid layout
 ### Replaced

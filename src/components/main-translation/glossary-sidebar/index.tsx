@@ -14,7 +14,7 @@ import { useAppTranslation } from "@/context/translation"
 import { toast } from "sonner"
 import { findValue } from "@/lib/helpers"
 import { GlossarySidebarItem } from "./item"
-import { GlossarySidebarLoader } from "@/loaders/translator"
+import { GlossarySidebarLoader } from "@/loaders/glossary"
 
 function GlossarySidebarMenu({children}: {children: React.ReactNode}){
      return (
@@ -190,7 +190,7 @@ export default function GlossarySidebar({glossary}: GlossarySidebarProps) {
                     <GlossarySidebarMenu>
                          <Suspense fallback={(
                               <>
-                              {Array.from({length: glossaryItems.length}).map((_,i)=>(
+                              {Array.from({length: 12}).map((_,i)=>(
                                    <GlossarySidebarLoader key={i+1}/>
                               ))}
                               </>

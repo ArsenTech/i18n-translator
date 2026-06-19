@@ -1,13 +1,16 @@
 import { MenubarContent, MenubarItem, MenubarMenu, MenubarSub, MenubarSubContent, MenubarSubTrigger, MenubarTrigger } from "@/components/ui/menubar";
 import TranslatorActions from "@/actions/translator";
-import AutoTranslatePopup from "@/popups/auto-translate";
-import TransliterateScriptPopup from "@/popups/transliterate-script";
 import { PROVIDER_NAMES } from "@/lib/constants";
 import { AutoTranslateProvider } from "@/schemas/types";
-import SpellCheckPopup from "@/popups/spell-check"
 import { useAppTranslation } from "@/context/translation";
 import { toast } from "sonner";
-import GlossaryManagerPopup from "@/popups/glossary-manager";
+import { lazy, Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+
+const AutoTranslatePopup = lazy(()=>import("@/popups/auto-translate"));
+const TransliterateScriptPopup = lazy(()=>import("@/popups/transliterate-script"));
+const SpellCheckPopup = lazy(()=>import("@/popups/spell-check"));
+const GlossaryManagerPopup = lazy(()=>import("@/popups/glossary-manager"));
 
 export default function ToolsMenu(){
      const {setTable, table, baseKeys, setIsDirty} = useAppTranslation()
@@ -34,13 +37,21 @@ export default function ToolsMenu(){
                     <MenubarSub>
                          <MenubarSubTrigger>Translate using</MenubarSubTrigger>
                          <MenubarSubContent>
-                              {Object.entries(PROVIDER_NAMES).map(([provider,name])=>(
-                                   <AutoTranslatePopup
-                                        key={provider}
-                                        provider={provider as AutoTranslateProvider}
-                                        triggerButton={<MenubarItem onSelect={(e) => e.preventDefault()}>{name}</MenubarItem>}
-                                   />
-                              ))}
+                              <Suspense fallback={(
+                                   <>
+                                   {Array.from({length: 4}).map((_,i)=>(
+                                        <Skeleton key={i+1} className="h-5 w-full max-w-48 my-1.5"/>
+                                   ))}
+                                   </>
+                              )}>
+                                   {Object.entries(PROVIDER_NAMES).map(([provider,name])=>(
+                                        <AutoTranslatePopup
+                                             key={provider}
+                                             provider={provider as AutoTranslateProvider}
+                                             triggerButton={<MenubarItem onSelect={(e) => e.preventDefault()}>{name}</MenubarItem>}
+                                        />
+                                   ))}
+                              </Suspense>
                          </MenubarSubContent>
                     </MenubarSub>
                     <MenubarSub>
@@ -48,17 +59,26 @@ export default function ToolsMenu(){
                          <MenubarSubContent>
                               <MenubarItem onClick={validateKeys}>Validate Keys</MenubarItem>
                               <MenubarItem onClick={removeUnusedKeys}>Remove Unused Keys</MenubarItem>
-                              <SpellCheckPopup triggerButton={(
-                                   <MenubarItem onSelect={(e) => e.preventDefault()}>Spell check (using Hunspell)</MenubarItem>
-                              )}/>
+                              <Suspense fallback={<Skeleton className="h-5 w-full max-w-48 my-1.5"/>}>
+                                   <SpellCheckPopup triggerButton={(
+                                        <MenubarItem onSelect={(e) => e.preventDefault()}>Spell check (using Hunspell)</MenubarItem>
+                                   )}/>
+                              </Suspense>
                          </MenubarSubContent>
                     </MenubarSub>
-                    <TransliterateScriptPopup triggerButton={(
-                         <MenubarItem onSelect={(e) => e.preventDefault()}>Transliterate Script</MenubarItem>
-                    )}/>
-                    <GlossaryManagerPopup triggerButton={(
-                         <MenubarItem onSelect={e=>e.preventDefault()}>Glossary</MenubarItem>
-                    )}/>
+                    <Suspense fallback={(
+                         <>
+                         <Skeleton className="h-5 w-full max-w-48 my-1.5"/>
+                         <Skeleton className="h-5 w-full max-w-48 my-1.5"/>
+                         </>
+                    )}>
+                         <TransliterateScriptPopup triggerButton={(
+                              <MenubarItem onSelect={(e) => e.preventDefault()}>Transliterate Script</MenubarItem>
+                         )}/>
+                         <GlossaryManagerPopup triggerButton={(
+                              <MenubarItem onSelect={e=>e.preventDefault()}>Glossary</MenubarItem>
+                         )}/>
+                    </Suspense>
                </MenubarContent>
           </MenubarMenu>
      )

@@ -1,4 +1,3 @@
-import AppModal from "@/components/popups/modal";
 import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -7,18 +6,20 @@ import { AutoTranslateProvider, AutoTranslateType } from "@/schemas/types";
 import { AutoTranslateSchema } from "@/schemas/auto-translate";
 import { DialogFooter } from "@/components/ui/dialog";
 import TranslatorActions from "@/actions/translator";
-import { GeminiFields, LibreTranslateFields, LlamaAIFields } from "./fields";
-import { PROVIDER_NAMES, RESOURCE_TYPE } from "@/lib/constants";
-import { PopupComponentProps } from "@/lib/types";
+import { RESOURCE_TYPE } from "@/lib/constants";
+import { PopupContentProps } from "@/lib/types";
 import { lazy, Suspense } from "react";
-import RadioFieldLoader from "@/loaders/radio-field";
+import { FormFieldLoader, RadioFieldLoader } from "@/loaders/fields";
 
 const RadioField = lazy(()=>import("@/components/fields/radio-field"))
+const GeminiFields = lazy(()=>import("@/components/fields/auto-translate/gemini"));
+const LibreTranslateFields = lazy(()=>import("@/components/fields/auto-translate/libre-translate"));
+const LlamaAIFields = lazy(()=>import("@/components/fields/auto-translate/llama"));
 
-interface AutoTranslatePopupProps extends PopupComponentProps{
+interface AutoTranslateProps extends PopupContentProps{
      provider: AutoTranslateProvider
 }
-export default function AutoTranslatePopup({provider, triggerButton}: AutoTranslatePopupProps){
+export default function AutoTranslate({provider}: AutoTranslateProps){
      const form = useForm<AutoTranslateType>({
           resolver: zodResolver(AutoTranslateSchema),
           defaultValues: {
@@ -34,21 +35,33 @@ export default function AutoTranslatePopup({provider, triggerButton}: AutoTransl
           TranslatorActions.autoTranslate(values)
      }
      return (
-          <AppModal
-               title="Auto-Translate"
-               description={`Auto-Translation using ${PROVIDER_NAMES[provider]}`}
-               triggerButton={triggerButton}
-          >
+          <>
                <form id="auto-translate" onSubmit={form.handleSubmit(onSubmit)}>
                     <FieldGroup>
                          {provider==="gemini" && (
-                              <GeminiFields control={form.control}/>
+                              <Suspense fallback={<FormFieldLoader/>}>
+                                   <GeminiFields control={form.control}/>
+                              </Suspense>
                          )}
                          {provider==="libretranslate" && (
-                              <LibreTranslateFields control={form.control}/>
+                              <Suspense fallback={(
+                                   <>
+                                   <FormFieldLoader/>
+                                   <FormFieldLoader/>
+                                   </>
+                              )}>
+                                   <LibreTranslateFields control={form.control}/>
+                              </Suspense>
                          )}
                          {provider==="llama-ai" && (
-                              <LlamaAIFields control={form.control}/>
+                              <Suspense fallback={(
+                                   <>
+                                   <FormFieldLoader/>
+                                   <FormFieldLoader/>
+                                   </>
+                              )}>
+                                   <LlamaAIFields control={form.control}/>
+                              </Suspense>
                          )}
                          <Controller
                               control={form.control}
@@ -74,6 +87,6 @@ export default function AutoTranslatePopup({provider, triggerButton}: AutoTransl
                <DialogFooter>
                     <Button type="submit" form="auto-translate">Auto Translate</Button>
                </DialogFooter>
-          </AppModal>
+          </>
      )
 }

@@ -84,11 +84,11 @@ Future releases are planned to include automatic translation tools, transliterat
     - [X] Insert translation if no matching term exists
   - [X] Apply All Matches button
     - [X] Replace every matching glossary term in one action
-- [ ] About Popup
-- [ ] Translatable switch as a separate column if the translation type is Android XML
+- [ ] About Popup Content
 - [X] Updater Support
 #### v0.3.x or later
-- [ ] Settings Popup
+- [ ] Translatable switch as a separate column if the translation type is Android XML
+- [ ] Settings Popup Content
 - [ ] Refactor, Optimize, Lazy-load things after changing
 - [ ] Update automatic base language detection inside new translation and open translation
 - [ ] I18N Support

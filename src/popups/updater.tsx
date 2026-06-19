@@ -2,7 +2,7 @@ import AppModal from "@/components/popups/modal";
 import { PopupComponentProps } from "@/lib/types";
 import { lazy, Suspense, useState } from "react";
 import { useTranslation } from "react-i18next";
-import UpdaterLoader from "@/loaders/contents/updater";
+import { UpdaterLoader } from "@/loaders/contents";
 
 const UpdaterContent = lazy(()=>import("@/contents/updater"));
 
@@ -19,7 +19,7 @@ export default function UpdaterPopup({triggerButton}: PopupComponentProps){
                onOpenChange={setIsOpen}
           >
                <Suspense fallback={<UpdaterLoader/>}>
-                    <UpdaterContent isOpen={isOpen}/>
+                    <UpdaterContent open={isOpen}/>
                </Suspense>
           </AppModal>
      )

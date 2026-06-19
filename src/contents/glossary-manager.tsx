@@ -1,4 +1,4 @@
-import { GlossaryInputLoader, LanguageSelectLoader, TableLoader } from "@/loaders/translator";
+import { LanguageSelectLoader, TableLoader } from "@/loaders/translator";
 import { DialogFooter } from "@/components/ui/dialog";
 import { useGlossary } from "@/context/glossary";
 import { GlossaryEntry } from "@/lib/types/data";
@@ -14,6 +14,7 @@ import GlossaryActions from "@/lib/store/glossary";
 import { useAppTranslation } from "@/context/translation";
 import { exportCSV, exportJSON } from "@/lib/helpers";
 import { PARTS_OF_SPEECH } from "@/lib/constants";
+import { GlossaryInputLoader } from "@/loaders/glossary";
 
 const LanguageSelect = lazy(()=>import("@/components/main-translation/language-select"))
 const GlossaryTable = lazy(()=>import("@/components/tables/glossary"))

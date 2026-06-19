@@ -14,11 +14,16 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
     - Replace every matching glossary term in one action
 - App Updater to update the app version directly
 - Skeleton Loader Support
-  - Logo Dropdown
-  - Menubar
+  - Logo Dropdown and Menubar
   - Updater
   - RadioField
   - Glossary Manager
+  - Table Filtering and Sorting Functions
+  - Tree Node Item
+  - Every Popup Form posible
+  - LanguageInput
+  - Popup Triggers
+  - Status Cell and Other content
 ## [0.3.1] - 2026-06-07
 ### Added
 - Glossary Visibility Toggler (Show All / Show Few)

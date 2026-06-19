@@ -3,7 +3,10 @@ import { ColumnDef } from "@tanstack/react-table"
 import { DataTableColumnHeader } from "../col-header"
 import { wordCount } from "@/lib/helpers"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
-import StatusCell from "../status-cell"
+import { lazy, Suspense } from "react"
+import { Skeleton } from "@/components/ui/skeleton"
+
+const StatusCell = lazy(()=>import("../status-cell"))
 
 export const getColumns = (isSelected: boolean): ColumnDef<ITranslation>[] => [
      {
@@ -75,10 +78,12 @@ export const getColumns = (isSelected: boolean): ColumnDef<ITranslation>[] => [
           id: "status",
           header: "Status",
           cell: ({row}) => (
-               <StatusCell
-                    base={row.original.baseString}
-                    target={row.original.translationString}
-               />
+               <Suspense fallback={<Skeleton className="size-5"/>}>
+                    <StatusCell
+                         base={row.original.baseString}
+                         target={row.original.translationString}
+                    />
+               </Suspense>
           ),
           size: 50,
           maxSize: 50,

@@ -1,35 +1,30 @@
-import { ChevronRight, Folder, List } from "lucide-react"
+import { List } from "lucide-react"
 import { Button, ButtonProps } from "@/components/ui/button"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { cn } from "@/lib/utils"
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
-import { useState } from "react"
+import { Suspense } from "react"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetClose, SheetFooter } from "@/components/ui/sheet"
 import { TreeNode } from "@/lib/types"
 import { useTreeSidebar } from "@/context/tree-sidebar"
 import { useAppTranslation } from "@/context/translation"
 import React from "react"
 import { SIDEBAR_WIDTH_MOBILE } from "@/lib/constants"
+import TreeNodeItem from "./item"
+import { TreeNodeLoader } from "@/loaders/tree-sidebar"
 
-function TreeSidebarMenu({children}: {children: React.ReactNode}){
-     return (
-          <ul className="flex flex-col gap-1">{children}</ul>
-     )
-}
-
-function TreeSidebarItem({children}: {children: React.ReactNode}){
+export function TreeSidebarItem({children}: {children: React.ReactNode}){
      return (
           <li className="relative">{children}</li>
      )
 }
 
-function TreeSidebarSubmenu({children}: {children: React.ReactNode}){
+export function TreeSidebarSubmenu({children}: {children: React.ReactNode}){
      return (
           <ul className="ml-4 flex flex-col gap-1 border-l pl-2">{children}</ul>
      )
 }
 
-function TreeSidebarButton({variant="ghost", size="sm", className, selected, ...props}: ButtonProps & {selected?: boolean}) {
+export function TreeSidebarButton({variant="ghost", size="sm", className, selected, ...props}: ButtonProps & {selected?: boolean}) {
      return (
           <Button
                variant={selected ? "secondary" : variant}
@@ -37,6 +32,12 @@ function TreeSidebarButton({variant="ghost", size="sm", className, selected, ...
                className={cn("w-full justify-start gap-2",className)}
                {...props}
           />
+     )
+}
+
+function TreeSidebarMenu({children}: {children: React.ReactNode}){
+     return (
+          <ul className="flex flex-col gap-1">{children}</ul>
      )
 }
 
@@ -86,58 +87,6 @@ function TreeSidebarContainer({children}: {children: React.ReactNode}){
      return open ? content : null
 }
 
-interface TreeNodeItemProps{
-     node: TreeNode
-}
-const TreeNodeItem = React.memo(({node}: TreeNodeItemProps) => {
-     const {selectedNamespace, setSelectedNamespace} = useAppTranslation()
-     const [open, setOpen] = useState(node.name === "Root")
-     const hasChildren = node.children.length > 0
-     const selected = selectedNamespace === node.fullPath
-     const {closeMobileSidebar} = useTreeSidebar()
-     return (
-          <TreeSidebarItem>
-               <Collapsible open={open} onOpenChange={setOpen}>
-                    <div className="flex items-center gap-1">
-                         {hasChildren ? (
-                              <CollapsibleTrigger asChild>
-                                   <TreeSidebarButton>
-                                        <ChevronRight className={cn("size-4 transition-transform",open &&"rotate-90")} />
-                                        <Folder className="size-4" />
-                                        {node.name}
-                                   </TreeSidebarButton>
-                              </CollapsibleTrigger>
-                         ) : (
-                              <TreeSidebarButton
-                                   variant="ghost"
-                                   selected={selected}
-                                   onClick={() => {
-                                        setSelectedNamespace(node.fullPath)
-                                        closeMobileSidebar()
-                                   }}
-                              >
-                                   <List className="size-4" />
-                                   {node.name}
-                              </TreeSidebarButton>
-                         )}
-                    </div>
-                    {hasChildren && (
-                         <CollapsibleContent>
-                              <TreeSidebarSubmenu>
-                                   {node.children.map(child => (
-                                        <TreeNodeItem
-                                             key={child.fullPath}
-                                             node={child}
-                                        />
-                                   ))}
-                              </TreeSidebarSubmenu>
-                         </CollapsibleContent>
-                    )}
-               </Collapsible>
-          </TreeSidebarItem>
-     )
-})
-
 interface TreeSidebarProps{
      tree: TreeNode[]
 }
@@ -160,12 +109,20 @@ export default function TreeSidebar({tree}: TreeSidebarProps) {
                               Show All
                          </TreeSidebarButton>
                     </TreeSidebarItem>
-                    {tree.map(node => (
-                         <TreeNodeItem
-                              key={node.fullPath}
-                              node={node}
-                         />
-                    ))}
+                    <Suspense fallback={(
+                         <>
+                         {Array.from({ length: 5 }).map((_, i) => (
+                              <TreeNodeLoader key={i} />
+                         ))}
+                         </>
+                    )}>
+                         {tree.map(node => (
+                              <TreeNodeItem
+                                   key={node.fullPath}
+                                   node={node}
+                              />
+                         ))} 
+                    </Suspense>
                </TreeSidebarMenu>
           </TreeSidebarContainer>
      )

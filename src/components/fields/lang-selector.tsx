@@ -1,15 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { cn, getErrorMessage } from "@/lib/utils";
-import { Skeleton } from "./ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 import { CircleFlag, CircleFlagLanguage } from 'react-circle-flags'
 import { Noop } from "react-hook-form";
 import FetcherActions from "@/actions/fetcher";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import { ILangItem } from "@/lib/types/data";
 import { Languages } from "lucide-react";
-import { Command, CommandInput, CommandEmpty, CommandList, CommandGroup, CommandItem } from "./ui/command";
-import { Popover, PopoverTrigger, PopoverContent } from "./ui/popover";
+import { Command, CommandInput, CommandEmpty, CommandList, CommandGroup, CommandItem } from "@/components/ui/command";
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 
 interface LangSelectorProps{
      className?: string

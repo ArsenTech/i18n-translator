@@ -2,9 +2,12 @@ import { BookOpen, Code, Grid2X2Plus, Info, MessageCircleWarning, RotateCcw, Set
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { SiGithub } from "react-icons/si"
 import { openUrl } from "@tauri-apps/plugin-opener"
-import AboutPopup from "@/popups/about";
-import SettingsPopup from "@/popups/settings";
-import UpdaterPopup from "@/popups/updater";
+import { lazy, Suspense } from "react";
+import { Skeleton } from "../ui/skeleton";
+
+const AboutPopup = lazy(()=>import("@/popups/about"));
+const SettingsPopup = lazy(()=>import("@/popups/settings"));
+const UpdaterPopup = lazy(()=>import("@/popups/updater"));
 
 interface LogoDropdownProps{
      title?: string,
@@ -18,24 +21,32 @@ export default function LogoDropdown({title}: LogoDropdownProps){
                <DropdownMenuContent className="w-full min-w-32">
                     <DropdownMenuLabel>{title}</DropdownMenuLabel>
                     <DropdownMenuSeparator/>
-                    <AboutPopup triggerButton={(
-                         <DropdownMenuItem onSelect={e=>e.preventDefault()}>
-                              <Info className="text-muted-foreground"/>
-                              About I18N Translator
-                         </DropdownMenuItem>
-                    )}/>
-                    <SettingsPopup triggerButton={(
-                         <DropdownMenuItem onSelect={e=>e.preventDefault()}>
-                              <Settings className="text-muted-foreground"/>
-                              Settings
-                         </DropdownMenuItem>
-                    )}/>
-                    <UpdaterPopup triggerButton={(
-                         <DropdownMenuItem onSelect={e=>e.preventDefault()}>
-                              <RotateCcw className="text-muted-foreground"/>
-                              Check For Updates
-                         </DropdownMenuItem>
-                    )}/>
+                    <Suspense fallback={(
+                         <>
+                         <Skeleton className="h-5 w-full max-w-56 my-1.5"/>
+                         <Skeleton className="h-5 w-full max-w-48 my-1.5"/>
+                         <Skeleton className="h-5 w-full max-w-48 my-1.5"/>
+                         </>
+                    )}>
+                         <AboutPopup triggerButton={(
+                              <DropdownMenuItem onSelect={e=>e.preventDefault()}>
+                                   <Info className="text-muted-foreground"/>
+                                   About I18N Translator
+                              </DropdownMenuItem>
+                         )}/>
+                         <SettingsPopup triggerButton={(
+                              <DropdownMenuItem onSelect={e=>e.preventDefault()}>
+                                   <Settings className="text-muted-foreground"/>
+                                   Settings
+                              </DropdownMenuItem>
+                         )}/>
+                         <UpdaterPopup triggerButton={(
+                              <DropdownMenuItem onSelect={e=>e.preventDefault()}>
+                                   <RotateCcw className="text-muted-foreground"/>
+                                   Check For Updates
+                              </DropdownMenuItem>
+                         )}/>
+                    </Suspense>
                     <DropdownMenuSeparator/>
                     <DropdownMenuItem onClick={()=>openUrl("https://github.com/ArsenTech/i18n-translator")}>
                          <SiGithub className="text-muted-foreground"/>

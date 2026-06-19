@@ -4,19 +4,21 @@ import FindActions from "@/actions/find";
 import TranslatorActions from "@/actions/translator";
 import { FilePlus, FolderOpen, Languages, RotateCcw, Save, Search, SearchCheck, SpellCheckIcon } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import NewTranslationPopup from "@/popups/new-translation";
-import OpenTranslationPopup from "@/popups/open-translation";
 import { PROVIDER_NAMES } from "@/lib/constants";
-import AutoTranslatePopup from "@/popups/auto-translate";
 import { AutoTranslateProvider } from "@/schemas/types";
-import ReplaceTranslationPopup from "@/popups/replace-translation";
-import SpellCheckPopup from "@/popups/spell-check";
-import { useCallback, useState } from "react";
+import { lazy, Suspense, useCallback, useState } from "react";
 import { getErrorMessage } from "@/lib/utils";
 import { toast } from "sonner";
 import { useAppTranslation } from "@/context/translation";
 import { Spinner } from "@/components/ui/spinner";
-import OpenXliffPopup from "@/popups/open-xliff";
+import { Skeleton } from "../ui/skeleton";
+
+const NewTranslationPopup = lazy(()=>import("@/popups/new-translation"));
+const OpenTranslationPopup = lazy(()=>import("@/popups/open-translation"));
+const OpenXliffPopup = lazy(()=>import("@/popups/open-xliff"));
+const AutoTranslatePopup = lazy(()=>import("@/popups/auto-translate"));
+const ReplaceTranslationPopup = lazy(()=>import("@/popups/replace-translation"));
+const SpellCheckPopup = lazy(()=>import("@/popups/spell-check"));
 
 export default function QuickAccessToolbar(){
      const [isSaving, setIsSaving] = useState(false)
@@ -67,11 +69,13 @@ export default function QuickAccessToolbar(){
      }
      return (
           <div className="px-4 pt-2 gap-1 flex items-center justify-center flex-wrap">
-               <NewTranslationPopup triggerButton={(
-                    <Button variant="secondary" className="flex-1 aspect-square" title="New Translation">
-                         <FilePlus/>
-                    </Button>
-               )}/>
+               <Suspense fallback={<Skeleton className="h-8 flex-1 aspect-square"/>}>
+                    <NewTranslationPopup triggerButton={(
+                         <Button variant="secondary" className="flex-1 aspect-square" title="New Translation">
+                              <FilePlus/>
+                         </Button>
+                    )}/>
+               </Suspense>
                <DropdownMenu modal={false}>
                     <DropdownMenuTrigger asChild>
                          <Button variant="secondary" className="flex-1 aspect-square" title="Open Translation">
@@ -79,12 +83,19 @@ export default function QuickAccessToolbar(){
                     </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-full min-w-48">
-                         <OpenTranslationPopup triggerButton={(
-                              <DropdownMenuItem onSelect={e=>e.preventDefault()} disabled={!!files.format}>Open Translation</DropdownMenuItem>
-                         )}/>
-                         <OpenXliffPopup triggerButton={(
-                              <DropdownMenuItem onSelect={e=>e.preventDefault()} disabled={!!files.format}>Open XLIFF File</DropdownMenuItem>
-                         )}/>
+                         <Suspense fallback={(
+                              <>
+                              <Skeleton className="h-5 w-full max-w-48 my-1.5"/>
+                              <Skeleton className="h-5 w-full max-w-48 my-1.5"/>
+                              </>
+                         )}>
+                              <OpenTranslationPopup triggerButton={(
+                                   <DropdownMenuItem onSelect={e=>e.preventDefault()} disabled={!!files.format}>Open Translation</DropdownMenuItem>
+                              )}/>
+                              <OpenXliffPopup triggerButton={(
+                                   <DropdownMenuItem onSelect={e=>e.preventDefault()} disabled={!!files.format}>Open XLIFF File</DropdownMenuItem>
+                              )}/>
+                         </Suspense>
                          <DropdownMenuSeparator/>
                          <DropdownMenuItem onClick={reset} disabled={!files.format}>Close Current Translation</DropdownMenuItem>
                     </DropdownMenuContent>
@@ -104,28 +115,40 @@ export default function QuickAccessToolbar(){
                     <DropdownMenuContent className="w-full min-w-48">
                          <DropdownMenuLabel>Translate Using...</DropdownMenuLabel>
                          <DropdownMenuSeparator/>
-                         {Object.entries(PROVIDER_NAMES).map(([provider,name])=>(
-                              <AutoTranslatePopup
-                                   key={provider}
-                                   provider={provider as AutoTranslateProvider}
-                                   triggerButton={<DropdownMenuItem onSelect={e=>e.preventDefault()}>{name}</DropdownMenuItem>}
-                              />
-                         ))}
+                         <Suspense fallback={(
+                              <>
+                              {Array.from({length: 4}).map((_,i)=>(
+                                   <Skeleton key={i+1} className="h-5 w-full max-w-48 my-1.5"/>
+                              ))}
+                              </>
+                         )}>
+                              {Object.entries(PROVIDER_NAMES).map(([provider,name])=>(
+                                   <AutoTranslatePopup
+                                        key={provider}
+                                        provider={provider as AutoTranslateProvider}
+                                        triggerButton={<DropdownMenuItem onSelect={e=>e.preventDefault()}>{name}</DropdownMenuItem>}
+                                   />
+                              ))}
+                         </Suspense>
                     </DropdownMenuContent>
                </DropdownMenu>
                <Button variant="secondary" className="flex-1 aspect-square" title="Validate Keys" onClick={validateKeys}>
                     <SearchCheck/>
                </Button>
-               <ReplaceTranslationPopup triggerButton={(
-                    <Button variant="secondary" className="flex-1 aspect-square" title="Replace Translation">
-                         <RotateCcw/>
-                    </Button>
-               )}/>
-               <SpellCheckPopup triggerButton={(
-                    <Button variant="secondary" className="flex-1 aspect-square" title="Spell Check">
-                         <SpellCheckIcon/>
-                    </Button>
-               )}/>
+               <Suspense fallback={<Skeleton className="h-8 flex-1 aspect-square"/>}>
+                    <ReplaceTranslationPopup triggerButton={(
+                         <Button variant="secondary" className="flex-1 aspect-square" title="Replace Translation">
+                              <RotateCcw/>
+                         </Button>
+                    )}/>
+               </Suspense>
+               <Suspense fallback={<Skeleton className="h-8 flex-1 aspect-square"/>}>
+                    <SpellCheckPopup triggerButton={(
+                         <Button variant="secondary" className="flex-1 aspect-square" title="Spell Check">
+                              <SpellCheckIcon/>
+                         </Button>
+                    )}/>
+               </Suspense>
           </div>
      )
 }

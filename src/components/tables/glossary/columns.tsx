@@ -2,7 +2,6 @@ import type { GlossaryEntry } from "@/lib/types/data"
 import { ColumnDef } from "@tanstack/react-table"
 import { DataTableColumnHeader } from "../col-header"
 import { wordCount } from "@/lib/helpers"
-import StatusCell from "../status-cell"
 import { Switch } from "@/components/ui/switch"
 import { useGlossary } from "@/context/glossary"
 import { useAppTranslation } from "@/context/translation"
@@ -12,6 +11,10 @@ import { Button } from "@/components/ui/button"
 import { BookOpen, Trash2 } from "lucide-react"
 import { toast } from "sonner"
 import { getErrorMessage } from "@/lib/utils"
+import { lazy, Suspense } from "react"
+import { Skeleton } from "@/components/ui/skeleton"
+
+const StatusCell = lazy(()=>import("../status-cell"))
 
 export const GLOSSARY_COLS: ColumnDef<GlossaryEntry>[] = [
      {
@@ -90,10 +93,12 @@ export const GLOSSARY_COLS: ColumnDef<GlossaryEntry>[] = [
           id: "status",
           header: "Status",
           cell: ({row}) => (
-               <StatusCell
-                    base={row.original.term}
-                    target={row.original.translation}
-               />
+               <Suspense fallback={<Skeleton className="size-5"/>}>
+                    <StatusCell
+                         base={row.original.term}
+                         target={row.original.translation}
+                    />
+               </Suspense>
           ),
           size: 50,
           maxSize: 50,

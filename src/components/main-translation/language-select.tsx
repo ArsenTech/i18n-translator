@@ -2,7 +2,7 @@ import { useAppTranslation } from "@/context/translation";
 import { lazy, Suspense } from "react";
 import { Skeleton } from "../ui/skeleton";
 
-const LangSelector = lazy(()=>import("../lang-selector"))
+const LangSelector = lazy(()=>import("@/components/fields/lang-selector"))
 
 export default function LanguageSelect(){
      const {langs, updateLangs} = useAppTranslation()

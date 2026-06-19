@@ -1,5 +1,5 @@
 import { CircleFlagLanguage } from "react-circle-flags";
-import { InputGroup, InputGroupAddon, InputGroupInput } from "./ui/input-group";
+import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group";
 import { Languages } from "lucide-react";
 
 type LanguageInputProps = Omit<React.ComponentProps<"input">,"value"|"onChange"> & {

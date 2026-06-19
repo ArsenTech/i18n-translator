@@ -2,29 +2,21 @@ import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import "./App.css";
 import "@/i18n"
-import { TreeSidebarProvider } from "./context/tree-sidebar";
-import { AppTranslationProvider } from "./context/translation";
-import MainContentLoader from "./loaders/translator";
-import { TooltipProvider } from "./components/ui/tooltip";
-import { Toaster } from "sonner";
+import { MainContentLoader } from "./loaders/contents";
 import { GlossaryProvider } from "./context/glossary";
+import { AppTranslationProvider } from "./context/translation";
+import { TreeSidebarProvider } from "./context/tree-sidebar";
 
-const MainPage = lazy(()=>import("./components/main"))
+const MainPage = lazy(()=>import("./contents/main"))
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <AppTranslationProvider>
       <TreeSidebarProvider>
         <GlossaryProvider>
-          <TooltipProvider>
-            <Suspense fallback={<MainContentLoader/>}>
-              <MainPage/>
-            </Suspense>
-            <Toaster
-              richColors
-              position="top-right"
-            />
-          </TooltipProvider>
+          <Suspense fallback={<MainContentLoader/>}>
+            <MainPage/>
+          </Suspense>
         </GlossaryProvider>
       </TreeSidebarProvider>
     </AppTranslationProvider>

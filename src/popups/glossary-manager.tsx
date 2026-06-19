@@ -1,6 +1,6 @@
 import AppModal from "@/components/popups/modal";
 import { PopupComponentProps } from "@/lib/types";
-import GlossaryManagerLoader from "@/loaders/contents/glossary-manager";
+import { GlossaryManagerLoader } from "@/loaders/contents";
 import { lazy, Suspense } from "react";
 
 const GlossaryManager = lazy(()=>import("@/contents/glossary-manager"));

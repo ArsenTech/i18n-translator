@@ -1,9 +1,12 @@
 import { MenubarGroup, MenubarItem, MenubarShortcut, MenubarSub, MenubarSubContent, MenubarSubTrigger } from "@/components/ui/menubar";
 import FindActions, { FindResult } from "@/actions/find";
 import TranslatorActions from "@/actions/translator";
-import FindPopup from "@/popups/find";
 import { useAppTranslation } from "@/context/translation";
 import { toast } from "sonner";
+import { lazy, Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+
+const FindPopup = lazy(()=>import("@/popups/find"));
 
 export default function FindSubmenu(){
      const {findState, setFindState, setCurrentTranslation, setInput, setVisibleCount, visibleTable} = useAppTranslation()
@@ -29,12 +32,14 @@ export default function FindSubmenu(){
                <MenubarSubTrigger>Find</MenubarSubTrigger>
                <MenubarSubContent>
                     <MenubarGroup>
-                         <FindPopup triggerButton={(
-                              <MenubarItem onSelect={(e) => e.preventDefault()}>
-                                   Find...
-                                   <MenubarShortcut>Ctrl+F</MenubarShortcut>
-                              </MenubarItem>
-                         )}/>
+                         <Suspense fallback={<Skeleton className="h-5 w-full max-w-48 my-1.5"/>}>
+                              <FindPopup triggerButton={(
+                                   <MenubarItem onSelect={(e) => e.preventDefault()}>
+                                        Find...
+                                        <MenubarShortcut>Ctrl+F</MenubarShortcut>
+                                   </MenubarItem>
+                              )}/>
+                         </Suspense>
                          <MenubarItem onClick={() => findAction("next")}>Find Next</MenubarItem>
                          <MenubarItem onClick={() => findAction("prev")}>Find Previous</MenubarItem>
                          <MenubarItem onClick={() => findAction("missing")}>Find Missing Keys</MenubarItem>

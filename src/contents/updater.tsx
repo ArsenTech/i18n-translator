@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
-import { IUpdaterState} from "@/lib/types";
+import { IUpdaterState, PopupContentProps} from "@/lib/types";
 import { getErrorMessage, cn } from "@/lib/utils";
 import { openUrl } from "@tauri-apps/plugin-opener";
 import { relaunch } from "@tauri-apps/plugin-process";
@@ -12,19 +12,16 @@ import { check } from "@tauri-apps/plugin-updater"
 import { INITIAL_UPDATER_STATE } from "@/lib/constants";
 import { UpdaterStatus } from "@/lib/types/enums";
 import { useTranslation } from "react-i18next";
-import { DialogFooter } from "./ui/dialog";
+import { DialogFooter } from "@/components/ui/dialog";
 
-interface UpdaterContentProps{
-     isOpen: boolean
-}
-export default function UpdaterContent({isOpen}: UpdaterContentProps){
+export default function UpdaterContent({open}: PopupContentProps){
      const [isChecking, startChecking] = useTransition();
      const [isUpdating, startUpdating] = useTransition();
      const {t} = useTranslation("update")
      const [update, setUpdate] = useState<IUpdaterState>(INITIAL_UPDATER_STATE)
      const setUpdaterState = (overrides: Partial<IUpdaterState>) => setUpdate(prev=>({...prev, ...overrides}))
      const checkForUpdates = async () => {
-          if(!isOpen) return;
+          if(!open) return;
           setUpdaterState({
                status: UpdaterStatus.Checking,
                downloaded: 0,
@@ -47,7 +44,7 @@ export default function UpdaterContent({isOpen}: UpdaterContentProps){
           })
      }
      const updateApp = () => {
-          if(!isOpen) return;
+          if(!open) return;
           setUpdaterState({
                status: UpdaterStatus.Updating,
                downloaded: 0,
@@ -96,9 +93,9 @@ export default function UpdaterContent({isOpen}: UpdaterContentProps){
           })
      }
      useEffect(()=>{
-          if(!isOpen) return;
+          if(!open) return;
           checkForUpdates()
-     },[isOpen]);
+     },[open]);
      const currProgress = useMemo(()=>(update.downloaded/update.total)*100,[update.downloaded,update.total]);
      return (
           <>

@@ -4,13 +4,15 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { ButtonGroup } from "@/components/ui/button-group";
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@/components/ui/input-group";
 import { Search, X } from "lucide-react";
-import Filters from "./filters"
-import SortBy from "./sort-by"
-import React from "react"
+import React, { lazy, Suspense } from "react"
 import { cn } from "@/lib/utils"
 import { Spinner } from "@/components/ui/spinner"
 import { GLOSSARY_COLS } from "./columns";
 import { useGlossary } from "@/context/glossary";
+import { Skeleton } from "@/components/ui/skeleton";
+
+const Filters = lazy(()=>import("./filters"));
+const SortBy = lazy(()=>import("./sort-by"));
 
 export type GlossaryFilterType =
   | "all"
@@ -135,12 +137,14 @@ export default function GlossaryTable() {
           <div className="flex flex-col flex-1 min-h-0 max-h-[350px] gap-2 overflow-hidden">
                <div className="flex items-center gap-2">
                     <ButtonGroup className="flex-1">
-                         <Filters
-                              filter={filter}
-                              onFilterChange={setFilter}
-                              searchMode={searchMode}
-                              onSearchModeChange={setSearchMode}
-                         />
+                         <Suspense fallback={<Skeleton className="h-8 w-20"/>}>
+                              <Filters
+                                   filter={filter}
+                                   onFilterChange={setFilter}
+                                   searchMode={searchMode}
+                                   onSearchModeChange={setSearchMode}
+                              />
+                         </Suspense>
                          <InputGroup className="rounded-none!">
                               <InputGroupInput
                                    placeholder={placeholderMap[searchMode]}
@@ -161,13 +165,15 @@ export default function GlossaryTable() {
                               </InputGroupAddon>
                          </InputGroup>
                     </ButtonGroup>
-                    <SortBy onSort={(column, desc = false) => {
-                         if (!column) {
-                              setSorting([])
-                              return
-                         }
-                         setSorting([{ id: column, desc }])
-                    }}/>
+                    <Suspense fallback={<Skeleton className="h-8 w-24"/>}>
+                         <SortBy onSort={(column, desc = false) => {
+                              if (!column) {
+                                   setSorting([])
+                                   return
+                              }
+                              setSorting([{ id: column, desc }])
+                         }}/>
+                    </Suspense>
                </div>
                <div ref={scrollRef} className="flex-1 min-h-0 overflow-auto rounded-md border bg-card text-card-foreground shadow-xs">
                     <Table className="min-w-[900px] relative scroll-mt-0">

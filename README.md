@@ -86,20 +86,18 @@ Future releases are planned to include automatic translation tools, transliterat
     - [X] Replace every matching glossary term in one action
 - [ ] About Popup
 - [ ] Translatable switch as a separate column if the translation type is Android XML
-- [ ] Updater Support
+- [X] Updater Support
 #### v0.3.x or later
 - [ ] Settings Popup
 - [ ] Refactor, Optimize, Lazy-load things after changing
 - [ ] Update automatic base language detection inside new translation and open translation
-#### v0.4.x or later (Expansion)
+- [ ] I18N Support
+#### v1.0.x or later (Stability)
 - [ ] Auto-Translation backend
 - [ ] Transliteration backend
 - [ ] Spell checking backend
   - [ ] Dictionary Support
 - [ ] `isDirty` changes inside new backend logic
-#### v1.0.x or later (Stability)
-- [ ] I18N Support
-- [ ] Refactor, Optimize, Lazy-load things
 #### Nice to have
 - [ ] Write the Documentation on the `docs/` folder.
   - [X] Usage Guide

@@ -1,0 +1,43 @@
+{
+     "title": "Check for updates",
+     "checking": {
+          "main": "Checking for new version...",
+          "secondary": "Please Wait..."
+     },
+     "updating": {
+          "main": "Updating the App...",
+          "secondary": "Please Wait until it finishes downloading contents..."
+     },
+     "needs-update": {
+          "main": "The New Version is Available!",
+          "secondary": "Make sure to update the app for improvements."
+     },
+     "updated": {
+          "main": "It is Up to Date!",
+          "secondary": "No New updates are available"
+     },
+     "failed-check": {
+          "main": "Failed to check for updates",
+          "secondary": "Make sure to try again later to check for the new version."
+     },
+     "completed":{
+          "main": "It has been updated to the new version!",
+          "secondary": "Make sure to relaunch the app to finalize the update."
+     },
+     "failed-update": {
+          "main": "Failed to update I18N Translator",
+          "secondary": "Make sure to try again later."
+     },
+     "buttons": {
+          "relaunch": "Relaunch",
+          "update": {
+               "pending": "Updating...",
+               "original": "Update"
+          },
+          "check": {
+               "pending": "Checking...",
+               "original": "Check for the Updates"
+          },
+          "changelog": "Open Changelog"
+     }
+}

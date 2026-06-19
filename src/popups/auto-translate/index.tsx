@@ -7,10 +7,13 @@ import { AutoTranslateProvider, AutoTranslateType } from "@/schemas/types";
 import { AutoTranslateSchema } from "@/schemas/auto-translate";
 import { DialogFooter } from "@/components/ui/dialog";
 import TranslatorActions from "@/actions/translator";
-import RadioField from "@/components/fields/radio-field";
 import { GeminiFields, LibreTranslateFields, LlamaAIFields } from "./fields";
 import { PROVIDER_NAMES, RESOURCE_TYPE } from "@/lib/constants";
 import { PopupComponentProps } from "@/lib/types";
+import { lazy, Suspense } from "react";
+import RadioFieldLoader from "@/loaders/radio-field";
+
+const RadioField = lazy(()=>import("@/components/fields/radio-field"))
 
 interface AutoTranslatePopupProps extends PopupComponentProps{
      provider: AutoTranslateProvider
@@ -53,11 +56,13 @@ export default function AutoTranslatePopup({provider, triggerButton}: AutoTransl
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
                                         <FieldLabel htmlFor={field.name}>Target</FieldLabel>
-                                        <RadioField
-                                             {...field}
-                                             invalid={fieldState.invalid}
-                                             items={RESOURCE_TYPE}
-                                        />
+                                        <Suspense fallback={<RadioFieldLoader length={RESOURCE_TYPE.length}/>}>
+                                             <RadioField
+                                                  {...field}
+                                                  invalid={fieldState.invalid}
+                                                  items={RESOURCE_TYPE}
+                                             />
+                                        </Suspense>
                                         {fieldState.invalid && (
                                              <FieldError errors={[fieldState.error]} />
                                         )}

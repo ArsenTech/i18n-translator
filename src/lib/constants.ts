@@ -1,3 +1,6 @@
+import { IUpdaterState } from "./types"
+import { UpdaterStatus } from "./types/enums"
+
 export const PROVIDER_NAMES = {
      "google-translate": "Google Translate",
      gemini: "Google Gemini",
@@ -49,3 +52,10 @@ export const GLOSSARY_DOMAINS = [
      "Medical",
      "Finance",
 ] as const;
+export const INITIAL_UPDATER_STATE: IUpdaterState = {
+     status: UpdaterStatus.Checking,
+     newVersion: null,
+     patchDate: null,
+     downloaded: 0,
+     total: 0
+}

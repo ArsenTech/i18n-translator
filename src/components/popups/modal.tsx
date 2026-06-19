@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 const sizeClasses = {
+     xs: "max-w-xs!",
      sm: "max-w-sm!",
      default: "max-w-md!",
      lg: "max-w-2xl!",
@@ -15,9 +16,10 @@ interface AppModalProps {
      description?: string
      children: React.ReactNode,
      triggerButton?: React.ReactNode,
-     size?: "default" | "sm" | "lg" | "xl"
+     size?: keyof typeof sizeClasses,
+     className?: string
 }
-export default function AppModal({open, onOpenChange, title, description, children, triggerButton, size="default"}: AppModalProps){
+export default function AppModal({open, onOpenChange, title, description, children, triggerButton, size="default", className}: AppModalProps){
      return (
           <Dialog open={open} onOpenChange={onOpenChange}>
                {triggerButton && (
@@ -27,7 +29,8 @@ export default function AppModal({open, onOpenChange, title, description, childr
                )}
                <DialogContent className={cn(
                     "max-w-[calc(100%-2rem)]",
-                    sizeClasses[size]
+                    sizeClasses[size],
+                    className
                )}>
                     <DialogHeader>
                          <DialogTitle>{title}</DialogTitle>

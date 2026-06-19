@@ -9,7 +9,6 @@ import { DialogFooter } from "@/components/ui/dialog";
 import FindActions from "@/actions/find";
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group";
 import { Search } from "lucide-react";
-import RadioField from "@/components/fields/radio-field";
 import { Switch } from "@/components/ui/switch";
 import { PopupComponentProps } from "@/lib/types";
 import { useAppTranslation } from "@/context/translation";
@@ -17,6 +16,7 @@ import { lazy, Suspense, useState } from "react";
 import { toast } from "sonner";
 import TranslatorActions from "@/actions/translator";
 import { Skeleton } from "@/components/ui/skeleton";
+import RadioFieldLoader from "@/loaders/radio-field";
 
 const items = [
      {value: "key", label: "Key"},
@@ -25,6 +25,7 @@ const items = [
 ]
 
 const ComboboxField = lazy(()=>import("@/components/fields/combobox-field"))
+const RadioField = lazy(()=>import("@/components/fields/radio-field"))
 
 export default function FindPopup({triggerButton}: PopupComponentProps){
      const {visibleTable, setVisibleCount, keyNames, setCurrentTranslation, setInput, setFindState} = useAppTranslation()
@@ -111,11 +112,13 @@ export default function FindPopup({triggerButton}: PopupComponentProps){
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
                                         <FieldLabel htmlFor={field.name}>Search Mode</FieldLabel>
-                                        <RadioField
-                                             {...field}
-                                             invalid={fieldState.invalid}
-                                             items={items}
-                                        />
+                                        <Suspense fallback={<RadioFieldLoader length={items.length}/>}>
+                                             <RadioField
+                                                  {...field}
+                                                  invalid={fieldState.invalid}
+                                                  items={items}
+                                             />
+                                        </Suspense>
                                         {fieldState.invalid && (
                                              <FieldError errors={[fieldState.error]} />
                                         )}

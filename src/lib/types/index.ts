@@ -1,3 +1,5 @@
+import { UpdaterStatus } from "./enums"
+
 export interface PopupComponentProps{
      triggerButton?: React.ReactNode
      open?: boolean,
@@ -15,3 +17,10 @@ export interface ILangInputState{
      target: string
 }
 export type GlossaryTogglerType = "all" | "few"
+export interface IUpdaterState{
+     status: UpdaterStatus,
+     newVersion: string | null,
+     patchDate: Date | null,
+     downloaded: number,
+     total: number
+}

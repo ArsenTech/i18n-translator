@@ -1,9 +1,10 @@
 import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import "./App.css";
+import "@/i18n"
 import { TreeSidebarProvider } from "./context/tree-sidebar";
 import { AppTranslationProvider } from "./context/translation";
-import MainContentLoader from "./components/loaders/translator";
+import MainContentLoader from "./loaders/translator";
 import { TooltipProvider } from "./components/ui/tooltip";
 import { Toaster } from "sonner";
 import { GlossaryProvider } from "./context/glossary";

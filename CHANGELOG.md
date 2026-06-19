@@ -12,7 +12,13 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
     - Insert translation if no matching term exists
   - Apply All Matches button
     - Replace every matching glossary term in one action
-
+- App Updater to update the app version directly
+- Skeleton Loader Support
+  - Logo Dropdown
+  - Menubar
+  - Updater
+  - RadioField
+  - Glossary Manager
 ## [0.3.1] - 2026-06-07
 ### Added
 - Glossary Visibility Toggler (Show All / Show Few)

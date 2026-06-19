@@ -8,12 +8,13 @@ import { SpellCheckSchema } from "@/schemas";
 import { DialogFooter } from "@/components/ui/dialog";
 import { PopupComponentProps } from "@/lib/types";
 import { DEFAULT_DICTIONARIES, RESOURCE_TYPE } from "@/lib/constants";
-import RadioField from "@/components/fields/radio-field";
 import TranslatorActions from "@/actions/translator";
 import { lazy, Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import RadioFieldLoader from "@/loaders/radio-field";
 
 const SelectorField = lazy(()=>import("@/components/fields/selector"))
+const RadioField = lazy(()=>import("@/components/fields/radio-field"))
 
 export default function SpellCheckPopup({triggerButton}: PopupComponentProps){
      const form = useForm<SpellCheckType>({
@@ -61,11 +62,13 @@ export default function SpellCheckPopup({triggerButton}: PopupComponentProps){
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
                                         <FieldLabel htmlFor={field.name}>Scope</FieldLabel>
-                                        <RadioField
-                                             {...field}
-                                             invalid={fieldState.invalid}
-                                             items={RESOURCE_TYPE}
-                                        />
+                                        <Suspense fallback={<RadioFieldLoader length={RESOURCE_TYPE.length}/>}>
+                                             <RadioField
+                                                  {...field}
+                                                  invalid={fieldState.invalid}
+                                                  items={RESOURCE_TYPE}
+                                             />
+                                        </Suspense>
                                         {fieldState.invalid && (
                                              <FieldError errors={[fieldState.error]} />
                                         )}

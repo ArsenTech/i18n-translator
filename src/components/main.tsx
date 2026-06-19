@@ -1,4 +1,4 @@
-import { TranslationInputLoader, LanguageSelectLoader, QuickAccessToolbarLoader, TreeSidebarLoader, TranslatorStatsLoader, TableLoader, GlossarySidebarLoader} from "@/components/loaders/translator"
+import { TranslationInputLoader, LanguageSelectLoader, QuickAccessToolbarLoader, TreeSidebarLoader, TranslatorStatsLoader, TableLoader, GlossarySidebarLoader} from "@/loaders/translator"
 import WindowWrapper from "@/components/window";
 import { useTreeSidebar } from "@/context/tree-sidebar";
 import { useAppTranslation } from "@/context/translation";

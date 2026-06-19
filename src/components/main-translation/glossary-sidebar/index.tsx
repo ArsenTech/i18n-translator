@@ -14,7 +14,7 @@ import { useAppTranslation } from "@/context/translation"
 import { toast } from "sonner"
 import { findValue } from "@/lib/helpers"
 import { GlossarySidebarItem } from "./item"
-import { GlossarySidebarLoader } from "@/components/loaders/translator"
+import { GlossarySidebarLoader } from "@/loaders/translator"
 
 function GlossarySidebarMenu({children}: {children: React.ReactNode}){
      return (

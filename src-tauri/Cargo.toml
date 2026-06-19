@@ -30,3 +30,6 @@ specta = "=2.0.0-rc.22"
 tauri-plugin-store = "2"
 quick-xml = "0.40.1"
 tauri-plugin-fs = "2"
+
+[target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
+tauri-plugin-updater = "2"

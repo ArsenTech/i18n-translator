@@ -1,17 +1,15 @@
 import { lazy, Suspense } from "react";
-import TitlebarLoader from "../loaders/titlebar";
+import TitlebarLoader from "../../loaders/titlebar";
 
 const TitleBar = lazy(()=>import("./titlebar"));
 
 interface WindowWrapperProps{
      children: React.ReactNode,
-     hideMenubar?: boolean,
      title?: string,
      hideMaximize?: boolean
 }
 export default function WindowWrapper({
      children,
-     hideMenubar=false,
      title="I18N Translator",
      hideMaximize=false
 }: WindowWrapperProps){
@@ -20,7 +18,6 @@ export default function WindowWrapper({
                <Suspense fallback={<TitlebarLoader/>}>
                     <TitleBar
                          hideMaximize={hideMaximize}
-                         hideMenubar={hideMenubar}
                          title={title}
                     />
                </Suspense>

@@ -33,7 +33,7 @@ export default class FindActions{
                const validatedFields = FindSchema.safeParse(values)
                if(!validatedFields.success) return {success: false, error: "All fields are invalid"}
                const {mode, query, caseSensitive} = validatedFields.data
-               const matches = table.map((translation, index) => ({ translation, index })) .filter(({ translation }) =>findValue(getField(translation, mode), query, caseSensitive))
+               const matches = table.map((translation, index) => ({ translation, index })).filter(({ translation }) => findValue(getField(translation, mode), query, caseSensitive))
                if (matches.length === 0) return { success: false, error: "No results found" }
                return {
                     success: true,

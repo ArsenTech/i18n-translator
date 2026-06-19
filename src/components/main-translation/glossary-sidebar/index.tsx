@@ -1,19 +1,20 @@
-import { ArrowRight, CheckCircle, Dot, Languages } from "lucide-react"
+import { Languages } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { cn, getErrorMessage } from "@/lib/utils"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetClose, SheetFooter } from "@/components/ui/sheet"
 import type { GlossaryEntry } from "@/lib/types/data"
-import React, { useEffect, useMemo, useTransition } from "react"
+import React, { Suspense, useEffect, useMemo, useTransition } from "react"
 import { SIDEBAR_WIDTH_MOBILE } from "@/lib/constants"
 import { Empty, EmptyHeader, EmptyMedia, EmptyTitle, EmptyDescription, EmptyContent } from "@/components/ui/empty"
 import { useGlossary } from "@/context/glossary"
-import LoadingButton from "../loading-button"
+import LoadingButton from "../../loading-button"
 import GlossaryActions from "@/lib/store/glossary"
 import { useAppTranslation } from "@/context/translation"
 import { toast } from "sonner"
 import { findValue } from "@/lib/helpers"
-import { ButtonGroup } from "@/components/ui/button-group"
+import { GlossarySidebarItem } from "./item"
+import { GlossarySidebarLoader } from "@/components/loaders/translator"
 
 function GlossarySidebarMenu({children}: {children: React.ReactNode}){
      return (
@@ -21,36 +22,46 @@ function GlossarySidebarMenu({children}: {children: React.ReactNode}){
      )
 }
 
-interface GlossarySidebarItemProps {
-     data: GlossaryEntry,
-     found?: boolean
-}
-function GlossarySidebarItem({data, found=false}: GlossarySidebarItemProps){
-     return (
-          <li className="space-y-1 first:pt-2 pb-2 border-b last:pb-0 last:border-b-0 text-center">
-               <div className="grid grid-cols-[1fr_16px_1fr] gap-2 place-items-center">
-                    <p className="text-sm font-semibold inline-block">{data.term}</p>
-                    {found ? (
-                         <CheckCircle className="size-4 text-emerald-600 dark:text-emerald-400"/>
-                    ) : (
-                         <ArrowRight className="size-4 text-muted-foreground"/>
-                    )}
-                    <p className="text-sm inline-block">{data.translation}</p>
-               </div>
-               <div className={cn("grid grid-cols-[1fr_16px_1fr] gap-2 place-items-center", found ? "text-emerald-600 dark:text-emerald-400" : "text-muted-foreground")}>
-                    <p className="italic text-xs">{data.partOfSpeech}</p>
-                    <Dot className="size-4"/>
-                    <p className="text-xs">{data.domain}</p>
-               </div>
-          </li>
-     )
-}
-function GlossarySidebarContainer({children, count, total}: {children: React.ReactNode, count: number, total: number}){
-     const {isMobile, open, setOpen, showType, setShowType} = useGlossary()
+function GlossarySidebarContainer({children}: {children: React.ReactNode}){
+     const {currTranslation, setInput} = useAppTranslation()
+     const {isMobile, open, setOpen, showType, setShowType, glossary, closeMobileSidebar} = useGlossary()
+     const glossaryItems = useMemo(() => {
+          return glossary.map(item => ({
+               ...item,
+               found: currTranslation
+                    ? findValue(currTranslation.baseString, item.term, item.caseSensitive) ||
+                    findValue(currTranslation.translationString, item.translation, item.caseSensitive)
+                    : false,
+          })).filter(val=>showType==="few" ? val.found : true)
+     }, [glossary, currTranslation])
+     const applyAllMatches = () => {
+          if (!currTranslation) return;
+          setInput(prev => {
+               let result = prev.trim() === "" ? currTranslation.baseString : prev;
+               for (const item of glossaryItems) {
+                    if (item.caseSensitive) {
+                         result = result.replaceAll(
+                              item.term,
+                              item.translation
+                         );
+                    } else {
+                         result = result.replace(
+                              new RegExp(
+                                   item.term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
+                                   "gi"
+                              ),
+                              item.translation
+                         );
+                    }
+               }
+               return result;
+          });
+          closeMobileSidebar()
+     };
      const content = (
           <div className="w-full flex flex-col gap-2 min-h-0 overflow-hidden">
-               <h2 className="text-lg font-semibold">Glossary ({count})</h2>
-               <p className="text-sm text-muted-foreground">Total: {total}</p>
+               <h2 className="text-lg font-semibold">Glossary ({glossaryItems.length})</h2>
+               <p className="text-sm text-muted-foreground">Total: {glossary.length}</p>
                <ScrollArea className={cn(
                     "min-h-0 h-full flex-1",
                )}>
@@ -59,12 +70,12 @@ function GlossarySidebarContainer({children, count, total}: {children: React.Rea
                     <ScrollBar orientation="horizontal"/>
                </ScrollArea>
                {!isMobile && (
-                    <ButtonGroup className="w-full">
-                         <Button className="flex-1" disabled={count<=0}>Apply</Button>
-                         <Button className="flex-1" variant="secondary" disabled={total<=0} onClick={()=>setShowType(prev=>prev==="all" ? "few" : "all")}>
+                    <div className="flex items-center gap-0.5 flex-wrap">
+                         <Button className="flex-1" disabled={glossaryItems.length<=0} onClick={applyAllMatches}>Apply All</Button>
+                         <Button className="flex-1" variant="secondary" disabled={glossary.length<=0} onClick={()=>setShowType(prev=>prev==="all" ? "few" : "all")}>
                               {showType!=="all" ? "Show All" : "Show Few"}
                          </Button>
-                    </ButtonGroup>
+                    </div>
                )}
           </div>
      )
@@ -89,12 +100,12 @@ function GlossarySidebarContainer({children, count, total}: {children: React.Rea
                               {content}
                          </div>
                          <SheetFooter>
-                              <ButtonGroup className="w-full">
-                                   <Button className="flex-1" disabled={count<=0}>Apply</Button>
-                                   <Button className="flex-1" variant="secondary" disabled={total<=0} onClick={()=>setShowType(prev=>prev==="all" ? "few" : "all")}>
+                              <div className="flex items-center gap-0.5 flex-wrap">
+                                   <Button className="flex-1" disabled={glossaryItems.length<=0} onClick={applyAllMatches}>Apply All</Button>
+                                   <Button className="flex-1" variant="secondary" disabled={glossary.length<=0} onClick={()=>setShowType(prev=>prev==="all" ? "few" : "all")}>
                                         {showType!=="all" ? "Show All" : "Show Few"}
                                    </Button>
-                              </ButtonGroup>
+                              </div>
                               <SheetClose asChild>
                                    <Button variant="outline">Close</Button>
                               </SheetClose>
@@ -111,8 +122,8 @@ interface GlossarySidebarProps{
 }
 export default function GlossarySidebar({glossary}: GlossarySidebarProps) {
      const [isLoading, startTransition] = useTransition()
-     const {langs, currTranslation} = useAppTranslation()
-     const {setGlossary, showType} = useGlossary()
+     const {langs, currTranslation, setInput} = useAppTranslation()
+     const {setGlossary, showType, closeMobileSidebar} = useGlossary()
      const loadPack = () => {
           startTransition(async()=>{
                try {
@@ -142,8 +153,26 @@ export default function GlossarySidebar({glossary}: GlossarySidebarProps) {
           if (!langs.base || !langs.target) return;
           loadPack();
      }, [langs.base, langs.target]);
+     const applyMatch = (item: GlossaryEntry) => {
+          if (!currTranslation) return;
+          setInput(prev => {
+               if (prev.trim() === "") {
+                    return item.translation;
+               }
+               return item.caseSensitive
+                    ? prev.replaceAll(item.term, item.translation)
+                    : prev.replace(
+                         new RegExp(
+                              item.term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
+                              "gi"
+                         ),
+                         item.translation
+                    );
+          });
+          closeMobileSidebar();
+     }
      return (
-          <GlossarySidebarContainer count={glossaryItems.length} total={sorted.length}>
+          <GlossarySidebarContainer>
                {glossaryItems.length<=0 ? (
                     <Empty>
                          <EmptyHeader>
@@ -159,13 +188,22 @@ export default function GlossarySidebar({glossary}: GlossarySidebarProps) {
                     </Empty>
                ) : (
                     <GlossarySidebarMenu>
-                         {glossaryItems.map(item=>(
-                              <GlossarySidebarItem
-                                   key={`${item.domain}-${item.partOfSpeech}-${item.term}-${item.translation}`}
-                                   data={item}
-                                   found={item.found}
-                              />
-                         ))}
+                         <Suspense fallback={(
+                              <>
+                              {Array.from({length: glossaryItems.length}).map((_,i)=>(
+                                   <GlossarySidebarLoader key={i+1}/>
+                              ))}
+                              </>
+                         )}>
+                              {glossaryItems.map(item=>(
+                                   <GlossarySidebarItem
+                                        key={`${item.domain}-${item.partOfSpeech}-${item.term}-${item.translation}`}
+                                        data={item}
+                                        found={item.found}
+                                        onSelect={applyMatch}
+                                   />
+                              ))}
+                         </Suspense>
                     </GlossarySidebarMenu>
                )}
           </GlossarySidebarContainer>

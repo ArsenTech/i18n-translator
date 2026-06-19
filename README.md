@@ -72,56 +72,34 @@ Whether you are translating a small application or maintaining a large localizat
 - 📝 XLIFF 2.0 support
 - 🎨 Modern desktop interface built with Tauri and React
 - 🌐 Cross-platform support
+- 📖 Glossary Support
 
-Future releases are planned to include glossary support, automatic translation tools, transliteration, spell checking, and additional localization formats.
+Future releases are planned to include automatic translation tools, transliteration, spell checking, and additional localization formats.
 
 ### Planned Improvements
-#### v0.3.1
-- [X] Auto-detect glossary language pair from file names
-- [X] Glossary page that'll save words to Glossary
-  ```json
-  {
-     "[base]-[target]": {
-          "[base-word-1]": "[target-word-1]",
-          "[base-word-2]": "[target-word-2]",
-          "[base-word-3]": "[target-word-3]"
-     }
-  }
-  ```
-- [X] Glossary sidebar, which lists Buttons only + active when the selected word has on a Glossary
-- [X] Glossary-related items in menubar
-  - [X] Edit => Add to Glossary
-  - [X] View => Toggle Sidebar => Glossary
-  - [X] Tools => Glossary (Glossary Manager Popup)
-    - [X] Browse all entries
-    - [X] Search/filter
-    - [X] Edit entries
-    - [X] Delete entries
-    - [X] Import/export glossary packs to CSV or JSON
-- [X] Show All Button => Show Few on Glossary Sidebar
-- [X] Input action buttons as a grid (2x2)
-- [X] Lazy-load SelectorField and ComboboxField with a Skeleton Loader
 #### v0.3.2 (Next)
-- [ ] Glossary Apply Actions
-  - [ ] Apply glossary term using the "→" action button
-    - [ ] Replace matching term in current translation
-    - [ ] Insert translation if no matching term exists
-  - [ ] Apply All Matches button
-    - [ ] Replace every matching glossary term in one action
+- [X] Glossary Apply Actions
+  - [X] Apply glossary term using the card as a button
+    - [X] Replace matching term in current translation
+    - [X] Insert translation if no matching term exists
+  - [X] Apply All Matches button
+    - [X] Replace every matching glossary term in one action
 - [ ] About Popup
 - [ ] Translatable switch as a separate column if the translation type is Android XML
+- [ ] Updater Support
 #### v0.3.x or later
 - [ ] Settings Popup
 - [ ] Refactor, Optimize, Lazy-load things after changing
+- [ ] Update automatic base language detection inside new translation and open translation
 #### v0.4.x or later (Expansion)
 - [ ] Auto-Translation backend
 - [ ] Transliteration backend
 - [ ] Spell checking backend
   - [ ] Dictionary Support
 - [ ] `isDirty` changes inside new backend logic
+#### v1.0.x or later (Stability)
 - [ ] I18N Support
 - [ ] Refactor, Optimize, Lazy-load things
-- [ ] Update automatic base language detection inside new translation and open translation
 #### Nice to have
 - [ ] Write the Documentation on the `docs/` folder.
   - [X] Usage Guide

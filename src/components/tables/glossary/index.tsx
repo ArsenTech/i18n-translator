@@ -24,7 +24,6 @@ export type GlossarySearchType = "translation" | "term" | "term-not" | "translat
 
 export default function GlossaryTable() {
      const {glossary, currEntry, visibleCount, setCurrentEntry, setVisibleCount, setInput} = useGlossary()
-     console.log(glossary, currEntry, visibleCount)
      const [search, setSearch] = React.useState("")
      const [searchMode, setSearchMode] = React.useState<GlossarySearchType>("term")
      const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({
@@ -105,7 +104,6 @@ export default function GlossaryTable() {
                columnVisibility,
           },
      })
-     console.log(visibleRows, table.getAllColumns())
      const scrollRef = React.useRef<HTMLDivElement>(null)
      React.useEffect(() => {
           setVisibleCount(50)

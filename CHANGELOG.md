@@ -4,6 +4,15 @@ All notable changes of I18N Translator will be documented here.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [0.3.2] - Unreleased
+### Added
+- Glossary Apply Actions
+  - Apply glossary term using the card as a button
+    - Replace matching term in current translation
+    - Insert translation if no matching term exists
+  - Apply All Matches button
+    - Replace every matching glossary term in one action
+
 ## [0.3.1] - 2026-06-07
 ### Added
 - Glossary Visibility Toggler (Show All / Show Few)

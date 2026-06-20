@@ -82,14 +82,14 @@ Future releases are planned to include automatic translation tools, transliterat
 - [ ] Settings Popup Content
 - [ ] Refactor, Optimize, Lazy-load things after changing
   - [X] Settings (with contents)
-- [ ] Update automatic base language detection inside new translation and open translation
 #### v1.0.x or later (Stability)
 - [ ] Auto-Translation backend
-- [ ] Transliteration backend
-- [ ] Spell checking backend
-  - [ ] Dictionary Support
+  - [ ] Google Translate API
+  - [ ] Gemini API
 - [ ] `isDirty` changes inside new backend logic
 - [ ] I18N Support
+- [ ] Update automatic base language detection inside new translation and open translation
+
 #### Nice to have
 - [ ] Write the Documentation on the `docs/` folder.
   - [X] Usage Guide
@@ -100,6 +100,7 @@ Future releases are planned to include automatic translation tools, transliterat
   - [X] FAQs
     - [ ] Continue writing the Troubleshooting Guide once it has new info
   - [ ] Translation Guide
+
 #### Future Expansions
 - [ ] The "All Glossaries" page providing Glossaries to download and use (Marketplace) + Glossary Packs (Needs Rust to update the current logic)
   > Example pack: en-hy (folder)
@@ -118,6 +119,13 @@ Future releases are planned to include automatic translation tools, transliterat
 - [ ] Support ICU MessageFormat & pluralization rules
 - [ ] PO Language Support
 - [ ] Compare difference popup
+- [ ] Auto-Translation backend
+  - [ ] Libre Translate API
+  - [ ] Llama AI API
+- [ ] Transliteration backend
+- [ ] Spell checking backend
+  - [ ] Dictionary Support
+- [ ] `isDirty` changes inside new backend logic
 
 ### Built With
 - [![Tauri][tauri-shield]][tauri-url]

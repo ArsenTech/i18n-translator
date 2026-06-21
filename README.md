@@ -92,6 +92,9 @@ Future releases are planned to include automatic translation tools, transliterat
 - [ ] I18N Support
 - [ ] Update automatic base language detection inside new translation and open translation
 - [ ] Refactor, Optimize, Lazy-load things after changing
+- [ ] Translation Settings
+  - [ ] Auto-detect base language
+  - [ ] Auto-translation provider
 
 #### Nice to have
 - [ ] Write the Documentation on the `docs/` folder.

@@ -82,6 +82,7 @@ Future releases are planned to include automatic translation tools, transliterat
 - [ ] Settings Popup Content
 - [ ] Refactor, Optimize, Lazy-load things after changing
   - [X] Settings (with contents)
+  - [ ] Other Heavy Components
 - [ ] Merge all of translation context and glossary context items into 1 state if needed
 #### v1.0.x or later (Stability)
 - [ ] Auto-Translation backend
@@ -90,6 +91,7 @@ Future releases are planned to include automatic translation tools, transliterat
 - [ ] `isDirty` changes inside new backend logic
 - [ ] I18N Support
 - [ ] Update automatic base language detection inside new translation and open translation
+- [ ] Refactor, Optimize, Lazy-load things after changing
 
 #### Nice to have
 - [ ] Write the Documentation on the `docs/` folder.
@@ -107,7 +109,7 @@ Future releases are planned to include automatic translation tools, transliterat
   > Example pack: en-hy (folder)
   > - Gaming: game.json (e.g. Skin will be "Սկին")
   > - Editing: editor.json (e.g. Track will be "Թրեք")
-  > - Coding: coding.json (e.g. Bug will be "Բագ", not "Բլոճ")
+  > - Coding: coding.json (e.g. Bug will be "Բագ")
   > - index.json: Clean glossary full of literal 🇦🇲 words only
   > 
   > These niche-based Glossary packs will be used if I translate something.

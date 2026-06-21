@@ -1,6 +1,7 @@
 import { useIsMobile } from "@/hooks/use-mobile";
 import { SetStateType } from "@/lib/types";
-import { createContext, useCallback, useContext, useMemo, useState } from "react"
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react"
+import { useSettings } from "./settings";
 
 interface TreeSidebarContextValues{
      open: boolean,
@@ -11,7 +12,8 @@ interface TreeSidebarContextValues{
 const TreeSidebarContext = createContext<TreeSidebarContextValues | null>(null)
 
 export function TreeSidebarProvider({ children }: { children: React.ReactNode }){
-     const [open, setOpen] = useState(true);
+     const {settings} = useSettings()
+     const [open, setOpen] = useState(settings.showSidebar);
      const isMobile = useIsMobile();
      const closeMobileSidebar = useCallback(()=>() => {
           if (isMobile) setOpen(false)
@@ -22,6 +24,9 @@ export function TreeSidebarProvider({ children }: { children: React.ReactNode })
           isMobile,
           closeMobileSidebar
      }),[open, isMobile])
+     useEffect(()=>{
+          setOpen(settings.showSidebar)
+     },[settings.showSidebar])
      return (
           <TreeSidebarContext.Provider value={values}>
                {children}

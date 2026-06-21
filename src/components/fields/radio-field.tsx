@@ -10,9 +10,10 @@ interface RadioFieldProps{
      disabled?: boolean;
      name: string;
      invalid?: boolean,
-     items: SelectType[] | Readonly<SelectType[]>
+     items: SelectType[] | Readonly<SelectType[]>,
+     className?: string
 }
-export default function RadioField({onChange, name, value, disabled, invalid, onBlur, items}: RadioFieldProps){
+export default function RadioField({onChange, name, value, disabled, invalid, onBlur, items, className}: RadioFieldProps){
      return (
           <RadioGroup
                name={name}
@@ -21,6 +22,7 @@ export default function RadioField({onChange, name, value, disabled, invalid, on
                aria-invalid={invalid}
                disabled={disabled}
                onBlur={onBlur}
+               className={className}
           >
                {items.map(item => (
                     <div key={item.value} className="flex items-center gap-3">

@@ -15,6 +15,7 @@ import { toast } from "sonner"
 import { findValue } from "@/lib/helpers"
 import { GlossarySidebarItem } from "./item"
 import { GlossarySidebarLoader } from "@/loaders/glossary"
+import { useSettings } from "@/context/settings"
 
 function GlossarySidebarMenu({children}: {children: React.ReactNode}){
      return (
@@ -24,6 +25,7 @@ function GlossarySidebarMenu({children}: {children: React.ReactNode}){
 
 function GlossarySidebarContainer({children}: {children: React.ReactNode}){
      const {currTranslation, setInput} = useAppTranslation()
+     const {settings} = useSettings()
      const {isMobile, open, setOpen, showType, setShowType, glossary, closeMobileSidebar} = useGlossary()
      const glossaryItems = useMemo(() => {
           return glossary.map(item => ({
@@ -61,7 +63,9 @@ function GlossarySidebarContainer({children}: {children: React.ReactNode}){
      const content = (
           <div className="w-full flex flex-col gap-2 min-h-0 overflow-hidden">
                <h2 className="text-lg font-semibold">Glossary ({glossaryItems.length})</h2>
-               <p className="text-sm text-muted-foreground">Total: {glossary.length}</p>
+               {settings.defaultGlossaryView!=="all" && (
+                    <p className="text-sm text-muted-foreground">Total: {glossary.length}</p>
+               )}
                <ScrollArea className={cn(
                     "min-h-0 h-full flex-1",
                )}>
@@ -157,7 +161,10 @@ export default function GlossarySidebar({glossary}: GlossarySidebarProps) {
           if (!currTranslation) return;
           setInput(prev => {
                if (prev.trim() === "") {
-                    return item.translation;
+                    return item.translation
+               }
+               if(!findValue(prev,item.term,item.caseSensitive)){
+                    return prev.concat(item.translation)
                }
                return item.caseSensitive
                     ? prev.replaceAll(item.term, item.translation)

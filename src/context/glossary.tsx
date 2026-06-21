@@ -1,7 +1,9 @@
 import { useIsMobile } from "@/hooks/use-mobile";
 import type { GlossaryEntry } from "@/lib/types/data"
 import type { SetStateType, GlossaryTogglerType } from "@/lib/types";
-import { createContext, useCallback, useContext, useMemo, useState } from "react"
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react"
+import { useSettings } from "./settings";
+
 interface GlossaryContextValues{
      open: boolean,
      setOpen: SetStateType<boolean>,
@@ -22,15 +24,19 @@ const GlossaryContext = createContext<GlossaryContextValues | null>(null)
 
 export function GlossaryProvider({ children }: { children: React.ReactNode }){
      const [glossary, setGlossary] = useState<GlossaryEntry[]>([])
-     const [open, setOpen] = useState(true);
+     const {settings} = useSettings()
+     const [open, setOpen] = useState(settings.showGlossary);
      const [currEntry, setCurrentEntry] = useState<GlossaryEntry | null>(null)
      const [visibleCount, setVisibleCount] = useState(50)
      const [input, setInput] = useState("")
-     const [showType, setShowType] = useState<GlossaryTogglerType>("few")
+     const [showType, setShowType] = useState<GlossaryTogglerType>(settings.defaultGlossaryView)
      const isMobile = useIsMobile();
      const closeMobileSidebar = useCallback(()=>() => {
           if (isMobile) setOpen(false)
      },[isMobile])
+     useEffect(()=>{
+          setOpen(settings.showGlossary)
+     },[settings.showGlossary])
      const values: GlossaryContextValues = useMemo(()=>({
           open, setOpen,
           isMobile, closeMobileSidebar,

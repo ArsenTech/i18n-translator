@@ -3,6 +3,8 @@ import type { ILangInputState, SetStateType } from "@/lib/types";
 import type { ITranslation } from "@/lib/types/data"
 import { TranslationFormat } from "@/lib/types/enums";
 import { createContext, useCallback, useContext, useMemo, useRef, useState } from "react"
+import { useSettings } from "./settings";
+import { RecentTranslation } from "@/lib/store/recent-translations";
 
 interface TranslationFiles {
      basePath: string
@@ -10,6 +12,7 @@ interface TranslationFiles {
      format: TranslationFormat | null
 }
 
+// TODO: Merge all of these into 1 state if needed
 interface AppTranslationContextValues{
      missingOnly: boolean,
      setMissingOnly: SetStateType<boolean>,
@@ -39,17 +42,20 @@ interface AppTranslationContextValues{
      selectedKeys: Set<string>,
      setSelectedKeys: SetStateType<Set<string>>,
      selectKey: (key: string) => void,
-     reset: () => void
+     reset: () => void,
+     recentTranslations: RecentTranslation[],
+     setRecentTranslations: SetStateType<RecentTranslation[]>
 }
 const AppTranslationContext = createContext<AppTranslationContextValues | null>(null)
 
 export function AppTranslationProvider({ children, initialLimit=100 }: { children: React.ReactNode, initialLimit?: number }){
      const [missingOnly, setMissingOnly] = useState(false);
+     const {settings} = useSettings()
      const [table, setTable] = useState<ITranslation[]>([])
      const [currTranslation, setCurrentTranslation] = useState<ITranslation | null>(null)
      const [langs, setLangs] = useState<ILangInputState>({
-          base: "",
-          target: ""
+          base: settings.baseLang ?? "",
+          target: settings.targetLang ?? ""
      })
      const [files, setFiles] = useState<TranslationFiles>({
           basePath: "",
@@ -64,6 +70,7 @@ export function AppTranslationProvider({ children, initialLimit=100 }: { childre
      const [isDirty, setIsDirty] = useState(false)
      const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set())
      const inputRef = useRef<HTMLTextAreaElement>(null)
+     const [recentTranslations, setRecentTranslations] = useState<RecentTranslation[]>([])
      const updateLangs = useCallback((overrides: Partial<ILangInputState>) => setLangs(prev=>({
           ...prev,
           ...overrides
@@ -88,7 +95,8 @@ export function AppTranslationProvider({ children, initialLimit=100 }: { childre
           setTable([]);
           setCurrentTranslation(null);
           updateLangs({
-               base: "", target: ""
+               base: settings.baseLang ?? "",
+               target: settings.targetLang ?? ""
           });
           setFiles({
                basePath: "",
@@ -102,7 +110,7 @@ export function AppTranslationProvider({ children, initialLimit=100 }: { childre
           setBaseKeys(new Set()),
           setIsDirty(false),
           setSelectedKeys(new Set())
-     },[])
+     },[settings.baseLang, settings.targetLang])
      const values: AppTranslationContextValues = useMemo(()=>({
           missingOnly, setMissingOnly,
           table, setTable,
@@ -116,8 +124,9 @@ export function AppTranslationProvider({ children, initialLimit=100 }: { childre
           baseKeys, setBaseKeys,
           visibleTable, keyNames,
           isDirty, setIsDirty, inputRef,
-          selectedKeys, setSelectedKeys, selectKey, reset
-     }),[missingOnly, table, currTranslation, langs, files, visibleCount, selectedNamespace, input, visibleTable, keyNames, findState, baseKeys, isDirty, selectedKeys])
+          selectedKeys, setSelectedKeys, selectKey, reset,
+          recentTranslations, setRecentTranslations
+     }),[missingOnly, table, currTranslation, langs, files, visibleCount, selectedNamespace, input, visibleTable, keyNames, findState, baseKeys, isDirty, selectedKeys, recentTranslations, settings.baseLang, settings.targetLang])
      return (
           <AppTranslationContext.Provider value={values}>
                {children}

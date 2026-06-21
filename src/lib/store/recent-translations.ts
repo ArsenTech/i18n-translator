@@ -83,6 +83,12 @@ export default class RecentTranslations{
           }
      }
      public static async clearRecent(){
-          await store.clear()
+          try {
+               await store.clear()
+               return {success: "Recent translations cleared successfully"}
+          } catch (err){
+               console.error(err)
+               return {error: getErrorMessage(err)}
+          }
      }
 }

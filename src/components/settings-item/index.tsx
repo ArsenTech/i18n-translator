@@ -5,7 +5,7 @@ import { DesignType } from "@/lib/types";
 import { LucideIcon } from "lucide-react";
 
 interface Props{
-     Icon: LucideIcon,
+     Icon?: LucideIcon,
      title: string,
      children: React.ReactNode,
      className?: string,
@@ -14,13 +14,15 @@ interface Props{
      type?: DesignType
 }
 export default function SettingsItem({children, Icon, title, className, description, button, type="default"}: Props){
-     const borderColor = cn(type==="default" ? "border-border" : "border-destructive")
      return (
-          <Card className={borderColor}>
+          <Card className={cn("shadow-xs ring-0 border",type==="danger" && "border-destructive shadow-destructive/50")}>
                <CardHeader>
                     <div className="flex items-between justify-center gap-2 w-full">
                          <div className="space-y-2 w-full">
-                              <CardTitle className="flex items-center gap-2"><Icon className="size-5"/> {title}</CardTitle>
+                              <CardTitle className="flex items-center gap-2">
+                                   {Icon && <Icon className="size-4.5 text-muted-foreground"/>}
+                                   {title}
+                              </CardTitle>
                               {!!description && (
                                    <CardDescription>{description}</CardDescription>
                               )}
@@ -28,7 +30,7 @@ export default function SettingsItem({children, Icon, title, className, descript
                          {button}
                     </div>
                </CardHeader>
-               <CardContent className={className}>
+               <CardContent className={cn("space-y-3",className)}>
                     {children}
                </CardContent>
           </Card>

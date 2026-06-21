@@ -1,6 +1,6 @@
 export default function AdvancedSettings(){
      return (
-          <div className="space-y-1">
+          <div className="space-y-2">
                TODO:
                - Debug mode
                - Open application data directory

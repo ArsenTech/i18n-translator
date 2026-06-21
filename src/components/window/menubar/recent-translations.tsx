@@ -7,9 +7,8 @@ import RecentTranslations, {RecentTranslation} from "@/lib/store/recent-translat
 import { TranslationFormat } from "@/lib/types/enums";
 
 export default function RecentTranslationsMenu(){
-     const {files, setTable, setFiles, updateLangs, setBaseKeys, setIsDirty} = useAppTranslation()
+     const {files, setTable, setFiles, updateLangs, setBaseKeys, setIsDirty, recentTranslations, setRecentTranslations} = useAppTranslation()
      const [isOpening, setIsOpening] = useState(false)
-     const [recentTranslations, setRecentTranslations] = useState<RecentTranslation[]>([])
      useEffect(()=>{
           (async()=>{
                const recent = await RecentTranslations.getRecent();

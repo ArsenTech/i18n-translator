@@ -2,36 +2,69 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Textarea } from "@/components/ui/textarea";
 import { ChevronLeft, ChevronRight, Copy, Save } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useMemo, useTransition } from "react";
 import TranslatorActions from "@/actions/translator";
 import { useAppTranslation } from "@/context/translation";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
+import { useSettings } from "@/context/settings";
+import { toast } from "sonner";
+import { getErrorMessage } from "@/lib/utils";
+import FileActions from "@/actions/file";
+import LoadingButton from "../loading-button";
 
 export default function TranslationInput(){
-     const {table, currTranslation, setTable, setCurrentTranslation, input, setInput, visibleTable, setIsDirty, inputRef, files} = useAppTranslation()
-     const [checked, setChecked] = useState(false)
+     const [isSaving, startTransition] = useTransition()
+     const {table, currTranslation, setTable, setCurrentTranslation, input, setInput, visibleTable, setIsDirty, inputRef, files, langs} = useAppTranslation()
+     const {settings} = useSettings()
+     const saveTranslation = () => {
+          if(isSaving) return;
+          if(settings.autoSave) {
+               startTransition(async() => {
+                    try {
+                         const newTable = table.map(item => item.keyName === currTranslation?.keyName ? {
+                              ...item,
+                              translationString: !files.format ? input : files.format==="json" ? input : String.raw`${input}`
+                         }
+                         : item)
+                         const res = await FileActions.saveAll(newTable, files.targetPath, langs)
+                         if(res.error) {
+                              toast.error("Failed to automatically save the translation",{
+                                   description: res.error
+                              });
+                              return;
+                         }
+                         setTable(newTable)
+                         setIsDirty(false)
+                    } catch (err) {
+                         toast.error("Failed to automatically save the translation",{
+                              description: getErrorMessage(err)
+                         })
+                    }
+               })
+          } else {
+               TranslatorActions.saveString({input, setTable, currTranslation, format: files.format});
+               setIsDirty(true)
+               return;
+          }
+     }
      const percentage = useMemo(()=>{
-          const data = checked ? visibleTable : table
+          const data = settings.currNamespaceOnly ? visibleTable : table
           const total = data.length;
           const translated = data.filter(val=>val.translationString.trim()!=="").length
           return total > 0 ? Math.min(100,Math.floor((translated / total) * 100)) : 0
-     },[table, visibleTable, checked])
+     },[table, visibleTable, settings.currNamespaceOnly])
      const saveAndNext = () => {
-          TranslatorActions.saveString({input, setTable, currTranslation, format: files.format})
+          saveTranslation()
           TranslatorActions.jumpToNextBlankField({
                table: visibleTable, currTranslation,
                setInput, onSelectTranslation: setCurrentTranslation
           })
-          setIsDirty(true)
      }
      const saveAndPrev = () => {
-          TranslatorActions.saveString({input, setTable, currTranslation, format: files.format})
+          saveTranslation()
           TranslatorActions.jumpToPrevBlankField({
                table: visibleTable, currTranslation,
                setInput, onSelectTranslation: setCurrentTranslation
           })
-          setIsDirty(true)
      }
      return (
           <>
@@ -39,16 +72,14 @@ export default function TranslationInput(){
                <div className="text-sm">{percentage}%</div>
                <Progress className="h-3 flex-1" value={percentage}/>
           </div>
-          {/* TODO: Move this into Settings if settings is created */}
-          <div className="flex items-center justify-between gap-2">
-               <Label htmlFor="switch-mode">Show current namespace only</Label>
-               <Switch id="switch-mode" checked={checked} onCheckedChange={setChecked}/>
-          </div>
           <div className="flex gap-2">
                <Textarea
                     ref={inputRef}
                     value={input}
-                    onChange={e=>setInput(e.target.value)}
+                    onChange={e=>{
+                         setInput(e.target.value)
+                         setIsDirty(true)
+                    }}
                     className="flex-2"
                     rows={3}
                     onKeyDown={e => {
@@ -69,13 +100,10 @@ export default function TranslationInput(){
                          <Copy/>
                          Copy from Source
                     </Button>
-                    <Button className="w-full col-span-2" onClick={()=>{
-                         TranslatorActions.saveString({input, setTable, currTranslation, format: files.format})
-                         setIsDirty(true)
-                    }}>
+                    <LoadingButton isLoading={isSaving} loaderText="Saving..." className="w-full col-span-2" onClick={saveTranslation}>
                          <Save/>
                          Save String
-                    </Button>
+                    </LoadingButton>
                     <Button className="w-full col-span-2 sm:col-span-1" onClick={()=>TranslatorActions.jumpToPrevBlankField({
                          table: visibleTable, currTranslation,
                          setInput, onSelectTranslation: setCurrentTranslation

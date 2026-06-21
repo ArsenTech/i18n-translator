@@ -35,11 +35,9 @@ export function SettingsItemLoader({className, children, noDescription=false}: S
                {!noDescription && (
                     <div className="h-3.5 bg-accent rounded-md w-1/2"/>
                )}
-               {!className ? children : (
-                    <div className={className}>
-                         {children}
-                    </div>
-               )}
+               <div className={cn("space-y-3",className)}>
+                    {children}
+               </div>
           </div>
      )
 }

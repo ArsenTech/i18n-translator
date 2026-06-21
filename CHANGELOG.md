@@ -4,6 +4,37 @@ All notable changes of I18N Translator will be documented here.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [0.3.3] - Unreleased
+### Added
+- General Settings
+  - Appearance
+  - Language Settings
+- Editor Settings
+  - Show current namespace only
+  - Show line numbers
+  - Show sidebar by default
+  - Default Editor Language
+  - Auto-save Translations
+- Clear Data
+  - Clear Recent Translations
+  - Clear Settings & Restore Defaults (Frontend)
+
+### Added Themes
+- Dark mode
+- Colors:
+  - Sky Blue
+  - Lime
+  - Rose
+  - Violet
+
+### Improved
+- **Glossary** - Now handles those where text is not empty, but the term doesn't exist
+- **Main Content** - Updated Skeleton Loading
+- **Settings** - Changed Scroll Height
+
+[0.3.3]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.3.3
+
+---
 
 ## [0.3.2] - 2026-06-19
 ### Added

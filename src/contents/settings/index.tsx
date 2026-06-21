@@ -33,7 +33,7 @@ export default function SettingsContent({currTab}: SettingsContentProps){
                          </TabsTrigger>
                     ))}
                </TabsList>
-               <ScrollArea className="h-[calc(50vh-185px)]">
+               <ScrollArea className="h-[48vh]">
                     {activeTab && (
                          <TabsContent value={activeTab.page}>
                               <Suspense fallback={activeTab.Loader ? <activeTab.Loader/> : null}>

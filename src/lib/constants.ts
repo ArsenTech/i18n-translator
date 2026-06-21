@@ -26,7 +26,6 @@ export const RESOURCE_TYPE = [
 ] as const
 export const SIDEBAR_WIDTH_MOBILE = "18rem"
 
-// TODO: Replace with a real data
 export const DEFAULT_DICTIONARIES = [
      {value: "en", label: "English"},
      {value: "en-us", label: "English (US)"},

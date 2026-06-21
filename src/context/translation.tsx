@@ -11,8 +11,6 @@ interface TranslationFiles {
      targetPath: string,
      format: TranslationFormat | null
 }
-
-// TODO: Merge all of these into 1 state if needed
 interface AppTranslationContextValues{
      missingOnly: boolean,
      setMissingOnly: SetStateType<boolean>,

@@ -18,11 +18,9 @@ export enum SettingsTab{
      General = "general",
      FileFormats = "file-formats",
      Shortcuts = "shortcuts",
-     SpellChecker = "spell-checker",
      Editor = "editor",
      Translation = "translation",
      Toolbar = "toolbar",
      Glossary = "glossary",
-     Advanced = "advanced",
      ClearData = "clear-data"
 }

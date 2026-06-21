@@ -5,8 +5,6 @@ export default function FileFormatSettings(){
                - Default format for New Translation
                - Android XML options
                - XLIFF options
-               - ICU MessageFormat support
-               - PO file support
           </div>
      )
 }

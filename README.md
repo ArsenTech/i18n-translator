@@ -82,6 +82,7 @@ Future releases are planned to include automatic translation tools, transliterat
 - [ ] Settings Popup Content
 - [ ] Refactor, Optimize, Lazy-load things after changing
   - [X] Settings (with contents)
+- [ ] Merge all of translation context and glossary context items into 1 state if needed
 #### v1.0.x or later (Stability)
 - [ ] Auto-Translation backend
   - [ ] Google Translate API
@@ -116,7 +117,6 @@ Future releases are planned to include automatic translation tools, transliterat
   > - Translating Editors (Like OpenShot and Audacity) -> use the editor slang (en-hy/editor.json)
   > 
   > Uses the GitHub organization to store these packs (en-hy, ru-hy, etc)
-- [ ] Support ICU MessageFormat & pluralization rules
 - [ ] PO Language Support
 - [ ] Compare difference popup
 - [ ] Auto-Translation backend
@@ -125,7 +125,27 @@ Future releases are planned to include automatic translation tools, transliterat
 - [ ] Transliteration backend
 - [ ] Spell checking backend
   - [ ] Dictionary Support
+  - [ ] Replace `DEFAULT_DICTIONARIES` constant with a real data
 - [ ] `isDirty` changes inside new backend logic
+- [ ] Settings
+  - [ ] Glossary
+    - [ ] Glossary pack preferences
+  - [ ] File Formats
+    - [ ] ICU MessageFormat support (Support ICU MessageFormat & pluralization rules)
+    - [ ] PO file support
+  - [ ] Spell Checker
+    - [ ] Enable spell checking
+    - [ ] Dictionary selection
+    - [ ] Ignore words list
+  - [ ] Translation
+    - [ ] Transliteration provider
+  - [ ] Advanced
+    - [ ] Debug mode
+    - [ ] Open application data directory
+    - [ ] Experimental features
+    - [ ] Performance settings
+  - [ ] Keyboard Shortcuts
+    - [ ] Customize shortcuts
 
 ### Built With
 - [![Tauri][tauri-shield]][tauri-url]

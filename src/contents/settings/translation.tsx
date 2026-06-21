@@ -4,7 +4,6 @@ export default function TranslationSettings(){
                TODO:
                - Auto-detect base language
                - Auto-translation provider
-               - Transliteration provider
                - Preserve empty translations
           </div>
      )

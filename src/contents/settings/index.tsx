@@ -23,8 +23,7 @@ export default function SettingsContent({currTab}: SettingsContentProps){
                value={tab}
                defaultValue={currTab ?? undefined}
                onValueChange={tab => changeTab(tab as SettingsTab)}
-               orientation="vertical"
-               className="grid grid-cols-[40px_1fr] gap-4 min-h-0 w-full"
+               orientation="horizontal"
           >
                <TabsList className="w-full h-full min-h-0">
                     {SETTINGS_TABS.map(({page, Icon, tabName, disabled})=>(
@@ -33,7 +32,7 @@ export default function SettingsContent({currTab}: SettingsContentProps){
                          </TabsTrigger>
                     ))}
                </TabsList>
-               <ScrollArea className="h-[48vh]">
+               <ScrollArea className="h-[50vh]">
                     {activeTab && (
                          <TabsContent value={activeTab.page}>
                               <Suspense fallback={activeTab.Loader ? <activeTab.Loader/> : null}>

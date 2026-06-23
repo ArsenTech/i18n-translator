@@ -3,14 +3,15 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 interface SettingsOptionLoaderProps{
      optionType: "switch" | "input" | "selector",
-     width?: number
+     width?: number,
+     noDescription?: boolean,
 }
-export function SettingsOptionLoader({optionType, width}: SettingsOptionLoaderProps){
+export function SettingsOptionLoader({optionType, width, noDescription=false}: SettingsOptionLoaderProps){
      return (
           <div className="flex flex-row items-center justify-between w-full">
                <div className="space-y-1 w-full">
                     <Skeleton className="h-3.5 w-2/5"/>
-                    <Skeleton className="h-3.5 w-1/4"/>
+                    {!noDescription && <Skeleton className="h-3.5 w-1/4"/>}
                </div>
                {optionType==="switch" ? (
                     <Skeleton className="w-8 h-[18px]"/>

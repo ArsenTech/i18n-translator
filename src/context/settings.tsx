@@ -1,5 +1,6 @@
 import { DEFAULT_PROVIDER_VALUES, DEFAULT_SETTINGS } from "@/lib/settings/constants"
-import { IProviderValues, ISettings } from "@/lib/settings/types";
+import { DEFAULT_TOOLBAR_SETTINGS } from "@/lib/settings/toolbars";
+import { IProviderValues, ISettings, ToolbarValues } from "@/lib/settings/types";
 import { createContext, useContext, useMemo, useState } from "react";
 
 interface SettingsContextValue{
@@ -7,6 +8,8 @@ interface SettingsContextValue{
      setSettings: (overrides: Partial<ISettings>) => void,
      providers: IProviderValues,
      setProviders: (overrides: Partial<IProviderValues>) => void,
+     toolbars: ToolbarValues,
+     setToolbars: (overrides: Partial<ToolbarValues>) => void
 }
 const SettingsContext = createContext<SettingsContextValue | null>(null)
 
@@ -29,6 +32,15 @@ export function SettingsProvider({ children }: { children: React.ReactNode }){
                return DEFAULT_PROVIDER_VALUES
           }
      })
+     const [toolbars, setToolbars] = useState<ToolbarValues>(()=>{
+          try {
+               const raw = localStorage.getItem("toolbar-settings")
+               if (!raw) return DEFAULT_TOOLBAR_SETTINGS
+               return { ...DEFAULT_TOOLBAR_SETTINGS, ...JSON.parse(raw) }
+          } catch {
+               return DEFAULT_TOOLBAR_SETTINGS
+          }
+     })
      const values: SettingsContextValue = useMemo(()=>({
           settings,
           setSettings: (overrides: Partial<ISettings>) => {
@@ -47,8 +59,17 @@ export function SettingsProvider({ children }: { children: React.ReactNode }){
                };
                localStorage.setItem("auto-translation-settings",JSON.stringify(newValues));
                setProviders(newValues)
-          }
-     }),[settings, providers])
+          },
+          toolbars,
+          setToolbars: (overrides: Partial<ToolbarValues>) => {
+               const newValues: ToolbarValues = {
+                    ...toolbars,
+                    ...overrides
+               };
+               localStorage.setItem("toolbar-settings",JSON.stringify(newValues));
+               setToolbars(newValues)
+          },
+     }),[settings, providers, toolbars])
      return (
           <SettingsContext.Provider value={values}>
                {children}

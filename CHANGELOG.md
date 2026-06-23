@@ -8,6 +8,13 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Added
 - General Settings
   - Check for updates
+- Toolbar Management Settings
+- New Toolbar items
+  - Find
+  - Batch Rename Keys
+  - Add To Glossary 
+  - Transliterate Script
+  - Glossary Manager
 ### Fixed
 - Toaster duplication bug
 

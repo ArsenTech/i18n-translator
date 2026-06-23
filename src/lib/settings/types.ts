@@ -17,6 +17,8 @@ export interface ISettings{
      defaultFormat: TranslationFormat,
      checkUpdatesOnStartup: boolean
 }
+type ToolbarItems = "newFile" | "openFile" | "saveFile" | "find" | "findMissing" | "replace" | "batchRename" | "selectUntranslated" | "addToGlossary" | "autoTranslate" | "validateKeys" | "removeUnusedKeys" | "transliterate" | "glossaryManager" | "spellCheck"
+export type ToolbarValues = Record<ToolbarItems,boolean>
 export interface IProviderValues{
      geminiApi: string,
      libreTranslateServer: string,

@@ -50,6 +50,7 @@ export default function GeneralSettings(){
                          />
                     </SettingsOption>
                </SettingsItem>
+               {/* TODO: Compact toolbar mode */}
           </div>
      )
 }

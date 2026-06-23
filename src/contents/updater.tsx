@@ -13,6 +13,7 @@ import { INITIAL_UPDATER_STATE } from "@/lib/constants";
 import { UpdaterStatus } from "@/lib/types/enums";
 import { useTranslation } from "react-i18next";
 import { DialogFooter } from "@/components/ui/dialog";
+import { Spinner } from "@/components/ui/spinner";
 
 export default function UpdaterContent({open}: PopupContentProps){
      const [isChecking, startChecking] = useTransition();
@@ -21,7 +22,6 @@ export default function UpdaterContent({open}: PopupContentProps){
      const [update, setUpdate] = useState<IUpdaterState>(INITIAL_UPDATER_STATE)
      const setUpdaterState = (overrides: Partial<IUpdaterState>) => setUpdate(prev=>({...prev, ...overrides}))
      const checkForUpdates = async () => {
-          if(!open) return;
           setUpdaterState({
                status: UpdaterStatus.Checking,
                downloaded: 0,
@@ -29,13 +29,15 @@ export default function UpdaterContent({open}: PopupContentProps){
           })
           startChecking(async()=>{
                try {
-                    const update = await check();
+                    const update = await check({ timeout: 100000 });
                     setUpdaterState({
                          status: update ? UpdaterStatus.NeedsUpdate : UpdaterStatus.Updated,
+                         newVersion: update ? update.version : null,
                     })
                } catch (err){
                     toast.error(t("failed-check.main"),{
-                         description: getErrorMessage(err)
+                         description: getErrorMessage(err),
+                         id: "check-update"
                     })
                     setUpdaterState({
                          status: UpdaterStatus.CheckError,
@@ -44,7 +46,6 @@ export default function UpdaterContent({open}: PopupContentProps){
           })
      }
      const updateApp = () => {
-          if(!open) return;
           setUpdaterState({
                status: UpdaterStatus.Updating,
                downloaded: 0,
@@ -82,7 +83,8 @@ export default function UpdaterContent({open}: PopupContentProps){
                     }
                } catch (err){
                     toast.error(t("failed-update.main"),{
-                         description: getErrorMessage(err)
+                         description: getErrorMessage(err),
+                         id: "update-main"
                     })
                     setUpdaterState({
                          status: UpdaterStatus.UpdateError,
@@ -104,7 +106,13 @@ export default function UpdaterContent({open}: PopupContentProps){
                (update.status==="failed-check" || update.status==="failed-update") && "text-destructive",
                (update.status==="checking" || update.status==="updating") && "text-muted-foreground"
           )}>{t(`${update.status}.main`)}</h2>
-          <p className="text-sm text-muted-foreground">{t(`${update.status}.secondary`)}</p>
+          {update.newVersion && (
+               <p className="text-sm text-muted-foreground">{update.newVersion}</p>
+          )}
+          <div className="flex items-center gap-2">
+               {(update.status==="checking" || update.status==="updating") && <Spinner/>}
+               <p className="text-sm text-muted-foreground">{t(`${update.status}.secondary`)}</p>
+          </div>
           {(update.status==="needs-update" || update.status==="updating") && (
                <div className="flex items-center justify-center w-full max-w-md gap-3">
                     {!isNaN(currProgress) && (

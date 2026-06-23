@@ -31,7 +31,8 @@ export default function GlossaryInput(){
                     })
                } catch (err) {
                     toast.error("Failed to save the glossary entry",{
-                         description: getErrorMessage(err)
+                         description: getErrorMessage(err),
+                         id: "glossary-save-error"
                     })
                }
           })
@@ -47,7 +48,8 @@ export default function GlossaryInput(){
                     })
                } catch (err) {
                     toast.error("Failed to save the glossary entry",{
-                         description: getErrorMessage(err)
+                         description: getErrorMessage(err),
+                         id: "glossary-save-error"
                     })
                }
           })
@@ -66,7 +68,8 @@ export default function GlossaryInput(){
                await GlossaryActions.setGlossary(langs,newItem)
           } catch (err) {
                toast.error("Failed to save the glossary entry",{
-                    description: getErrorMessage(err)
+                    description: getErrorMessage(err),
+                    id: "glossary-save-error"
                })
           }
      }

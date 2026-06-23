@@ -27,7 +27,6 @@ export type GlossaryTogglerType = "all" | "few"
 export interface IUpdaterState{
      status: UpdaterStatus,
      newVersion: string | null,
-     patchDate: Date | null,
      downloaded: number,
      total: number
 }

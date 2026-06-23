@@ -36,13 +36,16 @@ export default function LangSelector({name, value, onChange, invalid, disabled, 
                try{
                     const resData = await FetcherActions.fetchLanguages();
                     if(!resData) {
-                         toast.error("Failed to load the language list");
+                         toast.error("Failed to load the language list",{
+                              id: "load-error"
+                         });
                          return;
                     }
                     setData(resData)
                } catch (err) {
                     toast.error("Failed to load the language list",{
-                         description: getErrorMessage(err)
+                         description: getErrorMessage(err),
+                         id: "load-error"
                     })
                } finally {
                     setIsLoading(false)

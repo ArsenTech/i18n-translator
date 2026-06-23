@@ -11,7 +11,8 @@ export const DEFAULT_SETTINGS: ISettings = {
      showGlossary: true,
      autoSave: false,
      defaultGlossaryView: "few",
-     defaultFormat: TranslationFormat.Json
+     defaultFormat: TranslationFormat.Json,
+     checkUpdatesOnStartup: false
 }
 export const DEFAULT_PROVIDER_VALUES: IProviderValues = {
      geminiApi: "",

@@ -14,7 +14,8 @@ export interface ISettings{
      showGlossary: boolean,
      autoSave: boolean,
      defaultGlossaryView: GlossaryTogglerType,
-     defaultFormat: TranslationFormat
+     defaultFormat: TranslationFormat,
+     checkUpdatesOnStartup: boolean
 }
 export interface IProviderValues{
      geminiApi: string,

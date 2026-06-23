@@ -41,10 +41,12 @@ export default function TitleBar({hideMaximize, title}: TitleBarProps){
                     }
                     if (res?.error) toast.error("Failed to save translation", {
                          description: res.error,
+                         id: "save-error"
                     })
                } catch (err) {
                     toast.error("Failed to save translation", {
                          description: getErrorMessage(err),
+                         id: "save-error"
                     })
                }
           }

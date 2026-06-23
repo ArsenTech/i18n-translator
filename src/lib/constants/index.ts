@@ -11,7 +11,6 @@ export const SIDEBAR_WIDTH_MOBILE = "18rem"
 export const INITIAL_UPDATER_STATE: IUpdaterState = {
      status: UpdaterStatus.Checking,
      newVersion: null,
-     patchDate: null,
      downloaded: 0,
      total: 0
 }

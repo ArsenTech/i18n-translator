@@ -4,6 +4,17 @@ All notable changes of I18N Translator will be documented here.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [0.3.4] - Unreleased
+### Added
+- General Settings
+  - Check for updates
+### Fixed
+- Toaster duplication bug
+
+[0.3.4]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.3.4
+
+---
+
 ## [0.3.3] - 2026-06-23
 ### Added
 - General Settings

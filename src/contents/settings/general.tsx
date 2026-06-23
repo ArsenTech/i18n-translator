@@ -2,12 +2,15 @@ import SettingsItem from "@/components/settings-item";
 import SettingsOption from "@/components/settings-item/settings-option";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Cog, Palette } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
 import { lazy, Suspense } from "react";
+import { useSettings } from "@/context/settings";
 
 const ThemeToggler = lazy(()=>import("@/components/themes"));
 const LanguageSwitcher = lazy(()=>import("@/i18n/lang-selector"));
 
 export default function GeneralSettings(){
+     const {settings, setSettings} = useSettings()
      return (
           <div className="space-y-2">
                <SettingsItem
@@ -35,8 +38,18 @@ export default function GeneralSettings(){
                               <LanguageSwitcher/>
                          </Suspense>
                     </SettingsOption>
+                    <SettingsOption
+                         title="Check updates on startup"
+                         description="Auto-checks for new version availability"
+                         id="auto-check"
+                    >
+                         <Switch
+                              name="auto-check"
+                              checked={settings.checkUpdatesOnStartup}
+                              onCheckedChange={checked=>setSettings({checkUpdatesOnStartup: checked})}
+                         />
+                    </SettingsOption>
                </SettingsItem>
-               {/* TODO: Check updates on startup */}
           </div>
      )
 }

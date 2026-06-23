@@ -45,7 +45,9 @@ export function ThemeProvider({
           if (!resolvedTheme) return;
           const colorDef = COLORS[settings.color];
           if (!colorDef) {
-               toast.error(`Invalid color "${settings.color}". Available: ${Object.keys(COLORS).join(", ")}`);
+               toast.error(`Invalid color "${settings.color}". Available: ${Object.keys(COLORS).join(", ")}`,{
+                    id: "theme-error"
+               });
                return;
           }
           const { charts, ...uiColor } = colorDef;

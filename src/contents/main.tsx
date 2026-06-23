@@ -5,13 +5,16 @@ import { useAppTranslation } from "@/context/translation";
 import useKeyboardShortcuts from "@/hooks/use-kbd-shortcuts";
 import { buildTree } from "@/lib/helpers";
 import { cn } from "@/lib/utils";
-import { lazy, Suspense, useMemo } from "react";
+import { lazy, Suspense, useEffect, useMemo } from "react";
 import { useGlossary } from "@/context/glossary";
 import { GlossarySidebarLoader } from "@/loaders/glossary";
 import { TreeSidebarLoader } from "@/loaders/tree-sidebar";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/context/themes";
+import { useSettings } from "@/context/settings";
+import { toast } from "sonner";
+import { check } from "@tauri-apps/plugin-updater";
 
 const TranslationTable = lazy(()=>import("@/components/tables/translation"))
 const TreeSidebar = lazy(()=>import("@/components/main-translation/tree-sidebar"))
@@ -25,8 +28,21 @@ export default function MainPage(){
      const {table} = useAppTranslation()
      const {open: treeOpen} = useTreeSidebar()
      const {open: glossaryOpen, glossary} = useGlossary()
+     const {settings} = useSettings()
      const tree = useMemo(() => buildTree(table), [table])
      useKeyboardShortcuts()
+     useEffect(() => {
+          if (!settings.checkUpdatesOnStartup) return;
+          toast.promise(
+               check({ timeout: 100000 }),
+               {
+                    id: "startup-update-check",
+                    loading: "Checking...",
+                    success: result => result ? `New version available: ${result.version}` : "I18N Translator is up to date",
+                    error: "Failed to check for updates",
+               }
+          );
+     }, [settings.checkUpdatesOnStartup]);
      return (
           <ThemeProvider>
                <TooltipProvider>

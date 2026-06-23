@@ -136,7 +136,8 @@ export default function GlossarySidebar({glossary}: GlossarySidebarProps) {
                     setGlossary(data)
                } catch (err) {
                     toast.error("Failed to load the glossary",{
-                         description: getErrorMessage(err)
+                         description: getErrorMessage(err),
+                         id: "glossary-load-error"
                     })
                }
           })

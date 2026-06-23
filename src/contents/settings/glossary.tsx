@@ -1,10 +1,13 @@
 import SettingsOption from "@/components/settings-item/settings-option";
-import RadioField from "@/components/fields/radio-field";
 import { useSettings } from "@/context/settings";
 import { GlossaryTogglerType } from "@/lib/types";
 import SettingsItem from "@/components/settings-item";
 import { BookOpen } from "lucide-react";
 import { useGlossary } from "@/context/glossary";
+import { lazy, Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+
+const SelectorField = lazy(()=>import("@/components/fields/selector"))
 
 export default function GlossarySettings(){
      const {settings, setSettings} = useSettings()
@@ -17,22 +20,24 @@ export default function GlossarySettings(){
                >
                     <SettingsOption
                          title="Default glossary view"
+                         description="Default glossary view type (Show All / Few)"
                          id="glossary-view"
                     >
-                         <RadioField
-                              className="flex items-center gap-3 flex-1"
-                              name="glossary-view"
-                              value={settings.defaultGlossaryView}
-                              onChange={val=>{
-                                   const newVal = val as GlossaryTogglerType
-                                   setSettings({defaultGlossaryView: newVal})
-                                   setShowType(newVal)
-                              }}
-                              items={[
-                                   {value: "few", label: "Show few"},
-                                   {value: "all", label: "Show all"}
-                              ]}
-                         />
+                         <Suspense fallback={<Skeleton className="h-8 w-full max-w-32"/>}>
+                              <SelectorField
+                                   name="glossary-view"
+                                   value={settings.defaultGlossaryView}
+                                   onChange={val=>{
+                                        const newVal = val as GlossaryTogglerType
+                                        setSettings({defaultGlossaryView: newVal})
+                                        setShowType(newVal)
+                                   }}
+                                   items={[
+                                        {value: "few", label: "Show few"},
+                                        {value: "all", label: "Show all"}
+                                   ]}
+                              />
+                         </Suspense>
                     </SettingsOption>
                </SettingsItem>
                {/* TODO: Auto-load glossary */}

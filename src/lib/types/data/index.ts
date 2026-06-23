@@ -1,4 +1,4 @@
-import { PARTS_OF_SPEECH } from "@/lib/constants";
+import { PARTS_OF_SPEECH } from "@/lib/constants/items";
 
 export interface ITranslation{
      keyName: string,

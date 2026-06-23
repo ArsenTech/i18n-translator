@@ -6,7 +6,7 @@ import { TransliterateScriptType } from "@/schemas/types";
 import { TransliterateScriptSchema } from "@/schemas";
 import { DialogFooter } from "@/components/ui/dialog";
 import TranslatorActions from "@/actions/translator";
-import { SUPPORTED_SCRIPTS } from "@/lib/constants";
+import { SUPPORTED_SCRIPTS } from "@/lib/constants/items";
 import { lazy, Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 

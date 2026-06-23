@@ -1,13 +1,18 @@
-import { IUpdaterState } from "./types"
-import { UpdaterStatus } from "./types/enums"
+import { SelectType } from "../types";
 
-export const PROVIDER_NAMES = {
-     "google-translate": "Google Translate",
-     gemini: "Google Gemini",
-     libretranslate: "Libre Translate",
-     "llama-ai": "Llama AI",
-} as const
-export const SUPPORTED_SCRIPTS = [
+export const NEW_TRANSLATION_FORMATS: SelectType[] = [
+     {value: "json", label: "JSON File"},
+     {value: "xml", label: "XML File"},
+     {value: "po", label: "GNU gettext"},
+     {value: "xliff", label: "XLIFF File"},
+     {value: "resx", label: "Microsoft RESX File"}
+]
+export const FIND_OPTIONS: SelectType[] = [
+     {value: "key", label: "Key"},
+     {value: "source", label: "Source"},
+     {value: "translation", label: "Translation"},
+]
+export const SUPPORTED_SCRIPTS: SelectType[] = [
      { value: "latin", label: "Latin" },
      { value: "cyrillic", label: "Cyrillic (Кириллица)" },
      { value: "greek", label: "Greek (Ελληνικά)" },
@@ -18,22 +23,29 @@ export const SUPPORTED_SCRIPTS = [
      { value: "devanagari", label: "Devanagari (देवनागरी)" },
      { value: "thai", label: "Thai (ไทย)" },
      { value: "hangul", label: "Korean (한글)" }
-] as const
-export const RESOURCE_TYPE = [
+]
+export const RESOURCE_TYPE: SelectType[] = [
      { value: "key", label: "Selected Key"},
      { value: "namescape", label: "Current Namescape"},
      { value: "translation", label: "Entire Translation"},
-] as const
-export const SIDEBAR_WIDTH_MOBILE = "18rem"
-
-export const DEFAULT_DICTIONARIES = [
+]
+export const DEFAULT_DICTIONARIES: SelectType[] = [
      {value: "en", label: "English"},
      {value: "en-us", label: "English (US)"},
      {value: "en-gb", label: "English (UK)"},
      {value: "ru", label: "Русский"},
      {value: "hy", label: "Հայերեն"},
 ]
-export const PARTS_OF_SPEECH = ["noun", "pronoun", "adjective", "verb", "adverb", "preposition", "conjunction", "interjection"] as const
+export const PARTS_OF_SPEECH = [
+     "noun",
+     "pronoun",
+     "adjective",
+     "verb",
+     "adverb",
+     "preposition",
+     "conjunction",
+     "interjection"
+] as const
 export const GLOSSARY_DOMAINS = [
      "General",
      "Programming",
@@ -51,10 +63,3 @@ export const GLOSSARY_DOMAINS = [
      "Medical",
      "Finance",
 ] as const;
-export const INITIAL_UPDATER_STATE: IUpdaterState = {
-     status: UpdaterStatus.Checking,
-     newVersion: null,
-     patchDate: null,
-     downloaded: 0,
-     total: 0
-}

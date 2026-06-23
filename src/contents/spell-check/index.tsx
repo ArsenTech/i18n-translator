@@ -5,7 +5,7 @@ import { Controller, useForm } from "react-hook-form"
 import { SpellCheckType } from "@/schemas/types";
 import { SpellCheckSchema } from "@/schemas";
 import { DialogFooter } from "@/components/ui/dialog";
-import { DEFAULT_DICTIONARIES, RESOURCE_TYPE } from "@/lib/constants";
+import { DEFAULT_DICTIONARIES, RESOURCE_TYPE } from "@/lib/constants/items";
 import TranslatorActions from "@/actions/translator";
 import { lazy, Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";

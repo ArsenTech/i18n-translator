@@ -1,4 +1,4 @@
-import { RESOURCE_TYPE } from "@/lib/constants"
+import { RESOURCE_TYPE } from "@/lib/constants/items"
 import * as z from "zod"
 
 const translationTargetField = z.enum([...RESOURCE_TYPE.map(s => s.value)], "Select the translation target to Auto-Translate")

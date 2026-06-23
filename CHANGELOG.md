@@ -4,7 +4,7 @@ All notable changes of I18N Translator will be documented here.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
-## [0.3.3] - Unreleased
+## [0.3.3] - 2026-06-23
 ### Added
 - General Settings
   - Appearance
@@ -18,6 +18,20 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Clear Data
   - Clear Recent Translations
   - Clear Settings & Restore Defaults (Frontend)
+- Glossary Settings
+  - Default glossary view type (Show All / Few)
+- Translation Settings
+  - Gemini Settings
+  - Libre Translate Settings
+  - Llama AI Settings
+- File Formats Settings
+  - Default format for new Translation
+- Keyboard Shortcut references
+
+### Skeleton loader Support
+- New Settings Items
+- Language Selector Items
+- Language Icon inside these items
 
 ### Added Themes
 - Dark mode

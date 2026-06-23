@@ -1,5 +1,6 @@
 import { Monitor, Sun, Moon } from "lucide-react"
-import { Color, ISettings, IThemeSettings } from "./types"
+import { Color, IProviderValues, ISettings, IThemeSettings } from "./types"
+import { TranslationFormat } from "../types/enums"
 
 export const DEFAULT_SETTINGS: ISettings = {
      currNamespaceOnly: true,
@@ -9,7 +10,15 @@ export const DEFAULT_SETTINGS: ISettings = {
      showSidebar: true,
      showGlossary: true,
      autoSave: false,
-     defaultGlossaryView: "few"
+     defaultGlossaryView: "few",
+     defaultFormat: TranslationFormat.Json
+}
+export const DEFAULT_PROVIDER_VALUES: IProviderValues = {
+     geminiApi: "",
+     libreTranslateApi: "",
+     libreTranslateServer: "",
+     llamaEndpoint: "",
+     llamaModel: ""
 }
 export const THEME_SETTINGS: IThemeSettings[] = [
      { Icon: Monitor, theme: "system" },

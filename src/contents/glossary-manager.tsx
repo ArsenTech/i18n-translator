@@ -13,7 +13,7 @@ import LoadingButton from "@/components/loading-button";
 import GlossaryActions from "@/lib/store/glossary";
 import { useAppTranslation } from "@/context/translation";
 import { exportCSV, exportJSON } from "@/lib/helpers";
-import { PARTS_OF_SPEECH } from "@/lib/constants";
+import { PARTS_OF_SPEECH } from "@/lib/constants/items";
 import { GlossaryInputLoader } from "@/loaders/glossary";
 
 const LanguageSelect = lazy(()=>import("@/components/main-translation/language-select"))

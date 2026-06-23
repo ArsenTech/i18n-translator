@@ -16,12 +16,7 @@ import { toast } from "sonner";
 import TranslatorActions from "@/actions/translator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { RadioFieldLoader } from "@/loaders/fields";
-
-const items = [
-     {value: "key", label: "Key"},
-     {value: "source", label: "Source"},
-     {value: "translation", label: "Translation"},
-]
+import { FIND_OPTIONS } from "@/lib/constants/items";
 
 const ComboboxField = lazy(()=>import("@/components/fields/combobox-field"))
 const RadioField = lazy(()=>import("@/components/fields/radio-field"))
@@ -104,11 +99,11 @@ export default function FindContent({setOpen}: PopupContentProps){
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
                                         <FieldLabel htmlFor={field.name}>Search Mode</FieldLabel>
-                                        <Suspense fallback={<RadioFieldLoader length={items.length}/>}>
+                                        <Suspense fallback={<RadioFieldLoader length={FIND_OPTIONS.length}/>}>
                                              <RadioField
                                                   {...field}
                                                   invalid={fieldState.invalid}
-                                                  items={items}
+                                                  items={FIND_OPTIONS}
                                              />
                                         </Suspense>
                                         {fieldState.invalid && (

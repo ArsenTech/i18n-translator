@@ -1,4 +1,4 @@
-import { GLOSSARY_DOMAINS, PARTS_OF_SPEECH, RESOURCE_TYPE, SUPPORTED_SCRIPTS } from "@/lib/constants"
+import { GLOSSARY_DOMAINS, PARTS_OF_SPEECH, RESOURCE_TYPE, SUPPORTED_SCRIPTS } from "@/lib/constants/items"
 import { TranslationFormat } from "@/lib/types/enums"
 import * as z from "zod"
 

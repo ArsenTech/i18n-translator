@@ -1,8 +1,11 @@
 import SettingsItem from "@/components/settings-item";
 import SettingsOption from "@/components/settings-item/settings-option";
-import ThemeToggler from "@/components/themes";
-import LanguageSwitcher from "@/i18n/languages";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Cog, Palette } from "lucide-react";
+import { lazy, Suspense } from "react";
+
+const ThemeToggler = lazy(()=>import("@/components/themes"));
+const LanguageSwitcher = lazy(()=>import("@/i18n/lang-selector"));
 
 export default function GeneralSettings(){
      return (
@@ -15,7 +18,9 @@ export default function GeneralSettings(){
                          title="Theme"
                          description="Theme and color of the app"
                     >
-                         <ThemeToggler/>
+                         <Suspense fallback={<Skeleton className="h-8 w-32"/>}>
+                              <ThemeToggler/>
+                         </Suspense>
                     </SettingsOption>
                </SettingsItem>
                <SettingsItem
@@ -26,7 +31,9 @@ export default function GeneralSettings(){
                          title="Language"
                          description="Language of I18N Translator"
                     >
-                         <LanguageSwitcher/>
+                         <Suspense fallback={<Skeleton className="h-8 w-28"/>}>
+                              <LanguageSwitcher/>
+                         </Suspense>
                     </SettingsOption>
                </SettingsItem>
                {/* TODO: Check updates on startup */}

@@ -1,6 +1,6 @@
-import { CircleFlagLanguage } from "react-circle-flags";
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group";
 import { Languages } from "lucide-react";
+import { LanguageFlag } from "../lang-icon";
 
 type LanguageInputProps = Omit<React.ComponentProps<"input">,"value"|"onChange"> & {
      onLangChange: (langCode: string) => void,
@@ -16,7 +16,7 @@ export default function LanguageInput({onLangChange, lang, placeholder, ...props
                     placeholder={placeholder ?? "en"}
                />
                <InputGroupAddon>
-                    {lang ? <CircleFlagLanguage languageCode={lang ?? "xx"} width={16} height={16}/> : <Languages/>}
+                    {lang ? <LanguageFlag languageCode={lang ?? "xx"} width={16} height={16}/> : <Languages/>}
                </InputGroupAddon>
           </InputGroup>
      )

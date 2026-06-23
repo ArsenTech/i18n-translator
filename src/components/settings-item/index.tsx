@@ -3,9 +3,10 @@ import React from "react";
 import { cn } from "@/lib/utils";
 import { DesignType } from "@/lib/types";
 import { LucideIcon } from "lucide-react";
+import { IconType } from "react-icons/lib";
 
 interface Props{
-     Icon?: LucideIcon,
+     Icon?: LucideIcon | IconType,
      title: string,
      children: React.ReactNode,
      className?: string,
@@ -30,7 +31,7 @@ export default function SettingsItem({children, Icon, title, className, descript
                          {button}
                     </div>
                </CardHeader>
-               <CardContent className={cn("space-y-3",className)}>
+               <CardContent className={cn("space-y-4",className)}>
                     {children}
                </CardContent>
           </Card>

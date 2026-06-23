@@ -6,10 +6,11 @@ import { AutoTranslateProvider, AutoTranslateType } from "@/schemas/types";
 import { AutoTranslateSchema } from "@/schemas/auto-translate";
 import { DialogFooter } from "@/components/ui/dialog";
 import TranslatorActions from "@/actions/translator";
-import { RESOURCE_TYPE } from "@/lib/constants";
+import { RESOURCE_TYPE } from "@/lib/constants/items";
 import { PopupContentProps } from "@/lib/types";
 import { lazy, Suspense } from "react";
 import { FormFieldLoader, RadioFieldLoader } from "@/loaders/fields";
+import { useSettings } from "@/context/settings";
 
 const RadioField = lazy(()=>import("@/components/fields/radio-field"))
 const GeminiFields = lazy(()=>import("@/components/fields/auto-translate/gemini"));
@@ -20,15 +21,16 @@ interface AutoTranslateProps extends PopupContentProps{
      provider: AutoTranslateProvider
 }
 export default function AutoTranslate({provider}: AutoTranslateProps){
+     const {providers} = useSettings()
      const form = useForm<AutoTranslateType>({
           resolver: zodResolver(AutoTranslateSchema),
           defaultValues: {
                provider,
                target: "key",
-               apiKey: "",
-               serverURL: "",
-               endpoint: "",
-               model: ""
+               apiKey: provider==="gemini" ? providers.geminiApi : provider==="libretranslate" ? providers.libreTranslateApi : "",
+               serverURL: providers.libreTranslateServer ?? "",
+               endpoint: providers.llamaEndpoint,
+               model: providers.llamaModel
           }
      })
      const onSubmit = (values: AutoTranslateType) => {

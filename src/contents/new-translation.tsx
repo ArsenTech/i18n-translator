@@ -14,22 +14,16 @@ import { getErrorMessage } from "@/lib/utils";
 import { useAppTranslation } from "@/context/translation";
 import { detectLanguageCode, getFormatFromPath } from "@/lib/helpers";
 import RecentTranslations from "@/lib/store/recent-translations";
-import { TranslationFormat } from "@/lib/types/enums";
 import { Skeleton } from "@/components/ui/skeleton";
+import { NEW_TRANSLATION_FORMATS } from "@/lib/constants/items";
+import { useSettings } from "@/context/settings";
 
 const SelectorField = lazy(()=>import("@/components/fields/selector"))
 const FilePicker = lazy(()=>import("@/components/fields/file-picker"))
 const LanguageInput = lazy(()=>import("@/components/fields/lang-input"));
 
-const items = [
-     {value: "json", label: "JSON File"},
-     {value: "xml", label: "XML File"},
-     {value: "po", label: "GNU gettext"},
-     {value: "xliff", label: "XLIFF File"},
-     {value: "resx", label: "Microsoft RESX File"}
-]
-
 export default function NewTranslation({setOpen}: PopupContentProps){
+     const {settings} = useSettings()
      const [isCreating, startTransition] = useTransition()
      const [isFetching, startFetching] = useTransition()
      const {setTable, updateLangs, setFiles, setBaseKeys, setIsDirty} = useAppTranslation()
@@ -38,7 +32,7 @@ export default function NewTranslation({setOpen}: PopupContentProps){
           defaultValues: {
                path: "",
                targetLanguageCode: "",
-               format: TranslationFormat.Json
+               format: settings.defaultFormat
           }
      })
      const handleChangeFormat = (val: string) => {
@@ -155,7 +149,7 @@ export default function NewTranslation({setOpen}: PopupContentProps){
                                         <Suspense fallback={<Skeleton className="h-8 w-full"/>}>
                                              <SelectorField
                                                   {...field}
-                                                  items={items}
+                                                  items={NEW_TRANSLATION_FORMATS}
                                                   invalid={fieldState.invalid}
                                                   placeholder="Choose a Translation File Format"
                                              />

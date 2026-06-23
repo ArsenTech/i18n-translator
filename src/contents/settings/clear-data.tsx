@@ -110,10 +110,7 @@ export default function ClearDataSettings(){
                          />
                     </SettingsOption>
                </SettingsItem>
-               {/* TODO:
-               - Clear glossary cache
-               - Clear settings (Backend Logic)
-               - Reset application (Backend Logic) */}
+               {/* TODO: Clear glossary cache, Clear settings and Reset application (Backend Logic) */}
           </div>
      )
 }

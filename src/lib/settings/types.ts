@@ -1,6 +1,7 @@
 import { LucideIcon } from "lucide-react";
 import { COLORS } from "./colors";
 import { GlossaryTogglerType } from "../types";
+import { TranslationFormat } from "../types/enums";
 
 export interface ISettings{
      currNamespaceOnly: boolean
@@ -12,9 +13,16 @@ export interface ISettings{
      showSidebar: boolean,
      showGlossary: boolean,
      autoSave: boolean,
-     defaultGlossaryView: GlossaryTogglerType
+     defaultGlossaryView: GlossaryTogglerType,
+     defaultFormat: TranslationFormat
 }
-export type DateFormat = "dd/MM/yyyy HH:mm:ss" | "MM/dd/yyyy HH:mm:ss" | "yyyy-MM-dd HH:mm:ss"
+export interface IProviderValues{
+     geminiApi: string,
+     libreTranslateServer: string,
+     libreTranslateApi: string,
+     llamaEndpoint: string,
+     llamaModel: string
+}
 export type Theme = "dark" | "light" | "system";
 export type ResolvedTheme = Exclude<Theme, "system">;
 export type Color = keyof typeof COLORS;

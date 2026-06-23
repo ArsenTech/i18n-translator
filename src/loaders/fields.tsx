@@ -51,3 +51,11 @@ export function FormFieldLoader({type="input", length=3, includeDescription=fals
           </Field>
      )
 }
+export function LangSelectorItemLoader(){
+     return (
+          <div className="flex items-center gap-2 rounded-sm px-2 py-1.5 outline-hidden">
+               <Skeleton className="size-4.5"/>
+               <Skeleton className="h-4 w-full max-w-32"/>
+          </div>
+     )
+}

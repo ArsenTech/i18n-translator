@@ -82,6 +82,7 @@ Future releases are planned to include automatic translation tools, transliterat
 - [ ] Settings Popup Content
 - [ ] Refactor, Optimize, Lazy-load things after changing
   - [X] Settings (with contents)
+  - [X] Auto-translation provider
   - [ ] Other Heavy Components
 - [ ] Merge all of translation context and glossary context items into 1 state if needed
 #### v1.0.x or later (Stability)
@@ -94,7 +95,6 @@ Future releases are planned to include automatic translation tools, transliterat
 - [ ] Refactor, Optimize, Lazy-load things after changing
 - [ ] Translation Settings
   - [ ] Auto-detect base language
-  - [ ] Auto-translation provider
 
 #### Nice to have
 - [ ] Write the Documentation on the `docs/` folder.

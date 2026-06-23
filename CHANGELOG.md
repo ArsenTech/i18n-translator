@@ -8,7 +8,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Added
 - General Settings
   - Check for updates
+  - Compact Toolbar mode
 - Toolbar Management Settings
+- Glossary Settings
+  - Show Glossary Settings By Default
 - New Toolbar items
   - Find
   - Batch Rename Keys

@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import FileActions from "@/actions/file";
 import FindActions, { FindResult } from "@/actions/find";
 import TranslatorActions from "@/actions/translator";
-import { BookOpen, BookPlus, Delete, FilePlus, FolderOpen, FolderPen, Languages, RefreshCcw, RotateCcw, Save, Scan, Search, SearchCheck, SearchSlash, SpellCheckIcon } from "lucide-react";
+import { BookOpen, BookPlus, Delete, FilePlus, FolderOpen, FolderPen, Languages, RefreshCcw, RotateCcw, Save, Scan, Search, SearchCheck, SearchSlash, SpellCheckIcon, Zap } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { PROVIDER_NAMES } from "@/lib/constants";
 import { AutoTranslateProvider } from "@/schemas/types";
@@ -14,6 +14,7 @@ import { Spinner } from "@/components/ui/spinner";
 import { Skeleton } from "../ui/skeleton";
 import { useSettings } from "@/context/settings";
 import EditActions from "@/actions/edit";
+import { Separator } from "../ui/separator";
 
 const NewTranslationPopup = lazy(()=>import("@/popups/new-translation"));
 const OpenTranslationPopup = lazy(()=>import("@/popups/open-translation"));
@@ -30,7 +31,7 @@ const GlossaryManagerPopup = lazy(()=>import("@/popups/glossary-manager"));
 export default function QuickAccessToolbar(){
      const [isSaving, setIsSaving] = useState(false)
      const {table, files, baseKeys, setCurrentTranslation, setInput, setVisibleCount, visibleTable, setIsDirty, langs, reset, setSelectedKeys, setTable, findState, setFindState} = useAppTranslation()
-     const {toolbars} = useSettings()
+     const {toolbars, settings} = useSettings()
      const findAction = (type: "next" | "prev" | "missing") => {
           const res: FindResult = type==="next" ? FindActions.findNext(findState) : type==="prev" ? FindActions.findPrev(findState) : type==="missing" ? FindActions.findMissing(visibleTable) : {success: false, error: "Unknown find action"}
           if(res.success) {
@@ -84,12 +85,29 @@ export default function QuickAccessToolbar(){
                setIsDirty(true)
           }
      }
+     const toolbarClass = settings.compactToolbar
+          ? "px-4 pt-2 gap-2 flex items-center flex-wrap"
+          : "px-4 pt-2 gap-1 flex items-center justify-center flex-wrap"
+
+     const buttonClass = settings.compactToolbar
+          ? "size-8 shrink-0"
+          : "flex-1 aspect-square"
+     const loaderClass =  settings.compactToolbar
+          ? "size-8"
+          : "h-8 flex-1 aspect-square"
      return (
-          <div className="px-4 pt-2 gap-1 flex items-center justify-center flex-wrap">
+          <div className={toolbarClass}>
+               {settings.compactToolbar && (
+                    <div className="flex items-center gap-2">
+                         <Zap className="text-muted-foreground size-4"/>
+                         <p className="font-semibold">Quick Access</p>
+                         <Separator orientation="vertical"/>
+                    </div>
+               )}
                {toolbars.newFile && (
-                    <Suspense fallback={<Skeleton className="h-8 flex-1 aspect-square"/>}>
+                    <Suspense fallback={<Skeleton className={loaderClass}/>}>
                          <NewTranslationPopup triggerButton={(
-                              <Button variant="secondary" className="flex-1 aspect-square" title="New Translation">
+                              <Button variant="secondary" size={settings.compactToolbar ? "icon" : "default"} className={buttonClass} title="New Translation">
                                    <FilePlus/>
                               </Button>
                          )}/>
@@ -98,7 +116,7 @@ export default function QuickAccessToolbar(){
                {toolbars.openFile && (
                     <DropdownMenu modal={false}>
                          <DropdownMenuTrigger asChild>
-                              <Button variant="secondary" className="flex-1 aspect-square" title="Open Translation">
+                              <Button variant="secondary" size={settings.compactToolbar ? "icon" : "default"} className={buttonClass} title="Open Translation">
                                    <FolderOpen/>
                               </Button>
                          </DropdownMenuTrigger>
@@ -122,14 +140,14 @@ export default function QuickAccessToolbar(){
                     </DropdownMenu>
                )}
                {toolbars.saveFile && (
-                    <Button variant="secondary" className="flex-1 aspect-square" title="Save Translation" onClick={save} disabled={isSaving}>
+                    <Button variant="secondary" size={settings.compactToolbar ? "icon" : "default"} className={buttonClass} title="Save Translation" onClick={save} disabled={isSaving}>
                          {isSaving ? <Spinner/> : <Save/>}
                     </Button>
                )}
                {toolbars.find && (
                     <DropdownMenu modal={false}>
                          <DropdownMenuTrigger asChild>
-                              <Button variant="secondary" className="flex-1 aspect-square" title="Find">
+                              <Button variant="secondary" size={settings.compactToolbar ? "icon" : "default"} className={buttonClass} title="Find">
                                    <Search/>
                               </Button>
                          </DropdownMenuTrigger>
@@ -145,37 +163,37 @@ export default function QuickAccessToolbar(){
                     </DropdownMenu>
                )}
                {toolbars.findMissing && (
-                    <Button variant="secondary" className="flex-1 aspect-square" title="Find Missing Keys" onClick={()=>findAction("missing")}>
+                    <Button variant="secondary" size={settings.compactToolbar ? "icon" : "default"} className={buttonClass} title="Find Missing Keys" onClick={()=>findAction("missing")}>
                          <SearchSlash/>
                     </Button>
                )}
                {toolbars.replace && (
-                    <Suspense fallback={<Skeleton className="h-8 flex-1 aspect-square"/>}>
+                    <Suspense fallback={<Skeleton className={loaderClass}/>}>
                          <ReplaceTranslationPopup triggerButton={(
-                              <Button variant="secondary" className="flex-1 aspect-square" title="Replace Translation">
+                              <Button variant="secondary" size={settings.compactToolbar ? "icon" : "default"} className={buttonClass} title="Replace Translation">
                                    <RotateCcw/>
                               </Button>
                          )}/>
                     </Suspense>
                )}
                {toolbars.batchRename && (
-                    <Suspense fallback={<Skeleton className="h-8 flex-1 aspect-square"/>}>
+                    <Suspense fallback={<Skeleton className={loaderClass}/>}>
                          <BatchRenameKeysPopup triggerButton={(
-                              <Button variant="secondary" className="flex-1 aspect-square" title="Batch Rename Keys">
+                              <Button variant="secondary" size={settings.compactToolbar ? "icon" : "default"} className={buttonClass} title="Batch Rename Keys">
                                    <FolderPen/>
                               </Button>
                          )}/>
                     </Suspense>
                )}
                {toolbars.selectUntranslated && (
-                    <Button variant="secondary" className="flex-1 aspect-square" title="Select Untranslated" onClick={()=>EditActions.selectUntranslated(table, setSelectedKeys)}>
+                    <Button variant="secondary" size={settings.compactToolbar ? "icon" : "default"} className={buttonClass} title="Select Untranslated" onClick={()=>EditActions.selectUntranslated(table, setSelectedKeys)}>
                          <Scan/>
                     </Button>
                )}
                {toolbars.addToGlossary && (
-                    <Suspense fallback={<Skeleton className="h-8 flex-1 aspect-square"/>}>
+                    <Suspense fallback={<Skeleton className={loaderClass}/>}>
                          <AddToGlossaryPopup triggerButton={(
-                              <Button variant="secondary" className="flex-1 aspect-square" title="Add To Glossary">
+                              <Button variant="secondary" size={settings.compactToolbar ? "icon" : "default"} className={buttonClass} title="Add To Glossary">
                                    <BookPlus/>
                               </Button>
                          )}/>
@@ -184,7 +202,7 @@ export default function QuickAccessToolbar(){
                {toolbars.autoTranslate && (
                     <DropdownMenu modal={false}>
                          <DropdownMenuTrigger asChild>
-                              <Button variant="secondary" className="flex-1 aspect-square" title="Auto-translate">
+                              <Button variant="secondary" size={settings.compactToolbar ? "icon" : "default"} className={buttonClass} title="Auto-translate">
                                    <Languages/>
                               </Button>
                          </DropdownMenuTrigger>
@@ -210,37 +228,37 @@ export default function QuickAccessToolbar(){
                     </DropdownMenu>
                )}
                {toolbars.validateKeys && (
-                    <Button variant="secondary" className="flex-1 aspect-square" title="Validate Keys" onClick={validateKeys}>
+                    <Button variant="secondary" size={settings.compactToolbar ? "icon" : "default"} className={buttonClass} title="Validate Keys" onClick={validateKeys}>
                          <SearchCheck/>
                     </Button>
                )}
                {toolbars.removeUnusedKeys && (
-                    <Button variant="secondary" className="flex-1 aspect-square" title="Remove Unused Keys" onClick={removeUnusedKeys}>
+                    <Button variant="secondary" size={settings.compactToolbar ? "icon" : "default"} className={buttonClass} title="Remove Unused Keys" onClick={removeUnusedKeys}>
                          <Delete/>
                     </Button>
                )}
                {toolbars.transliterate && (
-                    <Suspense fallback={<Skeleton className="h-8 flex-1 aspect-square"/>}>
+                    <Suspense fallback={<Skeleton className={loaderClass}/>}>
                          <TransliterateScriptPopup triggerButton={(
-                              <Button variant="secondary" className="flex-1 aspect-square" title="Transliterate">
+                              <Button variant="secondary" size={settings.compactToolbar ? "icon" : "default"} className={buttonClass} title="Transliterate">
                                    <RefreshCcw/>
                               </Button>
                          )}/>
                     </Suspense>
                )}
                {toolbars.glossaryManager && (
-                    <Suspense fallback={<Skeleton className="h-8 flex-1 aspect-square"/>}>
+                    <Suspense fallback={<Skeleton className={loaderClass}/>}>
                          <GlossaryManagerPopup triggerButton={(
-                              <Button variant="secondary" className="flex-1 aspect-square" title="Glossary Manager">
+                              <Button variant="secondary" size={settings.compactToolbar ? "icon" : "default"} className={buttonClass} title="Glossary Manager">
                                    <BookOpen/>
                               </Button>
                          )}/>
                     </Suspense>
                )}
                {toolbars.spellCheck && (
-                    <Suspense fallback={<Skeleton className="h-8 flex-1 aspect-square"/>}>
+                    <Suspense fallback={<Skeleton className={loaderClass}/>}>
                          <SpellCheckPopup triggerButton={(
-                              <Button variant="secondary" className="flex-1 aspect-square" title="Spell Check">
+                              <Button variant="secondary" size={settings.compactToolbar ? "icon" : "default"} className={buttonClass} title="Spell Check">
                                    <SpellCheckIcon/>
                               </Button>
                          )}/>

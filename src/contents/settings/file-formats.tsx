@@ -6,6 +6,7 @@ import { NEW_TRANSLATION_FORMATS } from "@/lib/constants/items";
 import { TranslationFormat } from "@/lib/types/enums";
 import { Files } from "lucide-react";
 import { lazy, Suspense } from "react";
+import { SiAndroidstudio } from "react-icons/si";
 
 const SelectorField = lazy(()=>import("@/components/fields/selector"))
 
@@ -32,7 +33,18 @@ export default function FileFormatSettings(){
                          </Suspense>
                     </SettingsOption>
                </SettingsItem>
-               {/* TODO: Android XML options, XLIFF options */}
+               <SettingsItem
+                    title="Android XML"
+                    Icon={SiAndroidstudio}
+               >
+                    TODO: Default translatable state, Show translatable column
+               </SettingsItem>
+               <SettingsItem
+                    title="XLIFF"
+                    Icon={Files}
+               >
+                    TODO: Auto-detect languages, Preserve metadata
+               </SettingsItem>
           </div>
      )
 }

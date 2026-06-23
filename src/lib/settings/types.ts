@@ -15,7 +15,8 @@ export interface ISettings{
      autoSave: boolean,
      defaultGlossaryView: GlossaryTogglerType,
      defaultFormat: TranslationFormat,
-     checkUpdatesOnStartup: boolean
+     checkUpdatesOnStartup: boolean,
+     compactToolbar: boolean
 }
 type ToolbarItems = "newFile" | "openFile" | "saveFile" | "find" | "findMissing" | "replace" | "batchRename" | "selectUntranslated" | "addToGlossary" | "autoTranslate" | "validateKeys" | "removeUnusedKeys" | "transliterate" | "glossaryManager" | "spellCheck"
 export type ToolbarValues = Record<ToolbarItems,boolean>

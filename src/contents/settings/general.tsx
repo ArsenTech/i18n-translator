@@ -49,8 +49,18 @@ export default function GeneralSettings(){
                               onCheckedChange={checked=>setSettings({checkUpdatesOnStartup: checked})}
                          />
                     </SettingsOption>
+                    <SettingsOption
+                         title="Compact Toolbar"
+                         description="Show smaller buttons instead in the toolbar"
+                         id="compact-toolbar"
+                    >
+                         <Switch
+                              name="compact-toolbar"
+                              checked={settings.compactToolbar}
+                              onCheckedChange={checked=>setSettings({compactToolbar: checked})}
+                         />
+                    </SettingsOption>
                </SettingsItem>
-               {/* TODO: Compact toolbar mode */}
           </div>
      )
 }

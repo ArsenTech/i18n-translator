@@ -78,7 +78,7 @@ export function ThemeProvider({
           color: settings.color,
           setTheme: t => setSettings({ theme: t }),
           setColor: c => setSettings({ color: c }),
-     }),[settings.theme, settings.color, resolvedTheme]);
+     }),[settings, resolvedTheme]);
      return (
           <ThemeProviderContext.Provider value={value}>
                {children}

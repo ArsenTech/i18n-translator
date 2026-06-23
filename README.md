@@ -77,12 +77,11 @@ Whether you are translating a small application or maintaining a large localizat
 Future releases are planned to include automatic translation tools, transliteration, spell checking, and additional localization formats.
 
 ### Planned Improvements
-#### v0.3.3 or later (Next)
+#### v0.3.x or later (Next)
 - [ ] Translatable switch as a separate column if the translation type is Android XML
 - [ ] Settings Popup Content
 - [ ] Refactor, Optimize, Lazy-load things after changing
   - [X] Settings (with contents)
-  - [X] Auto-translation provider
   - [ ] Other Heavy Components
 - [ ] Merge all of translation context and glossary context items into 1 state if needed
 #### v1.0.x or later (Stability)

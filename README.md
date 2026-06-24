@@ -79,7 +79,7 @@ Future releases are planned to include automatic translation tools, transliterat
 ### Planned Improvements
 #### v0.3.x or later (Next)
 - [ ] Translatable switch as a separate column if the translation type is Android XML
-- [ ] Settings Popup Content
+- [X] Settings Popup Content
 - [ ] Refactor, Optimize, Lazy-load things after changing
   - [X] Settings (with contents)
   - [ ] Other Heavy Components

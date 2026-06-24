@@ -82,10 +82,6 @@ Future releases are planned to include automatic translation tools, transliterat
 - [ ] Refactor, Optimize, Lazy-load things after changing
 - [ ] Merge all of translation context and glossary context items into 1 state if needed
 #### v1.0.x or later (Stability)
-- [ ] Auto-Translation backend
-  - [ ] Google Translate API
-  - [ ] Gemini API
-- [ ] `isDirty` changes inside new backend logic
 - [ ] I18N Support
 - [ ] Update automatic base language detection inside new translation and open translation
 - [ ] Refactor, Optimize, Lazy-load things after changing
@@ -124,6 +120,8 @@ Future releases are planned to include automatic translation tools, transliterat
 - [ ] Auto-Translation backend
   - [ ] Libre Translate API
   - [ ] Llama AI API
+  - [ ] Google Translate API
+  - [ ] Gemini API
 - [ ] Transliteration backend
 - [ ] Spell checking backend
   - [ ] Dictionary Support

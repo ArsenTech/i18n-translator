@@ -80,7 +80,8 @@ Future releases are planned to include automatic translation tools, transliterat
 #### v0.3.x or later (Next)
 - [ ] Translatable switch as a separate column if the translation type is Android XML
 - [ ] Refactor, Optimize, Lazy-load things after changing
-- [ ] Merge all of translation context and glossary context items into 1 state if needed
+  - Refactor contexts only if profiling shows unnecessary re-renders
+
 #### v1.0.x or later (Stability)
 - [ ] I18N Support
 - [ ] Update automatic base language detection inside new translation and open translation
@@ -97,7 +98,7 @@ Future releases are planned to include automatic translation tools, transliterat
   - [X] Troubleshooting
     - [ ] Continue writing the Troubleshooting Guide once it has new info
   - [X] FAQs
-    - [ ] Continue writing the Troubleshooting Guide once it has new info
+    - [ ] Continue writing the FAQ once it has new info
   - [ ] Translation Guide
 
 #### Future Expansions
@@ -115,7 +116,8 @@ Future releases are planned to include automatic translation tools, transliterat
   > - Translating Editors (Like OpenShot and Audacity) -> use the editor slang (en-hy/editor.json)
   > 
   > Uses the GitHub organization to store these packs (en-hy, ru-hy, etc)
-- [ ] PO Language Support
+- [ ] PO Language Support + Settings
+- [ ] Support ICU MessageFormat & pluralization rules + Settings
 - [ ] Compare difference popup
 - [ ] Auto-Translation backend
   - [ ] Libre Translate API
@@ -140,9 +142,6 @@ Future releases are planned to include automatic translation tools, transliterat
     - [ ] Remember last glossary pack
     - [ ] Load default glossary pack
     - [ ] Apply glossary automatically during Auto-Translate
-  - [ ] File Formats
-    - [ ] ICU MessageFormat support (Support ICU MessageFormat & pluralization rules)
-    - [ ] PO file support
   - [ ] Spell Checker
     - [ ] Enable spell checking
     - [ ] Dictionary selection

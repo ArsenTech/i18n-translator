@@ -94,6 +94,7 @@ Future releases are planned to include automatic translation tools, transliterat
 - [ ] Refactor, Optimize, Lazy-load things after changing
 - [ ] Translation Settings
   - [ ] Auto-detect base language
+- [ ] Access Keyboard shortcuts from popups
 
 #### Nice to have
 - [ ] Write the Documentation on the `docs/` folder.

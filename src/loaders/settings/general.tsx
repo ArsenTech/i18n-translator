@@ -9,6 +9,7 @@ export default function GeneralSettingsLoader(){
                <SettingsItemLoader>
                     <SettingsOptionLoader optionType="selector" width={112}/>
                     <SettingsOptionLoader optionType="switch"/>
+                    <SettingsOptionLoader optionType="switch"/>
                </SettingsItemLoader>
           </div>
      )

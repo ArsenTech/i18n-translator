@@ -27,12 +27,18 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
   - Add To Glossary 
   - Transliterate Script
   - Glossary Manager
+
+### Skeleton loader Support
+- New Settings Items
+
 ### Fixed
 - Toaster duplication bug
 - Loader Mismatch In Tables
+
 ### Improved
 - Clear Data
   - Clear Settings & Restore Defaults
+- **Skeleton Loaders** - Updated the UI to match the layout
 
 [0.3.4]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.3.4
 

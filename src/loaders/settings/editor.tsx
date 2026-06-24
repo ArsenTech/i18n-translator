@@ -8,6 +8,7 @@ export default function EditorSettingsLoader(){
                     <SettingsOptionLoader optionType="switch"/>
                     <SettingsOptionLoader optionType="switch"/>
                     <SettingsOptionLoader optionType="switch"/>
+                    <SettingsOptionLoader optionType="switch"/>
                </SettingsItemLoader>
                <SettingsItemLoader>
                     <SettingsOptionLoader optionType="selector" width={250}/>

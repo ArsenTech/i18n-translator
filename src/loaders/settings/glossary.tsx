@@ -5,6 +5,7 @@ export default function GlossarySettingsLoader(){
           <div className="space-y-2">
                <SettingsItemLoader>
                     <SettingsOptionLoader optionType="selector" width={128}/>
+                    <SettingsOptionLoader optionType="switch"/>
                </SettingsItemLoader>
           </div>
      )

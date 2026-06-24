@@ -24,29 +24,29 @@
 ![GitHub repo size][repo-size-shield]
 
 <details>
-     <summary>Table of Contents</summary>
-     <ol>
-          <li>
-               <a href="#about">About</a>
-               <ul>
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#other-features">Other Features</a></li>
-                    <li><a href="#built-with">Built With</a></li>
-                    <li><a href="#download">Download</a></li>
-               </ul>
-          </li>
-          <li><a href="#usage-manual">Usage Manual</a></li>
-          <li><a href="#versioning">Versioning</a></li>
-          <li><a href="#sponsors">Sponsors</a></li>
-          <li>
-               <a href="#contributing">Contributing</a>
-               <ul>
-                    <li><a href="#top-contributors">Top Contributors</a></li>
-               </ul>
-          </li>
-          <li><a href="#star-history">Star History</a></li>
-          <li><a href="#license">License</a></li>
-     </ol>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about">About</a>
+      <ul>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#other-features">Other Features</a></li>
+        <li><a href="#built-with">Built With</a></li>
+        <li><a href="#download">Download</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage-manual">Usage Manual</a></li>
+    <li><a href="#versioning">Versioning</a></li>
+    <li><a href="#sponsors">Sponsors</a></li>
+    <li>
+      <a href="#contributing">Contributing</a>
+      <ul>
+        <li><a href="#top-contributors">Top Contributors</a></li>
+      </ul>
+    </li>
+    <li><a href="#star-history">Star History</a></li>
+    <li><a href="#license">License</a></li>
+  </ol>
 </details>
 
 ## About

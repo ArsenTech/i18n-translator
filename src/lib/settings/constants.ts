@@ -1,5 +1,5 @@
 import { Monitor, Sun, Moon } from "lucide-react"
-import { Color, IProviderValues, ISettings, IThemeSettings, IThemeValues } from "./types"
+import { Color, IProviderValues, ISettings, IThemeSettings, IAppearance } from "./types"
 import { TranslationFormat } from "../types/enums"
 
 export const DEFAULT_SETTINGS: ISettings = {
@@ -25,9 +25,10 @@ export const DEFAULT_PROVIDER_VALUES: IProviderValues = {
      llamaEndpoint: "",
      llamaModel: ""
 }
-export const DEFAULT_THEME_VALUES: IThemeValues = {
+export const DEFAULT_APPEARANCE: IAppearance = {
      theme: "system",
      color: "yellow",
+     brightness: 100,
 }
 export const THEME_SETTINGS: IThemeSettings[] = [
      { Icon: Monitor, theme: "system" },
@@ -63,5 +64,10 @@ export const AVAILABLE_COLORS: Record<Color,{
           light: "bg-violet-500",
           dark: "bg-violet-400",
           title: "Violet"
+     },
+     grayscale: {
+          light: "bg-neutral-500",
+          dark: "bg-neutral-400",
+          title: "Grayscale"
      }
 }

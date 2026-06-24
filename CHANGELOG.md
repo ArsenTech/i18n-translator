@@ -6,9 +6,12 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ---
 ## [0.3.4] - Unreleased
 ### Added
+- Appearance
+  - Brightness
+  - Compact Toolbar mode
+  - **New Color** - Grayscale
 - General Settings
   - Check for updates
-  - Compact Toolbar mode
 - Toolbar Management Settings
 - Glossary Settings
   - Show Sidebar By Default
@@ -30,6 +33,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Skeleton loader Support
 - New Settings Items
+- Brightness Slider
 
 ### Fixed
 - Toaster duplication bug

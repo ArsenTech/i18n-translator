@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import TitlebarLoader from "../../loaders/titlebar";
+import { useAppearance } from "@/context/appearance";
 
 const TitleBar = lazy(()=>import("./titlebar"));
 
@@ -13,6 +14,7 @@ export default function WindowWrapper({
      title="I18N Translator",
      hideMaximize=false
 }: WindowWrapperProps){
+     const {brightness} = useAppearance()
      return (
           <main className="w-full h-full relative">
                <Suspense fallback={<TitlebarLoader/>}>
@@ -21,7 +23,9 @@ export default function WindowWrapper({
                          title={title}
                     />
                </Suspense>
-               {children}
+               <div style={{filter: `brightness(${brightness}%)`}}>
+                    {children}
+               </div>
           </main>
      )
 }

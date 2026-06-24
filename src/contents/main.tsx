@@ -11,10 +11,10 @@ import { GlossarySidebarLoader } from "@/loaders/glossary";
 import { TreeSidebarLoader } from "@/loaders/tree-sidebar";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { ThemeProvider } from "@/context/themes";
 import { useSettings } from "@/context/settings";
 import { toast } from "sonner";
 import { check } from "@tauri-apps/plugin-updater";
+import { AppearanceProvider } from "@/context/appearance";
 
 const TranslationTable = lazy(()=>import("@/components/tables/translation"))
 const TreeSidebar = lazy(()=>import("@/components/main-translation/tree-sidebar"))
@@ -44,7 +44,7 @@ export default function MainPage(){
           );
      }, [settings.checkUpdatesOnStartup]);
      return (
-          <ThemeProvider>
+          <AppearanceProvider>
                <TooltipProvider>
                     <WindowWrapper>
                          <Suspense fallback={<QuickAccessToolbarLoader/>}>
@@ -89,6 +89,6 @@ export default function MainPage(){
                          position="top-right"
                     />
                </TooltipProvider>
-          </ThemeProvider>
+          </AppearanceProvider>
      )
 }

@@ -21,9 +21,10 @@ export interface ISettings{
      xliffPreserveMeta: boolean,
      preserveEmpty: boolean,
 }
-export interface IThemeValues{
+export interface IAppearance{
      theme: Theme,
      color: Color,
+     brightness: number,
 }
 type ToolbarItems = "newFile" | "openFile" | "saveFile" | "find" | "findMissing" | "replace" | "batchRename" | "selectUntranslated" | "addToGlossary" | "autoTranslate" | "validateKeys" | "removeUnusedKeys" | "transliterate" | "glossaryManager" | "spellCheck"
 export type ToolbarValues = Record<ToolbarItems,boolean>

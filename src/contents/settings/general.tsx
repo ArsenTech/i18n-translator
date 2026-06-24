@@ -5,9 +5,11 @@ import { Cog, Palette } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { lazy, Suspense } from "react";
 import { useSettings } from "@/context/settings";
+import { BrightnessSliderLoader } from "@/loaders/fields";
 
 const ThemeToggler = lazy(()=>import("@/components/themes"));
 const LanguageSwitcher = lazy(()=>import("@/i18n/lang-selector"));
+const BrightnessSlider = lazy(()=>import("@/components/fields/brightness-slider"));
 
 export default function GeneralSettings(){
      const {settings, setSettings} = useSettings()
@@ -24,6 +26,25 @@ export default function GeneralSettings(){
                          <Suspense fallback={<Skeleton className="h-8 w-32"/>}>
                               <ThemeToggler/>
                          </Suspense>
+                    </SettingsOption>
+                    <SettingsOption
+                         title="Brightness"
+                         description="Adjust the app's brightness from 0 to 100"
+                    >
+                         <Suspense fallback={<BrightnessSliderLoader/>}>
+                              <BrightnessSlider/>
+                         </Suspense>
+                    </SettingsOption>
+                    <SettingsOption
+                         title="Compact Toolbar"
+                         description="Show smaller buttons instead in the toolbar"
+                         id="compact-toolbar"
+                    >
+                         <Switch
+                              id="compact-toolbar"
+                              checked={settings.compactToolbar}
+                              onCheckedChange={checked=>setSettings({compactToolbar: checked})}
+                         />
                     </SettingsOption>
                </SettingsItem>
                <SettingsItem
@@ -47,17 +68,6 @@ export default function GeneralSettings(){
                               id="auto-check"
                               checked={settings.checkUpdatesOnStartup}
                               onCheckedChange={checked=>setSettings({checkUpdatesOnStartup: checked})}
-                         />
-                    </SettingsOption>
-                    <SettingsOption
-                         title="Compact Toolbar"
-                         description="Show smaller buttons instead in the toolbar"
-                         id="compact-toolbar"
-                    >
-                         <Switch
-                              id="compact-toolbar"
-                              checked={settings.compactToolbar}
-                              onCheckedChange={checked=>setSettings({compactToolbar: checked})}
                          />
                     </SettingsOption>
                </SettingsItem>

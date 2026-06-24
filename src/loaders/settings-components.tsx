@@ -1,8 +1,9 @@
 import { cn } from "@/lib/utils"
 import { Skeleton } from "@/components/ui/skeleton"
+import { BrightnessSliderLoader } from "./fields"
 
 interface SettingsOptionLoaderProps{
-     optionType: "switch" | "input" | "selector",
+     optionType: "switch" | "input" | "selector" | "brightness",
      width?: number,
      noDescription?: boolean,
      includeIcon?: boolean
@@ -21,6 +22,8 @@ export function SettingsOptionLoader({optionType, width, noDescription=false, in
                     <Skeleton className="w-8 h-[18px]"/>
                ) : optionType==="input" ? (
                     <Skeleton className="w-1/3 h-8"/>
+               ) : optionType==="brightness" ? (
+                    <BrightnessSliderLoader/>
                ) : (
                     <Skeleton className={cn("h-8", !width && "w-48")} style={{width}}/>
                )}

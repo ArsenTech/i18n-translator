@@ -133,6 +133,10 @@ Future releases are planned to include automatic translation tools, transliterat
   - [ ] Replace `DEFAULT_DICTIONARIES` constant with a real data
 - [ ] `isDirty` changes inside new backend logic
 - [ ] Settings
+  - [ ] Appearance
+    - [ ] High Contrast
+    - [ ] Typography & Text
+    - [ ] Color blindness filters
   - [ ] Clear Data
     - [ ] Clear glossary cache
   - [ ] Glossary
@@ -157,6 +161,11 @@ Future releases are planned to include automatic translation tools, transliterat
     - [ ] Performance settings
   - [ ] Keyboard Shortcuts
     - [ ] Customize shortcuts
+  - [ ] Favorites system
+    - [ ] Favorite recent translations
+    - [ ] Favorite languages
+    - [ ] Favorite translation providers
+    - [ ] Favorite glossary entries
 
 ### Built With
 - [![Tauri][tauri-shield]][tauri-url]

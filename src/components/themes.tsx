@@ -3,14 +3,14 @@ import { ButtonGroup } from "@/components/ui/button-group";
 import { Moon, Sun } from "lucide-react";
 import { Button } from "./ui/button";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "./ui/dropdown-menu";
-import { useTheme } from "@/context/themes";
+import { useAppearance } from "@/context/appearance";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { AVAILABLE_COLORS, THEME_SETTINGS } from "@/lib/settings/constants";
 import { cn } from "@/lib/utils";
 import { Color } from "@/lib/settings/types";
 
 export default function ThemeToggler(){
-     const {setTheme, resolvedTheme, color, setColor} = useTheme();
+     const {setTheme, resolvedTheme, color, setColor} = useAppearance();
      return (
           <ButtonGroup>
                <DropdownMenu modal={false}>

@@ -1,9 +1,9 @@
-import { useTheme } from "@/context/themes"
+import { useAppearance } from "@/context/appearance"
 import { Toaster as Sonner, type ToasterProps } from "sonner"
 import { CircleCheckIcon, InfoIcon, TriangleAlertIcon, OctagonXIcon, Loader2Icon } from "lucide-react"
 
 const Toaster = ({ ...props }: ToasterProps) => {
-  const { theme = "system" } = useTheme()
+  const { theme = "system" } = useAppearance()
 
   return (
     <Sonner

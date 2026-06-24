@@ -4,7 +4,7 @@ import SettingsItem from "@/components/settings-item";
 import SettingsOption from "@/components/settings-item/settings-option";
 import { Button } from "@/components/ui/button";
 import { useSettings } from "@/context/settings";
-import { useTheme } from "@/context/themes";
+import { useAppearance } from "@/context/appearance";
 import { useAppTranslation } from "@/context/translation";
 import RecentTranslations from "@/lib/store/recent-translations";
 import { getErrorMessage } from "@/lib/utils";
@@ -15,7 +15,7 @@ import { toast } from "sonner";
 export default function ClearDataSettings(){
      const {setRecentTranslations} = useAppTranslation()
      const {resetAll, clearAll, settings} = useSettings()
-     const {resetThemes, clearThemes} = useTheme()
+     const {resetValues, clearValues} = useAppearance()
      const [isPending, startTransition] = useTransition()
      const clearTranslations = () => {
           startTransition(async() => {
@@ -40,7 +40,7 @@ export default function ClearDataSettings(){
      const handleReset = useCallback(() => {
           try {
                resetAll()
-               resetThemes()
+               resetValues()
                toast.success("Settings successfully reset to defaults")
           } catch (err) {
                toast.error("Failed to reset some settings to defaults",{
@@ -51,7 +51,7 @@ export default function ClearDataSettings(){
      const handleClear = useCallback(() => {
           try {
                clearAll()
-               clearThemes()
+               clearValues()
                toast.success("Settings cleared successfully")
           } catch (err) {
                toast.error("Failed to clear some settings",{

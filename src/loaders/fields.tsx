@@ -59,3 +59,12 @@ export function LangSelectorItemLoader(){
           </div>
      )
 }
+export function BrightnessSliderLoader(){
+     return (
+          <div className="w-full max-w-64 flex items-center gap-2">
+               <Skeleton className="size-5"/>
+               <Skeleton className="flex-1 h-1"/>
+               <Skeleton className="size-5"/>
+          </div>
+     )
+}

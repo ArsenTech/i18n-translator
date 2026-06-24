@@ -132,8 +132,14 @@ Future releases are planned to include automatic translation tools, transliterat
   - [ ] Replace `DEFAULT_DICTIONARIES` constant with a real data
 - [ ] `isDirty` changes inside new backend logic
 - [ ] Settings
+  - [ ] Clear Data
+    - [ ] Clear glossary cache
   - [ ] Glossary
     - [ ] Glossary pack preferences
+    - [ ] Auto-load glossary
+    - [ ] Remember last glossary pack
+    - [ ] Load default glossary pack
+    - [ ] Apply glossary automatically during Auto-Translate
   - [ ] File Formats
     - [ ] ICU MessageFormat support (Support ICU MessageFormat & pluralization rules)
     - [ ] PO file support

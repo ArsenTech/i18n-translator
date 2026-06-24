@@ -9,7 +9,9 @@ interface SettingsContextValue{
      providers: IProviderValues,
      setProviders: (overrides: Partial<IProviderValues>) => void,
      toolbars: ToolbarValues,
-     setToolbars: (overrides: Partial<ToolbarValues>) => void
+     setToolbars: (overrides: Partial<ToolbarValues>) => void,
+     resetAll: () => void,
+     clearAll: () => void
 }
 const SettingsContext = createContext<SettingsContextValue | null>(null)
 
@@ -69,6 +71,20 @@ export function SettingsProvider({ children }: { children: React.ReactNode }){
                localStorage.setItem("toolbar-settings",JSON.stringify(newValues));
                setToolbars(newValues)
           },
+          resetAll: () => {
+               localStorage.setItem("app-settings",JSON.stringify(DEFAULT_SETTINGS));
+               setSettings(DEFAULT_SETTINGS)
+               localStorage.setItem("auto-translation-settings",JSON.stringify(DEFAULT_PROVIDER_VALUES))
+               setProviders(DEFAULT_PROVIDER_VALUES)
+               localStorage.setItem("toolbar-settings",JSON.stringify(DEFAULT_TOOLBAR_SETTINGS))
+               setToolbars(DEFAULT_TOOLBAR_SETTINGS)
+          },
+          clearAll: () => {
+               setSettings(DEFAULT_SETTINGS)
+               setProviders(DEFAULT_PROVIDER_VALUES)
+               setToolbars(DEFAULT_TOOLBAR_SETTINGS);
+               ["app-settings","auto-translation-settings","toolbar-settings"].forEach(val=>localStorage.removeItem(val))
+          }
      }),[settings, providers, toolbars])
      return (
           <SettingsContext.Provider value={values}>

@@ -1,6 +1,6 @@
-import { useSettings } from "@/context/settings";
 import { COLORS } from "@/lib/settings/colors";
-import { Color, ResolvedTheme, Theme } from "@/lib/settings/types";
+import { DEFAULT_THEME_VALUES } from "@/lib/settings/constants";
+import { Color, IThemeValues, ResolvedTheme, Theme } from "@/lib/settings/types";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 
@@ -14,6 +14,8 @@ type ThemeProviderState = {
      color: Color;
      setTheme: (theme: Theme) => void;
      setColor: (color: Color) => void;
+     resetThemes: () => void;
+     clearThemes: () => void
 };
 
 const ThemeProviderContext = createContext<ThemeProviderState | null>(null);
@@ -21,9 +23,16 @@ const ThemeProviderContext = createContext<ThemeProviderState | null>(null);
 export function ThemeProvider({
      children,
 }: ThemeProviderProps) {
-     const {settings, setSettings} = useSettings()
+     const [themes, setThemes] = useState<IThemeValues>(()=>{
+          try {
+               const raw = localStorage.getItem("app-themes")
+               if (!raw) return DEFAULT_THEME_VALUES
+               return { ...DEFAULT_THEME_VALUES, ...JSON.parse(raw) }
+          } catch {
+               return DEFAULT_THEME_VALUES
+          }
+     });
      const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme | null>(null);
-
      useEffect(() => {
           const root = document.documentElement;
           const media = window.matchMedia("(prefers-color-scheme: dark)");
@@ -32,20 +41,20 @@ export function ThemeProvider({
                root.classList.add(resolved);
                setResolvedTheme(resolved);
           };
-          applyTheme(settings.theme === "system" ? media.matches ? "dark" : "light" : settings.theme);
+          applyTheme(themes.theme === "system" ? media.matches ? "dark" : "light" : themes.theme);
           const handleChange = (e: MediaQueryListEvent) => {
-               if (settings.theme === "system") 
+               if (themes.theme === "system") 
                     applyTheme(e.matches ? "dark" : "light");
           };
           media.addEventListener("change", handleChange);
           return () => media.removeEventListener("change", handleChange);
-     }, [settings.theme]);
+     }, [themes.theme]);
 
      useEffect(() => {
           if (!resolvedTheme) return;
-          const colorDef = COLORS[settings.color];
+          const colorDef = COLORS[themes.color];
           if (!colorDef) {
-               toast.error(`Invalid color "${settings.color}". Available: ${Object.keys(COLORS).join(", ")}`,{
+               toast.error(`Invalid color "${themes.color}". Available: ${Object.keys(COLORS).join(", ")}`,{
                     id: "theme-error"
                });
                return;
@@ -69,16 +78,38 @@ export function ThemeProvider({
                     value
                );
           });
-          root.dataset.themeColor = settings.color;
-     }, [settings.color, resolvedTheme]);
+          root.dataset.themeColor = themes.color;
+     }, [themes.color, resolvedTheme]);
 
      const value: ThemeProviderState = useMemo(()=>({
-          theme: settings.theme,
+          theme: themes.theme,
           resolvedTheme,
-          color: settings.color,
-          setTheme: t => setSettings({ theme: t }),
-          setColor: c => setSettings({ color: c }),
-     }),[settings, resolvedTheme]);
+          color: themes.color,
+          setTheme: t => {
+               const newValue: IThemeValues = {
+                    ...themes,
+                    theme: t
+               }
+               localStorage.setItem("app-themes",JSON.stringify(newValue));
+               setThemes(newValue)
+          },
+          setColor: c => {
+               const newValue: IThemeValues = {
+                    ...themes,
+                    color: c
+               }
+               localStorage.setItem("app-themes",JSON.stringify(newValue));
+               setThemes(newValue)
+          },
+          resetThemes(){
+               localStorage.setItem("app-themes",JSON.stringify(DEFAULT_THEME_VALUES));
+               setThemes(DEFAULT_THEME_VALUES)
+          },
+          clearThemes() {
+               localStorage.removeItem("app-themes");
+               setThemes(DEFAULT_THEME_VALUES)
+          },
+     }),[themes, resolvedTheme]);
      return (
           <ThemeProviderContext.Provider value={value}>
                {children}

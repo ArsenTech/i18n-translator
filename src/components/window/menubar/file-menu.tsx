@@ -6,6 +6,7 @@ import { lazy, Suspense, useState } from "react";
 import { toast } from "sonner";
 import { getErrorMessage } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useSettings } from "@/context/settings";
 
 const RecentTranslationsMenu = lazy(()=>import("./recent-translations"));
 const NewTranslationPopup = lazy(()=>import("@/popups/new-translation"));
@@ -13,13 +14,14 @@ const OpenTranslationPopup = lazy(()=>import("@/popups/open-translation"));
 const OpenXliffPopup = lazy(()=>import("@/popups/open-xliff"));
 
 export default function FileMenu(){
+     const {settings} = useSettings()
      const {table, files, setIsDirty, reset, langs} = useAppTranslation()
      const [isSaving, setIsSaving] = useState(false)
      const save = async (type: "save-as" | "save-all" = "save-all") => {
           if(isSaving) return;
           setIsSaving(true)
           try {
-               const res = type==="save-as" ? await FileActions.saveAs(table, langs) : await FileActions.saveAll(table, files.targetPath, langs)
+               const res = type==="save-as" ? await FileActions.saveAs(table, langs, settings.preserveEmpty, settings.xliffPreserveMeta) : await FileActions.saveAll(table, files.targetPath, langs, settings.preserveEmpty, settings.xliffPreserveMeta)
                if(res?.error) toast.error("Failed to save the file",{
                     description: res.error
                })

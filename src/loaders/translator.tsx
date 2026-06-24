@@ -1,12 +1,14 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { cn } from "@/lib/utils";
 import { useMemo } from "react";
 
 interface Props{
      rows?: number,
-     cols: number[]
+     cols: number[],
+     excludeMinWidth?: boolean
 }
-export function TableLoader({rows=12, cols}: Props){
+export function TableLoader({rows=12, cols, excludeMinWidth=false}: Props){
      const rowsArr = useMemo(()=>Array.from({length: rows}).map((_,i)=>i),[rows]);
      return (
           <>
@@ -15,7 +17,7 @@ export function TableLoader({rows=12, cols}: Props){
                <Skeleton className="h-8 w-27"/>
           </div>
           <div className="flex flex-col flex-1 min-h-0 overflow-hidden rounded-md border bg-card text-card-foreground shadow-xs">
-               <Table className="min-w-[900px] table-fixed">
+               <Table className={cn("table-fixed",!excludeMinWidth && "min-w-[900px]")}>
                     <TableHeader>
                          <TableRow>
                               {cols.map((size,col)=>(

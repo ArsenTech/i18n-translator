@@ -17,11 +17,13 @@ import RecentTranslations from "@/lib/store/recent-translations";
 import { TranslationFormat } from "@/lib/types/enums";
 import { Skeleton } from "@/components/ui/skeleton";
 import FetcherActions from "@/actions/fetcher";
+import { useSettings } from "@/context/settings";
 
 const LangSelector = lazy(()=>import("@/components/fields/lang-selector"))
 const XliffFilePicker = lazy(()=>import("@/components/fields/file-picker/xliff"))
 
 export default function OpenXliff({setOpen}: PopupComponentProps){
+     const {settings} = useSettings()
      const [isOpening, startTransition] = useTransition()
      const [isFetching, startFetching] = useTransition()
      const {setTable, updateLangs, setFiles, setBaseKeys, setIsDirty} = useAppTranslation()
@@ -34,7 +36,7 @@ export default function OpenXliff({setOpen}: PopupComponentProps){
           }
      })
      const handleChangeLang = (val: string) => {
-          if(isFetching) return;
+          if(!settings.xliffAutoDetect || !settings.xliffPreserveMeta || isFetching) return;
           startFetching(async() => {
                const meta = await FetcherActions.getXliffMetadata(val);
                form.setValue("baseLang", meta.src_lang)

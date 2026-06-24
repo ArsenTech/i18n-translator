@@ -92,22 +92,37 @@ export default class FileActions{
                return {error: getErrorMessage(err), data: []}
           }
      }
-     public static async saveAll(table: ITranslation[], targetPath: string, langs: ILangInputState){
+     public static async saveAll(
+          table: ITranslation[],
+          targetPath: string,
+          langs: ILangInputState,
+          preserveTranslations: boolean,
+          preserveMetadata: boolean
+     ){
           if(!targetPath) return {error: "Target Path is empty. Save cancelled"}
-          if(table.length<=0) return {error: "Table itself is empty"}
+          const data = preserveTranslations ? table : table.filter(item => item.translationString.trim() !== "")
+          if(data.length<=0) return {error: "Table itself is empty"}
           try {
-               const entries: IBackendTranslation[] = table.map(val=>({
+               const entries: IBackendTranslation[] = data.map(val=>({
                     key_name: val.keyName,
                     base_string: val.baseString,
                     translation_string: val.translationString,
                     line_number: val.lineNumber
                }))
+               let baseLang = langs.base;
+               let targetLang = langs.target;
+               const format = await getFormatFromPath(targetPath)
+               if (preserveMetadata && format === TranslationFormat.Xliff) {
+                    const meta = await FetcherActions.getXliffMetadata(targetPath);
+                    baseLang = meta.src_lang || baseLang;
+                    targetLang = meta.trg_lang || targetLang;
+               }
                await invoke("save_translation", {
                     targetPath,
                     entries,
-                    format: await getFormatFromPath(targetPath),
-                    baseLang: langs.base,
-                    targetLang: langs.target
+                    format,
+                    baseLang,
+                    targetLang
                })
                return {success: "Translation saved successfully"}
           } catch (err) {
@@ -115,8 +130,14 @@ export default class FileActions{
                return {error: getErrorMessage(err)}
           }
      }
-     public static async saveAs(table: ITranslation[], langs: ILangInputState){
-          if(table.length<=0) return {error: "Table itself is empty"}
+     public static async saveAs(
+          table: ITranslation[],
+          langs: ILangInputState,
+          preserveTranslations: boolean,
+          preserveMetadata: boolean
+     ){
+          const data = preserveTranslations ? table : table.filter(item => item.translationString.trim() !== "")
+          if(data.length<=0) return {error: "Table itself is empty"}
           try {
                const targetPath = await save({
                     title: "Save Translation As",
@@ -144,18 +165,26 @@ export default class FileActions{
                     ]
                })
                if(!targetPath) return;
-               const entries: IBackendTranslation[] = table.map(val=>({
+               const entries: IBackendTranslation[] = data.map(val=>({
                     key_name: val.keyName,
                     base_string: val.baseString,
                     translation_string: val.translationString,
                     line_number: val.lineNumber
                }))
+               let baseLang = langs.base;
+               let targetLang = langs.target;
+               const format = await getFormatFromPath(targetPath)
+               if (preserveMetadata && format === TranslationFormat.Xliff) {
+                    const meta = await FetcherActions.getXliffMetadata(targetPath);
+                    baseLang = meta.src_lang || baseLang;
+                    targetLang = meta.trg_lang || targetLang;
+               }
                await invoke("save_translation", {
                     targetPath,
                     entries,
-                    format: await getFormatFromPath(targetPath),
-                    baseLang: langs.base,
-                    targetLang: langs.target
+                    format,
+                    baseLang,
+                    targetLang
                })
                return {success: "Translation saved successfully"}
           } catch (err) {

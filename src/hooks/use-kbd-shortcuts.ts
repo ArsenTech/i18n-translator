@@ -1,8 +1,10 @@
+import { useSettings } from "@/context/settings";
 import { useAppTranslation } from "@/context/translation";
 import { KBD_SHORTCUTS } from "@/lib/constants/kbd-shortcuts";
 import { useEffect } from "react";
 
 export default function useKeyboardShortcuts(){
+     const {settings} = useSettings()
      const {table, files, setIsDirty, setSelectedKeys, langs} = useAppTranslation()
      useEffect(() => {
           const handleKeyDown = (event: KeyboardEvent) => {
@@ -20,7 +22,8 @@ export default function useKeyboardShortcuts(){
                     targetPath: files.targetPath,
                     setIsDirty,
                     setSelectedKeys,
-                    langs
+                    langs,
+                    settings
                })
           };
           window.addEventListener("keydown", handleKeyDown);

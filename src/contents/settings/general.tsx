@@ -44,7 +44,7 @@ export default function GeneralSettings(){
                          id="auto-check"
                     >
                          <Switch
-                              name="auto-check"
+                              id="auto-check"
                               checked={settings.checkUpdatesOnStartup}
                               onCheckedChange={checked=>setSettings({checkUpdatesOnStartup: checked})}
                          />
@@ -55,7 +55,7 @@ export default function GeneralSettings(){
                          id="compact-toolbar"
                     >
                          <Switch
-                              name="compact-toolbar"
+                              id="compact-toolbar"
                               checked={settings.compactToolbar}
                               onCheckedChange={checked=>setSettings({compactToolbar: checked})}
                          />

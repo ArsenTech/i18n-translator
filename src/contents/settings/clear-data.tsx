@@ -4,8 +4,8 @@ import SettingsItem from "@/components/settings-item";
 import SettingsOption from "@/components/settings-item/settings-option";
 import { Button } from "@/components/ui/button";
 import { useSettings } from "@/context/settings";
+import { useTheme } from "@/context/themes";
 import { useAppTranslation } from "@/context/translation";
-import { DEFAULT_SETTINGS } from "@/lib/settings/constants";
 import RecentTranslations from "@/lib/store/recent-translations";
 import { getErrorMessage } from "@/lib/utils";
 import { FileX, RotateCw, Trash2 } from "lucide-react";
@@ -14,7 +14,8 @@ import { toast } from "sonner";
 
 export default function ClearDataSettings(){
      const {setRecentTranslations} = useAppTranslation()
-     const {setSettings, settings} = useSettings()
+     const {resetAll, clearAll, settings} = useSettings()
+     const {resetThemes, clearThemes} = useTheme()
      const [isPending, startTransition] = useTransition()
      const clearTranslations = () => {
           startTransition(async() => {
@@ -36,10 +37,22 @@ export default function ClearDataSettings(){
                }
           })
      }
+     const handleReset = useCallback(() => {
+          try {
+               resetAll()
+               resetThemes()
+               toast.success("Settings successfully reset to defaults")
+          } catch (err) {
+               toast.error("Failed to reset some settings to defaults",{
+                    description: getErrorMessage(err)
+               })
+          }
+     },[settings])
      const handleClear = useCallback(() => {
           try {
-               setSettings(DEFAULT_SETTINGS)
-               toast.success("Settings successfully reset to defaults")
+               clearAll()
+               clearThemes()
+               toast.success("Settings cleared successfully")
           } catch (err) {
                toast.error("Failed to clear some settings",{
                     description: getErrorMessage(err)
@@ -105,12 +118,11 @@ export default function ClearDataSettings(){
                               Icon={RotateCw}
                               title="Are you sure you want to restore settings to defaults?"
                               description="This action cannot be undone"
-                              onConfirm={handleClear}
+                              onConfirm={handleReset}
                               actionText="Restore"
                          />
                     </SettingsOption>
                </SettingsItem>
-               {/* TODO: Clear glossary cache, Clear settings and Reset application (Backend Logic) */}
           </div>
      )
 }

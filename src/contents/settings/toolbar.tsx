@@ -15,8 +15,9 @@ export default function ToolbarSettings(){
                     Icon={Wrench}
                >
                     {TOOLBAR_OPTIONS.map(({ key, title, Icon }) => (
-                         <SettingsOption key={key} title={title} Icon={Icon}>
+                         <SettingsOption key={key} title={title} Icon={Icon} id={`toolbar-${key}`}>
                               <Switch
+                                   id={`toolbar-${key}`}
                                    checked={toolbars[key]}
                                    onCheckedChange={(checked) => setToolbars({[key]: checked})}
                               />

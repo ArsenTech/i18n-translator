@@ -9,6 +9,7 @@ import FileActions from "@/actions/file";
 import { toast } from "sonner";
 import { getErrorMessage } from "@/lib/utils";
 import { MenubarLoader } from "../../loaders/titlebar";
+import { useSettings } from "@/context/settings";
 
 const LogoDropdown = lazy(()=>import("./logo-dropdown"));
 const MenuBar = lazy(()=>import("./menubar"))
@@ -19,6 +20,7 @@ interface TitleBarProps{
 }
 export default function TitleBar({hideMaximize, title}: TitleBarProps){
      const appWindow = getCurrentWindow()
+     const {settings} = useSettings()
      const [isMaximized, setIsMaximized] = useState(false)
      const {isDirty, files, setIsDirty, table, langs} = useAppTranslation()
      const handleClose = async () => {
@@ -34,7 +36,7 @@ export default function TitleBar({hideMaximize, title}: TitleBarProps){
           })
           if (confirmation === "Yes") {
                try {
-                    const res = files.targetPath ? await FileActions.saveAll(table, files.targetPath, langs) : await FileActions.saveAs(table, langs)
+                    const res = files.targetPath ? await FileActions.saveAll(table, files.targetPath, langs, settings.preserveEmpty, settings.xliffPreserveMeta) : await FileActions.saveAs(table, langs, settings.preserveEmpty, settings.xliffPreserveMeta)
                     if (res?.success) {
                          setIsDirty(false)
                          await appWindow.close();

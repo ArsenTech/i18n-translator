@@ -4,6 +4,7 @@ import ViewActions from "@/actions/view"
 import { toast } from "sonner"
 import { SetStateType, ILangInputState } from "../types"
 import { ITranslation } from "../types/data"
+import { ISettings } from "../settings/types"
 
 export const KBD_SHORTCUTS: Record<string,{
      name: string,
@@ -12,7 +13,8 @@ export const KBD_SHORTCUTS: Record<string,{
           targetPath: string,
           setIsDirty: SetStateType<boolean>,
           setSelectedKeys: SetStateType<Set<string>>,
-          langs: ILangInputState
+          langs: ILangInputState,
+          settings: ISettings
      })=>void
 }> = {
      "ctrl++":{
@@ -29,7 +31,7 @@ export const KBD_SHORTCUTS: Record<string,{
      },
      "ctrl+s": {
           name: "Save Translation",
-          fn: ({table, targetPath, setIsDirty, langs}) => FileActions.saveAll(table, targetPath, langs).then(res=>{
+          fn: ({table, targetPath, setIsDirty, langs, settings}) => FileActions.saveAll(table, targetPath, langs, settings.preserveEmpty, settings.xliffPreserveMeta).then(res=>{
                if(res?.error) toast.error("Failed to save the file",{
                     description: res.error
                })
@@ -41,7 +43,7 @@ export const KBD_SHORTCUTS: Record<string,{
      },
      "ctrl+shift+s": {
           name: "Save Translation as",
-          fn: ({table, setIsDirty, langs}) => FileActions.saveAs(table, langs).then(res=>{
+          fn: ({table, setIsDirty, langs, settings}) => FileActions.saveAs(table, langs, settings.preserveEmpty, settings.xliffPreserveMeta).then(res=>{
                if(res?.error) toast.error("Failed to save the file",{
                     description: res.error
                })

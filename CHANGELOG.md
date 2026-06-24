@@ -11,7 +11,16 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
   - Compact Toolbar mode
 - Toolbar Management Settings
 - Glossary Settings
-  - Show Glossary Settings By Default
+  - Show Sidebar By Default
+- File Formats Settings
+  - XLIFF Settings
+    - Auto-Detect Languages
+    - Preserve Metadata
+  - Android XML Settings
+    - Default Translatable State
+    - Show Translatable column
+- Editor Settings
+  - Preserve Empty Translations
 - New Toolbar items
   - Find
   - Batch Rename Keys
@@ -20,6 +29,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
   - Glossary Manager
 ### Fixed
 - Toaster duplication bug
+- Loader Mismatch In Tables
+### Improved
+- Clear Data
+  - Clear Settings & Restore Defaults
 
 [0.3.4]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.3.4
 

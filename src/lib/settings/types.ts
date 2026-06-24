@@ -5,8 +5,6 @@ import { TranslationFormat } from "../types/enums";
 
 export interface ISettings{
      currNamespaceOnly: boolean
-     theme: Theme,
-     color: Color,
      baseLang?: string,
      targetLang?: string,
      showLineNumbers: boolean,
@@ -16,7 +14,16 @@ export interface ISettings{
      defaultGlossaryView: GlossaryTogglerType,
      defaultFormat: TranslationFormat,
      checkUpdatesOnStartup: boolean,
-     compactToolbar: boolean
+     compactToolbar: boolean,
+     androidTranslatable: boolean,
+     androidTranslatableCol: boolean,
+     xliffAutoDetect: boolean,
+     xliffPreserveMeta: boolean,
+     preserveEmpty: boolean,
+}
+export interface IThemeValues{
+     theme: Theme,
+     color: Color,
 }
 type ToolbarItems = "newFile" | "openFile" | "saveFile" | "find" | "findMissing" | "replace" | "batchRename" | "selectUntranslated" | "addToGlossary" | "autoTranslate" | "validateKeys" | "removeUnusedKeys" | "transliterate" | "glossaryManager" | "spellCheck"
 export type ToolbarValues = Record<ToolbarItems,boolean>

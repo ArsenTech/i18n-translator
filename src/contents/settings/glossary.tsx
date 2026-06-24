@@ -52,7 +52,6 @@ export default function GlossarySettings(){
                          />
                     </SettingsOption>
                </SettingsItem>
-               {/* TODO: Auto-load glossary */}
           </div>
      )
 }

@@ -16,7 +16,7 @@ export default function EditorSettings(){
           <div className="space-y-2">
                <SettingsItem
                     Icon={Edit}
-                    title="General Settings"
+                    title="Editor Settings"
                >
                     <SettingsOption
                          title="Show current namespace only"
@@ -60,6 +60,17 @@ export default function EditorSettings(){
                               id="auto-save"
                               checked={settings.autoSave}
                               onCheckedChange={checked=>setSettings({autoSave: checked})}
+                         />
+                    </SettingsOption>
+                    <SettingsOption
+                         title="Preserve Empty Translations"
+                         description="Keep or maintain empty translations intact"
+                         id="preserve-empty"
+                    >
+                         <Switch
+                              id="preserve-empty"
+                              checked={settings.preserveEmpty}
+                              onCheckedChange={checked=>setSettings({preserveEmpty: checked})}
                          />
                     </SettingsOption>
                </SettingsItem>

@@ -89,6 +89,7 @@ Future releases are planned to include automatic translation tools, transliterat
 - [ ] Translation Settings
   - [ ] Auto-detect base language
 - [ ] Access Keyboard shortcuts from popups
+- [ ] Documentations update before releasing
 
 #### Nice to have
 - [ ] Write the Documentation on the `docs/` folder.

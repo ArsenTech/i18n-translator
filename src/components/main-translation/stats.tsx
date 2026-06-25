@@ -1,8 +1,10 @@
+import { useEditor } from "@/context/editor";
 import { useAppTranslation } from "@/context/translation";
 import { useMemo } from "react";
 
 export default function TranslatorStats(){
-     const {table, currTranslation} = useAppTranslation()
+     const {table} = useAppTranslation()
+     const {currTranslation} = useEditor()
      const stats = useMemo(() => {
           let translated = 0, borrowed = 0
           for (const item of table) {

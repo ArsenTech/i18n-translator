@@ -5,11 +5,13 @@ import { useAppTranslation } from "@/context/translation";
 import { toast } from "sonner";
 import { lazy, Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useEditor } from "@/context/editor";
 
 const FindPopup = lazy(()=>import("@/popups/find"));
 
 export default function FindSubmenu(){
-     const {findState, setFindState, setCurrentTranslation, setInput, setVisibleCount, visibleTable} = useAppTranslation()
+     const {findState, setFindState, setCurrentTranslation, setInput, setVisibleCount} = useEditor();
+     const {visibleTable} = useAppTranslation()
      const findAction = (type: "next" | "prev" | "missing") => {
           const res: FindResult = type==="next" ? FindActions.findNext(findState) : type==="prev" ? FindActions.findPrev(findState) : type==="missing" ? FindActions.findMissing(visibleTable) : {success: false, error: "Unknown find action"}
           if(res.success) {

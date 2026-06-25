@@ -16,6 +16,7 @@ import { findValue } from "@/lib/helpers"
 import { GlossarySidebarItem } from "./item"
 import { GlossarySidebarLoader } from "@/loaders/glossary"
 import { useSettings } from "@/context/settings"
+import { useEditor } from "@/context/editor"
 
 function GlossarySidebarMenu({children}: {children: React.ReactNode}){
      return (
@@ -24,7 +25,7 @@ function GlossarySidebarMenu({children}: {children: React.ReactNode}){
 }
 
 function GlossarySidebarContainer({children}: {children: React.ReactNode}){
-     const {currTranslation, setInput} = useAppTranslation()
+     const {currTranslation, setInput} = useEditor()
      const {settings} = useSettings()
      const {isMobile, open, setOpen, showType, setShowType, glossary, closeMobileSidebar} = useGlossary()
      const glossaryItems = useMemo(() => {
@@ -126,7 +127,8 @@ interface GlossarySidebarProps{
 }
 export default function GlossarySidebar({glossary}: GlossarySidebarProps) {
      const [isLoading, startTransition] = useTransition()
-     const {langs, currTranslation, setInput} = useAppTranslation()
+     const {langs} = useAppTranslation()
+     const {currTranslation, setInput} = useEditor()
      const {setGlossary, showType, closeMobileSidebar} = useGlossary()
      const loadPack = () => {
           startTransition(async()=>{

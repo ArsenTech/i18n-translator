@@ -1,5 +1,4 @@
 import { CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible"
-import { useAppTranslation } from "@/context/translation"
 import { useTreeSidebar } from "@/context/tree-sidebar"
 import { TreeNode } from "@/lib/types"
 import { cn } from "@/lib/utils"
@@ -7,12 +6,13 @@ import { ChevronRight, Folder, List } from "lucide-react"
 import { Collapsible } from "@/components/ui/collapsible"
 import React, { useState } from "react"
 import { TreeSidebarItem, TreeSidebarButton, TreeSidebarSubmenu } from "."
+import { useEditor } from "@/context/editor"
 
 interface TreeNodeItemProps{
      node: TreeNode
 }
 const TreeNodeItem = React.memo(({node}: TreeNodeItemProps) => {
-     const {selectedNamespace, setSelectedNamespace} = useAppTranslation()
+     const {selectedNamespace, setSelectedNamespace} = useEditor()
      const [open, setOpen] = useState(node.name === "Root")
      const hasChildren = node.children.length > 0
      const selected = selectedNamespace === node.fullPath

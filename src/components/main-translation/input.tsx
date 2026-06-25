@@ -10,10 +10,12 @@ import { toast } from "sonner";
 import { getErrorMessage } from "@/lib/utils";
 import FileActions from "@/actions/file";
 import LoadingButton from "../loading-button";
+import { useEditor } from "@/context/editor";
 
 export default function TranslationInput(){
      const [isSaving, startTransition] = useTransition()
-     const {table, currTranslation, setTable, setCurrentTranslation, input, setInput, visibleTable, setIsDirty, inputRef, files, langs} = useAppTranslation()
+     const {table, setTable, visibleTable, setIsDirty, files, langs} = useAppTranslation()
+     const {currTranslation, setCurrentTranslation, input, setInput, inputRef} = useEditor()
      const {settings} = useSettings()
      const saveTranslation = () => {
           if(isSaving) return;

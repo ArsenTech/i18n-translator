@@ -17,12 +17,14 @@ import TranslatorActions from "@/actions/translator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { RadioFieldLoader } from "@/loaders/fields";
 import { FIND_OPTIONS } from "@/lib/constants/items";
+import { useEditor } from "@/context/editor";
 
 const ComboboxField = lazy(()=>import("@/components/fields/combobox-field"))
 const RadioField = lazy(()=>import("@/components/fields/radio-field"))
 
 export default function FindContent({setOpen}: PopupContentProps){
-     const {visibleTable, setVisibleCount, keyNames, setCurrentTranslation, setInput, setFindState} = useAppTranslation()
+     const {visibleTable, keyNames} = useAppTranslation()
+     const {setVisibleCount, setCurrentTranslation, setInput, setFindState} = useEditor()
      const form = useForm<FindType>({
           resolver: zodResolver(FindSchema),
           defaultValues: {

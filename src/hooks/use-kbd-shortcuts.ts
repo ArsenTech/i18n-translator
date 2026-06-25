@@ -1,3 +1,4 @@
+import { useEditor } from "@/context/editor";
 import { useSettings } from "@/context/settings";
 import { useAppTranslation } from "@/context/translation";
 import { KBD_SHORTCUTS } from "@/lib/constants/kbd-shortcuts";
@@ -5,7 +6,8 @@ import { useEffect } from "react";
 
 export default function useKeyboardShortcuts(){
      const {settings} = useSettings()
-     const {table, files, setIsDirty, setSelectedKeys, langs} = useAppTranslation()
+     const {table, files, setIsDirty, langs} = useAppTranslation()
+     const {setSelectedKeys} = useEditor()
      useEffect(() => {
           const handleKeyDown = (event: KeyboardEvent) => {
                const key = event.key==="Escape" ? "esc" : event.key.toLowerCase()

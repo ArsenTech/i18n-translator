@@ -3,6 +3,7 @@ import EditActions from "@/actions/edit";
 import { useAppTranslation } from "@/context/translation";
 import { lazy, Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useEditor } from "@/context/editor";
 
 const ReplaceTranslationPopup = lazy(()=>import("@/popups/replace-translation"));
 const BatchRenameKeysPopup = lazy(()=>import("@/popups/batch-rename-keys"));
@@ -10,7 +11,8 @@ const AddToGlossaryPopup = lazy(()=>import("@/popups/add-to-glossary"));
 const FindSubmenu = lazy(()=>import("./find-submenu"));
 
 export default function EditMenu(){
-     const {inputRef, table, setSelectedKeys} = useAppTranslation()
+     const {inputRef, setSelectedKeys} = useEditor()
+     const {table} = useAppTranslation()
      return (
           <MenubarMenu>
                <MenubarTrigger className="tracking-tight">Edit</MenubarTrigger>

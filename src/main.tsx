@@ -7,21 +7,24 @@ import { GlossaryProvider } from "./context/glossary";
 import { AppTranslationProvider } from "./context/translation";
 import { TreeSidebarProvider } from "./context/tree-sidebar";
 import { SettingsProvider } from "./context/settings";
+import { EditorProvider } from "./context/editor";
 
 const MainPage = lazy(()=>import("./contents/main"))
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <SettingsProvider>
-      <AppTranslationProvider>
-        <TreeSidebarProvider>
-          <GlossaryProvider>
-            <Suspense fallback={<MainContentLoader/>}>
-              <MainPage/>
-            </Suspense>
-          </GlossaryProvider>
-        </TreeSidebarProvider>
-      </AppTranslationProvider>
+      <EditorProvider>
+        <AppTranslationProvider>
+          <TreeSidebarProvider>
+            <GlossaryProvider>
+              <Suspense fallback={<MainContentLoader/>}>
+                <MainPage/>
+              </Suspense>
+            </GlossaryProvider>
+          </TreeSidebarProvider>
+        </AppTranslationProvider>
+      </EditorProvider>
     </SettingsProvider>
   </React.StrictMode>,
 );

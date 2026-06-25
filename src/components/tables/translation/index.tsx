@@ -11,6 +11,7 @@ import { useAppTranslation } from "@/context/translation"
 import { Spinner } from "@/components/ui/spinner"
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSettings } from "@/context/settings";
+import { useEditor } from "@/context/editor";
 
 const Filters = lazy(()=>import("./filters"));
 const SortBy = lazy(()=>import("./sort-by"));
@@ -25,7 +26,8 @@ export type TranslationFilterType =
 export type TranslationSearchType = "name" | "translation" | "source" | "source-not" | "translation-not" | "name-not"
 
 export default function TranslationTable() {
-     const {missingOnly, setCurrentTranslation, currTranslation, visibleCount, setVisibleCount, selectedNamespace, setInput, visibleTable, selectedKeys, setSelectedKeys, selectKey} = useAppTranslation()
+     const {missingOnly, setCurrentTranslation, currTranslation, visibleCount, setVisibleCount, selectedNamespace, setInput, selectedKeys, setSelectedKeys, selectKey} = useEditor()
+     const {visibleTable} = useAppTranslation()
      const {settings} = useSettings()
      const [search, setSearch] = React.useState("")
      const [searchMode, setSearchMode] = React.useState<TranslationSearchType>("source")

@@ -6,11 +6,11 @@ import { Suspense } from "react"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetClose, SheetFooter } from "@/components/ui/sheet"
 import { TreeNode } from "@/lib/types"
 import { useTreeSidebar } from "@/context/tree-sidebar"
-import { useAppTranslation } from "@/context/translation"
 import React from "react"
 import { SIDEBAR_WIDTH_MOBILE } from "@/lib/constants"
 import TreeNodeItem from "./item"
 import { TreeNodeLoader } from "@/loaders/tree-sidebar"
+import { useEditor } from "@/context/editor"
 
 export function TreeSidebarItem({children}: {children: React.ReactNode}){
      return (
@@ -92,7 +92,7 @@ interface TreeSidebarProps{
 }
 export default function TreeSidebar({tree}: TreeSidebarProps) {
      const {closeMobileSidebar} = useTreeSidebar()
-     const {selectedNamespace, setSelectedNamespace} = useAppTranslation()
+     const {selectedNamespace, setSelectedNamespace} = useEditor()
      return (
           <TreeSidebarContainer>
                <TreeSidebarMenu>

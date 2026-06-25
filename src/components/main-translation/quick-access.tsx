@@ -15,6 +15,7 @@ import { Skeleton } from "../ui/skeleton";
 import { useSettings } from "@/context/settings";
 import EditActions from "@/actions/edit";
 import { Separator } from "../ui/separator";
+import { useEditor } from "@/context/editor";
 
 const NewTranslationPopup = lazy(()=>import("@/popups/new-translation"));
 const OpenTranslationPopup = lazy(()=>import("@/popups/open-translation"));
@@ -30,7 +31,8 @@ const GlossaryManagerPopup = lazy(()=>import("@/popups/glossary-manager"));
 
 export default function QuickAccessToolbar(){
      const [isSaving, setIsSaving] = useState(false)
-     const {table, files, baseKeys, setCurrentTranslation, setInput, setVisibleCount, visibleTable, setIsDirty, langs, reset, setSelectedKeys, setTable, findState, setFindState} = useAppTranslation()
+     const {table, files, baseKeys, visibleTable, setIsDirty, langs, reset, setTable} = useAppTranslation()
+     const {setCurrentTranslation,setInput, setVisibleCount, setSelectedKeys, findState, setFindState} = useEditor()
      const {toolbars, settings} = useSettings()
      const findAction = (type: "next" | "prev" | "missing") => {
           const res: FindResult = type==="next" ? FindActions.findNext(findState) : type==="prev" ? FindActions.findPrev(findState) : type==="missing" ? FindActions.findMissing(visibleTable) : {success: false, error: "Unknown find action"}

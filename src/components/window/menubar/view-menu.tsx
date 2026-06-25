@@ -1,13 +1,13 @@
 import { MenubarContent, MenubarItem, MenubarMenu, MenubarShortcut, MenubarSub, MenubarSubContent, MenubarSubTrigger, MenubarTrigger } from "@/components/ui/menubar";
 import { useTreeSidebar } from "@/context/tree-sidebar";
 import ViewActions from "@/actions/view";
-import { useAppTranslation } from "@/context/translation";
 import { useGlossary } from "@/context/glossary";
+import { useEditor } from "@/context/editor";
 
 export default function ViewMenu(){
      const {setOpen: setOpenTree} = useTreeSidebar()
      const {setOpen: setOpenGlossary} = useGlossary()
-     const {setMissingOnly} = useAppTranslation()
+     const {setMissingOnly} = useEditor()
      return (
           <MenubarMenu>
                <MenubarTrigger className="tracking-tight">View</MenubarTrigger>

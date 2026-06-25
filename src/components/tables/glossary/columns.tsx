@@ -1,7 +1,7 @@
 import type { GlossaryEntry } from "@/lib/types/data"
 import { ColumnDef } from "@tanstack/react-table"
 import { DataTableColumnHeader } from "../col-header"
-import { wordCount } from "@/lib/helpers"
+import { wordCount } from "@/lib/utils"
 import { Switch } from "@/components/ui/switch"
 import { useGlossary } from "@/context/glossary"
 import { useAppTranslation } from "@/context/translation"

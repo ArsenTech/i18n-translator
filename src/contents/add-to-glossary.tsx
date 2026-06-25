@@ -7,7 +7,7 @@ import { DialogFooter } from "@/components/ui/dialog";
 import { Switch } from "@/components/ui/switch";
 import { lazy, Suspense, useTransition } from "react";
 import { Input } from "@/components/ui/input";
-import { GLOSSARY_DOMAINS, PARTS_OF_SPEECH } from "@/lib/constants/items";
+import { GLOSSARY_DOMAINS, PARTS_OF_SPEECH } from "@/lib/constants/combobox-items";
 import GlossaryActions from "@/lib/store/glossary";
 import { toast } from "sonner";
 import LoadingButton from "@/components/loading-button";

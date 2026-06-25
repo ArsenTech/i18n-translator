@@ -1,9 +1,18 @@
-import { ILangItem } from "@/lib/types/data";
-import { XliffMetadata } from "@/lib/types/data/backend";
+import type { ILangItem } from "@/lib/types/data";
+import type { XliffMetadata } from "@/lib/types/data/backend";
 import { invoke } from "@tauri-apps/api/core";
 import { cache } from "react";
 import {getName, getTauriVersion, getVersion, getIdentifier} from "@tauri-apps/api/app"
-import { FileType, TranslationFormat } from "@/lib/types/enums";
+import { extname } from "@tauri-apps/api/path"
+import { type FileType, TranslationFormat } from "@/lib/types/enums";
+
+const extensions: Record<string,TranslationFormat> = {
+     "json": TranslationFormat.Json,
+     "xml": TranslationFormat.Xml,
+     "po": TranslationFormat.Po,
+     "resx": TranslationFormat.Resx,
+     "xliff": TranslationFormat.Xliff
+}
 
 export default class FetcherActions{
      public static fetchLanguages = cache(async()=>{
@@ -41,5 +50,9 @@ export default class FetcherActions{
                console.error(err)
                return null
           }
+     })
+     public static getFormatFromPath = cache(async(path: string): Promise<TranslationFormat> =>{
+          const extension = await extname(path)
+          return extensions[extension]
      })
 }

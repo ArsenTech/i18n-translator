@@ -1,6 +1,6 @@
 import { Monitor, Sun, Moon } from "lucide-react"
-import { Color, IProviderValues, ISettings, IThemeSettings, IAppearance } from "./types"
-import { TranslationFormat } from "../types/enums"
+import type { Color, IProviderValues, ISettings, IThemeSettings, IAppearance } from "@/lib/types/settings"
+import { TranslationFormat } from "@/lib/types/enums"
 
 export const DEFAULT_SETTINGS: ISettings = {
      currNamespaceOnly: true,

@@ -1,7 +1,7 @@
 import { Filter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { GlossaryFilterType, GlossarySearchType } from ".";
+import type { GlossaryFilterType, GlossarySearchType } from "@/lib/types/string-unions";
 
 interface FiltersProps {
      filter: GlossaryFilterType

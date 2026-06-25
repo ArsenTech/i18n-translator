@@ -1,7 +1,7 @@
 import { Noop } from "react-hook-form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { SelectType } from "@/lib/types";
+import type { SelectType } from "@/lib/types";
 
 interface RadioFieldProps{
      onChange: (value: string) => void;

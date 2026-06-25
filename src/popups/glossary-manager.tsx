@@ -1,5 +1,5 @@
 import AppModal from "@/components/popups/modal";
-import { PopupComponentProps } from "@/lib/types";
+import type { PopupComponentProps } from "@/lib/types/props";
 import { GlossaryManagerLoader } from "@/loaders/contents";
 import { lazy, Suspense } from "react";
 

@@ -1,6 +1,6 @@
 import { Noop } from "react-hook-form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { SelectType } from "@/lib/types";
+import type { SelectType } from "@/lib/types";
 
 interface SelectorFieldProps{
      onChange: (value: string) => void;

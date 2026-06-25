@@ -1,4 +1,4 @@
-import { ILangItem } from "@/lib/types/data";
+import type { ILangItem } from "@/lib/types/data";
 import { Languages } from "lucide-react";
 import { useEffect, useState } from "react";
 import { CircleFlag, CircleFlagLanguage, CircleFlagLanguageProps, CircleFlagProps } from "react-circle-flags";

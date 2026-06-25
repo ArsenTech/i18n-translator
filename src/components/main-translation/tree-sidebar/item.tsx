@@ -1,6 +1,6 @@
 import { CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible"
 import { useTreeSidebar } from "@/context/tree-sidebar"
-import { TreeNode } from "@/lib/types"
+import type { TreeNode } from "@/lib/types/data"
 import { cn } from "@/lib/utils"
 import { ChevronRight, Folder, List } from "lucide-react"
 import { Collapsible } from "@/components/ui/collapsible"

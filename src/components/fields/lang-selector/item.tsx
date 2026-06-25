@@ -1,6 +1,6 @@
 import { CommandItem } from "@/components/ui/command"
 import { Skeleton } from "@/components/ui/skeleton";
-import { ILangItem } from "@/lib/types/data"
+import type { ILangItem } from "@/lib/types/data"
 import { lazy, Suspense } from "react";
 
 const LangIcon = lazy(()=>import("@/components/lang-icon"));

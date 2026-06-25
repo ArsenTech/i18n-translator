@@ -1,12 +1,12 @@
 import type { ITranslation } from "@/lib/types/data"
-import { type CreateTranslationResult, type IBackendTranslation } from "@/lib/types/data/backend"
+import type { CreateTranslationResult, IBackendTranslation } from "@/lib/types/data/backend"
 import { getErrorMessage } from "@/lib/utils"
 import { NewTranslationSchema, OpenTranslationSchema, OpenXliffSchema } from "@/schemas"
 import { NewTranslationType, OpenTranslationType, OpenXliffType } from "@/schemas/types"
 import { invoke } from "@tauri-apps/api/core"
 import { save } from "@tauri-apps/plugin-dialog"
-import { detectLanguageCode, getFormatFromPath } from "@/lib/helpers"
-import { ILangInputState } from "@/lib/types"
+import { detectLanguageCode } from "@/lib/helpers"
+import type { ILangInputState } from "@/lib/types"
 import FetcherActions from "./fetcher"
 import { TranslationFormat } from "@/lib/types/enums"
 
@@ -55,8 +55,8 @@ export default class FileActions{
                const validatedFields = OpenTranslationSchema.safeParse(values)
                if(!validatedFields.success) return {error: "All fields are invalid", data: []}
                const {basePath, targetPath} = validatedFields.data
-               const baseFormat = await getFormatFromPath(basePath);
-               const targetFormat = await getFormatFromPath(targetPath)
+               const baseFormat = await FetcherActions.getFormatFromPath(basePath);
+               const targetFormat = await FetcherActions.getFormatFromPath(targetPath)
                if (baseFormat!==targetFormat) return {error: "Translation format should match the Base language format"}
                const res = await this.openBackendTranslation({
                     basePath,
@@ -82,7 +82,7 @@ export default class FileActions{
                const validatedFields = OpenXliffSchema.safeParse(values)
                if(!validatedFields.success) return {error: "All fields are invalid", data: []}
                const {translationPath} = validatedFields.data
-               const fileFormat = await getFormatFromPath(translationPath);
+               const fileFormat = await FetcherActions.getFormatFromPath(translationPath);
                if(!fileFormat) return {error: "Format doesn't exist"}
                const res = await this.openBackendXliffTranslation(translationPath)
                return {
@@ -118,7 +118,7 @@ export default class FileActions{
                }))
                let baseLang = langs.base;
                let targetLang = langs.target;
-               const format = await getFormatFromPath(targetPath)
+               const format = await FetcherActions.getFormatFromPath(targetPath)
                if (preserveMetadata && format === TranslationFormat.Xliff) {
                     const meta = await FetcherActions.getXliffMetadata(targetPath);
                     baseLang = meta.src_lang || baseLang;
@@ -180,7 +180,7 @@ export default class FileActions{
                }))
                let baseLang = langs.base;
                let targetLang = langs.target;
-               const format = await getFormatFromPath(targetPath)
+               const format = await FetcherActions.getFormatFromPath(targetPath)
                if (preserveMetadata && format === TranslationFormat.Xliff) {
                     const meta = await FetcherActions.getXliffMetadata(targetPath);
                     baseLang = meta.src_lang || baseLang;

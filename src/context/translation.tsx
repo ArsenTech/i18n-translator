@@ -1,16 +1,11 @@
-import type { ILangInputState, SetStateType } from "@/lib/types";
+import type { ILangInputState, SetStateType, TranslationFiles } from "@/lib/types";
 import type { ITranslation } from "@/lib/types/data"
-import { TranslationFormat } from "@/lib/types/enums";
 import { createContext, useCallback, useContext, useMemo, useState } from "react"
 import { useSettings } from "./settings";
 import { RecentTranslation } from "@/lib/store/recent-translations";
 import { useEditor } from "./editor";
+import { INITIAL_FILES_STATE } from "@/lib/constants/states";
 
-interface TranslationFiles {
-     basePath: string
-     targetPath: string,
-     format: TranslationFormat | null
-}
 interface AppTranslationContextValues{
      table: ITranslation[]
      visibleTable: ITranslation[]
@@ -45,11 +40,7 @@ export function AppTranslationProvider({ children }: { children: React.ReactNode
           base: settings.baseLang ?? "",
           target: settings.targetLang ?? ""
      })
-     const [files, setFiles] = useState<TranslationFiles>({
-          basePath: "",
-          targetPath: "",
-          format: null
-     })
+     const [files, setFiles] = useState<TranslationFiles>(INITIAL_FILES_STATE)
      const [baseKeys, setBaseKeys] = useState<Set<string>>(new Set())
      const [isDirty, setIsDirty] = useState(false)
      const [recentTranslations, setRecentTranslations] = useState<RecentTranslation[]>([])

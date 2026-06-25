@@ -2,9 +2,9 @@ import EditActions from "@/actions/edit"
 import FileActions from "@/actions/file"
 import ViewActions from "@/actions/view"
 import { toast } from "sonner"
-import { SetStateType, ILangInputState } from "../types"
-import { ITranslation } from "../types/data"
-import { ISettings } from "../settings/types"
+import type { SetStateType, ILangInputState } from "../types"
+import type { ITranslation } from "../types/data"
+import type { ISettings } from "../types/settings"
 
 export const KBD_SHORTCUTS: Record<string,{
      name: string,

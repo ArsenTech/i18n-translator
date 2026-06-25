@@ -5,18 +5,18 @@ import { NewTranslationType } from "@/schemas/types";
 import { NewTranslationSchema } from "@/schemas";
 import { DialogFooter } from "@/components/ui/dialog";
 import FileActions from "@/actions/file";
-import { PopupContentProps } from "@/lib/types";
+import type { PopupContentProps } from "@/lib/types/props";
 import { lazy, Suspense, useTransition } from "react";
 import LoadingButton from "@/components/loading-button";
 import { FilePlus2 } from "lucide-react";
 import { toast } from "sonner";
 import { getErrorMessage } from "@/lib/utils";
 import { useAppTranslation } from "@/context/translation";
-import { getFormatFromPath } from "@/lib/helpers";
 import RecentTranslations from "@/lib/store/recent-translations";
 import { Skeleton } from "@/components/ui/skeleton";
 import { NEW_TRANSLATION_FORMATS } from "@/lib/constants/items";
 import { useSettings } from "@/context/settings";
+import FetcherActions from "@/actions/fetcher";
 
 const SelectorField = lazy(()=>import("@/components/fields/selector"))
 const FilePicker = lazy(()=>import("@/components/fields/file-picker"))
@@ -38,7 +38,7 @@ export default function NewTranslation({setOpen}: PopupContentProps){
      const handleChangeFormat = (val: string) => {
           if(isFetching) return;
           startFetching(async()=>{
-               const format = await getFormatFromPath(val);
+               const format = await FetcherActions.getFormatFromPath(val);
                if(!format) return;
                form.setValue("format",format)
           })

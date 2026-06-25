@@ -2,7 +2,7 @@ import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import i18next from "i18next";
 import { useTranslation } from "react-i18next";
 import { invoke } from "@tauri-apps/api/core";
-import { LangCode } from "../types";
+import type { LangCode } from "../types";
 import { CountryFlag } from "@/components/lang-icon";
 import { Button } from "@/components/ui/button";
 import { Popover,PopoverTrigger, PopoverContent } from "@/components/ui/popover";

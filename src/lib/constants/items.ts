@@ -1,4 +1,4 @@
-import { SelectType } from "../types";
+import type { SelectType } from "../types";
 
 export const NEW_TRANSLATION_FORMATS: SelectType[] = [
      {value: "json", label: "JSON File"},
@@ -36,30 +36,3 @@ export const DEFAULT_DICTIONARIES: SelectType[] = [
      {value: "ru", label: "Русский"},
      {value: "hy", label: "Հայերեն"},
 ]
-export const PARTS_OF_SPEECH = [
-     "noun",
-     "pronoun",
-     "adjective",
-     "verb",
-     "adverb",
-     "preposition",
-     "conjunction",
-     "interjection"
-] as const
-export const GLOSSARY_DOMAINS = [
-     "General",
-     "Programming",
-     "Gaming",
-     "Editing",
-     "Design",
-     "Security",
-     "Networking",
-     "Database",
-     "Web",
-     "Mobile",
-     "AI",
-     "Office",
-     "Science",
-     "Medical",
-     "Finance",
-] as const;

@@ -1,7 +1,7 @@
 import type { ITranslation } from "@/lib/types/data"
 import { ColumnDef } from "@tanstack/react-table"
 import { DataTableColumnHeader } from "../col-header"
-import { wordCount } from "@/lib/helpers"
+import { wordCount } from "@/lib/utils"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { lazy, Suspense } from "react"
 import { Skeleton } from "@/components/ui/skeleton"

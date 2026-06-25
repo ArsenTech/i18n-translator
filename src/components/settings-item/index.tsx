@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import React from "react";
 import { cn } from "@/lib/utils";
-import { DesignType } from "@/lib/types";
+import type { DesignType } from "@/lib/types/string-unions";
 import { LucideIcon } from "lucide-react";
 import { IconType } from "react-icons/lib";
 

@@ -1,8 +1,9 @@
 import { useIsMobile } from "@/hooks/use-mobile";
 import type { GlossaryEntry } from "@/lib/types/data"
-import type { SetStateType, GlossaryTogglerType } from "@/lib/types";
+import type { SetStateType } from "@/lib/types";
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react"
 import { useSettings } from "./settings";
+import type { GlossaryTogglerType } from "@/lib/types/string-unions";
 
 interface GlossaryContextValues{
      open: boolean,

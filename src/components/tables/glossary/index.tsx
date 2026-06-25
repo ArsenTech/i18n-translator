@@ -10,30 +10,17 @@ import { Spinner } from "@/components/ui/spinner"
 import { GLOSSARY_COLS } from "./columns";
 import { useGlossary } from "@/context/glossary";
 import { Skeleton } from "@/components/ui/skeleton";
+import { INITIAL_GLOSSARY_VISIBILITY_STATE } from "@/lib/constants/states";
+import type { GlossarySearchType, GlossaryFilterType } from "@/lib/types/string-unions";
 
 const Filters = lazy(()=>import("./filters"));
 const SortBy = lazy(()=>import("./sort-by"));
-
-export type GlossaryFilterType =
-  | "all"
-  | "translated"
-  | "untranslated"
-  | "transEqSrc"
-  | "repeatedStr"
-  | "caseSensitive"
-
-export type GlossarySearchType = "translation" | "term" | "term-not" | "translation-not" | "domain" | "domain-not" | "part-of-speech"
 
 export default function GlossaryTable() {
      const {glossary, currEntry, visibleCount, setCurrentEntry, setVisibleCount, setInput} = useGlossary()
      const [search, setSearch] = React.useState("")
      const [searchMode, setSearchMode] = React.useState<GlossarySearchType>("term")
-     const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({
-          termChars: false,
-          termWords: false,
-          translationChars: false,
-          translationWords: false,
-     })
+     const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>(INITIAL_GLOSSARY_VISIBILITY_STATE)
      const [sorting, setSorting] = React.useState<SortingState>([])
      const [filter, setFilter] = React.useState<GlossaryFilterType>("all")
      const repeatedSources = React.useMemo(() => {

@@ -1,7 +1,7 @@
 import { BookOpen, Cog, Edit, FileIcon, Keyboard, Languages, Trash2, Wrench } from "lucide-react";
-import { ISettingsTab } from "@/lib/types";
+import type { ISettingsTab } from "@/lib/types";
 import { lazy } from "react";
-import { SettingsTab } from "../types/enums";
+import { SettingsTab } from "@/lib/types/enums";
 
 import GeneralSettingsLoader from "@/loaders/settings/general";
 import FileFormatSettingsLoader from "@/loaders/settings/file-formats";

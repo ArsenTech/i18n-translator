@@ -26,10 +26,10 @@ export default function FilePicker({invalid, openText="Open the base language fi
                     name: "XML Files",
                     extensions: ["xml"]
                },
-               {
-                    name: "GNU gettext",
-                    extensions: ["po", "pot", "mo"]
-               },
+               // {
+               //      name: "GNU gettext",
+               //      extensions: ["po", "pot", "mo"]
+               // },
                {
                     name: "Microsoft RESX Files",
                     extensions: ["resx"]

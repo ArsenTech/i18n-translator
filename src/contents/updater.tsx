@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
-import { IUpdaterState, PopupContentProps} from "@/lib/types";
+import type { IUpdaterState } from "@/lib/types";
 import { getErrorMessage, cn } from "@/lib/utils";
 import { openUrl } from "@tauri-apps/plugin-opener";
 import { relaunch } from "@tauri-apps/plugin-process";
@@ -9,11 +9,12 @@ import { Progress } from "@/components/ui/progress";
 import { useTransition, useState, useEffect, useMemo } from "react";
 import { toast } from "sonner";
 import { check } from "@tauri-apps/plugin-updater"
-import { INITIAL_UPDATER_STATE } from "@/lib/constants";
+import { INITIAL_UPDATER_STATE } from "@/lib/constants/states";
 import { UpdaterStatus } from "@/lib/types/enums";
 import { useTranslation } from "react-i18next";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Spinner } from "@/components/ui/spinner";
+import type { PopupContentProps } from "@/lib/types/props";
 
 export default function UpdaterContent({open}: PopupContentProps){
      const [isChecking, startChecking] = useTransition();
@@ -133,7 +134,7 @@ export default function UpdaterContent({open}: PopupContentProps){
                               <RotateCw className={cn(isUpdating && "animate-spin")}/>
                               {isUpdating ? t("buttons.update.pending") : t("buttons.update.original")}
                          </Button>
-                         <Button type="button" variant="secondary" size="icon" title={t("buttons.changelog")} onClick={async() => await openUrl("https://github.com/ArsenTech/i18n-translator/blob/main/CHANGELOG.md")}>
+                         <Button type="button" variant="secondary" size="icon" title={t("buttons.changelog")} onClick={()=>openUrl("https://github.com/ArsenTech/i18n-translator/blob/main/CHANGELOG.md")}>
                               <ScrollText/>
                          </Button>
                     </ButtonGroup>   

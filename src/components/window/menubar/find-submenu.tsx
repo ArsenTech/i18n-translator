@@ -1,11 +1,12 @@
 import { MenubarGroup, MenubarItem, MenubarShortcut, MenubarSub, MenubarSubContent, MenubarSubTrigger } from "@/components/ui/menubar";
-import FindActions, { FindResult } from "@/actions/find";
+import FindActions from "@/actions/find";
 import TranslatorActions from "@/actions/translator";
 import { useAppTranslation } from "@/context/translation";
 import { toast } from "sonner";
 import { lazy, Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useEditor } from "@/context/editor";
+import type { FindResult } from "@/lib/types/find";
 
 const FindPopup = lazy(()=>import("@/popups/find"));
 

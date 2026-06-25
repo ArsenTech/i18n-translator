@@ -7,7 +7,7 @@ import { ReplaceTranslationSchema } from "@/schemas";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
-import { PopupComponentProps } from "@/lib/types";
+import type { PopupComponentProps } from "@/lib/types/props";
 import TranslatorActions from "@/actions/translator";
 import { useAppTranslation } from "@/context/translation";
 import { toast } from "sonner";

@@ -11,7 +11,7 @@ import { lazy, Suspense } from "react";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
-import { PopupContentProps } from "@/lib/types";
+import type { PopupContentProps } from "@/lib/types/props";
 
 const ComboboxField = lazy(()=>import("@/components/fields/combobox-field"))
 

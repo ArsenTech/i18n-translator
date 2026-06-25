@@ -1,6 +1,6 @@
 import { CountryFlag } from "@/components/lang-icon"
 import { CommandItem } from "@/components/ui/command"
-import { LanguageOption } from "../types"
+import type { LanguageOption } from "../types"
 
 interface LanguageSelectorItemProps{
      lang: LanguageOption

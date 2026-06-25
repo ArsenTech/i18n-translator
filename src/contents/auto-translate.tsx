@@ -7,7 +7,7 @@ import { AutoTranslateSchema } from "@/schemas/auto-translate";
 import { DialogFooter } from "@/components/ui/dialog";
 import TranslatorActions from "@/actions/translator";
 import { RESOURCE_TYPE } from "@/lib/constants/items";
-import { PopupContentProps } from "@/lib/types";
+import type { PopupContentProps } from "@/lib/types/props";
 import { lazy, Suspense } from "react";
 import { FormFieldLoader, RadioFieldLoader } from "@/loaders/fields";
 import { useSettings } from "@/context/settings";

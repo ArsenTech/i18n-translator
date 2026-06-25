@@ -1,5 +1,5 @@
 import { LazyStore } from "@tauri-apps/plugin-store"
-import { ITranslation } from "../types/data"
+import type { ITranslation } from "../types/data"
 import { TranslationFormat } from "../types/enums"
 import { getErrorMessage } from "../utils"
 import FileActions from "@/actions/file"

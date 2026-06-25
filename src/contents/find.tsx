@@ -9,7 +9,7 @@ import FindActions from "@/actions/find";
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group";
 import { Search } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
-import { PopupContentProps } from "@/lib/types";
+import type { PopupContentProps } from "@/lib/types/props";
 import { useAppTranslation } from "@/context/translation";
 import { lazy, Suspense } from "react";
 import { toast } from "sonner";

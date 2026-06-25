@@ -1,6 +1,6 @@
-import { DEFAULT_PROVIDER_VALUES, DEFAULT_SETTINGS } from "@/lib/settings/constants"
-import { DEFAULT_TOOLBAR_SETTINGS } from "@/lib/settings/toolbars";
-import { IProviderValues, ISettings, ToolbarValues } from "@/lib/settings/types";
+import { DEFAULT_PROVIDER_VALUES, DEFAULT_SETTINGS } from "@/lib/constants/settings"
+import { DEFAULT_TOOLBAR_SETTINGS } from "@/lib/constants/toolbars";
+import type { IProviderValues, ISettings, ToolbarValues } from "@/lib/types/settings";
 import { createContext, useContext, useMemo, useState } from "react";
 
 interface SettingsContextValue{

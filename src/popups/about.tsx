@@ -1,7 +1,7 @@
 import AppModal from "@/components/popups/modal";
 import { Button } from "@/components/ui/button";
 import { DialogFooter } from "@/components/ui/dialog";
-import { PopupComponentProps } from "@/lib/types";
+import type { PopupComponentProps } from "@/lib/types/props";
 import { AboutDetailsLoader } from "@/loaders/translator";
 import { openUrl } from "@tauri-apps/plugin-opener";
 import { Scale, MessageCircleWarning, Grid2X2Plus } from "lucide-react";

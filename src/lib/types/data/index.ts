@@ -1,4 +1,4 @@
-import { PARTS_OF_SPEECH } from "@/lib/constants/items";
+import { PARTS_OF_SPEECH } from "@/lib/constants/combobox-items";
 
 export interface ITranslation{
      keyName: string,
@@ -20,4 +20,9 @@ export interface ILangItem {
      type: "country" | "language"
      label: string
      value: string
+}
+export interface TreeNode {
+     name: string
+     fullPath: string
+     children: TreeNode[]
 }

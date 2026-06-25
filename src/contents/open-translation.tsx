@@ -5,18 +5,19 @@ import { OpenTranslationType } from "@/schemas/types";
 import { OpenTranslationSchema } from "@/schemas";
 import { DialogFooter } from "@/components/ui/dialog";
 import FileActions from "@/actions/file";
-import { PopupComponentProps } from "@/lib/types";
+import type { PopupComponentProps } from "@/lib/types/props";
 import { lazy, Suspense, useState, useTransition } from "react";
 import LoadingButton from "@/components/loading-button";
 import { FolderOpen } from "lucide-react";
 import { getErrorMessage } from "@/lib/utils";
 import { toast } from "sonner";
 import { useAppTranslation } from "@/context/translation";
-import { detectLanguageCode, getFileName, getFormatFromPath } from "@/lib/helpers";
+import { detectLanguageCode } from "@/lib/helpers";
 import RecentTranslations from "@/lib/store/recent-translations";
 import { Skeleton } from "@/components/ui/skeleton";
 import FetcherActions from "@/actions/fetcher";
 import { useSettings } from "@/context/settings";
+import { getFileName } from "@/lib/helpers/fs";
 
 const LangSelector = lazy(()=>import("@/components/fields/lang-selector"))
 const FilePicker = lazy(()=>import("@/components/fields/file-picker"))
@@ -53,7 +54,7 @@ export default function OpenTranslation({setOpen}: PopupComponentProps){
                               targetLang: values.targetLang,
                               basePath: values.basePath,
                               targetPath: values.targetPath,
-                              format: await getFormatFromPath(values.basePath)
+                              format: await FetcherActions.getFormatFromPath(values.basePath)
                          })
                          updateLangs({
                               base: values.baseLang,
@@ -62,7 +63,7 @@ export default function OpenTranslation({setOpen}: PopupComponentProps){
                          setFiles({
                               basePath: values.basePath,
                               targetPath: values.targetPath,
-                              format: await getFormatFromPath(values.basePath)
+                              format: await FetcherActions.getFormatFromPath(values.basePath)
                          })
                          setOpen?.(false)
                          setIsDirty(false)
@@ -79,7 +80,7 @@ export default function OpenTranslation({setOpen}: PopupComponentProps){
           if(isFetching || !settings.autoDetectBaseLang) return;
           setIsFetching(true);
           try {
-               const format = await getFormatFromPath(val)
+               const format = await FetcherActions.getFormatFromPath(val)
                const fileType = await FetcherActions.getFileTypeFromPath(val,format)
                const code = fileType ? detectLanguageCode(val, fileType) : settings.baseLang ?? ""
                if (code) form.setValue(type, code || settings[type] || "")

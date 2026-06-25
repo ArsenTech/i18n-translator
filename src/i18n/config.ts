@@ -1,4 +1,4 @@
-import { LanguageOption } from "./types";
+import type { LanguageOption } from "./types";
 
 export const languages: LanguageOption[] = [
      { language: "English", code: "en", countryCode: "us" },

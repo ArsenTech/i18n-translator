@@ -1,5 +1,5 @@
 import { useIsMobile } from "@/hooks/use-mobile";
-import { SetStateType } from "@/lib/types";
+import type { SetStateType } from "@/lib/types";
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react"
 import { useSettings } from "./settings";
 

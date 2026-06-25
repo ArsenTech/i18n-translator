@@ -1,6 +1,6 @@
 import SettingsOption from "@/components/settings-item/settings-option";
 import { useSettings } from "@/context/settings";
-import { GlossaryTogglerType } from "@/lib/types";
+import type { GlossaryTogglerType } from "@/lib/types/string-unions";
 import SettingsItem from "@/components/settings-item";
 import { BookOpen } from "lucide-react";
 import { useGlossary } from "@/context/glossary";

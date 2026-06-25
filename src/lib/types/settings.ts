@@ -1,7 +1,7 @@
 import { LucideIcon } from "lucide-react";
-import { COLORS } from "./colors";
-import { GlossaryTogglerType } from "../types";
-import { TranslationFormat } from "../types/enums";
+import { COLORS } from "../constants/colors";
+import { GlossaryTogglerType } from "./string-unions";
+import { TranslationFormat } from "./enums";
 
 export interface ISettings{
      currNamespaceOnly: boolean

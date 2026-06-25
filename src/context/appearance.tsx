@@ -1,14 +1,13 @@
-import { COLORS } from "@/lib/settings/colors";
-import { DEFAULT_APPEARANCE } from "@/lib/settings/constants";
-import { Color, IAppearance, ResolvedTheme, Theme } from "@/lib/settings/types";
+import { COLORS } from "@/lib/constants/colors";
+import { DEFAULT_APPEARANCE } from "@/lib/constants/settings";
+import type { Color, IAppearance, ResolvedTheme, Theme } from "@/lib/types/settings";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 
-type AppearanceProviderProps = {
+interface AppearanceProviderProps{
      children: React.ReactNode;
 };
-
-type AppearanceProviderState = {
+interface AppearanceProviderState{
      theme: Theme;
      resolvedTheme: ResolvedTheme | null;
      color: Color;

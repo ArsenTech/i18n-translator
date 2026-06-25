@@ -5,7 +5,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Noop } from "react-hook-form";
 import FetcherActions from "@/actions/fetcher";
 import { Button } from "@/components/ui/button";
-import { ILangItem } from "@/lib/types/data";
+import type { ILangItem } from "@/lib/types/data";
 import { Command, CommandInput, CommandEmpty, CommandList, CommandGroup } from "@/components/ui/command";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 

@@ -11,6 +11,12 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Improved
 - **Language code detection** - Slightly updated the logic to detect other language code instances from the file
 - **New Translation, Open Translation, Open XLIFF** - Referenced default base and target languages into the form
+### Changed
+- Refactored Contexts, Constants, Helpers, and Types
+- Cached the function that returns the format from path
+### Skeleton loader Support
+- Mode Toggler
+- Color Changer
 
 [0.3.5]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.3.5
 

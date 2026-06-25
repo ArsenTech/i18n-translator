@@ -1,5 +1,6 @@
-import { findValue } from "@/lib/helpers"
-import { ITranslation } from "@/lib/types/data"
+import { findValue, getField } from "@/lib/helpers/find"
+import type { FindResult } from "@/lib/types/find"
+import type { ITranslation } from "@/lib/types/data"
 import { getErrorMessage } from "@/lib/utils"
 import { FindSchema } from "@/schemas"
 import { FindType } from "@/schemas/types"
@@ -8,24 +9,6 @@ export interface FindState {
      matches: { translation: ITranslation; index: number }[]
      currentIndex: number
 }
-
-function getField(item: ITranslation, mode: FindType["mode"]) {
-     if (mode === "source") return item.baseString
-     if (mode === "translation") return item.translationString
-     return item.keyName
-}
-
-type FindSuccess = {
-     success: true
-     translation: ITranslation
-     index: number
-     findState?: FindState
-}
-type FindError = {
-     success: false
-     error: string
-}
-export type FindResult = FindSuccess | FindError
 
 export default class FindActions{
      public static find(values: FindType, table: ITranslation[]): FindResult{

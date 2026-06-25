@@ -1,4 +1,4 @@
-import { GlossaryEntry } from "@/lib/types/data"
+import type { GlossaryEntry } from "@/lib/types/data"
 import { cn } from "@/lib/utils"
 import { CheckCircle, ArrowRight, Dot } from "lucide-react"
 

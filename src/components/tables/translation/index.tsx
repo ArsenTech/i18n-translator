@@ -12,18 +12,11 @@ import { Spinner } from "@/components/ui/spinner"
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSettings } from "@/context/settings";
 import { useEditor } from "@/context/editor";
+import { INITIAL_TRANSLATION_VISIBILITY_STATE } from "@/lib/constants/states";
+import type { TranslationSearchType, TranslationFilterType } from "@/lib/types/string-unions";
 
 const Filters = lazy(()=>import("./filters"));
 const SortBy = lazy(()=>import("./sort-by"));
-
-export type TranslationFilterType =
-  | "all"
-  | "translated"
-  | "untranslated"
-  | "transEqSrc"
-  | "repeatedStr"
-
-export type TranslationSearchType = "name" | "translation" | "source" | "source-not" | "translation-not" | "name-not"
 
 export default function TranslationTable() {
      const {missingOnly, setCurrentTranslation, currTranslation, visibleCount, setVisibleCount, selectedNamespace, setInput, selectedKeys, setSelectedKeys, selectKey} = useEditor()
@@ -31,12 +24,7 @@ export default function TranslationTable() {
      const {settings} = useSettings()
      const [search, setSearch] = React.useState("")
      const [searchMode, setSearchMode] = React.useState<TranslationSearchType>("source")
-     const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({
-          baseChars: false,
-          baseWords: false,
-          translationChars: false,
-          translationWords: false,
-     })
+     const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>(INITIAL_TRANSLATION_VISIBILITY_STATE)
      const [sorting, setSorting] = React.useState<SortingState>([])
      const [filter, setFilter] = React.useState<TranslationFilterType>("all")
      const repeatedSources = React.useMemo(() => {

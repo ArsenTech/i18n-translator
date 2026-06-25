@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import FileActions from "@/actions/file";
-import FindActions, { FindResult } from "@/actions/find";
+import FindActions from "@/actions/find";
 import TranslatorActions from "@/actions/translator";
 import { BookOpen, BookPlus, Delete, FilePlus, FolderOpen, FolderPen, Languages, RefreshCcw, RotateCcw, Save, Scan, Search, SearchCheck, SearchSlash, SpellCheckIcon, Zap } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -16,6 +16,7 @@ import { useSettings } from "@/context/settings";
 import EditActions from "@/actions/edit";
 import { Separator } from "../ui/separator";
 import { useEditor } from "@/context/editor";
+import type { FindResult } from "@/lib/types/find";
 
 const NewTranslationPopup = lazy(()=>import("@/popups/new-translation"));
 const OpenTranslationPopup = lazy(()=>import("@/popups/open-translation"));

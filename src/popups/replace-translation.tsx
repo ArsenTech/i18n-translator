@@ -1,5 +1,5 @@
 import AppModal from "@/components/popups/modal";
-import { PopupComponentProps } from "@/lib/types";
+import type { PopupComponentProps } from "@/lib/types/props";
 import { lazy, Suspense, useState } from "react";
 import { ReplaceTranslationLoader } from "@/loaders/contents/form";
 

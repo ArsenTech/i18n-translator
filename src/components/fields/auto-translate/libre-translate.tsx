@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input"
 import { Field, FieldLabel, FieldError } from "@/components/ui/field"
 import { Controller } from "react-hook-form"
-import { AutoTranslateFieldProps } from "@/lib/types"
+import type { AutoTranslateFieldProps } from "@/lib/types/props"
 
 export default function LibreTranslateFields({control}: AutoTranslateFieldProps){
      return (

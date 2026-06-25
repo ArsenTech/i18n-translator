@@ -1,5 +1,5 @@
 import AppModal from "@/components/popups/modal";
-import { PopupComponentProps } from "@/lib/types";
+import type { PopupComponentProps } from "@/lib/types/props";
 import { SettingsTab } from "@/lib/types/enums";
 import { SettingsLoader } from "@/loaders/settings";
 import { lazy, Suspense, useMemo } from "react";

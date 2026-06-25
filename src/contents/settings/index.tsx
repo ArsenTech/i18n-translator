@@ -1,5 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { SETTINGS_TABS } from "@/lib/settings/tabs";
+import { SETTINGS_TABS } from "@/lib/constants/settings/tabs";
 import { SettingsTab } from "@/lib/types/enums";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Suspense, useMemo, useState } from "react";

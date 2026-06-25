@@ -1,7 +1,7 @@
 import { LanguageSelectLoader, TableLoader } from "@/loaders/translator";
 import { DialogFooter } from "@/components/ui/dialog";
 import { useGlossary } from "@/context/glossary";
-import { GlossaryEntry } from "@/lib/types/data";
+import type { GlossaryEntry } from "@/lib/types/data";
 import { getErrorMessage } from "@/lib/utils";
 import { save, open } from "@tauri-apps/plugin-dialog";
 import { lazy, Suspense, useState } from "react";
@@ -12,8 +12,8 @@ import { Download, Upload } from "lucide-react";
 import LoadingButton from "@/components/loading-button";
 import GlossaryActions from "@/lib/store/glossary";
 import { useAppTranslation } from "@/context/translation";
-import { exportCSV, exportJSON } from "@/lib/helpers";
-import { PARTS_OF_SPEECH } from "@/lib/constants/items";
+import { exportCSV, exportJSON } from "@/lib/helpers/fs";
+import { PARTS_OF_SPEECH } from "@/lib/constants/combobox-items";
 import { GlossaryInputLoader } from "@/loaders/glossary";
 
 const LanguageSelect = lazy(()=>import("@/components/main-translation/language-select"))

@@ -1,4 +1,4 @@
-import { ITranslation } from "@/lib/types/data"
+import type { ITranslation } from "@/lib/types/data"
 
 export default class EditActions{
      public static undo(){

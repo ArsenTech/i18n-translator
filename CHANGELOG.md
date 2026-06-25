@@ -4,7 +4,7 @@ All notable changes of I18N Translator will be documented here.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
-## [0.3.5] - Unreleased
+## [0.3.5] - 2026-06-25
 ### Added
 - Editor Settings
   - Auto-detect base language

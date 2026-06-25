@@ -4,6 +4,20 @@ All notable changes of I18N Translator will be documented here.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [1.0.0] - Unreleased
+> [!NOTE]
+> This is a first stable version of I18N Translator. Some of these greyed out features will be implemented in the future
+### Changed
+- Greyed out some future expansions
+  - Android XML Settings
+  - Auto-Translation
+  - Transliteration
+  - Spell Checker
+
+[1.0.0]: https://github.com/ArsenTech/i18n-translator/releases/tag/v1.0.0
+
+---
+
 ## [0.3.5] - 2026-06-25
 ### Added
 - Editor Settings

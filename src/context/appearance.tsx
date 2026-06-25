@@ -15,6 +15,7 @@ interface AppearanceProviderState{
      setTheme: (theme: Theme) => void;
      setColor: (color: Color) => void;
      setBrightness: (brightness: number) => void;
+     updateAppearance: (overrides?: Partial<IAppearance>) => void
      resetValues: () => void;
      clearValues: () => void
 };
@@ -81,36 +82,25 @@ export function AppearanceProvider({
           });
           root.dataset.themeColor = appearance.color;
      }, [appearance.color, resolvedTheme]);
-
+     const updateAppearance = (overrides?: Partial<IAppearance>) => {
+          const newValue: IAppearance = {
+               ...appearance,
+               ...overrides
+          }
+          localStorage.setItem("app-appearance",JSON.stringify(newValue));
+          setAppearance(newValue)
+     }
      const value: AppearanceProviderState = useMemo(()=>({
           theme: appearance.theme,
           resolvedTheme,
           color: appearance.color,
           brightness: appearance.brightness,
-          setTheme: t => {
-               const newValue: IAppearance = {
-                    ...appearance,
-                    theme: t
-               }
-               localStorage.setItem("app-appearance",JSON.stringify(newValue));
-               setAppearance(newValue)
-          },
-          setColor: c => {
-               const newValue: IAppearance = {
-                    ...appearance,
-                    color: c
-               }
-               localStorage.setItem("app-appearance",JSON.stringify(newValue));
-               setAppearance(newValue)
-          },
+          updateAppearance,
+          setTheme: t => updateAppearance({theme: t}),
+          setColor: c => updateAppearance({color: c}),
           setBrightness: b => {
                if(b<0 || b>100) return;
-               const newValue: IAppearance = {
-                    ...appearance,
-                    brightness: b
-               }
-               localStorage.setItem("app-appearance",JSON.stringify(newValue));
-               setAppearance(newValue)
+               updateAppearance({brightness: b})
           },
           resetValues(){
                localStorage.setItem("app-appearance",JSON.stringify(DEFAULT_APPEARANCE));

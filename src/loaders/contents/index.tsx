@@ -7,6 +7,7 @@ import { TreeSidebarLoader } from "../tree-sidebar";
 import { cn } from "@/lib/utils";
 import { useTreeSidebar } from "@/context/tree-sidebar";
 import { useGlossary } from "@/context/glossary";
+import { ImportExportLoader } from "../fields";
 
 export function UpdaterLoader(){
      return (
@@ -25,9 +26,7 @@ export function GlossaryManagerLoader(){
                <LanguageSelectLoader/>
                <TableLoader rows={8} cols={[200,200,32,50,50]}/>
                <GlossaryInputLoader/>
-               <DialogFooter>
-                    <Skeleton className="h-8 w-48"/>
-               </DialogFooter>
+               <ImportExportLoader/>
           </>
      )
 }

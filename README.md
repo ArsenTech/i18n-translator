@@ -78,14 +78,14 @@ Future releases are planned to include automatic translation tools, transliterat
 
 ### Planned Improvements
 #### v0.3.x or later (Next)
-- [ ] Refactor, Optimize, Lazy-load things after changing
+- [X] Refactor, Optimize, Lazy-load things after changing
   - Refactor contexts only if profiling shows unnecessary re-renders
 - [X] Update automatic base language detection inside new translation and open translation
 - [X] Translation Settings
   - [X] Auto-detect base language
 
 #### v1.0.x or later (Stability)
-- [ ] Refactor, Optimize, Lazy-load things after changing
+- [ ] Refactor and Optimize things after changing
 - [ ] Access Keyboard shortcuts from popups
 - [ ] Documentations update before releasing
 - [ ] I18N Support

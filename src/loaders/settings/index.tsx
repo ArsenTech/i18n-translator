@@ -1,4 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton";
+import { ImportExportLoader } from "../fields";
 
 export function SettingsLoader(){
      return (
@@ -12,6 +13,7 @@ export function SettingsLoader(){
                     <Skeleton className="w-full h-20"/>
                </div>
           </div>
+          <ImportExportLoader/>
           </>
      )
 }

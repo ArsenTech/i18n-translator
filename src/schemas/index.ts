@@ -1,21 +1,13 @@
 import { PARTS_OF_SPEECH, GLOSSARY_DOMAINS } from "@/lib/constants/combobox-items"
-import { RESOURCE_TYPE, SUPPORTED_SCRIPTS } from "@/lib/constants/items"
-import { TranslationFormat } from "@/lib/types/enums"
+import { FILE_FORMATS, RESOURCE_TYPE, SUPPORTED_SCRIPTS } from "@/lib/constants/items"
 import * as z from "zod"
 
 const scriptField = z.enum([...SUPPORTED_SCRIPTS.map(s => s.value)],"Choose a Script to transliterate")
-const fileFormats: TranslationFormat[] = [
-     TranslationFormat.Json,
-     TranslationFormat.Xml,
-     TranslationFormat.Po,
-     TranslationFormat.Resx,
-     TranslationFormat.Xliff,
-]
 
 export const NewTranslationSchema = z.object({
      path: z.string().min(1,"Please enter the path of the base language file").trim(),
      targetLanguageCode: z.string().min(1,"Please select a target language").trim(),
-     format: z.enum([...fileFormats],"Choose the file type of the new translation")
+     format: z.enum([...FILE_FORMATS],"Choose the file type of the new translation")
 })
 export const OpenTranslationSchema = z.object({
      basePath: z.string().min(1,"Please enter the path of the base language file").trim(),
@@ -63,3 +55,11 @@ export const AddToGlossarySchema = z.object({
      translation: z.string().min(1,"Please add the translation of this term").max(200,"The translation is too long"),
      caseSensitive: z.boolean()
 })
+const GlossaryEntry = z.object({
+     term: z.string().max(200),
+     translation: z.string().max(200),
+     partOfSpeech: z.enum([...PARTS_OF_SPEECH],"Part of speech is required"),
+     domain: z.string().max(200),
+     caseSensitive: z.boolean()
+})
+export const GlossaryEntriesSchema = z.array(GlossaryEntry)

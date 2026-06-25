@@ -43,3 +43,15 @@ export interface IThemeSettings {
      Icon: LucideIcon,
      theme: Theme
 }
+export interface ISettingsMetadata {
+     schemaVersion: 1;
+
+     name: string;
+     version: string;
+     identifier: string;
+
+     settings: ISettings;
+     appearance: IAppearance;
+     providers: IProviderValues;
+     toolbars: ToolbarValues;
+}

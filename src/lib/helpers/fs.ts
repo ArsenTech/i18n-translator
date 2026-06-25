@@ -17,7 +17,7 @@ export const exportCSV = async (path: string, data: GlossaryEntry[]) => {
      const rows = data.map(item =>headers.map(h => escapeCSV(item[h as keyof typeof item])).join(","));
      await writeTextFile(path, [headers.join(","), ...rows].join("\n"));
 };
-export const exportJSON = async(path: string, data: GlossaryEntry[]) => {
+export const exportJSON = async<T>(path: string, data: T) => {
      const jsonData = JSON.stringify(data,null,2);
      await writeTextFile(path,jsonData);
 }

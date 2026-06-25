@@ -1,4 +1,5 @@
 import type { SelectType } from "../types";
+import { TranslationFormat } from "@/lib/types/enums"
 
 export const NEW_TRANSLATION_FORMATS: SelectType[] = [
      {value: "json", label: "JSON File"},
@@ -35,4 +36,11 @@ export const DEFAULT_DICTIONARIES: SelectType[] = [
      {value: "en-gb", label: "English (UK)"},
      {value: "ru", label: "Русский"},
      {value: "hy", label: "Հայերեն"},
+]
+export const FILE_FORMATS: TranslationFormat[] = [
+     TranslationFormat.Json,
+     TranslationFormat.Xml,
+     TranslationFormat.Po,
+     TranslationFormat.Resx,
+     TranslationFormat.Xliff,
 ]

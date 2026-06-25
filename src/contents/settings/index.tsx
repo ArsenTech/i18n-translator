@@ -2,7 +2,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SETTINGS_TABS } from "@/lib/constants/settings/tabs";
 import { SettingsTab } from "@/lib/types/enums";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Suspense, useMemo, useState } from "react";
+import { lazy, Suspense, useMemo, useState } from "react";
+import { ImportExportLoader } from "@/loaders/fields";
+
+const ImportExportSettings = lazy(()=>import("@/components/import-export/settings"));
 
 interface SettingsContentProps{
      currTab?: SettingsTab | null
@@ -42,6 +45,9 @@ export default function SettingsContent({currTab}: SettingsContentProps){
                     )}
                </ScrollArea>
           </Tabs>
+          <Suspense fallback={<ImportExportLoader/>}>
+               <ImportExportSettings/>
+          </Suspense>
           </>
      )
 }

@@ -1,3 +1,4 @@
+import { DialogFooter } from "@/components/ui/dialog"
 import { Field } from "@/components/ui/field"
 import { Skeleton } from "@/components/ui/skeleton"
 
@@ -66,5 +67,12 @@ export function BrightnessSliderLoader(){
                <Skeleton className="flex-1 h-1"/>
                <Skeleton className="size-5"/>
           </div>
+     )
+}
+export function ImportExportLoader(){
+     return (
+          <DialogFooter>
+               <Skeleton className="h-8 w-48"/>
+          </DialogFooter>
      )
 }

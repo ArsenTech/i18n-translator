@@ -77,18 +77,12 @@ Whether you are translating a small application or maintaining a large localizat
 Future releases are planned to include automatic translation tools, transliteration, spell checking, and additional localization formats.
 
 ### Planned Improvements
-#### v0.3.x or later (Next)
-- [X] Refactor, Optimize, Lazy-load things after changing
-  - Refactor contexts only if profiling shows unnecessary re-renders
-- [X] Update automatic base language detection inside new translation and open translation
-- [X] Translation Settings
-  - [X] Auto-detect base language
 
-#### v1.0.x or later (Stability)
-- [ ] Refactor and Optimize things after changing
-- [ ] Access Keyboard shortcuts from popups
-- [ ] Documentations update before releasing
+#### v1.0.x or later (Next, Stability)
 - [ ] I18N Support
+- [ ] Access keyboard shortcuts from popups
+- [ ] Update documentation before release
+- [ ] Refactor and optimize after recent changes
 
 #### Nice to have
 - [ ] Write the Documentation on the `docs/` folder.
@@ -165,6 +159,7 @@ Future releases are planned to include automatic translation tools, transliterat
     - [ ] Favorite languages
     - [ ] Favorite translation providers
     - [ ] Favorite glossary entries
+- [ ] Acknowledge more TODOs
 
 ### Built With
 - [![Tauri][tauri-shield]][tauri-url]

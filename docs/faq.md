@@ -8,59 +8,55 @@
 
 <h1 align="center">Frequently Asked Questions</h1>
 
-## General
-### What is I18N Translator?
-**I18N Translator** is a desktop localization tool designed to help translators and developers create, edit, and maintain application translations in multiple file formats.
+## What is I18N Translator?
 
-It provides a simple spreadsheet-like interface for editing translation keys while preserving the original file structure whenever possible.
+I18N Translator is a desktop localization editor for creating, editing, and maintaining translation files.
 
----
-
-### Is the project open source?
-Refer to the [repository license][license-url] for licensing information and contribution guidelines.
+It provides a spreadsheet-like interface for translation keys while preserving file structure whenever possible.
 
 ---
 
-### What platforms does I18N Translator run on?
-**I18N Translator** is built with Tauri + React + Typescript and runs on:
+## Is the project open source?
+Refer to the [repository license][license-url] for licensing information.
+
+---
+
+## Which platforms are supported?
+I18N Translator is built with Tauri, React, and TypeScript.
+
+Windows packages are currently available. Linux and macOS support depends on released packages for those platforms. It's compatible on
 - Windows 10 and later
 - Linux depending on which distro
 - macOS High Sierra or later (Apple Silicon / arm64)
 
 ---
 
-### Where is my data stored?
-I18N Translator stores settings, recent translations, and glossaries in a platform-specific data folder (`%appdata%/com.arsentech.i18n-translator` on Windows for example).
+## Where is my data stored?
+I18N Translator stores settings, recent translations, and glossaries in the application data directory. On Windows, this is typically under:
+
+```txt
+%APPDATA%\com.arsentech.i18n-translator
+```
 
 ---
 
-### How do I report a bug or request a feature?
-You can open the issue in following ways:
-
----
-
-#### Method 1: Straight from the app
+## How do I report a bug or request a feature?
 ![logo dropdown](https://raw.githubusercontent.com/ArsenTech/i18n-translator/refs/heads/main/.github/docs-images/logo-dropdown.png)
 
-1. Open The app
-2. Click on **The App Icon**
-3. Make sure to click on one of these buttons inside the App Menu
-   - **Report a bug** - Opens the Github Issue Template for writing a bug report
-   - **Request a feature** - Opens the Github Issue Template for writing a feature request
-4. Write some details about the bug you've encountered (or a new feature proposal)
-5. Once finished, click on the **Create** button on GitHub
+From the app:
 
-#### Method 2: Straight from GitHub
-1. Click on one of these links
-   - **Bug Report** - https://github.com/ArsenTech/i18n-translator/issues/new?assignees=&labels=&template=bug_report.md&title=
-   - **Feature Request** - https://github.com/ArsenTech/i18n-translator/issues/new?assignees=&labels=&template=feature_request.md&title=
-2. Write some details about the bug you've encountered (or a new feature proposal)
-3. Once finished, click on **Create**
+1. Open the app menu.
+2. Select **Report a bug** or **Request a feature**.
+3. Complete the GitHub issue form.
+4. Submit the issue.
 
-## App-related
-### Which file formats are currently supported?
+You can also open an issue directly from the repository.
+
+---
+
+## Which file formats are currently supported?
 - JSON
-- XML (Desktop)
+- Desktop XML
 - Android XML
 - Microsoft RESX
 - XLIFF 2.0
@@ -69,47 +65,42 @@ Additional formats may be added in future releases.
 
 ---
 
-### Does the application modify my original translation structure?
-The application preserves the original structure whenever possible and updates only translation values or missing entries.
+## Are glossaries supported?
+Yes. You can create, edit, import, export, and apply glossary entries for the selected language pair.
 
 ---
 
-### Can I edit existing translations?
+## Will my original file be overwritten?
+Only the selected target translation file is overwritten when you explicitly use **Save**.
+
+---
+
+## Can I edit existing translations?
 Yes. Existing translation files can be opened, modified, and saved.
 
 ---
 
-### Can I create a new translation from a base language?
+## Can I create a new translation from a base language?
 Yes. A new translation file can be generated from an existing base language file.
 
 ---
 
-### Is an internet connection required?
-No. All translation editing works completely offline.
+## Is an internet connection required?
+No. Translation editing and glossary features work offline.
 
 ---
 
-### Is machine translation included?
-Not yet. Automatic translation is planned for a future release.
+## Is machine translation included?
+Not yet. Automatic translation providers are planned for a future release.
 
 ---
-
-### Are glossaries supported?
-Glossary support is planned for a future version.
-
----
-
-### Will my original translation file be overwritten?
-No. The application only overwrites the target translation file when you explicitly save your changes.
-
----
-### Navigation
+## Navigation
 - Docs
   - [Usage Guide](./usage.md)
   - [Installation Guide](./installation.md)
   - [Troubleshooting](./troubleshooting.md)
   - [FAQs](./faq.md)
-  - [Translation Guide](./docs/translation.md)
+  - [Translation Guide](./translation.md)
   - [Contribution Guide](./CONTRIBUTING.md)
 - [← Back to README](./README.md)
 

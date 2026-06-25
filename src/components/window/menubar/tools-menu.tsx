@@ -48,7 +48,7 @@ export default function ToolsMenu(){
                                         <AutoTranslatePopup
                                              key={provider}
                                              provider={provider as AutoTranslateProvider}
-                                             triggerButton={<MenubarItem onSelect={(e) => e.preventDefault()}>{name}</MenubarItem>}
+                                             triggerButton={<MenubarItem disabled onSelect={(e) => e.preventDefault()}>{name}</MenubarItem>}
                                         />
                                    ))}
                               </Suspense>
@@ -61,7 +61,7 @@ export default function ToolsMenu(){
                               <MenubarItem onClick={removeUnusedKeys}>Remove Unused Keys</MenubarItem>
                               <Suspense fallback={<Skeleton className="h-5 w-full max-w-48 my-1.5"/>}>
                                    <SpellCheckPopup triggerButton={(
-                                        <MenubarItem onSelect={(e) => e.preventDefault()}>Spell check (using Hunspell)</MenubarItem>
+                                        <MenubarItem disabled onSelect={(e) => e.preventDefault()}>Spell check (using Hunspell)</MenubarItem>
                                    )}/>
                               </Suspense>
                          </MenubarSubContent>
@@ -73,7 +73,7 @@ export default function ToolsMenu(){
                          </>
                     )}>
                          <TransliterateScriptPopup triggerButton={(
-                              <MenubarItem onSelect={(e) => e.preventDefault()}>Transliterate Script</MenubarItem>
+                              <MenubarItem disabled onSelect={(e) => e.preventDefault()}>Transliterate Script</MenubarItem>
                          )}/>
                          <GlossaryManagerPopup triggerButton={(
                               <MenubarItem onSelect={e=>e.preventDefault()}>Glossary</MenubarItem>

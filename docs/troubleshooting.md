@@ -49,13 +49,31 @@ If a file cannot be opened:
 
 ---
 
+## Some features are disabled
+
+Features such as Android XML settings, Auto-Translation, Spell Checking, and Script Transliteration are planned for future releases. They will become available once implemented.
+
+---
+
+## Changes are not saved
+
+Make sure you use **Save** or **Save As** after editing. Unsaved changes may be lost when opening another translation or closing the application.
+
+---
+
+## Imported glossary is not visible
+
+Make sure the glossary language pair matches the currently selected base and target languages. Try switching the glossary view from **Show Few** to **Show All**.
+
+---
+
 ### Navigation
 - Docs
   - [Usage Guide](./usage.md)
   - [Installation Guide](./installation.md)
   - [Troubleshooting](./troubleshooting.md)
   - [FAQs](./faq.md)
-  - [Translation Guide](./docs/translation.md)
+  - [Translation Guide](./translation.md)
   - [Contribution Guide](./CONTRIBUTING.md)
 - [← Back to README](./README.md)
 

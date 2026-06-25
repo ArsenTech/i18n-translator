@@ -9,33 +9,36 @@
 <h1 align="center">Installation</h1>
 
 ## Pre-installation requirements
-- Processor:
-    - AMD Ryzen, Threadripper, or Epyc
-    - Intel Core (9th generation and newer) i3, i5, i7, i9, Ultra or equivalent Xeon
-    - Apple Silicon M1 and newer
-- Minimum System Memory: **4 GB minimum (8 GB recommended)** for the I18N Translator app
-- System storage: 15 MB or more depending on user data
-- Display resolution: 1280x960 minimum, proportionately higher with display scaling.
-- Software: **Windows 10+ / Linux / macOS**
+
+* Windows 10 or later
+* At least 4 GB of memory recommended
+* Around 15 MB of storage, excluding your translation files and app data
+* A display resolution of at least 1280×960 is recommended
+
+Linux and macOS installation instructions will be added when packages for those platforms are available.
 
 ## Downloading the App
-Download the latest version of I18N Translator from the Repo's Releases section
-### Windows
-Launch a Command Prompt Window and use the `certutil` command to verify the download:
+
+Download the latest installer from the repository's **Releases** page.
+
+## Verifying a Windows download
+
+Open Command Prompt and run:
+
 ```cmd
-cd Downloads
-certUtil -hashfile <filename> SHA256
+cd %USERPROFILE%\Downloads
+certutil -hashfile <filename> SHA256
 ```
-> [!Tip]
-> Alternatively, you may use free third-party apps 7-Zip Compute Hash, ExactFile, and MultiHasher for a GUI-based checksum
 
-## Installation instructions
-### Windows
-1. Run the installer.
+Compare the displayed checksum with the checksum published for the release.
+
+## Installing on Windows
+
+1. Run the downloaded installer.
 2. Follow the installation wizard.
-3. Launch I18N Translator.
+3. Launch **I18N Translator**.
 
-No additional runtime configuration is required.
+No additional runtime setup is required.
 
 ---
 ### Navigation
@@ -43,7 +46,7 @@ No additional runtime configuration is required.
   - [Usage Guide](./usage.md)
   - [Installation Guide](./installation.md)
   - [Troubleshooting](./troubleshooting.md)
-  - [Translation Guide](./docs/translation.md)
+  - [Translation Guide](./translation.md)
   - [FAQs](./faq.md)
   - [Contribution Guide](./CONTRIBUTING.md)
 - [← Back to README](./README.md)

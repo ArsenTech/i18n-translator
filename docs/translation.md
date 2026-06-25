@@ -9,6 +9,28 @@
 <h1 align="center">Translating I18N Translator</h1>
 <!-- TODO: Write the Translation Guide -->
 
+## Translation workflow
+
+---
+
+## Translation rules
+
+---
+
+## Glossary usage
+
+---
+
+## Preserving placeholders and XML entities
+
+---
+
+## Reviewing before saving
+
+---
+
+## Contributing a language
+
 ---
 ### Navigation
 - Docs
@@ -16,7 +38,7 @@
   - [Installation Guide](./installation.md)
   - [Troubleshooting](./troubleshooting.md)
   - [FAQs](./faq.md)
-  - [Translation Guide](./docs/translation.md)
+  - [Translation Guide](./translation.md)
   - [Contribution Guide](./CONTRIBUTING.md)
 - [← Back to README](./README.md)
 

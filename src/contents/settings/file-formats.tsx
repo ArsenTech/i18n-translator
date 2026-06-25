@@ -44,6 +44,7 @@ export default function FileFormatSettings(){
                          id="default-translatable"
                     >
                          <Switch
+                              disabled
                               id="default-translatable"
                               checked={settings.androidTranslatable}
                               onCheckedChange={checked=>setSettings({ androidTranslatable: checked })}
@@ -55,6 +56,7 @@ export default function FileFormatSettings(){
                          id="show-translatable"
                     >
                          <Switch
+                              disabled
                               id="show-translatable"
                               checked={settings.androidTranslatableCol}
                               onCheckedChange={checked=>setSettings({ androidTranslatableCol: checked })}

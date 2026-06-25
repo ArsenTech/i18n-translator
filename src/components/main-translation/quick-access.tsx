@@ -223,7 +223,7 @@ export default function QuickAccessToolbar(){
                                         <AutoTranslatePopup
                                              key={provider}
                                              provider={provider as AutoTranslateProvider}
-                                             triggerButton={<DropdownMenuItem onSelect={e=>e.preventDefault()}>{name}</DropdownMenuItem>}
+                                             triggerButton={<DropdownMenuItem disabled onSelect={e=>e.preventDefault()}>{name}</DropdownMenuItem>}
                                         />
                                    ))}
                               </Suspense>
@@ -243,7 +243,7 @@ export default function QuickAccessToolbar(){
                {toolbars.transliterate && (
                     <Suspense fallback={<Skeleton className={loaderClass}/>}>
                          <TransliterateScriptPopup triggerButton={(
-                              <Button variant="secondary" size={settings.compactToolbar ? "icon" : "default"} className={buttonClass} title="Transliterate">
+                              <Button variant="secondary" disabled size={settings.compactToolbar ? "icon" : "default"} className={buttonClass} title="Transliterate">
                                    <RefreshCcw/>
                               </Button>
                          )}/>
@@ -261,7 +261,7 @@ export default function QuickAccessToolbar(){
                {toolbars.spellCheck && (
                     <Suspense fallback={<Skeleton className={loaderClass}/>}>
                          <SpellCheckPopup triggerButton={(
-                              <Button variant="secondary" size={settings.compactToolbar ? "icon" : "default"} className={buttonClass} title="Spell Check">
+                              <Button disabled variant="secondary" size={settings.compactToolbar ? "icon" : "default"} className={buttonClass} title="Spell Check">
                                    <SpellCheckIcon/>
                               </Button>
                          )}/>

@@ -81,8 +81,8 @@ Future releases are planned to include automatic translation tools, transliterat
 #### v1.0.x or later (Next, Stability)
 - [ ] I18N Support
 - [ ] Access keyboard shortcuts from popups
-- [ ] Update documentation before release
 - [ ] Refactor and optimize after recent changes
+- [X] Update documentation before release
 
 #### Nice to have
 - [ ] Write the Documentation on the `docs/` folder.

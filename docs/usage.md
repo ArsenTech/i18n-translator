@@ -12,8 +12,8 @@
 
 1. Open **File → New Translation**.
 2. Select the base language file.
-3. Choose the target language code.
-4. Select the appropriate file format.
+3. Choose the target language.
+4. Select the matching file format.
 5. Create the translation.
 
 ---
@@ -22,8 +22,8 @@
 
 1. Open **File → Open Translation**.
 2. Select the base language file.
-3. Select the translated file.
-4. Start translating.
+3. Select the target translation file.
+4. Start editing.
 
 For XLIFF projects, use **Open XLIFF Translation**.
 
@@ -31,19 +31,26 @@ For XLIFF projects, use **Open XLIFF Translation**.
 
 ## Saving
 
-Use:
-- **Save** to overwrite the current translation.
-- **Save As** to write to a new file.
+* **Save** overwrites the current target translation file.
+* **Save As** writes the translation to a different file.
 
-Unsaved changes are tracked automatically.
+Save your changes before opening another translation or closing the application.
 
 ---
 
 ## Finding untranslated strings
 
-Use the search box to locate specific keys or translations.
+Use the search field to find keys, source strings, or translations.
 
-Enable **Missing Only** to display entries that have not yet been translated.
+Enable **Missing Only** to show entries without a translation.
+
+---
+
+## Using glossaries
+
+Open the glossary sidebar to view relevant terminology for the selected entry.
+
+Use **Show All** to view every glossary entry for the current language pair, or **Show Few** to show relevant matches only.
 
 ---
 ### Navigation
@@ -52,7 +59,7 @@ Enable **Missing Only** to display entries that have not yet been translated.
   - [Installation Guide](./installation.md)
   - [Troubleshooting](./troubleshooting.md)
   - [FAQs](./faq.md)
-  - [Translation Guide](./docs/translation.md)
+  - [Translation Guide](./translation.md)
   - [Contribution Guide](./CONTRIBUTING.md)
 - [← Back to README](./README.md)
 

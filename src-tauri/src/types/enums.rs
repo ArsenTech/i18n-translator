@@ -17,3 +17,12 @@ pub enum XmlFormat {
     Desktop,
     Android,
 }
+#[derive(Serialize, Deserialize, Type, Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[serde(rename_all = "kebab-case")]
+pub enum FileType {
+    Json,
+    DesktopXml,
+    AndroidXml,
+    Resx,
+    Xliff
+}

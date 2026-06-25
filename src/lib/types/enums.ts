@@ -24,3 +24,10 @@ export enum SettingsTab{
      Glossary = "glossary",
      ClearData = "clear-data"
 }
+export enum FileType {
+     Json = "json",
+     DesktopXml = "desktop-xml",
+     AndroidXml = "android-xml",
+     Resx = "resx",
+     Xliff = "xliff",
+}

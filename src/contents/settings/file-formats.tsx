@@ -7,7 +7,7 @@ import { TranslationFormat } from "@/lib/types/enums";
 import { Files } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { lazy, Suspense } from "react";
-// import { SiAndroid } from "react-icons/si";
+import { SiAndroid } from "react-icons/si"; // TODO: Implement Android XML Settings
 
 const SelectorField = lazy(()=>import("@/components/fields/selector"))
 
@@ -34,7 +34,7 @@ export default function FileFormatSettings(){
                          </Suspense>
                     </SettingsOption>
                </SettingsItem>
-               {/* <SettingsItem
+               <SettingsItem
                     title="Android XML"
                     Icon={SiAndroid}
                >
@@ -60,7 +60,7 @@ export default function FileFormatSettings(){
                               onCheckedChange={checked=>setSettings({ androidTranslatableCol: checked })}
                          />
                     </SettingsOption>
-               </SettingsItem> */}
+               </SettingsItem>
                <SettingsItem
                     title="XLIFF"
                     Icon={Files}

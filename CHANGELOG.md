@@ -5,6 +5,12 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 ## [0.3.5] - Unreleased
+### Added
+- Editor Settings
+  - Auto-detect base language
+### Improved
+- **Language code detection** - Slightly updated the logic to detect other language code instances from the file
+- **New Translation, Open Translation, Open XLIFF** - Referenced default base and target languages into the form
 
 [0.3.5]: https://github.com/ArsenTech/i18n-translator/releases/tag/v0.3.5
 

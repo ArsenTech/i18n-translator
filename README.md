@@ -80,9 +80,9 @@ Future releases are planned to include automatic translation tools, transliterat
 #### v0.3.x or later (Next)
 - [ ] Refactor, Optimize, Lazy-load things after changing
   - Refactor contexts only if profiling shows unnecessary re-renders
-- [ ] Update automatic base language detection inside new translation and open translation
-- [ ] Translation Settings
-  - [ ] Auto-detect base language
+- [X] Update automatic base language detection inside new translation and open translation
+- [X] Translation Settings
+  - [X] Auto-detect base language
 
 #### v1.0.x or later (Stability)
 - [ ] Refactor, Optimize, Lazy-load things after changing

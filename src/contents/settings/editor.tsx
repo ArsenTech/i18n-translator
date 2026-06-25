@@ -73,6 +73,19 @@ export default function EditorSettings(){
                               onCheckedChange={checked=>setSettings({preserveEmpty: checked})}
                          />
                     </SettingsOption>
+                    <SettingsOption
+                         title="Auto-detect base language"
+                         description="Automatically detect the base language from the selected file path when possible"
+                         id="auto-detect-base-lang"
+                    >
+                         <Switch
+                              id="auto-detect-base-lang"
+                              checked={settings.autoDetectBaseLang}
+                              onCheckedChange={checked =>
+                                   setSettings({ autoDetectBaseLang: checked })
+                              }
+                         />
+                    </SettingsOption>
                </SettingsItem>
                <SettingsItem
                     Icon={Languages}

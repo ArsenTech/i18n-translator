@@ -1,10 +1,8 @@
 use std::fs;
 
 use crate::{
-    helpers::{detect_xml_format, json, resx, xliff, xml_android, xml_desktop},
-    types::{
-        enums::{TranslationFormat, XmlFormat},
-        structs::{CreateTranslationResult, TranslationEntry, XliffMetadata},
+    helpers::{detect_xml_format, json, resx, xliff, xml_android, xml_desktop}, types::{
+        enums::{FileType, TranslationFormat, XmlFormat}, structs::{CreateTranslationResult, TranslationEntry, XliffMetadata},
     },
 };
 
@@ -90,4 +88,25 @@ pub fn get_xliff_meta(path: String) -> Result<XliffMetadata, String> {
 #[specta::specta]
 pub fn open_xliff(path: String) -> Result<Vec<TranslationEntry>, String> {
     xliff::open(path)
+}
+
+#[tauri::command]
+#[specta::specta]
+pub fn detect_format(
+    base_path: String,
+    format: TranslationFormat,
+) -> Result<FileType, String> {
+    match format {
+        TranslationFormat::Json => Ok(FileType::Json),
+        TranslationFormat::Xml => {
+            let content = fs::read_to_string(&base_path).map_err(|e| e.to_string())?;
+            match detect_xml_format(&content) {
+                XmlFormat::Desktop => Ok(FileType::DesktopXml),
+                XmlFormat::Android => Ok(FileType::AndroidXml),
+            }
+        }
+        TranslationFormat::Resx => Ok(FileType::Resx),
+        TranslationFormat::Xliff => Ok(FileType::Xliff),
+        _ => Err("Unsupported format".into()),
+    }
 }

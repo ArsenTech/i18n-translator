@@ -3,6 +3,7 @@ import { XliffMetadata } from "@/lib/types/data/backend";
 import { invoke } from "@tauri-apps/api/core";
 import { cache } from "react";
 import {getName, getTauriVersion, getVersion, getIdentifier} from "@tauri-apps/api/app"
+import { FileType, TranslationFormat } from "@/lib/types/enums";
 
 export default class FetcherActions{
      public static fetchLanguages = cache(async()=>{
@@ -32,5 +33,13 @@ export default class FetcherActions{
                getIdentifier()
           ])
           return {name, version, tauri, identifier}
+     })
+     public static getFileTypeFromPath = cache(async(basePath: string, format: TranslationFormat)=>{
+          try {
+               return await invoke<FileType>("detect_format",{basePath, format})
+          } catch (err){
+               console.error(err)
+               return null
+          }
      })
 }

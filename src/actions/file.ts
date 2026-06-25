@@ -11,20 +11,26 @@ import FetcherActions from "./fetcher"
 import { TranslationFormat } from "@/lib/types/enums"
 
 export default class FileActions{
-     public static async newTranslation(values: NewTranslationType): Promise<{
+     public static async newTranslation(values: NewTranslationType, autoDetectBaseLang: boolean, defaultBaseLang?: string): Promise<{
           error?: string,
           success?: string,
           data: ITranslation[],
           targetPath?: string
+          code: string
      }>{
           try {
                const validatedFields = NewTranslationSchema.safeParse(values)
-               if(!validatedFields.success) return {error: "All fields are invalid", data: []}
+               if(!validatedFields.success) return {error: "All fields are invalid", data: [], code: ""}
                const {path, targetLanguageCode, format} = validatedFields.data
-               const meta = await FetcherActions.getXliffMetadata(path)
+               const [fileType, meta] = await Promise.all([
+                    FetcherActions.getFileTypeFromPath(path, format),
+                    FetcherActions.getXliffMetadata(path)
+               ])
+               const fallback = defaultBaseLang ?? ""
+               const code = !autoDetectBaseLang ? fallback : fileType ? detectLanguageCode(path, fileType) : fallback
                const res = await invoke<CreateTranslationResult>("create_translation", {
                     basePath: path,
-                    baseLang: !meta ? detectLanguageCode(path) : meta.src_lang,
+                    baseLang: !meta ? code : meta.src_lang,
                     targetLang: targetLanguageCode,
                     format
                })
@@ -36,11 +42,12 @@ export default class FileActions{
                          lineNumber: val.line_number,
                          baseString: val.base_string
                     })),
-                    targetPath: res.target_path
+                    targetPath: res.target_path,
+                    code
                }
           } catch (err) {
                console.error(err)
-               return {error: getErrorMessage(err), data: []}
+               return {error: getErrorMessage(err), data: [], code: ""}
           }
      }
      public static async openTranslation(values: OpenTranslationType){

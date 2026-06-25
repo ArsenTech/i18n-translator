@@ -1,7 +1,7 @@
 import { TreeNode } from "./types"
 import type { GlossaryEntry, ITranslation } from "@/lib/types/data"
 import { IBackendTranslation } from "./types/data/backend"
-import { TranslationFormat } from "./types/enums"
+import { FileType, TranslationFormat } from "./types/enums"
 import { extname } from "@tauri-apps/api/path"
 import { writeTextFile } from "@tauri-apps/plugin-fs"
 
@@ -48,12 +48,19 @@ export const wordCount = (value: string) => {
      const text = value.trim()
      return text ? text.split(/\s+/).length : 0
 }
-export function detectLanguageCode(path: string) {
+export function detectLanguageCode(path: string, type: FileType) {
+     if (type === FileType.Xliff) return "";
      const parts = path.split(/[\\/]/)
-     for (const part of parts) 
-          if (/^[a-z]{2}(?:-[a-z]{2})?$/i.test(part)) 
-               return part.toLowerCase()
-     return ""
+     if (type === FileType.AndroidXml) {
+          const values = [...parts].reverse().find(part =>
+               /^values(?:-([a-z]{2}(?:-r[A-Z]{2})?))?$/i.test(part)
+          )
+          const match = values?.match(/^values-([a-z]{2}(?:-r[A-Z]{2})?)$/i)
+          return match?.[1]?.replace("-r", "-").toLowerCase() ?? ""
+     }
+     const fileName = parts.at(-1)?.replace(/\.[^.]+$/, "") ?? "";
+     const match = fileName.match(/(?:^|[._-])([a-z]{2}(?:-[a-z]{2})?)(?:$|[._-])/gi)
+     return match?.[1]?.toLowerCase() ?? ""
 }
 export function getFileName(path: string) {
      return path.split(/[\\/]/).pop() ?? path

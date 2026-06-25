@@ -12,7 +12,7 @@ import { FilePlus2 } from "lucide-react";
 import { toast } from "sonner";
 import { getErrorMessage } from "@/lib/utils";
 import { useAppTranslation } from "@/context/translation";
-import { detectLanguageCode, getFormatFromPath } from "@/lib/helpers";
+import { getFormatFromPath } from "@/lib/helpers";
 import RecentTranslations from "@/lib/store/recent-translations";
 import { Skeleton } from "@/components/ui/skeleton";
 import { NEW_TRANSLATION_FORMATS } from "@/lib/constants/items";
@@ -31,7 +31,7 @@ export default function NewTranslation({setOpen}: PopupContentProps){
           resolver: zodResolver(NewTranslationSchema),
           defaultValues: {
                path: "",
-               targetLanguageCode: "",
+               targetLanguageCode: settings.targetLang ?? "",
                format: settings.defaultFormat
           }
      })
@@ -45,10 +45,13 @@ export default function NewTranslation({setOpen}: PopupContentProps){
      }
      const onSubmit = (values: NewTranslationType) => {
           if (isCreating) return;
-          const code = detectLanguageCode(values.path)
           startTransition(async()=>{
                try {
-                    const res = await FileActions.newTranslation(values);
+                    const res = await FileActions.newTranslation(
+                         values,
+                         settings.autoDetectBaseLang,
+                         settings.baseLang
+                    );
                     if(res.error) toast.error("Failed to create translation",{
                          description: res.error
                     })
@@ -57,7 +60,7 @@ export default function NewTranslation({setOpen}: PopupContentProps){
                               name: `${values.targetLanguageCode}.${values.format}`,
                               basePath: values.format==="xliff" ? res.targetPath : values.path,
                               targetPath: res.targetPath,
-                              baseLang: code,
+                              baseLang: res.code,
                               targetLang: values.targetLanguageCode,
                               format: values.format
                          })
@@ -72,7 +75,7 @@ export default function NewTranslation({setOpen}: PopupContentProps){
                          setTable(res.data)
                          setBaseKeys(new Set(res.data.map(item => item.keyName)))
                          updateLangs({
-                              base: code,
+                              base: res.code,
                               target: values.targetLanguageCode
                          })
                          setOpen?.(false)

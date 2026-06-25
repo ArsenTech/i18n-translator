@@ -17,6 +17,7 @@ export const DEFAULT_SETTINGS: ISettings = {
      xliffAutoDetect: true,
      xliffPreserveMeta: true,
      preserveEmpty: true,
+     autoDetectBaseLang: true
 }
 export const DEFAULT_PROVIDER_VALUES: IProviderValues = {
      geminiApi: "",

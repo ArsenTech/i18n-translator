@@ -31,16 +31,16 @@ export default function OpenXliff({setOpen}: PopupComponentProps){
           resolver: zodResolver(OpenXliffSchema),
           defaultValues: {
                translationPath: "",
-               baseLang: "",
-               targetLang: ""
+               baseLang: settings.baseLang ?? "",
+               targetLang: settings.targetLang ?? "",
           }
      })
      const handleChangeLang = (val: string) => {
           if(!settings.xliffAutoDetect || !settings.xliffPreserveMeta || isFetching) return;
           startFetching(async() => {
                const meta = await FetcherActions.getXliffMetadata(val);
-               form.setValue("baseLang", meta.src_lang)
-               form.setValue("targetLang", meta.trg_lang)
+               if(settings.autoDetectBaseLang) form.setValue("baseLang", meta.src_lang || settings.baseLang || "")
+               form.setValue("targetLang", meta.trg_lang || settings.targetLang || "")
           })
      }
      const onSubmit = (values: OpenXliffType) => {

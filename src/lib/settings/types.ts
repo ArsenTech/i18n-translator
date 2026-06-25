@@ -20,6 +20,7 @@ export interface ISettings{
      xliffAutoDetect: boolean,
      xliffPreserveMeta: boolean,
      preserveEmpty: boolean,
+     autoDetectBaseLang: boolean
 }
 export interface IAppearance{
      theme: Theme,

@@ -6,7 +6,7 @@ import { OpenTranslationSchema } from "@/schemas";
 import { DialogFooter } from "@/components/ui/dialog";
 import FileActions from "@/actions/file";
 import { PopupComponentProps } from "@/lib/types";
-import { lazy, Suspense, useTransition } from "react";
+import { lazy, Suspense, useState, useTransition } from "react";
 import LoadingButton from "@/components/loading-button";
 import { FolderOpen } from "lucide-react";
 import { getErrorMessage } from "@/lib/utils";
@@ -15,20 +15,24 @@ import { useAppTranslation } from "@/context/translation";
 import { detectLanguageCode, getFileName, getFormatFromPath } from "@/lib/helpers";
 import RecentTranslations from "@/lib/store/recent-translations";
 import { Skeleton } from "@/components/ui/skeleton";
+import FetcherActions from "@/actions/fetcher";
+import { useSettings } from "@/context/settings";
 
 const LangSelector = lazy(()=>import("@/components/fields/lang-selector"))
 const FilePicker = lazy(()=>import("@/components/fields/file-picker"))
 
 export default function OpenTranslation({setOpen}: PopupComponentProps){
      const [isOpening, startTransition] = useTransition()
+     const [isFetching, setIsFetching] = useState(false)
+     const {settings} = useSettings()
      const {setTable, updateLangs, setFiles, setBaseKeys, setIsDirty} = useAppTranslation()
      const form = useForm<OpenTranslationType>({
           resolver: zodResolver(OpenTranslationSchema),
           defaultValues: {
                basePath: "",
-               baseLang: "",
+               baseLang: settings.baseLang ?? "",
                targetPath: "",
-               targetLang: ""
+               targetLang: settings.targetLang ??""
           }
      })
      const onSubmit = (values: OpenTranslationType) => {
@@ -71,6 +75,22 @@ export default function OpenTranslation({setOpen}: PopupComponentProps){
                }
           })
      }
+     const handleChangeLang = async(val: string, type: "baseLang" | "targetLang") => {
+          if(isFetching || !settings.autoDetectBaseLang) return;
+          setIsFetching(true);
+          try {
+               const format = await getFormatFromPath(val)
+               const fileType = await FetcherActions.getFileTypeFromPath(val,format)
+               const code = fileType ? detectLanguageCode(val, fileType) : settings.baseLang ?? ""
+               if (code) form.setValue(type, code || settings[type] || "")
+          } catch (err) {
+               toast.error("Failed to get the language code",{
+                    description: getErrorMessage(err)
+               })
+          } finally {
+               setIsFetching(false)
+          }
+     }
      return (
           <>
                <form id="open-translation" onSubmit={form.handleSubmit(onSubmit)}>
@@ -91,10 +111,7 @@ export default function OpenTranslation({setOpen}: PopupComponentProps){
                                                        {...field}
                                                        onChange={val=>{
                                                             field.onChange(val)
-                                                            const code = detectLanguageCode(val)
-                                                            if (code) {
-                                                                 form.setValue("baseLang", code)
-                                                            }
+                                                            handleChangeLang(val,"baseLang")
                                                        }}
                                                        invalid={fieldState.invalid}
                                                        placeholder="C:/Users/username/Desktop/en.json"
@@ -146,10 +163,7 @@ export default function OpenTranslation({setOpen}: PopupComponentProps){
                                                        {...field}
                                                        onChange={val=>{
                                                             field.onChange(val)
-                                                            const code = detectLanguageCode(val)
-                                                            if (code) {
-                                                                 form.setValue("targetLang", code)
-                                                            }
+                                                            handleChangeLang(val,"targetLang")
                                                        }}
                                                        invalid={fieldState.invalid}
                                                        placeholder="C:/Users/username/Desktop/hy.json"

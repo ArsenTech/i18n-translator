@@ -75,8 +75,7 @@ jobs:
         with:
           tagName: v__VERSION__
           releaseName: 'I18N Translator v__VERSION__'
-          releaseDraft: true
-          prerelease: false
+          prerelease: true
           args: ${{ matrix.args }}
           releaseBody: |
             ## What's Changed?

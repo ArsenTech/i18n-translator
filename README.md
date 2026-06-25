@@ -78,18 +78,17 @@ Future releases are planned to include automatic translation tools, transliterat
 
 ### Planned Improvements
 #### v0.3.x or later (Next)
-- [ ] Translatable switch as a separate column if the translation type is Android XML
 - [ ] Refactor, Optimize, Lazy-load things after changing
   - Refactor contexts only if profiling shows unnecessary re-renders
-
-#### v1.0.x or later (Stability)
-- [ ] I18N Support
 - [ ] Update automatic base language detection inside new translation and open translation
-- [ ] Refactor, Optimize, Lazy-load things after changing
 - [ ] Translation Settings
   - [ ] Auto-detect base language
+
+#### v1.0.x or later (Stability)
+- [ ] Refactor, Optimize, Lazy-load things after changing
 - [ ] Access Keyboard shortcuts from popups
 - [ ] Documentations update before releasing
+- [ ] I18N Support
 
 #### Nice to have
 - [ ] Write the Documentation on the `docs/` folder.
@@ -103,6 +102,11 @@ Future releases are planned to include automatic translation tools, transliterat
   - [ ] Translation Guide
 
 #### Future Expansions
+- [ ] Android XML enhancements
+  - [ ] Support `translatable` attribute
+  - [ ] Add "Translatable" table column
+  - [ ] Preserve `translatable="false"` on save
+  - [ ] Implement Translatable column settings
 - [ ] The "All Glossaries" page providing Glossaries to download and use (Marketplace) + Glossary Packs (Needs Rust to update the current logic)
   > Example pack: en-hy (folder)
   > - Gaming: game.json (e.g. Skin will be "Սկին")

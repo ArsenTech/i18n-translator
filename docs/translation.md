@@ -14,8 +14,13 @@
 2. Translate the JSON values with I18N Translator or another editor.
 3. Keep the original key names unchanged.
 4. Save each file using the correct language folder and namespace.
-5. Test the language in the application.
-6. Open a pull request for review.
+6. Make sure to give yourself a credit in the `"translated-by"` key in `about.json`
+   Examples in other Languages:
+   - 🇷🇺 Russian: `Перевод на Русском: ArsenTech - https://github.com/ArsenTech`
+   - 🇦🇲 Armenian: `Թարգմանությունը՝ ArsenTech-ի - https://github.com/ArsenTech`
+   Make sure the credit for the translation is unique :-)
+7. Test the language in the application.
+8. Open a pull request for review.
 
 ---
 
@@ -79,16 +84,21 @@ Before submitting a translation:
 1. Add your translated files to `public/locales/<lang-code>/`
 
 2. Add the language to "src/i18n/config.ts":
-      ```ts  
-      export const languageOptions: languageOption[] = [  
-            // All Existing Languages +  
-            { language: "<native-name> (example: Español)", code: "<lang-code> (example: es)", countryCode: "<country-code> (example: mx)"},   
-      ];  
-      ```
+     ```ts  
+     export const languageOptions: languageOption[] = [  
+          // All Existing Languages +  
+          { language: "<native-name> (example: Español)", code: "<lang-code> (example: es)", countryCode: "<country-code> (example: mx)"},   
+     ];  
+     ```
 
 3. Switch to the language in the app and test it.
 
-4. Submit a pull request with the translated frontend and backend files.
+4. Check for missing translation keys and translate until it reaches to near 100%:
+   ```bash
+   npm run i18n:missing-keys <lang-codes> # Example usage: npm run i18n:missing-keys hy ru
+   ```
+
+5. Submit a pull request with the translated frontend and backend files.
 
 ---
 ### Navigation

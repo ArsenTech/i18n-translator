@@ -123,9 +123,19 @@ If your changes affect the updater, release notes, or update flow, please test u
             // ^ This will be your contribution :-)
       ];
       ```
-6. Open `src-tauri/i18n/[lang-code].json` and Translate the backend using your preferred tool.
-7. Test by switching to your new language.
-8. Submit a PR for review!
+6. Make sure to give yourself a credit.
+   Examples in other Languages:
+   - 🇷🇺 Russian: `Перевод на Русском: ArsenTech - https://github.com/ArsenTech`
+   - 🇦🇲 Armenian: `Թարգմանությունը՝ ArsenTech-ի - https://github.com/ArsenTech`
+   Make sure the credit for the translation is unique :-)
+7. Test by switching to your new language and tweaking some translations.
+8. To check for missing keys, run:
+   ```bash
+   npm run i18n:missing-keys <lang-codes> # Example: fr pl, ru hy, or ge
+   # Example usage: npm run i18n:missing-keys tr es
+   ```
+   Fix missing keys until you reach 100%.
+9. Submit a PR for review!
 
 ## 💡 Feedback & Feature Requests
 We love new ideas! If you have a suggestion:

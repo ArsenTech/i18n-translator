@@ -83,7 +83,6 @@ Future releases are planned to include automatic translation tools, transliterat
 - [ ] Access keyboard shortcuts from popups
 - [ ] Refactor and optimize after recent changes
 - [X] Update documentation before release
-  - Translation Guide
 
 #### Nice to have
 - [ ] Write the Documentation on the `docs/` folder.
@@ -94,7 +93,7 @@ Future releases are planned to include automatic translation tools, transliterat
     - [ ] Continue writing the Troubleshooting Guide once it has new info
   - [X] FAQs
     - [ ] Continue writing the FAQ once it has new info
-  - [ ] Translation Guide
+  - [X] Translation Guide
 
 #### Future Expansions
 - [ ] Android XML enhancements

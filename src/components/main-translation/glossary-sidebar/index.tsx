@@ -17,6 +17,7 @@ import { GlossarySidebarItem } from "./item"
 import { GlossarySidebarLoader } from "@/loaders/glossary"
 import { useSettings } from "@/context/settings"
 import { useEditor } from "@/context/editor"
+import { useTranslation } from "react-i18next"
 
 function GlossarySidebarMenu({children}: {children: React.ReactNode}){
      return (
@@ -25,6 +26,8 @@ function GlossarySidebarMenu({children}: {children: React.ReactNode}){
 }
 
 function GlossarySidebarContainer({children}: {children: React.ReactNode}){
+     const {t} = useTranslation("glossary")
+     const {t: btnTxt} = useTranslation("buttons")
      const {currTranslation, setInput} = useEditor()
      const {settings} = useSettings()
      const {isMobile, open, setOpen, showType, setShowType, glossary, closeMobileSidebar} = useGlossary()
@@ -61,11 +64,12 @@ function GlossarySidebarContainer({children}: {children: React.ReactNode}){
           });
           closeMobileSidebar()
      };
+     const showBtnTxt = useMemo(()=>showType!=="all" ? btnTxt("show.all") : btnTxt("show.few"),[showType,btnTxt])
      const content = (
           <div className="w-full flex flex-col gap-2 min-h-0 overflow-hidden">
-               <h2 className="text-lg font-semibold">Glossary ({glossaryItems.length})</h2>
+               <h2 className="text-lg font-semibold">{t("sidebar.title",{count: glossaryItems.length})}</h2>
                {settings.defaultGlossaryView!=="all" && (
-                    <p className="text-sm text-muted-foreground">Total: {glossary.length}</p>
+                    <p className="text-sm text-muted-foreground">{t("sidebar.total",{count: glossary.length})}</p>
                )}
                <ScrollArea className={cn(
                     "min-h-0 h-full flex-1",
@@ -76,9 +80,11 @@ function GlossarySidebarContainer({children}: {children: React.ReactNode}){
                </ScrollArea>
                {!isMobile && (
                     <div className="flex items-center gap-0.5 flex-wrap">
-                         <Button className="flex-1" disabled={glossaryItems.length<=0} onClick={applyAllMatches}>Apply All</Button>
+                         <Button className="flex-1" disabled={glossaryItems.length<=0} onClick={applyAllMatches}>
+                              {btnTxt("apply.all")}
+                         </Button>
                          <Button className="flex-1" variant="secondary" disabled={glossary.length<=0} onClick={()=>setShowType(prev=>prev==="all" ? "few" : "all")}>
-                              {showType!=="all" ? "Show All" : "Show Few"}
+                              {showBtnTxt}
                          </Button>
                     </div>
                )}
@@ -98,21 +104,23 @@ function GlossarySidebarContainer({children}: {children: React.ReactNode}){
                          side="right"
                     >
                          <SheetHeader className="sr-only">
-                              <SheetTitle>Glossary Sidebar</SheetTitle>
-                              <SheetDescription>Displays the mobile sidebar.</SheetDescription>
+                              <SheetTitle>{t("sidebar.meta.title")}</SheetTitle>
+                              <SheetDescription>{t("sidebar.meta.desc")}</SheetDescription>
                          </SheetHeader>
                          <div className="flex h-full w-full flex-col min-h-0 p-2">
                               {content}
                          </div>
                          <SheetFooter>
                               <div className="flex items-center gap-0.5 flex-wrap">
-                                   <Button className="flex-1" disabled={glossaryItems.length<=0} onClick={applyAllMatches}>Apply All</Button>
+                                   <Button className="flex-1" disabled={glossaryItems.length<=0} onClick={applyAllMatches}>
+                                        {btnTxt("apply.all")}
+                                   </Button>
                                    <Button className="flex-1" variant="secondary" disabled={glossary.length<=0} onClick={()=>setShowType(prev=>prev==="all" ? "few" : "all")}>
-                                        {showType!=="all" ? "Show All" : "Show Few"}
+                                        {showBtnTxt}
                                    </Button>
                               </div>
                               <SheetClose asChild>
-                                   <Button variant="outline">Close</Button>
+                                   <Button variant="outline">{btnTxt("close")}</Button>
                               </SheetClose>
                          </SheetFooter>
                     </SheetContent>
@@ -126,6 +134,7 @@ interface GlossarySidebarProps{
      glossary: GlossaryEntry[]
 }
 export default function GlossarySidebar({glossary}: GlossarySidebarProps) {
+     const {t} = useTranslation("glossary")
      const [isLoading, startTransition] = useTransition()
      const {langs} = useAppTranslation()
      const {currTranslation, setInput} = useEditor()
@@ -134,10 +143,10 @@ export default function GlossarySidebar({glossary}: GlossarySidebarProps) {
           startTransition(async()=>{
                try {
                     const data = await GlossaryActions.getGlossary(langs)
-                    if(data.length<=0) throw new Error("Glossary is still empty")
+                    if(data.length<=0) throw new Error(t("messages.empty"))
                     setGlossary(data)
                } catch (err) {
-                    toast.error("Failed to load the glossary",{
+                    toast.error(t("messages.load-error"),{
                          description: getErrorMessage(err),
                          id: "glossary-load-error"
                     })
@@ -189,11 +198,13 @@ export default function GlossarySidebar({glossary}: GlossarySidebarProps) {
                               <EmptyMedia variant="icon">
                                    <Languages/>
                               </EmptyMedia>
-                              <EmptyTitle>No glossary entries found.</EmptyTitle>
-                              <EmptyDescription>Select a translation key or load a local glossary pack.</EmptyDescription>
+                              <EmptyTitle>{t("empty.title")}</EmptyTitle>
+                              <EmptyDescription>{t("empty.desc")}</EmptyDescription>
                          </EmptyHeader>
                          <EmptyContent>
-                              <LoadingButton disabled={glossary.length>0} isLoading={isLoading} onClick={loadPack}>Load pack</LoadingButton>
+                              <LoadingButton disabled={glossary.length>0} isLoading={isLoading} onClick={loadPack}>
+                                   {t("empty.load-pack")}
+                              </LoadingButton>
                          </EmptyContent>
                     </Empty>
                ) : (

@@ -4,5 +4,9 @@
           "all": "Show all",
           "few": "Show few"
      },
-     "clear-filters": "Clear Filters"
+     "clear-filters": "Clear Filters",
+     "apply": {
+          "general": "Apply",
+          "all": "Apply All"
+     }
 }

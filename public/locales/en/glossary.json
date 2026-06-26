@@ -1,0 +1,35 @@
+{
+     "sidebar": {
+          "meta": {
+               "title": "Glossary Sidebar",
+               "desc": "Shows glossary entries in 1 sidebar"
+          },
+          "title": "Glossary ({{count}})",
+          "total_zero": "Currently no entries",
+          "total_one": "Total: One entry",
+          "total_two": "Total: Two entries",
+          "total_few": "Total: {{count}} entries",
+          "total_many": "Total: {{count}} entries",
+          "total_other": "Total: {{count}} entries"
+     },
+     "messages": {
+          "empty": "Glossary is still empty",
+          "load-error": "Failed to load the glossary"
+     },
+     "empty": {
+          "title": "No glossary entries found",
+          "desc": "Select a translation key or load a local glossary pack",
+          "load-pack": "Load pack"
+     },
+     "parts-of-speech": {
+          "noun": "Noun",
+          "pronoun": "Pronoun",
+          "adjective": "Adjective",
+          "verb": "Verb",
+          "adverb": "Adverb",
+          "preposition": "Preposition",
+          "conjunction": "Conjunction",
+          "interjection": "Interjection"
+     },
+     "domain": "Domain type"
+}

@@ -4,6 +4,7 @@ import update from "@i18n/en/update.json"
 import quickAccess from "@i18n/en/quick-access.json"
 import buttons from "@i18n/en/buttons.json"
 import table from "@i18n/en/table.json"
+import glossary from "@i18n/en/glossary.json"
 
 import { LangCode } from "../i18n/config";
 
@@ -16,6 +17,7 @@ declare module "i18next" {
                "quick-access": typeof quickAccess;
                buttons: typeof buttons;
                table: typeof table;
+               glossary: typeof glossary
           };
      }
 }

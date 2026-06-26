@@ -110,3 +110,4 @@ Before submitting a translation:
 [yt-url]:https://www.youtube.com/channel/UCrtH0g6NE8tW5VIEgDySYtg
 [patreon-url]:https://www.patreon.com/ArsenTech
 [website-url]: https://arsentech.github.io
+[link-to-base-lang]: https://github.com/ArsenTech/i18n-translator/tree/main/public/locales/en

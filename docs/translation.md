@@ -10,7 +10,7 @@
 
 ## Translation workflow
 
-1. Download the base language files from "the translation source" (../public/locales/en/translation.json).
+1. Download the base language files from [the translation source][link-to-base-lang]
 2. Translate the JSON values with I18N Translator or another editor.
 3. Keep the original key names unchanged.
 4. Save each file using the correct language folder and namespace.
@@ -45,22 +45,20 @@ When a terminology choice is uncertain:
 ## Preserving placeholders and XML entities
 
 Keep all placeholders unchanged. For example:
-
-{{string}}
-{{number}}
+- `{{string}}`
+- `{{number}}`
+- `{{version}}`
 
 Do not translate, remove, or change placeholder names.
 
 Escape characters correctly in JSON:
-
-Forward slash: \\
-Double quote: \"
+- Forward slash: `\\`
+- Double quote: `\"`
 
 Keep XML entities unchanged where present:
-
-&amp;
-&lt;
-&gt;
+- `&amp;`
+- `&lt;`
+- `&gt;`
 
 ---
 
@@ -78,28 +76,19 @@ Before submitting a translation:
 
 ## Contributing a language
 
-1. Add your translated files to:
-   
-   public/locales/<lang-code>/
+1. Add your translated files to `public/locales/<lang-code>/`
 
 2. Add the language to "src/i18n/config.ts":
-   
-   export const languageOptions: languageOption[] = [
-     // Existing languages...
-     {
-          language: "<native language name>",
-          code: "<lang-code>",
-          countryCode: "<country-code>",
-     },
-];
+      ```ts  
+      export const languageOptions: languageOption[] = [  
+            // All Existing Languages +  
+            { language: "<native-name> (example: Español)", code: "<lang-code> (example: es)", countryCode: "<country-code> (example: mx)"},   
+      ];  
+      ```
 
-3. Translate the backend file:
-   
-   src-tauri/i18n/<lang-code>.json
+3. Switch to the language in the app and test it.
 
-4. Switch to the language in the app and test it.
-
-5. Submit a pull request with the translated frontend and backend files.
+4. Submit a pull request with the translated frontend and backend files.
 
 ---
 ### Navigation

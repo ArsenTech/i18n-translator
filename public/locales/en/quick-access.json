@@ -1,0 +1,46 @@
+{
+     "title": "Quick Access",
+     "new-translation": "New Translation",
+     "open": {
+          "translation": "Open Translation",
+          "xliff": "Open XLIFF File"
+     },
+     "close-current": "Close Current Translation",
+     "save": {
+          "title": "Save Translation",
+          "error": "Failed to save the file"
+     },
+     "find": {
+          "title": "Find",
+          "action": "Find...",
+          "next": "Find Next",
+          "prev": "Find Previous",
+          "missing": "Find Missing Keys",
+          "unknown": "Unknown find action",
+          "query-error": "Failed to find the query inside the translation"
+     },
+     "replace": "Replace Translation",
+     "batch-rename": "Batch Rename Keys",
+     "select-untranslated": "Select Untranslated",
+     "auto-translate": {
+          "title": "Auto-Translate",
+          "action": "Translate Using..."
+     },
+     "validate-keys": {
+          "title": "Validate Keys",
+          "valid": "All keys are valid",
+          "invalid_zero": "All keys are valid",
+          "invalid_one": "One invalid key found",
+          "invalid_two": "Two invalid keys found",
+          "invalid_few": "{{count}} invalid keys found",
+          "invalid_many": "{{count}} invalid keys found",
+          "invalid_other": "{{count}} invalid keys found"
+     },
+     "remove-unused": "Remove Unused Keys",
+     "transliterate": "Transliterate",
+     "glossary": {
+          "add": "Add to Glossary",
+          "manager": "Glossary Manager"
+     },
+     "spell-check": "Spell Check"
+}

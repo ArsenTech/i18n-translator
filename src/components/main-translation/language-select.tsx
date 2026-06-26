@@ -1,30 +1,41 @@
 import { useAppTranslation } from "@/context/translation";
 import { lazy, Suspense } from "react";
 import { Skeleton } from "../ui/skeleton";
+import { Trans, useTranslation } from "react-i18next";
 
 const LangSelector = lazy(()=>import("@/components/fields/lang-selector"))
 
 export default function LanguageSelect(){
+     const {t} = useTranslation()
      const {langs, updateLangs} = useAppTranslation()
      return (
           <div className="flex items-center gap-2">
-               <span>From</span>
-               <Suspense fallback={<Skeleton className="h-8 flex-1"/>}>
-                    <LangSelector
-                         placeholder="Base Language"
-                         className="flex-1"
-                         value={langs.base}
-                         onChange={lang=>updateLangs({base: lang})}
-                    />
-               </Suspense>
-               <span>to</span>
-               <Suspense fallback={<Skeleton className="h-8 flex-1"/>}>
-                    <LangSelector
-                         className="flex-1"
-                         value={langs.target}
-                         onChange={lang=>updateLangs({target: lang})}
-                    />
-               </Suspense>
+               <Trans
+                    ns="translation"
+                    i18nKey="lang-select.layout"
+                    components={{
+                         baseInput: (
+                              <Suspense fallback={<Skeleton className="h-8 flex-1"/>}>
+                                   <LangSelector
+                                        placeholder={t("lang-select.base-placeholder")}
+                                        className="flex-1"
+                                        value={langs.base}
+                                        onChange={lang=>updateLangs({base: lang})}
+                                   />
+                              </Suspense>
+                         ),
+                         targetInput: (
+                              <Suspense fallback={<Skeleton className="h-8 flex-1"/>}>
+                                   <LangSelector
+                                        placeholder={t("lang-select.target-placeholder")}
+                                        className="flex-1"
+                                        value={langs.target}
+                                        onChange={lang=>updateLangs({target: lang})}
+                                   />
+                              </Suspense>
+                         )
+                    }}
+               />
           </div>
      )
 }

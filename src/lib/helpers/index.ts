@@ -1,14 +1,15 @@
 import type { ITranslation, TreeNode } from "@/lib/types/data"
 import type { IBackendTranslation } from "../types/data/backend"
 import { FileType } from "../types/enums"
+import { TFunction } from "i18next"
 
-export function buildTree(data: ITranslation[]): TreeNode[] {
+export function buildTree(data: ITranslation[], t: TFunction): TreeNode[] {
      const root: TreeNode = {
-          name: "Root",
+          name: t("tree-sidebar.root"),
           fullPath: "",
           children: [
                {
-                    name: "General",
+                    name: t("tree-sidebar.general"),
                     fullPath: "__general",
                     children: [],
                },

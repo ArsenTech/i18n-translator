@@ -1,0 +1,41 @@
+{
+     "placeholders": {
+          "source": "Search by Source",
+          "source-not": "Source doesn't contain",
+          "translation": "Search by Translation",
+          "translation-not": "Translation doesn't contain",
+          "name": "Search by key name",
+          "name-not": "Key name doesn't contain"
+     },
+     "filters": {
+          "title": "Filters",
+          "action": "Filter By",
+          "search": "Search",
+          "all": "All",
+          "translated": "Translated",
+          "untranslated": "Untranslated",
+          "transEqSrc": "Translation equals Source",
+          "repeatedStr": "Repeated Strings"
+     },
+     "sort": {
+          "title": "Sort By",
+          "directions": {
+               "asc": "Ascending",
+               "desc": "Descending"
+          },
+          "default": "Default",
+          "baseWords": "Source Words Count",
+          "baseChars": "Source Characters Count",
+          "translationWords": "Translation Words Count",
+          "translationChars": "Translation Characters Count"
+     },
+     "not-found": "No entries found",
+     "loading": "Loading more entries...",
+     "cols": {
+          "keyName": "Key Name",
+          "source": "Source",
+          "translation": "Translation",
+          "status": "Status",
+          "line-num": "Line Number"
+     }
+}

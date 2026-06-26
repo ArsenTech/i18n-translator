@@ -1,0 +1,8 @@
+{
+     "close": "Close",
+     "show": {
+          "all": "Show all",
+          "few": "Show few"
+     },
+     "clear-filters": "Clear Filters"
+}

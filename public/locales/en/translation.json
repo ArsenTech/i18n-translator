@@ -1,5 +1,36 @@
 {
      "labels": {
           "lang-switcher": "Change Language"
+     },
+     "auto-update": {
+          "checking": "Checking...",
+          "new-version": "New version available: {{version}}",
+          "updated": "I18N Translator is up to date",
+          "failed": "Failed to check for updates"
+     },
+     "tree-sidebar": {
+          "title": "Tree Sidebar",
+          "desc": "Displays the compact tree sidebar",
+          "root": "Root",
+          "general": "General"
+     },
+     "translator-stats": {
+          "untranslated": "Untranslated",
+          "translated": "Translated",
+          "borrowed": "Borrowed from Source",
+          "total": "Total",
+          "line-num": "Line №"
+     },
+     "translation-input": {
+          "auto-save-error": "Failed to automatically save the translation",
+          "copy-from-source": "Copy from Source",
+          "save-string": "Save String",
+          "next": "Next",
+          "prev": "Previous"
+     },
+     "lang-select": {
+          "layout": "From <baseInput/> to <targetInput/>",
+          "base-placeholder": "Base Language",
+          "target-placeholder": "Target Language"
      }
 }

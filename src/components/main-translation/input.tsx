@@ -11,8 +11,10 @@ import { getErrorMessage } from "@/lib/utils";
 import FileActions from "@/actions/file";
 import LoadingButton from "../loading-button";
 import { useEditor } from "@/context/editor";
+import { useTranslation } from "react-i18next";
 
 export default function TranslationInput(){
+     const {t} = useTranslation()
      const [isSaving, startTransition] = useTransition()
      const {table, setTable, visibleTable, setIsDirty, files, langs} = useAppTranslation()
      const {currTranslation, setCurrentTranslation, input, setInput, inputRef} = useEditor()
@@ -29,16 +31,18 @@ export default function TranslationInput(){
                          : item)
                          const res = await FileActions.saveAll(newTable, files.targetPath, langs, settings.preserveEmpty, settings.xliffPreserveMeta)
                          if(res.error) {
-                              toast.error("Failed to automatically save the translation",{
-                                   description: res.error
+                              toast.error(t("translation-input.auto-save-error"),{
+                                   description: res.error,
+                                   id: "auto-save-error"
                               });
                               return;
                          }
                          setTable(newTable)
                          setIsDirty(false)
                     } catch (err) {
-                         toast.error("Failed to automatically save the translation",{
-                              description: getErrorMessage(err)
+                         toast.error(t("translation-input.auto-save-error"),{
+                              description: getErrorMessage(err),
+                              id: "auto-save-error"
                          })
                     }
                })
@@ -100,24 +104,25 @@ export default function TranslationInput(){
                          setIsDirty(true)
                     }}>
                          <Copy/>
-                         Copy from Source
+                         {t("translation-input.copy-from-source")}
                     </Button>
                     <LoadingButton isLoading={isSaving} loaderText="Saving..." className="w-full col-span-2" onClick={saveTranslation}>
                          <Save/>
-                         Save String
+                         {t("translation-input.save-string")}
                     </LoadingButton>
                     <Button className="w-full col-span-2 sm:col-span-1" onClick={()=>TranslatorActions.jumpToPrevBlankField({
                          table: visibleTable, currTranslation,
                          setInput, onSelectTranslation: setCurrentTranslation
                     })}>
                          <ChevronLeft/>
-                         Previous
+                         {t("translation-input.prev")}
                     </Button>
                     <Button className="w-full col-span-2 sm:col-span-1" onClick={()=>TranslatorActions.jumpToNextBlankField({
                          table: visibleTable, currTranslation,
                          setInput, onSelectTranslation: setCurrentTranslation
                     })}>
-                         Next
+                         
+                         {t("translation-input.next")}
                          <ChevronRight/>
                     </Button>
                </div>

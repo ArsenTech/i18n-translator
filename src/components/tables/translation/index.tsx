@@ -14,11 +14,14 @@ import { useSettings } from "@/context/settings";
 import { useEditor } from "@/context/editor";
 import { INITIAL_TRANSLATION_VISIBILITY_STATE } from "@/lib/constants/states";
 import type { TranslationSearchType, TranslationFilterType } from "@/lib/types/string-unions";
+import { useTranslation } from "react-i18next";
 
 const Filters = lazy(()=>import("./filters"));
 const SortBy = lazy(()=>import("./sort-by"));
 
 export default function TranslationTable() {
+     const {t} = useTranslation("table")
+     const {t: btnTxt} = useTranslation("buttons")
      const {missingOnly, setCurrentTranslation, currTranslation, visibleCount, setVisibleCount, selectedNamespace, setInput, selectedKeys, setSelectedKeys, selectKey} = useEditor()
      const {visibleTable} = useAppTranslation()
      const {settings} = useSettings()
@@ -111,14 +114,6 @@ export default function TranslationTable() {
                container.removeEventListener("scroll", handleScroll)
           }
      }, [filteredData.length])
-     const placeholderMap: Record<typeof searchMode,string> = {
-          source: "Search for source text",
-          "source-not": "Source doesn't contain",
-          translation: "Search for translations",
-          "translation-not": "Translation doesn't contain",
-          name: "Search for a key name",
-          "name-not": "Key name doesn't contain"
-     }
      return (
           <div className="flex flex-col flex-1 min-h-0 gap-2 overflow-hidden">
                <div className="flex items-center gap-2">
@@ -133,7 +128,7 @@ export default function TranslationTable() {
                          </Suspense>
                          <InputGroup className="rounded-none!">
                               <InputGroupInput
-                                   placeholder={placeholderMap[searchMode]}
+                                   placeholder={t(`placeholders.${searchMode}`)}
                                    value={search}
                                    onChange={(event) => setSearch(event.target.value)}
                               />
@@ -141,11 +136,15 @@ export default function TranslationTable() {
                                    <Search/>
                               </InputGroupAddon>
                               <InputGroupAddon align="inline-end">
-                                   <InputGroupButton size="icon-xs" onClick={()=>{
-                                        setSearch("")
-                                        setFilter("all")
-                                        setSearchMode("source")
-                                   }}>
+                                   <InputGroupButton
+                                        size="icon-xs"
+                                        onClick={()=>{
+                                             setSearch("")
+                                             setFilter("all")
+                                             setSearchMode("source")
+                                        }}
+                                        title={btnTxt("clear-filters")}
+                                   >
                                         <X/>
                                    </InputGroupButton>
                               </InputGroupAddon>
@@ -197,7 +196,6 @@ export default function TranslationTable() {
                                              onClick={e=>{
                                                   setCurrentTranslation(row.original)
                                                   setInput(row.original.translationString)
-
                                                   if (e.ctrlKey) {
                                                        selectKey(row.original.keyName)
                                                   } else {
@@ -224,7 +222,7 @@ export default function TranslationTable() {
                                              colSpan={columns.length}
                                              className="h-24 text-center"
                                         >
-                                             No results.
+                                             {t("not-found")}
                                         </TableCell>
                                    </TableRow>
                               )}
@@ -233,7 +231,7 @@ export default function TranslationTable() {
                     {visibleCount < filteredData.length && (
                          <div className="p-2 flex items-center gap-2 text-muted-foreground font-semibold">
                               <Spinner/>
-                              Loading more data...
+                              {t("loading")}
                          </div>
                     )}
                </div>

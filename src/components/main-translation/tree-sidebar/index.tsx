@@ -11,6 +11,7 @@ import { SIDEBAR_WIDTH_MOBILE } from "@/lib/constants"
 import TreeNodeItem from "./item"
 import { TreeNodeLoader } from "@/loaders/tree-sidebar"
 import { useEditor } from "@/context/editor"
+import { useTranslation } from "react-i18next"
 
 export function TreeSidebarItem({children}: {children: React.ReactNode}){
      return (
@@ -42,6 +43,8 @@ function TreeSidebarMenu({children}: {children: React.ReactNode}){
 }
 
 function TreeSidebarContainer({children}: {children: React.ReactNode}){
+     const {t} = useTranslation()
+     const {t: btnTxt} = useTranslation("buttons")
      const {isMobile, open, setOpen} = useTreeSidebar()
      const content = (
           <ScrollArea className={cn(
@@ -69,15 +72,15 @@ function TreeSidebarContainer({children}: {children: React.ReactNode}){
                          side="left"
                     >
                          <SheetHeader className="sr-only">
-                              <SheetTitle>Sidebar</SheetTitle>
-                              <SheetDescription>Displays the mobile sidebar.</SheetDescription>
+                              <SheetTitle>{t("tree-sidebar.title")}</SheetTitle>
+                              <SheetDescription>{t("tree-sidebar.desc")}</SheetDescription>
                          </SheetHeader>
                          <div className="flex h-full w-full flex-col min-h-0">
                               {content}
                          </div>
                          <SheetFooter>
                               <SheetClose asChild>
-                                   <Button variant="outline">Close</Button>
+                                   <Button variant="outline">{btnTxt("close")}</Button>
                               </SheetClose>
                          </SheetFooter>
                     </SheetContent>
@@ -92,6 +95,7 @@ interface TreeSidebarProps{
 }
 export default function TreeSidebar({tree}: TreeSidebarProps) {
      const {closeMobileSidebar} = useTreeSidebar()
+     const {t: btnTxt} = useTranslation("buttons")
      const {selectedNamespace, setSelectedNamespace} = useEditor()
      return (
           <TreeSidebarContainer>
@@ -106,7 +110,7 @@ export default function TreeSidebar({tree}: TreeSidebarProps) {
                               }}
                          >
                               <List className="size-4" />
-                              Show All
+                              {btnTxt("show.all")}
                          </TreeSidebarButton>
                     </TreeSidebarItem>
                     <Suspense fallback={(

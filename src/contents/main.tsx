@@ -15,6 +15,7 @@ import { useSettings } from "@/context/settings";
 import { toast } from "sonner";
 import { check } from "@tauri-apps/plugin-updater";
 import { AppearanceProvider } from "@/context/appearance";
+import { useTranslation } from "react-i18next";
 
 const TranslationTable = lazy(()=>import("@/components/tables/translation"))
 const TreeSidebar = lazy(()=>import("@/components/main-translation/tree-sidebar"))
@@ -25,11 +26,12 @@ const LanguageSelect = lazy(()=>import("@/components/main-translation/language-s
 const GlossarySidebar = lazy(()=>import("@/components/main-translation/glossary-sidebar"))
 
 export default function MainPage(){
+     const {t} = useTranslation()
      const {table} = useAppTranslation()
      const {open: treeOpen} = useTreeSidebar()
      const {open: glossaryOpen, glossary} = useGlossary()
      const {settings} = useSettings()
-     const tree = useMemo(() => buildTree(table), [table])
+     const tree = useMemo(() => buildTree(table,t), [table])
      useKeyboardShortcuts()
      useEffect(() => {
           if (!settings.checkUpdatesOnStartup) return;
@@ -37,9 +39,9 @@ export default function MainPage(){
                check({ timeout: 100000 }),
                {
                     id: "startup-update-check",
-                    loading: "Checking...",
-                    success: result => result ? `New version available: ${result.version}` : "I18N Translator is up to date",
-                    error: "Failed to check for updates",
+                    loading: t("auto-update.checking"),
+                    success: result => result ? t("auto-update.new-version",{version: result.version}) : t("auto-update.updated"),
+                    error: t("auto-update.failed")
                }
           );
      }, [settings.checkUpdatesOnStartup]);

@@ -5,6 +5,7 @@ import { wordCount } from "@/lib/utils"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { lazy, Suspense } from "react"
 import { Skeleton } from "@/components/ui/skeleton"
+import { useTranslation } from "react-i18next"
 
 const StatusCell = lazy(()=>import("../status-cell"))
 
@@ -12,9 +13,12 @@ export const getColumns = (isSelected: boolean, showLineNumbers: boolean): Colum
      const cols: ColumnDef<ITranslation>[] = [
           {
                accessorKey: "keyName",
-               header: ({column})=>(
-                    <DataTableColumnHeader title="Name" column={column}/>
-               ),
+               header: ({column})=>{
+                    const {t} = useTranslation("table")
+                    return (
+                         <DataTableColumnHeader title={t("cols.keyName")} column={column}/>
+                    )
+               },
                size: 150,
                maxSize: 150,
                cell: ({getValue}) => {
@@ -31,9 +35,12 @@ export const getColumns = (isSelected: boolean, showLineNumbers: boolean): Colum
           },
           {
                accessorKey: "baseString",
-               header: ({column})=>(
-                    <DataTableColumnHeader title="Source" column={column}/>
-               ),
+               header: ({column})=>{
+                    const {t} = useTranslation("table")
+                    return (
+                         <DataTableColumnHeader title={t("cols.source")} column={column}/>
+                    )
+               },
                size: 400,
                maxSize: 400,
                cell: ({getValue}) => (
@@ -44,9 +51,12 @@ export const getColumns = (isSelected: boolean, showLineNumbers: boolean): Colum
           },
           {
                accessorKey: "translationString",
-               header: ({column})=>(
-                    <DataTableColumnHeader title="Translation" column={column}/>
-               ),
+               header: ({column})=>{
+                    const {t} = useTranslation("table")
+                    return (
+                         <DataTableColumnHeader title={t("cols.translation")} column={column}/>
+                    )
+               },
                size: 400,
                maxSize: 400,
                cell: ({getValue}) => (
@@ -77,7 +87,10 @@ export const getColumns = (isSelected: boolean, showLineNumbers: boolean): Colum
           },
           {
                id: "status",
-               header: "Status",
+               header: () => {
+                    const {t} = useTranslation("table")
+                    return t("cols.status")
+               },
                cell: ({row}) => (
                     <Suspense fallback={<Skeleton className="size-5"/>}>
                          <StatusCell
@@ -93,7 +106,10 @@ export const getColumns = (isSelected: boolean, showLineNumbers: boolean): Colum
      return showLineNumbers ? [
           {
                accessorKey: "lineNumber",
-               header: "Line Number",
+               header: () => {
+                    const {t} = useTranslation("table")
+                    return t("cols.line-num")
+               },
                size: 50,
                maxSize: 50
           },

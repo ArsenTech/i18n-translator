@@ -1,0 +1,18 @@
+{
+     "title": "Auto-Translate",
+     "desc": "Auto-Translation using {{provider}}",
+     "api-key": {
+          "mandatory": "API Key",
+          "optional": "API Key (optional)"
+     },
+     "server-url": "Server URL",
+     "endpoint": "Endpoint",
+     "model": "Model",
+     "target": {
+          "title": "Target",
+          "key": "Selected Key",
+          "namescape": "Current Namescape",
+          "translation": "Entire Translation"
+     },
+     "button": "Auto Translate"
+}

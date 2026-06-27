@@ -5,14 +5,19 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { CheckCircle } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const suggestions = ["Nope", "Node", "Not"];
 
 export default function SpellCheckWorkflow(){
+     const {t} = useTranslation("spell-checker")
      const [selectedSuggestion, setSelectedSuggestion] = useState("")
      return (
           <>
-               <p className="text-sm text-muted-foreground">Issue 4 of 127</p>
+               <p className="text-sm text-muted-foreground">{t("issue",{
+                    count: 4,
+                    total: 127
+               })}</p>
                <div className="w-full text-base">
                     <pre className="bg-muted p-2.5 border w-full rounded-lg whitespace-pre-wrap">
                          <code className="break-all">[Noope], it's way better</code>
@@ -22,7 +27,7 @@ export default function SpellCheckWorkflow(){
                     </div>
                </div>
                <div className="space-y-2">
-                    <Label>Suggestions</Label>
+                    <Label>{t("suggestions")}</Label>
                     <ScrollArea className="h-[20dvh] bg-card text-card-foreground border rounded-md p-3">
                          {suggestions.map((suggestion, index) => (
                               <button
@@ -42,14 +47,14 @@ export default function SpellCheckWorkflow(){
                     </ScrollArea>
                </div>
                <div className="grid grid-cols-2 gap-1">
-                    <Button className="w-full">Replace once</Button>
-                    <Button className="w-full">Replace All</Button>
-                    <Button variant="secondary">Skip</Button>
-                    <Button variant="secondary">Skip All</Button>
-                    <Button className="col-span-2" variant="secondary">Add to the dictionary</Button>
+                    <Button className="w-full">{t("buttons.replace-once")}</Button>
+                    <Button className="w-full">{t("buttons.replace-all")}</Button>
+                    <Button variant="secondary">{t("buttons.skip")}</Button>
+                    <Button variant="secondary">{t("buttons.skip-all")}</Button>
+                    <Button className="col-span-2" variant="secondary">{t("buttons.add-to-dict")}</Button>
                </div>
                <DialogFooter>
-                    <Button>Skip All Remaining</Button>
+                    <Button>{t("buttons.skip-all-remaining")}</Button>
                </DialogFooter>
           </>
      )

@@ -12,11 +12,13 @@ import { useGlossary } from "@/context/glossary";
 import { Skeleton } from "@/components/ui/skeleton";
 import { INITIAL_GLOSSARY_VISIBILITY_STATE } from "@/lib/constants/states";
 import type { GlossarySearchType, GlossaryFilterType } from "@/lib/types/string-unions";
+import { useTranslation } from "react-i18next";
 
 const Filters = lazy(()=>import("./filters"));
 const SortBy = lazy(()=>import("./sort-by"));
 
 export default function GlossaryTable() {
+     const {t} = useTranslation("table")
      const {glossary, currEntry, visibleCount, setCurrentEntry, setVisibleCount, setInput} = useGlossary()
      const [search, setSearch] = React.useState("")
      const [searchMode, setSearchMode] = React.useState<GlossarySearchType>("term")
@@ -111,15 +113,6 @@ export default function GlossaryTable() {
                container.removeEventListener("scroll", handleScroll)
           }
      }, [filteredData.length])
-     const placeholderMap: Record<typeof searchMode,string> = {
-          term: "Search for the term",
-          "term-not": "Term doesn't contain",
-          translation: "Search for translations",
-          "translation-not": "Translation doesn't contain",
-          domain: "Search for a domain name",
-          "domain-not": "Domain name doesn't contain",
-          "part-of-speech": "Search for the part of speech"
-     }
      return (
           <div className="flex flex-col flex-1 min-h-0 max-h-[350px] gap-2 overflow-hidden">
                <div className="flex items-center gap-2">
@@ -134,7 +127,7 @@ export default function GlossaryTable() {
                          </Suspense>
                          <InputGroup className="rounded-none!">
                               <InputGroupInput
-                                   placeholder={placeholderMap[searchMode]}
+                                   placeholder={t(`placeholders.${searchMode}`)}
                                    value={search}
                                    onChange={(event) => setSearch(event.target.value)}
                               />
@@ -219,7 +212,7 @@ export default function GlossaryTable() {
                                              colSpan={GLOSSARY_COLS.length}
                                              className="h-24 text-center"
                                         >
-                                             No results.
+                                             {t("not-found")}
                                         </TableCell>
                                    </TableRow>
                               )}
@@ -228,7 +221,7 @@ export default function GlossaryTable() {
                     {visibleCount < filteredData.length && (
                          <div className="p-2 flex items-center gap-2 text-muted-foreground font-semibold">
                               <Spinner/>
-                              Loading more data...
+                              {t("loading")}
                          </div>
                     )}
                </div>

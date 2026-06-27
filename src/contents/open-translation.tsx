@@ -18,11 +18,13 @@ import { Skeleton } from "@/components/ui/skeleton";
 import FetcherActions from "@/actions/fetcher";
 import { useSettings } from "@/context/settings";
 import { getFileName } from "@/lib/helpers/fs";
+import { useTranslation } from "react-i18next";
 
 const LangSelector = lazy(()=>import("@/components/fields/lang-selector"))
 const FilePicker = lazy(()=>import("@/components/fields/file-picker"))
 
 export default function OpenTranslation({setOpen}: PopupComponentProps){
+     const {t} = useTranslation("file-actions")
      const [isOpening, startTransition] = useTransition()
      const [isFetching, setIsFetching] = useState(false)
      const {settings} = useSettings()
@@ -41,8 +43,9 @@ export default function OpenTranslation({setOpen}: PopupComponentProps){
           startTransition(async()=>{
                try {
                     const res = await FileActions.openTranslation(values)
-                    if(res.error) toast.error("Failed to create translation",{
-                         description: res.error
+                    if(res.error) toast.error(t("open.error"),{
+                         description: res.error,
+                         id: "open-error"
                     })
                     if(res.success) {
                          toast.success(res.success)
@@ -70,8 +73,9 @@ export default function OpenTranslation({setOpen}: PopupComponentProps){
                          form.reset()
                     }
                } catch (err) {
-                    toast.error("Failed to create translation",{
-                         description: getErrorMessage(err)
+                    toast.error(t("open.error"),{
+                         description: getErrorMessage(err),
+                         id: "open-error"
                     })
                }
           })
@@ -85,7 +89,7 @@ export default function OpenTranslation({setOpen}: PopupComponentProps){
                const code = fileType ? detectLanguageCode(val, fileType) : settings.baseLang ?? ""
                if (code) form.setValue(type, code || settings[type] || "")
           } catch (err) {
-               toast.error("Failed to get the language code",{
+               toast.error(t("lang-code-error"),{
                     description: getErrorMessage(err)
                })
           } finally {
@@ -97,7 +101,7 @@ export default function OpenTranslation({setOpen}: PopupComponentProps){
                <form id="open-translation" onSubmit={form.handleSubmit(onSubmit)}>
                     <FieldGroup>
                          <FieldSet>
-                              <FieldLegend>Base Language</FieldLegend>
+                              <FieldLegend>{t("languages.base.label")}</FieldLegend>
                          </FieldSet>
                          <FieldGroup>
                               <Controller
@@ -106,7 +110,7 @@ export default function OpenTranslation({setOpen}: PopupComponentProps){
                                    disabled={isOpening}
                                    render={({field, fieldState})=>(
                                         <Field data-invalid={fieldState.invalid}>
-                                             <FieldLabel htmlFor={field.name}>File Path</FieldLabel>
+                                             <FieldLabel htmlFor={field.name}>{t("file-path")}</FieldLabel>
                                              <Suspense fallback={<Skeleton className="h-8 w-full"/>}>
                                                   <FilePicker
                                                        {...field}
@@ -116,7 +120,7 @@ export default function OpenTranslation({setOpen}: PopupComponentProps){
                                                        }}
                                                        invalid={fieldState.invalid}
                                                        placeholder="C:/Users/username/Desktop/en.json"
-                                                       openText="Open the base language file"
+                                                       openText={t("dialog.open-base")}
                                                        state="open"
                                                   />
                                              </Suspense>
@@ -132,12 +136,12 @@ export default function OpenTranslation({setOpen}: PopupComponentProps){
                                    disabled={isOpening}
                                    render={({field, fieldState})=>(
                                         <Field data-invalid={fieldState.invalid}>
-                                             <FieldLabel htmlFor={field.name}>Language</FieldLabel>
+                                             <FieldLabel htmlFor={field.name}>{t("language")}</FieldLabel>
                                              <Suspense fallback={<Skeleton className="h-8 w-full"/>}>
                                                   <LangSelector
                                                        {...field}
                                                        invalid={fieldState.invalid}
-                                                       placeholder="Choose a Base Language"
+                                                       placeholder={t("languages.base.placeholder")}
                                                   />
                                              </Suspense>
                                              {fieldState.invalid && (
@@ -149,7 +153,7 @@ export default function OpenTranslation({setOpen}: PopupComponentProps){
                          </FieldGroup>
                          <FieldSeparator/>
                          <FieldSet>
-                              <FieldLegend>Translation</FieldLegend>
+                              <FieldLegend>{t("languages.target.label")}</FieldLegend>
                          </FieldSet>
                          <FieldGroup>
                               <Controller
@@ -158,7 +162,7 @@ export default function OpenTranslation({setOpen}: PopupComponentProps){
                                    disabled={isOpening}
                                    render={({field, fieldState})=>(
                                         <Field data-invalid={fieldState.invalid}>
-                                             <FieldLabel htmlFor={field.name}>File Path</FieldLabel>
+                                             <FieldLabel htmlFor={field.name}>{t("file-path")}</FieldLabel>
                                              <Suspense fallback={<Skeleton className="h-8 w-full"/>}>
                                                   <FilePicker
                                                        {...field}
@@ -168,7 +172,7 @@ export default function OpenTranslation({setOpen}: PopupComponentProps){
                                                        }}
                                                        invalid={fieldState.invalid}
                                                        placeholder="C:/Users/username/Desktop/hy.json"
-                                                       openText="Open the translation file"
+                                                       openText={t("dialog.open-target")}
                                                        state="open"
                                                   />
                                              </Suspense>
@@ -184,12 +188,12 @@ export default function OpenTranslation({setOpen}: PopupComponentProps){
                                    disabled={isOpening}
                                    render={({field, fieldState})=>(
                                         <Field data-invalid={fieldState.invalid}>
-                                             <FieldLabel htmlFor={field.name}>Language</FieldLabel>
+                                             <FieldLabel htmlFor={field.name}>{t("language")}</FieldLabel>
                                              <Suspense fallback={<Skeleton className="h-8 w-full"/>}>
                                                   <LangSelector
                                                        {...field}
                                                        invalid={fieldState.invalid}
-                                                       placeholder="Choose a Translation Language"
+                                                       placeholder={t("languages.target.placeholder")}
                                                   />
                                              </Suspense>
                                              {fieldState.invalid && (
@@ -202,9 +206,9 @@ export default function OpenTranslation({setOpen}: PopupComponentProps){
                     </FieldGroup>
                </form>
                <DialogFooter>
-                    <LoadingButton isLoading={isOpening} loaderText="Opening..." type="submit" form="open-translation">
+                    <LoadingButton isLoading={isOpening} loaderText={t("open.button.loading")} type="submit" form="open-translation">
                          <FolderOpen/>
-                         Open Translation
+                         {t("open.button.current")}
                     </LoadingButton>
                </DialogFooter>
           </>

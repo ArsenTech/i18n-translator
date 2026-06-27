@@ -18,11 +18,13 @@ import { TranslationFormat } from "@/lib/types/enums";
 import { Skeleton } from "@/components/ui/skeleton";
 import FetcherActions from "@/actions/fetcher";
 import { useSettings } from "@/context/settings";
+import { useTranslation } from "react-i18next";
 
 const LangSelector = lazy(()=>import("@/components/fields/lang-selector"))
 const XliffFilePicker = lazy(()=>import("@/components/fields/file-picker/xliff"))
 
 export default function OpenXliff({setOpen}: PopupComponentProps){
+     const {t} = useTranslation("file-actions")
      const {settings} = useSettings()
      const [isOpening, startTransition] = useTransition()
      const [isFetching, startFetching] = useTransition()
@@ -38,9 +40,15 @@ export default function OpenXliff({setOpen}: PopupComponentProps){
      const handleChangeLang = (val: string) => {
           if(!settings.xliffAutoDetect || !settings.xliffPreserveMeta || isFetching) return;
           startFetching(async() => {
-               const meta = await FetcherActions.getXliffMetadata(val);
-               if(settings.autoDetectBaseLang) form.setValue("baseLang", meta.src_lang || settings.baseLang || "")
-               form.setValue("targetLang", meta.trg_lang || settings.targetLang || "")
+               try {
+                    const meta = await FetcherActions.getXliffMetadata(val);
+                    if(settings.autoDetectBaseLang) form.setValue("baseLang", meta.src_lang || settings.baseLang || "")
+                    form.setValue("targetLang", meta.trg_lang || settings.targetLang || "")
+               } catch (err) {
+                    toast.error(t("lang-code-error"),{
+                         description: getErrorMessage(err)
+                    })
+               }
           })
      }
      const onSubmit = (values: OpenXliffType) => {
@@ -48,8 +56,9 @@ export default function OpenXliff({setOpen}: PopupComponentProps){
           startTransition(async()=>{
                try {
                     const res = await FileActions.openXliff(values)
-                    if(res.error) toast.error("Failed to create translation",{
-                         description: res.error
+                    if(res.error) toast.error(t("open-xliff.error"),{
+                         description: res.error,
+                         id: "open-xliff-error"
                     })
                     if(res.success) {
                          toast.success(res.success)
@@ -77,8 +86,9 @@ export default function OpenXliff({setOpen}: PopupComponentProps){
                          form.reset()
                     }
                } catch (err) {
-                    toast.error("Failed to create translation",{
-                         description: getErrorMessage(err)
+                    toast.error(t("open-xliff.error"),{
+                         description: getErrorMessage(err),
+                         id: "open-xliff-error"
                     })
                }
           })
@@ -93,7 +103,7 @@ export default function OpenXliff({setOpen}: PopupComponentProps){
                               disabled={isOpening || isFetching}
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
-                                        <FieldLabel htmlFor={field.name}>XLIFF File</FieldLabel>
+                                        <FieldLabel htmlFor={field.name}>{t("open-xliff.xliff-file")}</FieldLabel>
                                         <Suspense fallback={<Skeleton className="h-8 w-full"/>}>
                                              <XliffFilePicker
                                                   {...field}
@@ -103,7 +113,7 @@ export default function OpenXliff({setOpen}: PopupComponentProps){
                                                   }}
                                                   invalid={fieldState.invalid}
                                                   placeholder="C:/Users/username/Desktop/translation.xliff"
-                                                  openText="Open the XLIFF Translation file"
+                                                  openText={t("dialog.open-xliff")}
                                              />
                                         </Suspense>
                                         {fieldState.invalid && (
@@ -118,12 +128,12 @@ export default function OpenXliff({setOpen}: PopupComponentProps){
                               disabled={isOpening || isFetching}
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
-                                        <FieldLabel htmlFor={field.name}>Base Language</FieldLabel>
+                                        <FieldLabel htmlFor={field.name}>{t("languages.base.label")}</FieldLabel>
                                         <Suspense fallback={<Skeleton className="h-8 w-full"/>}>
                                              <LangSelector
                                                   {...field}
                                                   invalid={fieldState.invalid}
-                                                  placeholder="Choose a Base Language"
+                                                  placeholder={t("languages.base.placeholder")}
                                              />
                                         </Suspense>
                                         {fieldState.invalid && (
@@ -138,12 +148,12 @@ export default function OpenXliff({setOpen}: PopupComponentProps){
                               disabled={isOpening || isFetching}
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
-                                        <FieldLabel htmlFor={field.name}>Target Language</FieldLabel>
+                                        <FieldLabel htmlFor={field.name}>{t("languages.target.label")}</FieldLabel>
                                         <Suspense fallback={<Skeleton className="h-8 w-full"/>}>
                                              <LangSelector
                                                   {...field}
                                                   invalid={fieldState.invalid}
-                                                  placeholder="Choose a Target Language"
+                                                  placeholder={t("languages.base.placeholder")}
                                              />
                                         </Suspense>
                                         {fieldState.invalid && (
@@ -155,9 +165,9 @@ export default function OpenXliff({setOpen}: PopupComponentProps){
                     </FieldGroup>
                </form>
                <DialogFooter>
-                    <LoadingButton isLoading={isOpening} disabled={isFetching} loaderText="Opening..." type="submit" form="open-xliff">
+                    <LoadingButton isLoading={isOpening} disabled={isFetching} loaderText={t("open-xliff.button.loading")} type="submit" form="open-xliff">
                          <FolderOpen/>
-                         Open XLIFF Translation
+                         {t("open-xliff.button.current")}
                     </LoadingButton>
                </DialogFooter>
           </>

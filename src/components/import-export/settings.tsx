@@ -13,8 +13,10 @@ import { DialogFooter } from "@/components/ui/dialog";
 import LoadingButton from "@/components/loading-button";
 import { ButtonGroup } from "@/components/ui/button-group";
 import { Upload, Download } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export default function ImportExportSettings(){
+     const {t} = useTranslation("import-export")
      const {settings, providers, toolbars, setSettings, setProviders, setToolbars} = useSettings();
      const {theme, color, brightness, updateAppearance} = useAppearance()
      const [isImporting, setIsImporting] = useState(false);
@@ -24,9 +26,9 @@ export default function ImportExportSettings(){
           setIsExporting(true)
           try{
                const path = await save({
-                    title: "Export Settings As",
+                    title: t("settings.export"),
                     filters: [
-                         { name: "JSON File", extensions: ["json"] },
+                         { name: t("files.json"), extensions: ["json"] },
                     ],
                     defaultPath: "settings.json"
                })
@@ -47,9 +49,9 @@ export default function ImportExportSettings(){
                     toolbars
                }
                await exportJSON(path,data)
-               toast.success("Settings exported successfully")
+               toast.success(t("settings.success.export"))
           } catch (err) {
-               toast.error("Failed to export settings",{
+               toast.error(t("settings.error.export"),{
                     description: getErrorMessage(err)
                })
           } finally {
@@ -61,9 +63,9 @@ export default function ImportExportSettings(){
           setIsImporting(true)
           try {
                const path = await open({
-                    title: "Import settings from file",
+                    title: t("settings.import"),
                     filters: [
-                         { name: "JSON File", extensions: ["json"] },
+                         { name: t("files.json"), extensions: ["json"] },
                     ],
                     defaultPath: "settings.json",
                     directory: false,
@@ -71,12 +73,12 @@ export default function ImportExportSettings(){
                if(!path) return;
                const rawData = await readTextFile(path)
                if(rawData.trim()===""){
-                    toast.error("The content here is empty");
+                    toast.error(t("empty-content"));
                     return;
                }
                const parsed = SettingsMetadataSchema.safeParse(JSON.parse(rawData));
                if (!parsed.success) {
-                    toast.error("Invalid settings file");
+                    toast.error(t("settings.invalid"));
                     return;
                }
                const {settings, providers, toolbars, appearance} = parsed.data
@@ -84,9 +86,9 @@ export default function ImportExportSettings(){
                setProviders(providers)
                setToolbars(toolbars)
                updateAppearance(appearance)
-               toast.success("Settings Imported Successfully")
+               toast.success(t("settings.success.import"))
           } catch (err){
-               toast.error("Failed to import settings",{
+               toast.error(t("settings.error.import"),{
                     description: getErrorMessage(err)
                })
           } finally {
@@ -96,13 +98,13 @@ export default function ImportExportSettings(){
      return (
           <DialogFooter>
                <ButtonGroup>
-                    <LoadingButton onClick={importSettings} isLoading={isImporting} loaderText="Importing..." variant="outline">
+                    <LoadingButton onClick={importSettings} isLoading={isImporting} loaderText={t("import.loading")} variant="outline">
                          <Upload/>
-                         Import
+                         {t("import.current")}
                     </LoadingButton>
-                    <LoadingButton onClick={exportSettings} isLoading={isExporting} loaderText="Exporting..." variant="outline">
+                    <LoadingButton onClick={exportSettings} isLoading={isExporting} loaderText={t("export.loading")} variant="outline">
                          <Download/>
-                         Export
+                         {t("export.current")}
                     </LoadingButton>
                </ButtonGroup>
           </DialogFooter>

@@ -17,12 +17,14 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { NEW_TRANSLATION_FORMATS } from "@/lib/constants/items";
 import { useSettings } from "@/context/settings";
 import FetcherActions from "@/actions/fetcher";
+import { useTranslation } from "react-i18next";
 
 const SelectorField = lazy(()=>import("@/components/fields/selector"))
 const FilePicker = lazy(()=>import("@/components/fields/file-picker"))
 const LanguageInput = lazy(()=>import("@/components/fields/lang-input"));
 
 export default function NewTranslation({setOpen}: PopupContentProps){
+     const {t} = useTranslation("file-actions")
      const {settings} = useSettings()
      const [isCreating, startTransition] = useTransition()
      const [isFetching, startFetching] = useTransition()
@@ -52,8 +54,9 @@ export default function NewTranslation({setOpen}: PopupContentProps){
                          settings.autoDetectBaseLang,
                          settings.baseLang
                     );
-                    if(res.error) toast.error("Failed to create translation",{
-                         description: res.error
+                    if(res.error) toast.error(t("new.error"),{
+                         description: res.error,
+                         id: "create-error"
                     })
                     if(res.targetPath) {
                          await RecentTranslations.addRecent({
@@ -83,8 +86,9 @@ export default function NewTranslation({setOpen}: PopupContentProps){
                          form.reset()
                     }
                } catch (err) {
-                    toast.error("Failed to create translation",{
-                         description: getErrorMessage(err)
+                    toast.error(t("new.error"),{
+                         description: getErrorMessage(err),
+                         id: "create-error"
                     })
                }
           })
@@ -99,13 +103,13 @@ export default function NewTranslation({setOpen}: PopupContentProps){
                               disabled={isCreating}
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
-                                        <FieldLabel htmlFor={field.name}>Base Language File Path</FieldLabel>
+                                        <FieldLabel htmlFor={field.name}>{t("new.base-path")}</FieldLabel>
                                         <Suspense fallback={<Skeleton className="h-8 w-full"/>}>
                                              <FilePicker
                                                   {...field}
                                                   invalid={fieldState.invalid}
                                                   placeholder="C:/Users/username/Desktop/en.json"
-                                                  openText="Open the base language file"
+                                                  openText={t("dialog.open-base")}
                                                   onChange={val=>{
                                                        field.onChange(val);
                                                        handleChangeFormat(val)
@@ -124,7 +128,7 @@ export default function NewTranslation({setOpen}: PopupContentProps){
                               disabled={isCreating}
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
-                                        <FieldLabel htmlFor={field.name}>Translation file name</FieldLabel>
+                                        <FieldLabel htmlFor={field.name}>{t("new.translation-name.title")}</FieldLabel>
                                         <Suspense fallback={<Skeleton className="h-8 w-full"/>}>
                                              <LanguageInput
                                                   {...field}
@@ -135,7 +139,7 @@ export default function NewTranslation({setOpen}: PopupContentProps){
                                                   placeholder="hy"
                                              />
                                         </Suspense>
-                                        <FieldDescription>Using the language code as a new translation input is Recommended for all translators.</FieldDescription>
+                                        <FieldDescription>{t("new.translation-name.desc")}</FieldDescription>
                                         {fieldState.invalid && (
                                              <FieldError errors={[fieldState.error]} />
                                         )}
@@ -148,11 +152,14 @@ export default function NewTranslation({setOpen}: PopupContentProps){
                               disabled={isCreating}
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
-                                        <FieldLabel htmlFor={field.name}>File Format</FieldLabel>
+                                        <FieldLabel htmlFor={field.name}>{t("format.title")}</FieldLabel>
                                         <Suspense fallback={<Skeleton className="h-8 w-full"/>}>
                                              <SelectorField
                                                   {...field}
-                                                  items={NEW_TRANSLATION_FORMATS}
+                                                  items={NEW_TRANSLATION_FORMATS.map((val=>({
+                                                       label: t(`format.${val}`),
+                                                       value: val
+                                                  })))}
                                                   invalid={fieldState.invalid}
                                                   placeholder="Choose a Translation File Format"
                                              />
@@ -170,10 +177,10 @@ export default function NewTranslation({setOpen}: PopupContentProps){
                          type="submit"
                          form="new-translation"
                          isLoading={isCreating}
-                         loaderText="Creating..."
+                         loaderText={t("new.button.loading")}
                     >
                          <FilePlus2/>
-                         Create a translation
+                         {t("new.button.current")}
                     </LoadingButton>
                </DialogFooter>
           </>

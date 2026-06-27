@@ -1,0 +1,17 @@
+{
+     "title": "Find the translation",
+     "desc": "Search for a translation you're looking for",
+     "query-error": "Failed to find the query inside the translation",
+     "keyword": {
+          "label": "Keyword",
+          "placeholder": "Search translation keys"
+     },
+     "mode": {
+          "title": "Search Mode",
+          "key": "Key",
+          "source": "Source",
+          "translation": "Translation"
+     },
+     "case-sensitive": "Case Sensitive",
+     "button": "Find"
+}

@@ -12,6 +12,7 @@ import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover
 const LangSelectorItem = lazy(()=>import("./item"));
 const LangIcon = lazy(()=>import("../../lang-icon"));
 
+// TODO: Translate Language Names + this field
 interface LangSelectorProps{
      className?: string
      onChange?: (value: string) => void

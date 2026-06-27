@@ -1,0 +1,28 @@
+{
+     "title": "Transliterate Script",
+     "desc": "Transliterate translation scripts",
+     "source": {
+          "label": "Source script",
+          "placeholder": "Choose a source script"
+     },
+     "target": {
+          "label": "Target script",
+          "placeholder": "Choose a Target script"
+     },
+     "buttons": {
+          "find": "Find",
+          "transliterate": "Transliterate"
+     },
+     "supported-scripts": {
+          "latin": "Latin",
+          "cyrillic": "Cyrillic (Кириллица)",
+          "greek": "Greek (Ελληνικά)",
+          "arabic": "Arabic (عربي)",
+          "armenian": "Armenian (Հայերեն)",
+          "georgian": "Georgian (ქართული)",
+          "hebrew": "Hebrew (עִבְרִית)",
+          "devanagari": "Devanagari (देवनागरी)",
+          "thai": "Thai (ไทย)",
+          "hangul": "Korean (한글)"
+     }
+}

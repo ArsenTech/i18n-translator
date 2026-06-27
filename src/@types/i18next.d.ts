@@ -7,6 +7,14 @@ import table from "@i18n/en/table.json"
 import glossary from "@i18n/en/glossary.json"
 import titlebar from "@i18n/en/titlebar.json"
 import menubar from "@i18n/en/menubar.json"
+import about from "@i18n/en/about.json"
+import find from "@i18n/en/find.json"
+import autoTranslate from "@i18n/en/auto-translate.json"
+import importExport from "@i18n/en/import-export.json"
+import replace from "@i18n/en/replace.json"
+import fileActions from "@i18n/en/file-actions.json"
+import transliterate from "@i18n/en/transliterate.json"
+import spellChecker from "@i18n/en/spell-checker.json"
 
 import { LangCode } from "../i18n/config";
 
@@ -21,7 +29,15 @@ declare module "i18next" {
                table: typeof table;
                glossary: typeof glossary;
                titlebar: typeof titlebar;
-               menubar: typeof menubar
+               menubar: typeof menubar;
+               about: typeof about;
+               find: typeof find;
+               "auto-translate": typeof autoTranslate;
+               "import-export": typeof importExport;
+               replace: typeof replace;
+               "file-actions": typeof fileActions
+               transliterate: typeof transliterate;
+               "spell-checker": typeof spellChecker
           };
      }
 }

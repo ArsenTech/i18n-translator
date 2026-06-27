@@ -2,8 +2,10 @@ import { Input } from "@/components/ui/input"
 import { Field, FieldLabel, FieldError } from "@/components/ui/field"
 import { Controller } from "react-hook-form"
 import type { AutoTranslateFieldProps } from "@/lib/types/props"
+import { useTranslation } from "react-i18next"
 
 export default function LibreTranslateFields({control}: AutoTranslateFieldProps){
+     const {t} = useTranslation("auto-translate")
      return (
           <>
           <Controller
@@ -11,7 +13,7 @@ export default function LibreTranslateFields({control}: AutoTranslateFieldProps)
                name="serverURL"
                render={({field, fieldState})=>(
                     <Field data-invalid={fieldState.invalid}>
-                         <FieldLabel htmlFor={field.name}>Server URL</FieldLabel>
+                         <FieldLabel htmlFor={field.name}>{t("server-url")}</FieldLabel>
                          <Input
                               {...field}
                               id={field.name}
@@ -29,7 +31,7 @@ export default function LibreTranslateFields({control}: AutoTranslateFieldProps)
                name="apiKey"
                render={({field, fieldState})=>(
                     <Field data-invalid={fieldState.invalid}>
-                         <FieldLabel htmlFor={field.name}>API Key (optional)</FieldLabel>
+                         <FieldLabel htmlFor={field.name}>{t("api-key.optional")}</FieldLabel>
                          <Input
                               {...field}
                               id={field.name}

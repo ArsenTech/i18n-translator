@@ -14,8 +14,10 @@ import { useAppTranslation } from "@/context/translation";
 import { exportCSV, exportJSON } from "@/lib/helpers/fs";
 import { PARTS_OF_SPEECH } from "@/lib/constants/combobox-items";
 import { GlossaryEntriesSchema } from "@/schemas";
+import { useTranslation } from "react-i18next";
 
 export default function ImportExportGlossary(){
+     const {t} = useTranslation("import-export")
      const [isImporting, setIsImporting] = useState(false);
      const [isExporting, setIsExporting] = useState(false);
      const {langs} = useAppTranslation()
@@ -25,14 +27,14 @@ export default function ImportExportGlossary(){
           setIsExporting(true)
           try{
                if (!langs.base || !langs.target) {
-                    toast.error("Base and target languages are required");
+                    toast.error(t("glossary.no-base-target"));
                     return;
                }
                const path = await save({
-                    title: "Export Glossary As",
+                    title: t("glossary.export"),
                     filters: [
-                         { name: "JSON File", extensions: ["json"] },
-                         { name: "CSV File", extensions: ["csv"] }
+                         { name: t("files.json"), extensions: ["json"] },
+                         { name: t("files.csv"), extensions: ["csv"] }
                     ],
                     defaultPath: "glossary.json"
                })
@@ -40,9 +42,9 @@ export default function ImportExportGlossary(){
                const data = await GlossaryActions.getGlossary(langs)
                const exportFile = path.endsWith(".csv") ? exportCSV : exportJSON<GlossaryEntry[]>;
                await exportFile(path, data)
-               toast.success("Glossary exported successfully")
+               toast.success(t("glossary.success.export"))
           } catch (err) {
-               toast.error("Failed to export glossary",{
+               toast.error(t("glossary.error.export"),{
                     description: getErrorMessage(err)
                })
           } finally {
@@ -54,14 +56,14 @@ export default function ImportExportGlossary(){
           setIsImporting(true)
           try {
                if (!langs.base || !langs.target) {
-                    toast.error("Base and target languages are required");
+                    toast.error(t("glossary.no-base-target"));
                     return;
                }
                const path = await open({
-                    title: "Import Glossary from file",
+                    title: t("glossary.import"),
                     filters: [
-                         { name: "JSON File", extensions: ["json"] },
-                         { name: "CSV File", extensions: ["csv"] }
+                         { name: t("files.json"), extensions: ["json"] },
+                         { name: t("files.csv"), extensions: ["csv"] }
                     ],
                     defaultPath: "glossary.json",
                     directory: false,
@@ -69,7 +71,7 @@ export default function ImportExportGlossary(){
                if(!path) return;
                const rawData = await readTextFile(path)
                if(rawData.trim()===""){
-                    toast.error("The content here is empty");
+                    toast.error(t("empty-content"));
                     return;
                }
                const rawCSV = rawData.split("\n").map(val=>val.split(",").map(val=>val.trim())).slice(1).map(([term, translation, partOfSpeech, domain, caseSensitive])=>({
@@ -81,14 +83,14 @@ export default function ImportExportGlossary(){
                }))
                const parsed = GlossaryEntriesSchema.safeParse(path.endsWith(".csv") ? rawCSV : JSON.parse(rawData));
                if (!parsed.success) {
-                    toast.error("Invalid glossary file");
+                    toast.error(t("glossary.invalid"));
                     return;
                }
                setGlossary(parsed.data)
                await GlossaryActions.setGlossary(langs,parsed.data)
-               toast.success("Glossary Imported Successfully")
+               toast.success(t("glossary.success.import"))
           } catch (err){
-               toast.error("Failed to import Glossary",{
+               toast.error(t("glossary.error.import"),{
                     description: getErrorMessage(err)
                })
           } finally {
@@ -98,13 +100,13 @@ export default function ImportExportGlossary(){
      return (
           <DialogFooter>
                <ButtonGroup>
-                    <LoadingButton onClick={importGlossary} isLoading={isImporting} loaderText="Importing..." variant="outline">
+                    <LoadingButton onClick={importGlossary} isLoading={isImporting} loaderText={t("import.loading")} variant="outline">
                          <Upload/>
-                         Import
+                         {t("import.current")}
                     </LoadingButton>
-                    <LoadingButton onClick={exportGlossary} isLoading={isExporting} loaderText="Exporting..." variant="outline">
+                    <LoadingButton onClick={exportGlossary} isLoading={isExporting} loaderText={t("export.loading")} variant="outline">
                          <Download/>
-                         Export
+                         {t("export.current")}
                     </LoadingButton>
                </ButtonGroup>
           </DialogFooter>

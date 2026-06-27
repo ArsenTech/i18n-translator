@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
 import { Input } from "@/components/ui/input";
 import { open } from "@tauri-apps/plugin-dialog";
+import { useTranslation } from "react-i18next";
 
 interface XliffFilePickerProps{
      onChange: (value: string) => void;
@@ -15,6 +16,7 @@ interface XliffFilePickerProps{
      openText?: string,
 }
 export default function XliffFilePicker({invalid, openText="Open the base language file", ...field}: XliffFilePickerProps){
+     const {t} = useTranslation("file-actions")
      const handleChooseFile = async () => {
           const path = await open({
                multiple: false,
@@ -22,7 +24,7 @@ export default function XliffFilePicker({invalid, openText="Open the base langua
                title: openText,
                filters: [
                     {
-                         name: "XLIFF Translation File",
+                         name: t("filters.xliff"),
                          extensions: ["xliff", "xlf"]
                     },
                ]
@@ -38,7 +40,7 @@ export default function XliffFilePicker({invalid, openText="Open the base langua
                     id={field.name}
                     aria-invalid={invalid}
                />
-               <Button onClick={handleChooseFile} type="button" variant="secondary">Browse</Button>
+               <Button onClick={handleChooseFile} type="button" variant="secondary">{t("browse")}</Button>
           </ButtonGroup>
      )
 }

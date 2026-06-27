@@ -7,12 +7,15 @@ import { TransliterateScriptSchema } from "@/schemas";
 import { DialogFooter } from "@/components/ui/dialog";
 import TranslatorActions from "@/actions/translator";
 import { SUPPORTED_SCRIPTS } from "@/lib/constants/items";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useMemo } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useTranslation } from "react-i18next";
+import { SelectType } from "@/lib/types";
 
 const SelectorField = lazy(()=>import("@/components/fields/selector"))
 
 export default function TransliterateScript(){
+     const {t} = useTranslation("transliterate")
      const form = useForm<TransliterateScriptType>({
           resolver: zodResolver(TransliterateScriptSchema),
           defaultValues: {
@@ -23,6 +26,10 @@ export default function TransliterateScript(){
      const onSubmit = (values: TransliterateScriptType) => {
           TranslatorActions.transliterateScript(values)
      }
+     const allScripts: SelectType[] = useMemo(()=>SUPPORTED_SCRIPTS.map(val=>({
+          label: t(`supported-scripts.${val}`),
+          value: val
+     })),[t])
      return (
           <>
                <form id="transliterate" onSubmit={form.handleSubmit(onSubmit)}>
@@ -32,13 +39,13 @@ export default function TransliterateScript(){
                               name="source"
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
-                                        <FieldLabel htmlFor={field.name}>Source script</FieldLabel>
+                                        <FieldLabel htmlFor={field.name}>{t("source.label")}</FieldLabel>
                                         <Suspense fallback={<Skeleton className="h-8 w-full"/>}>
                                              <SelectorField
                                                   {...field}
-                                                  items={[...SUPPORTED_SCRIPTS]}
+                                                  items={allScripts}
                                                   invalid={fieldState.invalid}
-                                                  placeholder="Choose a source script"
+                                                  placeholder={t("source.placeholder")}
                                              />
                                         </Suspense>
                                         {fieldState.invalid && (
@@ -52,13 +59,13 @@ export default function TransliterateScript(){
                               name="target"
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
-                                        <FieldLabel htmlFor={field.name}>Target script</FieldLabel>
+                                        <FieldLabel htmlFor={field.name}>{t("target.label")}</FieldLabel>
                                         <Suspense fallback={<Skeleton className="h-8 w-full"/>}>
                                              <SelectorField
                                                   {...field}
-                                                  items={[...SUPPORTED_SCRIPTS]}
+                                                  items={allScripts}
                                                   invalid={fieldState.invalid}
-                                                  placeholder="Choose a Target script"
+                                                  placeholder={t("target.placeholder")}
                                              />
                                         </Suspense>
                                         {fieldState.invalid && (
@@ -70,8 +77,8 @@ export default function TransliterateScript(){
                     </FieldGroup>
                </form>
                <DialogFooter>
-                    <Button type="button" variant="secondary">Find</Button>
-                    <Button type="submit" form="transliterate">Transliterate</Button>
+                    <Button type="button" variant="secondary">{t("buttons.find")}</Button>
+                    <Button type="submit" form="transliterate">{t("buttons.transliterate")}</Button>
                </DialogFooter>
           </>
      )

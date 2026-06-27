@@ -5,8 +5,15 @@
           "translation": "Search by Translation",
           "translation-not": "Translation doesn't contain",
           "name": "Search by key name",
-          "name-not": "Key name doesn't contain"
+          "name-not": "Key name doesn't contain",
+          "term": "Search by term",
+          "term-not": "Term doesn't contain",
+          "domain": "Search by a domain name",
+          "domain-not": "Domain name doesn't contain",
+          "part-of-speech": "Search by part of speech"
      },
+     "not-found": "No entries found",
+     "loading": "Loading more entries...",
      "filters": {
           "title": "Filters",
           "action": "Filter By",
@@ -15,7 +22,8 @@
           "translated": "Translated",
           "untranslated": "Untranslated",
           "transEqSrc": "Translation equals Source",
-          "repeatedStr": "Repeated Strings"
+          "repeatedStr": "Repeated Strings",
+          "caseSensitive": "Case Sensitive"
      },
      "sort": {
           "title": "Sort By",
@@ -27,15 +35,17 @@
           "baseWords": "Source Words Count",
           "baseChars": "Source Characters Count",
           "translationWords": "Translation Words Count",
-          "translationChars": "Translation Characters Count"
+          "translationChars": "Translation Characters Count",
+          "termWords": "Term Words Count",
+          "termChars": "Term Characters Count"
      },
-     "not-found": "No entries found",
-     "loading": "Loading more entries...",
      "cols": {
           "keyName": "Key Name",
           "source": "Source",
           "translation": "Translation",
           "status": "Status",
-          "line-num": "Line Number"
+          "line-num": "Line Number",
+          "term": "Term",
+          "caseSensitive": "Case Sensitive"
      }
 }

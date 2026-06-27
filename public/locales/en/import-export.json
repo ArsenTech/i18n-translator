@@ -1,0 +1,42 @@
+{
+     "import": {
+          "current": "Import",
+          "loading": "Importing..."
+     },
+     "export": {
+          "current": "Export",
+          "loading": "Exporting..."
+     },
+     "files": {
+          "json": "JSON File",
+          "csv": "CSV File"
+     },
+     "glossary": {
+          "import": "Import Glossary from file",
+          "export": "Export Glossary As",
+          "no-base-target": "Base and target languages are required",
+          "success": {
+               "export": "Glossary exported successfully",
+               "import": "Glossary imported Successfully"
+          },
+          "error": {
+               "export": "Failed to export glossary",
+               "import": "Failed to import glossary"
+          },
+          "invalid": "Invalid glossary file"
+     },
+     "settings": {
+          "import": "Import settings from file",
+          "export": "Export Settings As",
+          "success": {
+               "export": "Settings exported successfully",
+               "import": "Settings imported Successfully"
+          },
+          "error": {
+               "export": "Failed to export settings",
+               "import": "Failed to import settings"
+          },
+          "invalid": "Invalid settings file"
+     },
+     "empty-content": "The content here is empty"
+}

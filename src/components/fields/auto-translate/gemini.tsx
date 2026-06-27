@@ -2,15 +2,17 @@ import { Input } from "@/components/ui/input"
 import { Field, FieldLabel, FieldError } from "@/components/ui/field"
 import { Controller } from "react-hook-form"
 import type { AutoTranslateFieldProps } from "@/lib/types/props"
+import { useTranslation } from "react-i18next"
 
 export default function GeminiFields({control}: AutoTranslateFieldProps){
+     const {t} = useTranslation("auto-translate")
      return (
           <Controller
                control={control}
                name="apiKey"
                render={({field, fieldState})=>(
                     <Field data-invalid={fieldState.invalid}>
-                         <FieldLabel htmlFor={field.name}>API Key</FieldLabel>
+                         <FieldLabel htmlFor={field.name}>{t("api-key.mandatory")}</FieldLabel>
                          <Input
                               {...field}
                               id={field.name}

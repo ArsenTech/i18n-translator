@@ -1,0 +1,15 @@
+{
+     "title": "Replace the translation",
+     "desc": "Replace existing translations",
+     "error": "Failed to replace translations",
+     "from": "From",
+     "to": "To",
+     "case-sensitive": "Case Sensitive",
+     "button": "Replace",
+     "batch-rename": {
+          "title": "Batch rename keys",
+          "desc": "Rename many keys at once",
+          "error": "Failed to rename keys at once",
+          "button": "Rename Keys"
+     }
+}

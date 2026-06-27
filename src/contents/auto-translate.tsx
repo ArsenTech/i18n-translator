@@ -11,6 +11,7 @@ import type { PopupContentProps } from "@/lib/types/props";
 import { lazy, Suspense } from "react";
 import { FormFieldLoader, RadioFieldLoader } from "@/loaders/fields";
 import { useSettings } from "@/context/settings";
+import { useTranslation } from "react-i18next";
 
 const RadioField = lazy(()=>import("@/components/fields/radio-field"))
 const GeminiFields = lazy(()=>import("@/components/fields/auto-translate/gemini"));
@@ -21,6 +22,7 @@ interface AutoTranslateProps extends PopupContentProps{
      provider: AutoTranslateProvider
 }
 export default function AutoTranslate({provider}: AutoTranslateProps){
+     const {t} = useTranslation("auto-translate")
      const {providers} = useSettings()
      const form = useForm<AutoTranslateType>({
           resolver: zodResolver(AutoTranslateSchema),
@@ -70,12 +72,15 @@ export default function AutoTranslate({provider}: AutoTranslateProps){
                               name="target"
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
-                                        <FieldLabel htmlFor={field.name}>Target</FieldLabel>
+                                        <FieldLabel htmlFor={field.name}>{t("target.title")}</FieldLabel>
                                         <Suspense fallback={<RadioFieldLoader length={RESOURCE_TYPE.length}/>}>
                                              <RadioField
                                                   {...field}
                                                   invalid={fieldState.invalid}
-                                                  items={RESOURCE_TYPE}
+                                                  items={RESOURCE_TYPE.map(val=>({
+                                                       label: t(`target.${val}`),
+                                                       value: val
+                                                  }))}
                                              />
                                         </Suspense>
                                         {fieldState.invalid && (
@@ -87,7 +92,7 @@ export default function AutoTranslate({provider}: AutoTranslateProps){
                     </FieldGroup>
                </form>
                <DialogFooter>
-                    <Button type="submit" form="auto-translate">Auto Translate</Button>
+                    <Button type="submit" form="auto-translate">{t("button")}</Button>
                </DialogFooter>
           </>
      )

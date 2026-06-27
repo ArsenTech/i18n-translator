@@ -15,11 +15,13 @@ import { getErrorMessage } from "@/lib/utils";
 import { useAppTranslation } from "@/context/translation";
 import { useGlossary } from "@/context/glossary";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useTranslation } from "react-i18next";
 
 const ComboboxField = lazy(()=>import("@/components/fields/combobox-field"))
 const SelectorField = lazy(()=>import("@/components/fields/selector"))
 
 export default function AddToGlossary(){
+     const {t} = useTranslation("glossary")
      const {langs} = useAppTranslation()
      const {setGlossary} = useGlossary()
      const [isAdding, startTransition] = useTransition()
@@ -42,13 +44,15 @@ export default function AddToGlossary(){
                          setGlossary(res.data)
                          form.reset()
                     } else {
-                         toast.error("Failed to add the term to the glossary",{
-                              description: res.error
+                         toast.error(t("add-glossary.error"),{
+                              description: res.error,
+                              id: "add-error"
                          })
                     }
                } catch (err) {
-                    toast.error("Failed to add the term to the glossary",{
-                         description: getErrorMessage(err)
+                    toast.error(t("add-glossary.error"),{
+                         description: getErrorMessage(err),
+                         id: "add-error"
                     })
                }
           })
@@ -63,7 +67,7 @@ export default function AddToGlossary(){
                               disabled={isAdding}
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
-                                        <FieldLabel htmlFor={field.name}>Term</FieldLabel>
+                                        <FieldLabel htmlFor={field.name}>{t("add-glossary.term")}</FieldLabel>
                                         <Input
                                              {...field}
                                              id={field.name}
@@ -87,7 +91,7 @@ export default function AddToGlossary(){
                                    >
                                         <FieldContent>
                                              <FieldLabel htmlFor={field.name}>
-                                                  Case Sensitive
+                                                  {t("add-glossary.case-sensitive")}
                                              </FieldLabel>
                                              {fieldState.invalid && (
                                                   <FieldError errors={[fieldState.error]} />
@@ -109,7 +113,7 @@ export default function AddToGlossary(){
                               disabled={isAdding}
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
-                                        <FieldLabel htmlFor={field.name}>Translation</FieldLabel>
+                                        <FieldLabel htmlFor={field.name}>{t("add-glossary.translation")}</FieldLabel>
                                         <Input
                                              {...field}
                                              id={field.name}
@@ -129,16 +133,16 @@ export default function AddToGlossary(){
                                    disabled={isAdding}
                                    render={({field, fieldState})=>(
                                         <Field data-invalid={fieldState.invalid}>
-                                             <FieldLabel htmlFor={field.name}>Part of Speech</FieldLabel>
+                                             <FieldLabel htmlFor={field.name}>{t("add-glossary.part-of-speech.label")}</FieldLabel>
                                              <Suspense fallback={<Skeleton className="h-8 w-full"/>}>
                                                   <SelectorField
                                                        {...field}
                                                        items={PARTS_OF_SPEECH.map(part=>({
-                                                            label: part[0].toUpperCase() + part.slice(1),
+                                                            label: t(`parts-of-speech.${part}`),
                                                             value: part
                                                        }))}
                                                        invalid={fieldState.invalid}
-                                                       placeholder="Choose a part of speech"
+                                                       placeholder={t("add-glossary.part-of-speech.placeholder")}
                                                   />
                                              </Suspense>
                                              {fieldState.invalid && (
@@ -153,13 +157,13 @@ export default function AddToGlossary(){
                                    disabled={isAdding}
                                    render={({field, fieldState})=>(
                                         <Field data-invalid={fieldState.invalid}>
-                                             <FieldLabel htmlFor={field.name}>Domain</FieldLabel>
+                                             <FieldLabel htmlFor={field.name}>{t("add-glossary.domain.label")}</FieldLabel>
                                              <Suspense fallback={<Skeleton className="h-8 w-full"/>}>
                                                   <ComboboxField
                                                        {...field}
                                                        items={[...GLOSSARY_DOMAINS]}
                                                        invalid={fieldState.invalid}
-                                                       placeholder="Choose a domain"
+                                                       placeholder={t("add-glossary.domain.placeholder")}
                                                   />
                                              </Suspense>
                                              {fieldState.invalid && (
@@ -173,7 +177,7 @@ export default function AddToGlossary(){
                </form>
                <DialogFooter>
                     <LoadingButton isLoading={isAdding} type="submit" form="add-to-glossary">
-                         Add To Glossary
+                         {t("add-glossary.button")}
                     </LoadingButton>
                </DialogFooter>
           </>

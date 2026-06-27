@@ -2,6 +2,10 @@ import { Filter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import type { GlossaryFilterType, GlossarySearchType } from "@/lib/types/string-unions";
+import { useTranslation } from "react-i18next";
+
+const SEARCH_MODES = ["term", "term-not", "translation", "translation-not", "domain", "domain-not", "part-of-speech"] as const;
+const FILTERS = ["all", "translated", "untranslated", "transEqSrc", "repeatedStr", "caseSensitive"] as const
 
 interface FiltersProps {
      filter: GlossaryFilterType
@@ -10,44 +14,42 @@ interface FiltersProps {
      onSearchModeChange: (mode: GlossarySearchType) => void
 }
 export default function Filters({filter, onFilterChange, onSearchModeChange, searchMode}: FiltersProps){
+     const {t} = useTranslation("table")
      return (
           <DropdownMenu>
                <DropdownMenuTrigger asChild>
                     <Button variant="outline">
                          <Filter/>
-                         Filters
+                         {t("filters.title")}
                     </Button>
                </DropdownMenuTrigger>
                <DropdownMenuContent className="w-full min-w-56">
-                    <DropdownMenuLabel>Filter By</DropdownMenuLabel>
+                    <DropdownMenuLabel>{t("filters.action")}</DropdownMenuLabel>
                     <DropdownMenuSeparator/>
                     <DropdownMenuSub>
-                         <DropdownMenuSubTrigger>Search</DropdownMenuSubTrigger>
+                         <DropdownMenuSubTrigger>{t("filters.search")}</DropdownMenuSubTrigger>
                          <DropdownMenuSubContent>
                               <DropdownMenuRadioGroup
                                    value={searchMode}
                                    onValueChange={(value) => onSearchModeChange(value as typeof searchMode)}
                               >
-                                   <DropdownMenuRadioItem value="term">Search by the term</DropdownMenuRadioItem>
-                                   <DropdownMenuRadioItem value="term-not">Term doesn't contain</DropdownMenuRadioItem>
-                                   <DropdownMenuRadioItem value="translation">Search by Translation</DropdownMenuRadioItem>
-                                   <DropdownMenuRadioItem value="translation-not">Translation doesn't contain</DropdownMenuRadioItem>
-                                   <DropdownMenuRadioItem value="domain">Search by a domain name</DropdownMenuRadioItem>
-                                   <DropdownMenuRadioItem value="domain-not">Domain name doesn't contain</DropdownMenuRadioItem>
-                                   <DropdownMenuRadioItem value="part-of-speech">Search for the part of speech</DropdownMenuRadioItem>
+                                   {SEARCH_MODES.map(mode=>(
+                                        <DropdownMenuRadioItem value={mode}>
+                                             {t(`placeholders.${mode}`)}
+                                        </DropdownMenuRadioItem>
+                                   ))}
                               </DropdownMenuRadioGroup>
                          </DropdownMenuSubContent>
                     </DropdownMenuSub>
-                    <DropdownMenuRadioGroup
+                     <DropdownMenuRadioGroup
                          value={filter}
                          onValueChange={(value) => onFilterChange(value as GlossaryFilterType)}
                     >
-                         <DropdownMenuRadioItem value="all">All</DropdownMenuRadioItem>
-                         <DropdownMenuRadioItem value="translated">Translated</DropdownMenuRadioItem>
-                         <DropdownMenuRadioItem value="untranslated">Untranslated</DropdownMenuRadioItem>
-                         <DropdownMenuRadioItem value="transEqSrc">Translation equals Source</DropdownMenuRadioItem>
-                         <DropdownMenuRadioItem value="repeatedStr">Repeated Strings</DropdownMenuRadioItem>
-                         <DropdownMenuRadioItem value="caseSensitive">Case Sensitive</DropdownMenuRadioItem>
+                         {FILTERS.map(filter=>(
+                              <DropdownMenuRadioItem value={filter}>
+                                   {t(`filters.${filter}`)}
+                              </DropdownMenuRadioItem>
+                         ))}
                     </DropdownMenuRadioGroup>
                </DropdownMenuContent>
           </DropdownMenu>

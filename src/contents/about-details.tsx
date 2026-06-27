@@ -1,8 +1,10 @@
 import FetcherActions from "@/actions/fetcher"
 import { Skeleton } from "@/components/ui/skeleton"
 import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
 
 export default function AboutDetails(){
+     const {t} = useTranslation("about")
      const [details, setDetails] = useState(()=>({
           name: localStorage.getItem("app-name"),
           version: localStorage.getItem("app-version"),
@@ -24,17 +26,17 @@ export default function AboutDetails(){
                     <Skeleton className="h-5 md:h-6 lg:h-8 w-full max-w-64"/>
                )}
                {details.version ? (
-                    <p className="text-sm md:text-base lg:text-lg font-semibold">Version {details.version}</p>
+                    <p className="text-sm md:text-base lg:text-lg font-semibold">{t("version",{version: details.version})}</p>
                ) : (
                     <Skeleton className="h-4 md:h-5 lg:h-6 w-full max-w-[100px]"/>
                )}
                {details.tauri ? (
-                    <p className="text-xs sm:text-sm text-muted-foreground">Tauri version: {details.tauri}</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground">{t("tauri",{version: details.tauri})}</p>
                ) : (
                     <Skeleton className="h-3 sm:h-4 w-1/3"/>
                )}
                {details.identifier ? (
-                    <p className="text-xs sm:text-sm text-muted-foreground">Identifier: {details.identifier}</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground">{t("identifier",{identifier: details.identifier})}</p>
                ) : (
                     <Skeleton className="h-3 sm:h-4 w-full max-w-64"/>
                )}

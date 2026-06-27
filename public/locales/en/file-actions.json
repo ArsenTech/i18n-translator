@@ -1,0 +1,69 @@
+{
+     "new": {
+          "title": "Create New Translation",
+          "desc": "Create a new translation file",
+          "error": "Failed to create translation",
+          "button": {
+               "loading": "Creating...",
+               "current": "Create a translation"
+          },
+          "translation-name": {
+               "title": "Translation file name",
+               "desc": "Using the language code as a new translation input is Recommended for all translators."
+          },
+          "base-path": "Base Language Path"
+     },
+     "open": {
+          "title": "Open Translation",
+          "desc": "Open base and target language translations to start translating",
+          "error": "Failed to open the translation",
+          "button": {
+               "loading": "Opening...",
+               "current": "Open Translation"
+          }
+     },
+     "open-xliff": {
+          "title": "Open XLIFF Translation",
+          "desc": "Open the XLIFF translation file to start translating",
+          "error": "Failed to open the XLIFF file",
+          "button": {
+               "loading": "Opening...",
+               "current": "Open XLIFF Translation"
+          },
+          "xliff-file": "XLIFF File"
+     },
+     "dialog": {
+          "open-base": "Open the base language file",
+          "open-target": "Open the target language file",
+          "open-xliff": "Open the XLIFF Translation file"
+     },
+     "lang-code-error": "Failed to get the language code",
+     "format": {
+          "title": "File Format",
+          "json": "JSON File",
+          "xml": "XML File",
+          "po": "GNU gettext",
+          "xliff": "XLIFF File",
+          "resx": "Microsoft RESX File"
+     },
+     "browse": "Browse",
+     "filters": {
+          "json": "JSON Files",
+          "xml": "XML Files",
+          "po": "GNU gettext Files",
+          "resx": "Microsoft RESX Files",
+          "xliff": "XLIFF Translation File"
+     },
+     "languages": {
+          "base": {
+               "label": "Base Language",
+               "placeholder": "Choose a base language"
+          },
+          "target": {
+               "label": "Target Language",
+               "placeholder": "Choose a target language"
+          }
+     },
+     "file-path": "File Path",
+     "language": "Language"
+}

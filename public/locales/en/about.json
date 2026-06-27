@@ -1,0 +1,15 @@
+{
+     "title": "About I18N Translator",
+     "version": "Version {{version}}",
+     "tauri": "Tauri version: v{{version}}",
+     "identifier": "Identifier: {{identifier}}",
+     "translated-by": "",
+     "licensing": "Licensing info",
+     "information": {
+          "line1": "<bold>I18N Translator</bold> is a desktop localization tool designed to help translators and developers create, edit, and maintain application translations in multiple file formats.",
+          "line2": "It provides a simple spreadsheet-like interface for editing translation keys while preserving the original file structure whenever possible.",
+          "line3": "Whether you are translating a small application or maintaining a large localization project, <bold>I18N Translator</bold> aims to provide a fast and straightforward workflow."
+     },
+     "bug-report": "Report a bug",
+     "feature-request": "Request a feature"
+}

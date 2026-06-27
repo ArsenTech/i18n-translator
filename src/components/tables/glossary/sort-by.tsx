@@ -9,18 +9,19 @@ import {
      DropdownMenuSeparator,
      DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { useTranslation } from "react-i18next"
 
 interface SortByProps {
      onSort: (column: string | null, desc?: boolean) => void
 }
 
+const SORT_OPTIONS = ["termWords", "termChars", "translationWords", "translationChars"] as const
+
 export default function SortBy({ onSort }: SortByProps) {
+     const {t} = useTranslation("table")
      const [column, setColumn] = React.useState("")
      const [direction, setDirection] = React.useState<"asc" | "desc">("asc")
-     const handleSort = (
-          nextColumn: string,
-          nextDirection: "asc" | "desc" = direction
-     ) => {
+     const handleSort = (nextColumn: string, nextDirection: "asc" | "desc" = direction) => {
           setColumn(nextColumn)
           setDirection(nextDirection)
           if (!nextColumn) {
@@ -34,7 +35,7 @@ export default function SortBy({ onSort }: SortByProps) {
                <DropdownMenuTrigger asChild>
                     <Button variant="outline">
                          <ArrowDownUp />
-                         Sort By
+                         {t("sort.title")}
                     </Button>
                </DropdownMenuTrigger>
                <DropdownMenuContent className="min-w-56">
@@ -43,20 +44,13 @@ export default function SortBy({ onSort }: SortByProps) {
                          onValueChange={(value) => handleSort(value)}
                     >
                          <DropdownMenuRadioItem value="">
-                              Default
+                              {t("sort.default")}
                          </DropdownMenuRadioItem>
-                         <DropdownMenuRadioItem value="termWords">
-                              Term words Count
-                         </DropdownMenuRadioItem>
-                         <DropdownMenuRadioItem value="termChars">
-                              Term characters Count
-                         </DropdownMenuRadioItem>
-                         <DropdownMenuRadioItem value="translationWords">
-                              Translation Words Count
-                         </DropdownMenuRadioItem>
-                         <DropdownMenuRadioItem value="translationChars">
-                              Translation Characters Count
-                         </DropdownMenuRadioItem>
+                         {SORT_OPTIONS.map(option=>(
+                              <DropdownMenuRadioItem value={option}>
+                                   {t(`sort.${option}`)}
+                              </DropdownMenuRadioItem>
+                         ))}
                     </DropdownMenuRadioGroup>
                     <DropdownMenuSeparator />
                     <DropdownMenuRadioGroup
@@ -69,10 +63,10 @@ export default function SortBy({ onSort }: SortByProps) {
                          }
                     >
                          <DropdownMenuRadioItem value="asc">
-                              Ascending
+                              {t("sort.directions.asc")}
                          </DropdownMenuRadioItem>
                          <DropdownMenuRadioItem value="desc">
-                              Descending
+                              {t("sort.directions.desc")}
                          </DropdownMenuRadioItem>
                     </DropdownMenuRadioGroup>
                </DropdownMenuContent>

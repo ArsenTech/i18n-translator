@@ -13,15 +13,19 @@ import { toast } from "sonner"
 import { getErrorMessage } from "@/lib/utils"
 import { lazy, Suspense } from "react"
 import { Skeleton } from "@/components/ui/skeleton"
+import { useTranslation } from "react-i18next"
 
 const StatusCell = lazy(()=>import("../status-cell"))
 
 export const GLOSSARY_COLS: ColumnDef<GlossaryEntry>[] = [
      {
           accessorKey: "term",
-          header: ({column})=>(
-               <DataTableColumnHeader title="Term" column={column}/>
-          ),
+          header: ({column})=>{
+               const {t} = useTranslation("table")
+               return (
+                    <DataTableColumnHeader title={t("cols.term")} column={column}/>
+               )
+          },
           size: 200,
           maxSize: 200,
           cell: ({getValue}) => (
@@ -32,9 +36,12 @@ export const GLOSSARY_COLS: ColumnDef<GlossaryEntry>[] = [
      },
      {
           accessorKey: "translation",
-          header: ({column})=>(
-               <DataTableColumnHeader title="Translation" column={column}/>
-          ),
+          header: ({column})=>{
+               const {t} = useTranslation("table")
+               return (
+                    <DataTableColumnHeader title={t("cols.translation")} column={column}/>
+               )
+          },
           size: 200,
           maxSize: 200,
           cell: ({getValue}) => (
@@ -45,7 +52,10 @@ export const GLOSSARY_COLS: ColumnDef<GlossaryEntry>[] = [
      },
      {
           accessorKey: "caseSensitive",
-          header: "Case Sensitive",
+          header: () => {
+               const {t} = useTranslation("table");
+               return t("cols.caseSensitive")
+          },
           cell: ({getValue, row}) => {
                const {setGlossary, glossary} = useGlossary()
                const {langs} = useAppTranslation()
@@ -91,7 +101,10 @@ export const GLOSSARY_COLS: ColumnDef<GlossaryEntry>[] = [
      },
      {
           id: "status",
-          header: "Status",
+          header: () => {
+               const {t} = useTranslation("table")
+               return t("cols.status")
+          },
           cell: ({row}) => (
                <Suspense fallback={<Skeleton className="size-5"/>}>
                     <StatusCell
@@ -106,6 +119,7 @@ export const GLOSSARY_COLS: ColumnDef<GlossaryEntry>[] = [
      {
           id: "actions",
           cell: ({row}) => {
+               const {t} = useTranslation("glossary")
                const {setGlossary, glossary} = useGlossary()
                const {langs} = useAppTranslation()
                const deleteValue = () => {
@@ -113,23 +127,23 @@ export const GLOSSARY_COLS: ColumnDef<GlossaryEntry>[] = [
                          const newValue = [...glossary].filter((_,i)=>i!==row.index)
                          setGlossary(newValue)
                          GlossaryActions.setGlossary(langs, newValue)
-                         toast.success("Glossary entry deleted successfully")
+                         toast.success(t("delete.success"))
                     } catch (err) {
-                         toast.error("Failed to delete the glossary entry",{
+                         toast.error(t("delete.error"),{
                               description: getErrorMessage(err)
                          })
                     }
                }
                return (
                     <AppConfirmation
-                         title="Are you sure you want to delete this glossary entry?"
-                         description="This action cannot be undone"
+                         title={t("delete.confirm")}
+                         description={t("delete.desc")}
                          Icon={BookOpen}
                          variant="destructive"
-                         actionText="Delete"
+                         actionText={t("delete.button")}
                          onConfirm={deleteValue}
                          triggerButton={(
-                              <Button variant="destructive" size="icon" title="Delete Entry">
+                              <Button variant="destructive" size="icon" title={t("delete.button")}>
                                    <Trash2/>
                               </Button>
                          )}

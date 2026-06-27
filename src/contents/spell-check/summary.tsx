@@ -3,38 +3,40 @@ import { DialogFooter } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { BookPlus, CheckCircle, List, NotebookText, SkipForward } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useTranslation } from "react-i18next";
 
 export default function SpellCheckSummary(){
+     const {t} = useTranslation("spell-checker")
      return (
           <>
                <ul className="space-y-2">
                     <li className="flex items-center gap-2">
                          <CheckCircle className="size-4.5 text-muted-foreground"/>
-                         5 Corrected
+                         {t("summary.corrected",{count: 5})}
                     </li>
                     <li className="flex items-center gap-2">
                          <SkipForward className="size-4.5 text-muted-foreground"/>
-                         6 Skipped
+                         {t("summary.skipped",{count: 6})}
                     </li>
                     <li className="flex items-center gap-2">
                          <NotebookText className="size-4.5 text-muted-foreground"/>
-                         522 Already Correct
+                         {t("summary.already-correct",{count: 522})}
                     </li>
                     <li className="flex items-center gap-2">
                          <BookPlus className="size-4.5 text-muted-foreground"/>
-                         5 Added to Dictionary
+                         {t("summary.added-dict",{count: 5})}
                     </li>
                     <li className="flex items-center gap-2">
                          <List className="size-4.5 text-muted-foreground"/>
-                         5445 Total Words
+                         {t("summary.total",{count: 5445})}
                     </li>
                </ul>
                <div className="flex items-center gap-2">
                     <Checkbox/>
-                    <Label>Don't show the summary again</Label>
+                    <Label>{t("summary.dont-show")}</Label>
                </div>
                <DialogFooter>
-                    <Button>Done</Button>
+                    <Button>{t("buttons.done")}</Button>
                </DialogFooter>
           </>
      )

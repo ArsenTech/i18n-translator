@@ -11,8 +11,10 @@ import type { PopupComponentProps } from "@/lib/types/props";
 import TranslatorActions from "@/actions/translator";
 import { useAppTranslation } from "@/context/translation";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
 
 export default function ReplaceTranslation({setOpen}: PopupComponentProps){
+     const {t} = useTranslation("replace")
      const {table, setTable, setIsDirty} = useAppTranslation()
      const form = useForm<ReplaceTranslationType>({
           resolver: zodResolver(ReplaceTranslationSchema),
@@ -24,7 +26,7 @@ export default function ReplaceTranslation({setOpen}: PopupComponentProps){
      })
      const onSubmit = (values: ReplaceTranslationType) => {
           const res = TranslatorActions.replaceTranslation(values,table)
-          if(res.error) toast.error("Failed to replace translations",{
+          if(res.error) toast.error(t("error"),{
                description: res.error
           })
           if(res.success) {
@@ -44,7 +46,7 @@ export default function ReplaceTranslation({setOpen}: PopupComponentProps){
                               name="from"
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
-                                        <FieldLabel htmlFor={field.name}>From</FieldLabel>
+                                        <FieldLabel htmlFor={field.name}>{t("from")}</FieldLabel>
                                         <Input
                                              {...field}
                                              id={field.name}
@@ -67,7 +69,7 @@ export default function ReplaceTranslation({setOpen}: PopupComponentProps){
                                    >
                                         <FieldContent>
                                              <FieldLabel htmlFor={field.name}>
-                                                  Case Sensitive
+                                                  {t("case-sensitive")}
                                              </FieldLabel>
                                              {fieldState.invalid && (
                                                   <FieldError errors={[fieldState.error]} />
@@ -88,7 +90,7 @@ export default function ReplaceTranslation({setOpen}: PopupComponentProps){
                               name="to"
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
-                                        <FieldLabel htmlFor={field.name}>To</FieldLabel>
+                                        <FieldLabel htmlFor={field.name}>{t("to")}</FieldLabel>
                                         <Input
                                              {...field}
                                              id={field.name}
@@ -104,7 +106,7 @@ export default function ReplaceTranslation({setOpen}: PopupComponentProps){
                     </FieldGroup>
                </form>
                <DialogFooter>
-                    <Button type="submit" form="replace">Replace</Button>
+                    <Button type="submit" form="replace">{t("button")}</Button>
                </DialogFooter>
           </>
      )

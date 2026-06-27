@@ -31,5 +31,40 @@
           "conjunction": "Conjunction",
           "interjection": "Interjection"
      },
-     "domain": "Domain type"
+     "domain": "Domain type",
+     "add-glossary": {
+          "title": "Add To Glossary",
+          "desc": "Add the term you're looking for to the glossary",
+          "error": "Failed to add the term to the glossary",
+          "term": "Term",
+          "case-sensitive": "Case Sensitive",
+          "translation": "Translation",
+          "part-of-speech": {
+               "label": "Part of Speech",
+               "placeholder": "Choose a part of speech"
+          },
+          "domain": {
+               "label": "Domain",
+               "placeholder": "Choose a domain"
+          },
+          "button": "Add to Glossary"
+     },
+     "manager": {
+          "title": "Glossary Manager",
+          "desc": "Feel free to manage translation glossaries",
+          "save-error": "Failed to save the glossary entry",
+          "no-base-target": "Base and target languages are required",
+          "placeholder": "Insert the translation here",
+          "copy-from-source": "Copy from source",
+          "save-string": "Save String",
+          "next": "Next",
+          "previous": "Previous"
+     },
+     "delete": {
+          "confirm": "Are you sure you want to delete this glossary entry?",
+          "desc": "This action cannot be undone",
+          "success": "Glossary entry deleted successfully",
+          "error": "Failed to delete the glossary entry",
+          "button": "Delete Entry"
+     }
 }

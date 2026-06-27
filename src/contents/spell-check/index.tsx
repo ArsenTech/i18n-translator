@@ -10,11 +10,13 @@ import TranslatorActions from "@/actions/translator";
 import { lazy, Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { RadioFieldLoader } from "@/loaders/fields";
+import { useTranslation } from "react-i18next";
 
 const SelectorField = lazy(()=>import("@/components/fields/selector"))
 const RadioField = lazy(()=>import("@/components/fields/radio-field"))
 
 export default function SpellChecker(){
+     const {t} = useTranslation("spell-checker")
      const form = useForm<SpellCheckType>({
           resolver: zodResolver(SpellCheckSchema),
           defaultValues: {
@@ -34,7 +36,7 @@ export default function SpellChecker(){
                               name="dictionary"
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
-                                        <FieldLabel htmlFor={field.name}>From</FieldLabel>
+                                        <FieldLabel htmlFor={field.name}>{t("dictionary")}</FieldLabel>
                                         <Suspense fallback={<Skeleton className="h-8 w-full"/>}>
                                              <SelectorField
                                                   {...field}
@@ -54,12 +56,15 @@ export default function SpellChecker(){
                               name="scope"
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
-                                        <FieldLabel htmlFor={field.name}>Scope</FieldLabel>
+                                        <FieldLabel htmlFor={field.name}>{t("scope.title")}</FieldLabel>
                                         <Suspense fallback={<RadioFieldLoader length={RESOURCE_TYPE.length}/>}>
                                              <RadioField
                                                   {...field}
                                                   invalid={fieldState.invalid}
-                                                  items={RESOURCE_TYPE}
+                                                  items={RESOURCE_TYPE.map(val=>({
+                                                       label: t(`scope.${val}`),
+                                                       value: val
+                                                  }))}
                                              />
                                         </Suspense>
                                         {fieldState.invalid && (
@@ -71,7 +76,7 @@ export default function SpellChecker(){
                     </FieldGroup>
                </form>
                <DialogFooter>
-                    <Button type="submit" form="spell-check">Check Spelling</Button>
+                    <Button type="submit" form="spell-check">{t("buttons.check")}</Button>
                </DialogFooter>
           </>
      )

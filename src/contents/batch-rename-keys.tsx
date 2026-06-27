@@ -12,10 +12,12 @@ import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { PopupContentProps } from "@/lib/types/props";
+import { useTranslation } from "react-i18next";
 
 const ComboboxField = lazy(()=>import("@/components/fields/combobox-field"))
 
 export default function BatchRenameKeys({setOpen}: PopupContentProps){
+     const {t} = useTranslation("replace")
      const {table, setTable, keyNames, setIsDirty} = useAppTranslation()
      const form = useForm<BatchRenameKeysType>({
           resolver: zodResolver(BatchRenameKeysSchema),
@@ -26,7 +28,7 @@ export default function BatchRenameKeys({setOpen}: PopupContentProps){
      })
      const onSubmit = (values: BatchRenameKeysType) => {
           const res = TranslatorActions.batchRename(values, table)
-          if(res.error) toast.error("Failed to replace translations",{
+          if(res.error) toast.error(t("batch-rename.error"),{
                description: res.error
           })
           if(res.success) {
@@ -46,7 +48,7 @@ export default function BatchRenameKeys({setOpen}: PopupContentProps){
                               name="from"
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
-                                        <FieldLabel htmlFor={field.name}>From</FieldLabel>
+                                        <FieldLabel htmlFor={field.name}>{t("from")}</FieldLabel>
                                         <Suspense fallback={<Skeleton className="h-8 w-full"/>}>
                                              <ComboboxField
                                                   {...field}
@@ -66,7 +68,7 @@ export default function BatchRenameKeys({setOpen}: PopupContentProps){
                               name="to"
                               render={({field, fieldState})=>(
                                    <Field data-invalid={fieldState.invalid}>
-                                        <FieldLabel htmlFor={field.name}>To</FieldLabel>
+                                        <FieldLabel htmlFor={field.name}>{t("to")}</FieldLabel>
                                         <Input
                                              {...field}
                                              id={field.name}
@@ -82,7 +84,7 @@ export default function BatchRenameKeys({setOpen}: PopupContentProps){
                     </FieldGroup>
                </form>
                <DialogFooter>
-                    <Button type="submit" form="batch-rename">Rename Keys</Button>
+                    <Button type="submit" form="batch-rename">{t("batch-rename.button")}</Button>
                </DialogFooter>
           </>
      )

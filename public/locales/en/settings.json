@@ -126,7 +126,7 @@
           "title": "XLIFF Settings",
           "auto-detect": {
                "title": "Auto-detect language",
-               "desc": "uto-detect language everytime the XLIFF file is opened"
+               "desc": "Auto-detect language everytime the XLIFF file is opened"
           },
           "preserve-meta": {
                "title": "Preserve Metadata",

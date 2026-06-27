@@ -4,6 +4,7 @@ import { SiGithub } from "react-icons/si"
 import { openUrl } from "@tauri-apps/plugin-opener"
 import { lazy, Suspense } from "react";
 import { Skeleton } from "../ui/skeleton";
+import { useTranslation } from "react-i18next";
 
 const AboutPopup = lazy(()=>import("@/popups/about"));
 const SettingsPopup = lazy(()=>import("@/popups/settings"));
@@ -13,6 +14,7 @@ interface LogoDropdownProps{
      title?: string,
 }
 export default function LogoDropdown({title}: LogoDropdownProps){
+     const {t} = useTranslation("titlebar")
      return (
           <DropdownMenu modal={false}>
                <DropdownMenuTrigger>
@@ -31,47 +33,47 @@ export default function LogoDropdown({title}: LogoDropdownProps){
                          <AboutPopup triggerButton={(
                               <DropdownMenuItem onSelect={e=>e.preventDefault()}>
                                    <Info className="text-muted-foreground"/>
-                                   About I18N Translator
+                                   {t("logo-dropdown.about")}
                               </DropdownMenuItem>
                          )}/>
                          <SettingsPopup triggerButton={(
                               <DropdownMenuItem onSelect={e=>e.preventDefault()}>
                                    <Settings className="text-muted-foreground"/>
-                                   Settings
+                                   {t("logo-dropdown.settings")}
                               </DropdownMenuItem>
                          )}/>
                          <UpdaterPopup triggerButton={(
                               <DropdownMenuItem onSelect={e=>e.preventDefault()}>
                                    <RotateCcw className="text-muted-foreground"/>
-                                   Check For Updates
+                                   {t("logo-dropdown.check-updates")}
                               </DropdownMenuItem>
                          )}/>
                     </Suspense>
                     <DropdownMenuSeparator/>
                     <DropdownMenuItem onClick={()=>openUrl("https://github.com/ArsenTech/i18n-translator")}>
                          <SiGithub className="text-muted-foreground"/>
-                         Github
+                         GitHub
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={()=>openUrl("https://github.com/ArsenTech/i18n-translator/tree/main/docs")}>
                          <BookOpen className="text-muted-foreground"/>
-                         Documentation
+                         {t("logo-dropdown.docs")}
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={()=>openUrl("https://github.com/ArsenTech/i18n-translator/blob/main/docs/CONTRIBUTING.md")}>
                          <Code className="text-muted-foreground"/>
-                         Contribute
+                         {t("logo-dropdown.contribute")}
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={()=>openUrl("https://github.com/ArsenTech/i18n-translator/blob/main/public/locales")}>
                          <Languages className="text-muted-foreground"/>
-                         Add Your Language
+                         {t("logo-dropdown.add-lang")}
                     </DropdownMenuItem>
                     <DropdownMenuSeparator/>
                     <DropdownMenuItem onClick={()=>openUrl("https://github.com/ArsenTech/i18n-translator/issues/new?assignees=&labels=&template=bug_report.md&title=")}>
                          <MessageCircleWarning className="text-muted-foreground"/>
-                         Report a bug
+                         {t("logo-dropdown.bug-report")}
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={()=>openUrl("https://github.com/ArsenTech/i18n-translator/issues/new?assignees=&labels=&template=feature_request.md&title=")}>
                          <Grid2X2Plus className="text-muted-foreground"/>
-                         Request a feature
+                         {t("logo-dropdown.request-feature")}
                     </DropdownMenuItem>
                </DropdownMenuContent>
           </DropdownMenu>

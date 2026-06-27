@@ -6,6 +6,7 @@ import { useAppTranslation } from "@/context/translation";
 import { toast } from "sonner";
 import { lazy, Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useTranslation } from "react-i18next";
 
 const AutoTranslatePopup = lazy(()=>import("@/popups/auto-translate"));
 const TransliterateScriptPopup = lazy(()=>import("@/popups/transliterate-script"));
@@ -13,6 +14,7 @@ const SpellCheckPopup = lazy(()=>import("@/popups/spell-check"));
 const GlossaryManagerPopup = lazy(()=>import("@/popups/glossary-manager"));
 
 export default function ToolsMenu(){
+     const {t} = useTranslation("menubar")
      const {setTable, table, baseKeys, setIsDirty} = useAppTranslation()
      const removeUnusedKeys = () => {
           const res = TranslatorActions.removeUnusedKeys(table,baseKeys)
@@ -25,17 +27,17 @@ export default function ToolsMenu(){
      const validateKeys = () => {
           const res = TranslatorActions.validateKeys(table, baseKeys)
           if (res.success) {
-               toast.success("All keys are valid")
+               toast.success(t("messages.keys.valid"))
           } else {
-               toast.error(`${res.count} invalid keys found`)
+               toast.error(t("messages.keys.invalid",{count: res.count}))
           }
      }
      return (
           <MenubarMenu>
-               <MenubarTrigger className="tracking-tight">Tools</MenubarTrigger>
+               <MenubarTrigger className="tracking-tight">{t("tools.title")}</MenubarTrigger>
                <MenubarContent>
                     <MenubarSub>
-                         <MenubarSubTrigger>Translate using</MenubarSubTrigger>
+                         <MenubarSubTrigger>{t("tools.translate-using")}</MenubarSubTrigger>
                          <MenubarSubContent>
                               <Suspense fallback={(
                                    <>
@@ -55,13 +57,13 @@ export default function ToolsMenu(){
                          </MenubarSubContent>
                     </MenubarSub>
                     <MenubarSub>
-                         <MenubarSubTrigger>Validation</MenubarSubTrigger>
+                         <MenubarSubTrigger>{t("tools.validation.title")}</MenubarSubTrigger>
                          <MenubarSubContent>
-                              <MenubarItem onClick={validateKeys}>Validate Keys</MenubarItem>
-                              <MenubarItem onClick={removeUnusedKeys}>Remove Unused Keys</MenubarItem>
+                              <MenubarItem onClick={validateKeys}>{t("tools.validation.keys")}</MenubarItem>
+                              <MenubarItem onClick={removeUnusedKeys}>{t("tools.validation.remove-unused")}</MenubarItem>
                               <Suspense fallback={<Skeleton className="h-5 w-full max-w-48 my-1.5"/>}>
                                    <SpellCheckPopup triggerButton={(
-                                        <MenubarItem disabled onSelect={(e) => e.preventDefault()}>Spell check (using Hunspell)</MenubarItem>
+                                        <MenubarItem disabled onSelect={(e) => e.preventDefault()}>{t("tools.validation.spell-check")}</MenubarItem>
                                    )}/>
                               </Suspense>
                          </MenubarSubContent>
@@ -73,10 +75,10 @@ export default function ToolsMenu(){
                          </>
                     )}>
                          <TransliterateScriptPopup triggerButton={(
-                              <MenubarItem disabled onSelect={(e) => e.preventDefault()}>Transliterate Script</MenubarItem>
+                              <MenubarItem disabled onSelect={(e) => e.preventDefault()}>{t("tools.transliterate")}</MenubarItem>
                          )}/>
                          <GlossaryManagerPopup triggerButton={(
-                              <MenubarItem onSelect={e=>e.preventDefault()}>Glossary</MenubarItem>
+                              <MenubarItem onSelect={e=>e.preventDefault()}>{t("tools.glossary")}</MenubarItem>
                          )}/>
                     </Suspense>
                </MenubarContent>

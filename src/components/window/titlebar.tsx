@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import { getErrorMessage } from "@/lib/utils";
 import { MenubarLoader } from "../../loaders/titlebar";
 import { useSettings } from "@/context/settings";
+import { useTranslation } from "react-i18next";
 
 const LogoDropdown = lazy(()=>import("./logo-dropdown"));
 const MenuBar = lazy(()=>import("./menubar"))
@@ -19,6 +20,7 @@ interface TitleBarProps{
      hideMaximize?: boolean
 }
 export default function TitleBar({hideMaximize, title}: TitleBarProps){
+     const {t} = useTranslation("titlebar")
      const appWindow = getCurrentWindow()
      const {settings} = useSettings()
      const [isMaximized, setIsMaximized] = useState(false)
@@ -29,7 +31,9 @@ export default function TitleBar({hideMaximize, title}: TitleBarProps){
                return
           }
           const paths = files.targetPath.split("\\")
-          const confirmation = await message(`Do you want to save changes to the translation "${paths[paths.length-1] || "Untitled"}"?`,{
+          const confirmation = await message(t("save.confirm",{
+               fileName: paths[paths.length-1] || t("untitled")
+          }),{
                title: "I18N Translator",
                kind: "warning",
                buttons: "YesNoCancel"
@@ -41,12 +45,12 @@ export default function TitleBar({hideMaximize, title}: TitleBarProps){
                          setIsDirty(false)
                          await appWindow.close();
                     }
-                    if (res?.error) toast.error("Failed to save translation", {
+                    if (res?.error) toast.error(t("save.error"), {
                          description: res.error,
                          id: "save-error"
                     })
                } catch (err) {
-                    toast.error("Failed to save translation", {
+                    toast.error(t("save.error"), {
                          description: getErrorMessage(err),
                          id: "save-error"
                     })
@@ -83,13 +87,13 @@ export default function TitleBar({hideMaximize, title}: TitleBarProps){
                     className="flex-1 h-full"
                />
                <ButtonGroup className="[&>[data-slot]:not(:has(~[data-slot]))]:rounded-none! h-full">
-                    <Button size="window-control" variant="ghost" title="Minimize" onClick={handleMinimize}><Minus/></Button>
+                    <Button size="window-control" variant="ghost" title={t("controls.minimize")} onClick={handleMinimize}><Minus/></Button>
                     {!hideMaximize && (
-                         <Button size="window-control" variant="ghost" title={isMaximized ? "Restore Down" : "Maximize"} onClick={handleToggleMaximize}>
+                         <Button size="window-control" variant="ghost" title={isMaximized ? t("controls.restore-down") : t("controls.maximize")} onClick={handleToggleMaximize}>
                               {isMaximized ? <Copy/> : <Square/>}
                          </Button>
                     )}
-                    <Button size="window-control" variant="ghost-destructive" title="Close" onClick={handleClose}><X/></Button>
+                    <Button size="window-control" variant="ghost-destructive" title={t("controls.close-app")} onClick={handleClose}><X/></Button>
                </ButtonGroup>
           </div>
      )

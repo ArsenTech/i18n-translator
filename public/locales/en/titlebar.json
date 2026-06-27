@@ -1,0 +1,23 @@
+{
+     "save": {
+          "confirm": "`Do you want to save changes to the translation \"{{fileName}}\"?",
+          "error": "Failed to save translation"
+     },
+     "controls": {
+          "minimize": "Minimize",
+          "restore-down": "Restore Down",
+          "maximize": "Mazimize",
+          "close-app": "Close the app"
+     },
+     "logo-dropdown": {
+          "about": "About I18N Translator",
+          "settings": "Settings",
+          "check-updates": "Check For Updates",
+          "docs": "Documentation",
+          "contribute": "Contribute",
+          "add-lang": "Add Your Language",
+          "bug-report": "Report a bug",
+          "request-feature": "Request a feature"
+     },
+     "untitled": "Untitled"
+}

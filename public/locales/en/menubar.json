@@ -1,0 +1,79 @@
+{
+     "messages": {
+          "save-error": "Failed to save the file",
+          "open-error": "Failed to open the file",
+          "keys": {
+               "valid": "All keys are valid",
+               "invalid_zero": "All keys are valid",
+               "invalid_one": "One invalid key found",
+               "invalid_two": "Two invalid keys found",
+               "invalid_few": "{{count}} invalid keys found",
+               "invalid_many": "{{count}} invalid keys found",
+               "invalid_other": "{{count}} invalid keys found"
+          },
+          "query-error": "Failed to find the query inside the translation",
+          "unknown-find": "Unknown find action"
+     },
+     "file": {
+          "title": "File",
+          "new": "New Translation",
+          "open": {
+               "title": "Open Translations",
+               "action": "Open...",
+               "xliff": "Open XLIFF File",
+               "recent": "Open Recent files"
+          },
+          "close": "Close Current Translation",
+          "save": "Save",
+          "save-as": "Save As...",
+          "exit": "Exit"
+     },
+     "edit": {
+          "title": "Edit",
+          "undo": "Undo",
+          "redo": "Redo",
+          "find": {
+               "title": "Find",
+               "action": "Find...",
+               "next": "Find Next",
+               "prev": "Find Previous",
+               "missing": "Find Missing Keys"
+          },
+          "replace": "Replace Translation",
+          "batch-rename": "Batch Rename Keys",
+          "select-untranslated": "Select Untranslated",
+          "clear-selection": "Clear Selection",
+          "add-glossary": "Add to Glossary",
+          "cut": "Cut",
+          "copy": "Copy",
+          "paste": "Paste",
+          "select-all": "Select All"
+     },
+     "view": {
+          "title": "View",
+          "sidebar": {
+               "title": "Toggle Sidebar",
+               "translation": "Translation Tree",
+               "glossary": "Glossary"
+          },
+          "toggle-missing": "Toggle Missing Only",
+          "zoom": {
+               "title": "Zoom",
+               "in": "Zoom in",
+               "out": "Zoom out",
+               "reset": "Reset zoom"
+          }
+     },
+     "tools": {
+          "title": "Tools",
+          "translate-using": "Translate using...",
+          "validation": {
+               "title": "Validation",
+               "keys": "Validate Keys",
+               "remove-unused": "Remove Unused Keys",
+               "spell-check": "Spell check (using Hunspell)"
+          },
+          "transliterate": "Transliterate Script",
+          "glossary": "Glossary"
+     }
+}

@@ -18,20 +18,20 @@ export const DEFAULT_TOOLBAR_SETTINGS: ToolbarValues = {
      glossaryManager: true,
      spellCheck: false
 }
-export const TOOLBAR_OPTIONS: { key: keyof ToolbarValues, title: string, Icon: LucideIcon}[] = [
-     { key: "newFile", title: "New Translation", Icon: FilePlus },
-     { key: "openFile", title: "Open Translation", Icon: FolderOpen },
-     { key: "saveFile", title: "Save Translation", Icon: Save },
-     { key: "find", title: "Find Translation", Icon: Search },
-     { key: "findMissing", title: "Find Missing Keys", Icon: SearchSlash },
-     { key: "replace", title: "Replace Translation", Icon: RotateCcw },
-     { key: "batchRename", title: "Batch Rename Keys", Icon: FolderPen },
-     { key: "selectUntranslated", title: "Select Untranslated", Icon: Scan },
-     { key: "addToGlossary", title: "Add to Glossary ", Icon: BookPlus },
-     { key: "autoTranslate", title: "Auto-Translate", Icon: Languages },
-     { key: "validateKeys", title: "Validate Keys", Icon: SearchCheck },
-     { key: "removeUnusedKeys", title: "Remove Unused Keys", Icon: Delete },
-     { key: "transliterate", title: "Transliterate Script", Icon: RefreshCcw },
-     { key: "glossaryManager", title: "Glossary", Icon: BookOpen },
-     { key: "spellCheck", title: "Spell Check", Icon: SpellCheckIcon }
+export const TOOLBAR_OPTIONS: { key: keyof ToolbarValues, Icon: LucideIcon}[] = [
+     { key: "newFile", Icon: FilePlus },
+     { key: "openFile", Icon: FolderOpen },
+     { key: "saveFile", Icon: Save },
+     { key: "find", Icon: Search },
+     { key: "findMissing", Icon: SearchSlash },
+     { key: "replace", Icon: RotateCcw },
+     { key: "batchRename", Icon: FolderPen },
+     { key: "selectUntranslated", Icon: Scan },
+     { key: "addToGlossary", Icon: BookPlus },
+     { key: "autoTranslate", Icon: Languages },
+     { key: "validateKeys", Icon: SearchCheck },
+     { key: "removeUnusedKeys", Icon: Delete },
+     { key: "transliterate", Icon: RefreshCcw },
+     { key: "glossaryManager", Icon: BookOpen },
+     { key: "spellCheck", Icon: SpellCheckIcon }
 ]

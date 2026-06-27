@@ -21,7 +21,6 @@ const SortBy = lazy(()=>import("./sort-by"));
 
 export default function TranslationTable() {
      const {t} = useTranslation("table")
-     const {t: btnTxt} = useTranslation("buttons")
      const {missingOnly, setCurrentTranslation, currTranslation, visibleCount, setVisibleCount, selectedNamespace, setInput, selectedKeys, setSelectedKeys, selectKey} = useEditor()
      const {visibleTable} = useAppTranslation()
      const {settings} = useSettings()
@@ -143,7 +142,7 @@ export default function TranslationTable() {
                                              setFilter("all")
                                              setSearchMode("source")
                                         }}
-                                        title={btnTxt("clear-filters")}
+                                        title={t("clear-filters")}
                                    >
                                         <X/>
                                    </InputGroupButton>

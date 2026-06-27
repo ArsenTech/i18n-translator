@@ -15,7 +15,6 @@ export interface IUpdaterState{
 }
 export interface ISettingsTab{
      page: SettingsTab,
-     tabName: string,
      Icon: LucideIcon,
      Loader?: React.FC,
      LazyComponent: React.LazyExoticComponent<React.FC>,

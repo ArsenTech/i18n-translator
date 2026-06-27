@@ -27,7 +27,6 @@ function GlossarySidebarMenu({children}: {children: React.ReactNode}){
 
 function GlossarySidebarContainer({children}: {children: React.ReactNode}){
      const {t} = useTranslation("glossary")
-     const {t: btnTxt} = useTranslation("buttons")
      const {currTranslation, setInput} = useEditor()
      const {settings} = useSettings()
      const {isMobile, open, setOpen, showType, setShowType, glossary, closeMobileSidebar} = useGlossary()
@@ -64,7 +63,7 @@ function GlossarySidebarContainer({children}: {children: React.ReactNode}){
           });
           closeMobileSidebar()
      };
-     const showBtnTxt = useMemo(()=>showType!=="all" ? btnTxt("show.all") : btnTxt("show.few"),[showType,btnTxt])
+     const showBtnTxt = useMemo(()=>showType!=="all" ? t("show.all") : t("show.few"),[showType,t])
      const content = (
           <div className="w-full flex flex-col gap-2 min-h-0 overflow-hidden">
                <h2 className="text-lg font-semibold">{t("sidebar.title",{count: glossaryItems.length})}</h2>
@@ -81,7 +80,7 @@ function GlossarySidebarContainer({children}: {children: React.ReactNode}){
                {!isMobile && (
                     <div className="flex items-center gap-0.5 flex-wrap">
                          <Button className="flex-1" disabled={glossaryItems.length<=0} onClick={applyAllMatches}>
-                              {btnTxt("apply.all")}
+                              {t("apply.all")}
                          </Button>
                          <Button className="flex-1" variant="secondary" disabled={glossary.length<=0} onClick={()=>setShowType(prev=>prev==="all" ? "few" : "all")}>
                               {showBtnTxt}
@@ -113,14 +112,14 @@ function GlossarySidebarContainer({children}: {children: React.ReactNode}){
                          <SheetFooter>
                               <div className="flex items-center gap-0.5 flex-wrap">
                                    <Button className="flex-1" disabled={glossaryItems.length<=0} onClick={applyAllMatches}>
-                                        {btnTxt("apply.all")}
+                                        {t("apply.all")}
                                    </Button>
                                    <Button className="flex-1" variant="secondary" disabled={glossary.length<=0} onClick={()=>setShowType(prev=>prev==="all" ? "few" : "all")}>
                                         {showBtnTxt}
                                    </Button>
                               </div>
                               <SheetClose asChild>
-                                   <Button variant="outline">{btnTxt("close")}</Button>
+                                   <Button variant="outline">{t("close")}</Button>
                               </SheetClose>
                          </SheetFooter>
                     </SheetContent>

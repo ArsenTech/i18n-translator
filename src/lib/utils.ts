@@ -13,3 +13,8 @@ export function getErrorMessage(err: unknown){
   const fallback = stringErr.trim()==="" ? "Something went wrong" : stringErr
   return err instanceof Error ? err.message : String(err) ?? fallback
 }
+export const formatShortcut = (shortcut: string) => shortcut.split("+").map(val=>{
+  const firstChar = val[0];
+  if(!firstChar) return ""
+  return firstChar.toUpperCase()+val.slice(1)
+}).join(" + ").trim()

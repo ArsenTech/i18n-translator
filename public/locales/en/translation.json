@@ -24,7 +24,10 @@
      "translation-input": {
           "auto-save-error": "Failed to automatically save the translation",
           "copy-from-source": "Copy from Source",
-          "save-string": "Save String",
+          "save-string": {
+               "current": "Save String",
+               "loading": "Saving..."
+          },
           "next": "Next",
           "prev": "Previous"
      },
@@ -32,5 +35,7 @@
           "layout": "From <baseInput/> to <targetInput/>",
           "base-placeholder": "Base Language",
           "target-placeholder": "Target Language"
-     }
+     },
+     "close": "Close",
+     "loading": "Loading..."
 }

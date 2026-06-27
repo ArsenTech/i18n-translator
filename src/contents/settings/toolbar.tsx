@@ -4,18 +4,20 @@ import { Switch } from "@/components/ui/switch";
 import { useSettings } from "@/context/settings";
 import { TOOLBAR_OPTIONS } from "@/lib/constants/toolbars";
 import { Wrench } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export default function ToolbarSettings(){
+     const {t} = useTranslation("settings")
      const {toolbars, setToolbars} = useSettings()
      return (
           <div className="space-y-2">
                <SettingsItem
-                    title="Toolbar Buttons"
-                    description="Show / hide few actions from the toolbar"
+                    title={t("toolbar-buttons.title")}
+                    description={t("toolbar-buttons.desc")}
                     Icon={Wrench}
                >
-                    {TOOLBAR_OPTIONS.map(({ key, title, Icon }) => (
-                         <SettingsOption key={key} title={title} Icon={Icon} id={`toolbar-${key}`}>
+                    {TOOLBAR_OPTIONS.map(({ key, Icon }) => (
+                         <SettingsOption key={key} title={t(`toolbar-buttons.${key}`)} Icon={Icon} id={`toolbar-${key}`}>
                               <Switch
                                    id={`toolbar-${key}`}
                                    checked={toolbars[key]}

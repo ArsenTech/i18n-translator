@@ -7,21 +7,23 @@ import { useGlossary } from "@/context/glossary";
 import { lazy, Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Switch } from "@/components/ui/switch";
+import { useTranslation } from "react-i18next";
 
 const SelectorField = lazy(()=>import("@/components/fields/selector"))
 
 export default function GlossarySettings(){
+     const {t} = useTranslation("settings")
      const {settings, setSettings} = useSettings()
      const {setShowType} = useGlossary()
      return (
           <div className="space-y-2">
                <SettingsItem
-                    title="Glossary Settings"
+                    title={t("glossary.title")}
                     Icon={BookOpen}
                >
                     <SettingsOption
-                         title="Default glossary view"
-                         description="Default glossary view type (Show All / Few)"
+                         title={t("glossary.default-view.title")}
+                         description={t("glossary.default-view.desc")}
                          id="glossary-view"
                     >
                          <Suspense fallback={<Skeleton className="h-8 w-full max-w-32"/>}>
@@ -34,15 +36,15 @@ export default function GlossarySettings(){
                                         setShowType(newVal)
                                    }}
                                    items={[
-                                        {value: "few", label: "Show few"},
-                                        {value: "all", label: "Show all"}
+                                        {value: "few", label: t("glossary.default-view.show-few")},
+                                        {value: "all", label: t("glossary.default-view.show-all")}
                                    ]}
                               />
                          </Suspense>
                     </SettingsOption>
                     <SettingsOption
-                         title="Show sidebar by default"
-                         description="Show the glossary sidebar everytime you enter the app"
+                         title={t("glossary.sidebar.title")}
+                         description={t("glossary.sidebar.desc")}
                          id="show-glossary"
                     >
                          <Switch

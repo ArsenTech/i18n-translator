@@ -2,19 +2,21 @@ import SettingsItem from "@/components/settings-item";
 import SettingsOption from "@/components/settings-item/settings-option";
 import { Input } from "@/components/ui/input";
 import { useSettings } from "@/context/settings";
+import { useTranslation } from "react-i18next";
 import { SiGooglegemini, SiLibretranslate, SiOllama } from "react-icons/si";
 
 export default function TranslationSettings(){
+     const {t} = useTranslation("settings")
      const {providers, setProviders} = useSettings()
      return (
           <div className="space-y-2">
                <SettingsItem
-                    title="Google Gemini Settings"
+                    title={t("gemini-settings.title")}
                     Icon={SiGooglegemini}
                >
                     <SettingsOption
-                         title="Google Gemini API Key"
-                         description="The key that makes Google Gemini work"
+                         title={t("gemini-settings.api-key.title")}
+                         description={t("gemini-settings.api-key.desc")}
                          id="gemini-key"
                     >
                          <Input
@@ -26,13 +28,12 @@ export default function TranslationSettings(){
                     </SettingsOption>
                </SettingsItem>
                <SettingsItem
-                    title="Libre Translate Settings"
+                    title={t("libre-translate-settings.title")}
                     Icon={SiLibretranslate}
                >
                     <SettingsOption
-                         title="Libre Translate Server URL"
-                         description="URL of the translation server"
-                         id="libre-translate-server"
+                         title={t("libre-translate-settings.server-url.title")}
+                         description={t("libre-translate-settings.server-url.desc")}
                     >
                          <Input
                               id="libre-translate-server"
@@ -42,8 +43,8 @@ export default function TranslationSettings(){
                          />
                     </SettingsOption>
                     <SettingsOption
-                         title="Libre Translate API Key"
-                         description="The key that makes Libre Translate work"
+                         title={t("libre-translate-settings.api-key.title")}
+                         description={t("libre-translate-settings.api-key.desc")}
                          id="libre-translate-key"
                     >
                          <Input
@@ -55,12 +56,12 @@ export default function TranslationSettings(){
                     </SettingsOption>
                </SettingsItem>
                <SettingsItem
-                    title="Llama AI Settings"
+                    title={t("llama-settings.title")}
                     Icon={SiOllama}
                >
                     <SettingsOption
-                         title="Llama AI endpoint"
-                         description="The AI endpoint to make it work"
+                         title={t("llama-settings.endpoint.title")}
+                         description={t("llama-settings.endpoint.desc")}
                          id="llama-endpoint"
                     >
                          <Input
@@ -71,8 +72,8 @@ export default function TranslationSettings(){
                          />
                     </SettingsOption>
                     <SettingsOption
-                         title="Llama AI model"
-                         description="The AI model to auto-translate"
+                         title={t("llama-settings.model.title")}
+                         description={t("llama-settings.model.desc")}
                          id="llama-model"
                     >
                          <Input

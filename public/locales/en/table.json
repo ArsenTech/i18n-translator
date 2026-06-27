@@ -47,5 +47,6 @@
           "line-num": "Line Number",
           "term": "Term",
           "caseSensitive": "Case Sensitive"
-     }
+     },
+     "clear-filters": "Clear Filters"
 }

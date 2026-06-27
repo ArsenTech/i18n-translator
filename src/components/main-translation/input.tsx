@@ -106,9 +106,9 @@ export default function TranslationInput(){
                          <Copy/>
                          {t("translation-input.copy-from-source")}
                     </Button>
-                    <LoadingButton isLoading={isSaving} loaderText="Saving..." className="w-full col-span-2" onClick={saveTranslation}>
+                    <LoadingButton isLoading={isSaving} loaderText={t("translation-input.save-string.loading")} className="w-full col-span-2" onClick={saveTranslation}>
                          <Save/>
-                         {t("translation-input.save-string")}
+                         {t("translation-input.save-string.current")}
                     </LoadingButton>
                     <Button className="w-full col-span-2 sm:col-span-1" onClick={()=>TranslatorActions.jumpToPrevBlankField({
                          table: visibleTable, currTranslation,

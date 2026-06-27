@@ -6,21 +6,23 @@ import { useSettings } from "@/context/settings";
 import { useAppTranslation } from "@/context/translation";
 import { Edit, Languages } from "lucide-react";
 import { lazy, Suspense } from "react";
+import { useTranslation } from "react-i18next";
 
 const LangSelector = lazy(()=>import("@/components/fields/lang-selector"))
 
 export default function EditorSettings(){
+     const {t} = useTranslation("settings")
      const {updateLangs} = useAppTranslation()
      const {settings, setSettings} = useSettings()
      return (
           <div className="space-y-2">
                <SettingsItem
                     Icon={Edit}
-                    title="Editor Settings"
+                    title={t("editor.title")}
                >
                     <SettingsOption
-                         title="Show current namespace only"
-                         description="Toggle between current namespace or entire translation"
+                         title={t("editor.curr-namespace-only.title")}
+                         description={t("editor.curr-namespace-only.desc")}
                          id="switch-mode"
                     >
                          <Switch
@@ -30,8 +32,8 @@ export default function EditorSettings(){
                          />
                     </SettingsOption>
                     <SettingsOption
-                         title="Show line numbers"
-                         description="Show translation line numbers inside the table"
+                         title={t("editor.line-numbers.title")}
+                         description={t("editor.line-numbers.desc")}
                          id="show-line-numbers"
                     >
                          <Switch
@@ -41,8 +43,8 @@ export default function EditorSettings(){
                          />
                     </SettingsOption>
                     <SettingsOption
-                         title="Show sidebar by default"
-                         description="Show the tree sidebar everytime you enter the app"
+                         title={t("editor.sidebar.title")}
+                         description={t("editor.sidebar.desc")}
                          id="show-sidebar"
                     >
                          <Switch
@@ -52,8 +54,8 @@ export default function EditorSettings(){
                          />
                     </SettingsOption>
                     <SettingsOption
-                         title="Auto-save Translations"
-                         description="Automatically save translations every time you save a string"
+                         title={t("editor.auto-save.title")}
+                         description={t("editor.auto-save.desc")}
                          id="auto-save"
                     >
                          <Switch
@@ -63,8 +65,8 @@ export default function EditorSettings(){
                          />
                     </SettingsOption>
                     <SettingsOption
-                         title="Preserve Empty Translations"
-                         description="Keep or maintain empty translations intact"
+                         title={t("editor.preserve-empty.title")}
+                         description={t("editor.preserve-empty.desc")}
                          id="preserve-empty"
                     >
                          <Switch
@@ -74,8 +76,8 @@ export default function EditorSettings(){
                          />
                     </SettingsOption>
                     <SettingsOption
-                         title="Auto-detect base language"
-                         description="Automatically detect the base language from the selected file path when possible"
+                         title={t("editor.auto-detect-base.title")}
+                         description={t("editor.auto-detect-base.desc")}
                          id="auto-detect-base-lang"
                     >
                          <Switch
@@ -89,16 +91,16 @@ export default function EditorSettings(){
                </SettingsItem>
                <SettingsItem
                     Icon={Languages}
-                    title="Default Editor Language"
+                    title={t("default-editor-lang.title")}
                >
                     <SettingsOption
-                         title="Base Language"
-                         description="Language used by default"
+                         title={t("default-editor-lang.base.title")}
+                         description={t("default-editor-lang.base.desc")}
                          id="base"
                     >
                          <Suspense fallback={<Skeleton className="h-8 flex-1"/>}>
                               <LangSelector
-                                   placeholder="Base Language"
+                                   placeholder={t("default-editor-lang.base.title")}
                                    className="flex-1"
                                    value={settings.baseLang}
                                    onChange={lang=>{
@@ -109,13 +111,13 @@ export default function EditorSettings(){
                          </Suspense>
                     </SettingsOption>
                     <SettingsOption
-                         title="Target Language"
-                         description="Language you often translate to"
+                         title={t("default-editor-lang.target.title")}
+                         description={t("default-editor-lang.target.desc")}
                          id="target"
                     >
                          <Suspense fallback={<Skeleton className="h-8 flex-1"/>}>
                               <LangSelector
-                                   placeholder="Target Language"
+                                   placeholder={t("default-editor-lang.target.title")}
                                    className="flex-1"
                                    value={settings.targetLang}
                                    onChange={lang=>{

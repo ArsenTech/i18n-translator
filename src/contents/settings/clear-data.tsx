@@ -11,8 +11,10 @@ import { getErrorMessage } from "@/lib/utils";
 import { FileX, RotateCw, Trash2 } from "lucide-react";
 import { useCallback, useTransition } from "react";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
 
 export default function ClearDataSettings(){
+     const {t} = useTranslation("settings")
      const {setRecentTranslations} = useAppTranslation()
      const {resetAll, clearAll, settings} = useSettings()
      const {resetValues, clearValues} = useAppearance()
@@ -22,8 +24,9 @@ export default function ClearDataSettings(){
                try {
                     const res = await RecentTranslations.clearRecent()
                     if(res.error) {
-                         toast.error("Failed to clear recent translations",{
-                              description: res.error
+                         toast.error(t("clear-data.errors.clear-recent"),{
+                              description: res.error,
+                              id: "clear-recent-error"
                          })
                     }
                     if(res.success) {
@@ -31,8 +34,9 @@ export default function ClearDataSettings(){
                          setRecentTranslations([])
                     }
                } catch (error) {
-                    toast.error("Failed to clear recent translations",{
-                         description: getErrorMessage(error)
+                    toast.error(t("clear-data.errors.clear-recent"),{
+                         description: getErrorMessage(error),
+                         id: "clear-recent-error"
                     })
                }
           })
@@ -41,9 +45,9 @@ export default function ClearDataSettings(){
           try {
                resetAll()
                resetValues()
-               toast.success("Settings successfully reset to defaults")
+               toast.success(t("clear-data.success.reset-settings"))
           } catch (err) {
-               toast.error("Failed to reset some settings to defaults",{
+               toast.error(t("clear-data.errors.reset-settings"),{
                     description: getErrorMessage(err)
                })
           }
@@ -52,9 +56,9 @@ export default function ClearDataSettings(){
           try {
                clearAll()
                clearValues()
-               toast.success("Settings cleared successfully")
+               toast.success(t("clear-data.success.clear-settings"))
           } catch (err) {
-               toast.error("Failed to clear some settings",{
+               toast.error(t("clear-data.errors.clear-settings"),{
                     description: getErrorMessage(err)
                })
           }
@@ -62,64 +66,64 @@ export default function ClearDataSettings(){
      return (
           <div className="space-y-2">
                <SettingsItem
-                    title="Danger Zone"
-                    description="Be careful before deleting settings related to I18N Translator"
+                    title={t("danger-zone.title")}
+                    description={t("danger-zone.desc")}
                     type="danger"
                >
                     <SettingsOption
-                         title="Clear Recent Translations"
-                         description="This will clear recent translation data"
+                         title={t("danger-zone.clear-recent.title")}
+                         description={t("danger-zone.clear-recent.desc")}
                     >
                          <AppConfirmation
                               triggerButton={(
                                    <LoadingButton isLoading={isPending} variant="destructive">
                                         <FileX/>
-                                        Clear Recent Data
+                                        {t("danger-zone.clear-recent.button")}
                                    </LoadingButton>
                               )}
                               variant="destructive"
                               Icon={FileX}
-                              title="Are you sure you want to clear recent translations?"
-                              description="This action cannot be undone"
+                              title={t("danger-zone.clear-recent.confirmation")}
+                              description={t("danger-zone.cant-be-undone")}
                               onConfirm={clearTranslations}
-                              actionText="Clear"
+                              actionText={t("danger-zone.clear-recent.button")}
                          />
                     </SettingsOption>
                     <SettingsOption
-                         title="Clear Settings (Permanent)"
-                         description="This will clear all settings data"
+                         title={t("danger-zone.clear-settings.title")}
+                         description={t("danger-zone.clear-settings.desc")}
                     >
                          <AppConfirmation
                               triggerButton={(
                                    <Button variant="destructive">
                                         <Trash2/>
-                                        Clear Settings
+                                        {t("danger-zone.clear-settings.button")}
                                    </Button>
                               )}
                               variant="destructive"
                               Icon={Trash2}
-                              title="Are you sure you want to clear all settings?"
-                              description="This action cannot be undone"
+                              title={t("danger-zone.clear-settings.confirmation")}
+                              description={t("danger-zone.cant-be-undone")}
                               onConfirm={handleClear}
-                              actionText="Clear"
+                              actionText={t("danger-zone.clear-settings.button")}
                          />
                     </SettingsOption>
                     <SettingsOption
-                         title="Restore Defaults"
-                         description="This will reset all settings into default values"
+                         title={t("danger-zone.restore-settings.title")}
+                         description={t("danger-zone.restore-settings.desc")}
                     >
                          <AppConfirmation
                               triggerButton={(
                                    <Button variant="outline">
                                         <RotateCw/>
-                                        Restore Defaults
+                                        {t("danger-zone.restore-settings.button")}
                                    </Button>
                               )}
                               Icon={RotateCw}
-                              title="Are you sure you want to restore settings to defaults?"
-                              description="This action cannot be undone"
+                              title={t("danger-zone.restore-settings.confirmation")}
+                              description={t("danger-zone.cant-be-undone")}
                               onConfirm={handleReset}
-                              actionText="Restore"
+                              actionText={t("danger-zone.restore-settings.button")}
                          />
                     </SettingsOption>
                </SettingsItem>

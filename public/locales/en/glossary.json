@@ -66,5 +66,14 @@
           "success": "Glossary entry deleted successfully",
           "error": "Failed to delete the glossary entry",
           "button": "Delete Entry"
+     },
+     "close": "Close",
+     "apply": {
+          "general": "Apply",
+          "all": "Apply All"
+     },
+     "show": {
+          "all": "Show all",
+          "few": "Show few"
      }
 }

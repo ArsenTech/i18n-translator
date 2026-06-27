@@ -4,6 +4,7 @@ import { SettingsTab } from "@/lib/types/enums";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { lazy, Suspense, useMemo, useState } from "react";
 import { ImportExportLoader } from "@/loaders/fields";
+import { useTranslation } from "react-i18next";
 
 const ImportExportSettings = lazy(()=>import("@/components/import-export/settings"));
 
@@ -11,6 +12,7 @@ interface SettingsContentProps{
      currTab?: SettingsTab | null
 }
 export default function SettingsContent({currTab}: SettingsContentProps){
+     const {t} = useTranslation("settings")
      const [tab, setTab] = useState(()=> currTab ?? (localStorage.getItem("settings-tab") || SettingsTab.General));
      const changeTab = (tab: SettingsTab) => {
           setTab(tab);
@@ -20,7 +22,7 @@ export default function SettingsContent({currTab}: SettingsContentProps){
      return (
           <>
           {activeTab && (
-               <p className="text-muted-foreground">Settings &gt; {activeTab.tabName}</p>
+               <p className="text-muted-foreground">{t("title")} &gt; {t(`tabs.${activeTab.page}`)}</p>
           )}
           <Tabs
                value={tab}
@@ -29,8 +31,8 @@ export default function SettingsContent({currTab}: SettingsContentProps){
                orientation="horizontal"
           >
                <TabsList className="w-full h-full min-h-0">
-                    {SETTINGS_TABS.map(({page, Icon, tabName, disabled})=>(
-                         <TabsTrigger key={page} value={page} title={tabName} disabled={disabled}>
+                    {SETTINGS_TABS.map(({page, Icon, disabled})=>(
+                         <TabsTrigger key={page} value={page} title={t(`tabs.${page}`)} disabled={disabled}>
                               <Icon className="size-5 my-1.5"/>
                          </TabsTrigger>
                     ))}

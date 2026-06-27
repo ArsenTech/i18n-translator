@@ -1,0 +1,209 @@
+{
+     "title": "Settings",
+     "tabs": {
+          "general": "General",
+          "file-formats": "File Formats",
+          "shortcuts": "Shortcuts",
+          "editor": "Editor",
+          "auto-translate": "Auto-Translation",
+          "toolbar": "Toolbar",
+          "glossary": "Glossary",
+          "clear-data": "Clear Data"
+     },
+     "toolbar-buttons": {
+          "title": "Toolbar buttons",
+          "desc": "Show / hide few actions from the toolbar",
+          "newFile": "New Translation",
+          "openFile": "Open Translation",
+          "saveFile": "Save Translation",
+          "find": "Find Translation",
+          "findMissing": "Find Missing Keys",
+          "replace": "Replace Translation",
+          "batchRename": "Batch Rename Keys",
+          "selectUntranslated": "Select Untranslated",
+          "addToGlossary": "Add to Glossary ",
+          "autoTranslate": "Auto-Translate",
+          "validateKeys": "Validate Keys",
+          "removeUnusedKeys": "Remove Unused Keys",
+          "transliterate": "Transliterate Script",
+          "glossaryManager": "Glossary",
+          "spellCheck": "Spell Check"
+     },
+     "gemini-settings": {
+          "title": "Google Gemini Settings",
+          "api-key": {
+               "title": "Google Gemini API Key",
+               "desc": "The key that makes Google Gemini work"
+          }
+     },
+     "libre-translate-settings": {
+          "title": "Libre Translate Settings",
+          "server-url": {
+               "title": "Libre Translate Server URL",
+               "desc": "URL of the translation server"
+          },
+          "api-key": {
+               "title": "Libre Translate optional API Key",
+               "desc": "The key that makes Libre Translate work"
+          }
+     },
+     "llama-settings": {
+          "title": "Llama AI Settings",
+          "endpoint": {
+               "title": "Llama AI endpoint",
+               "desc": "The AI endpoint to make it work"
+          },
+          "model": {
+               "title": "Llama AI model",
+               "desc": "The AI model to auto-translate"
+          }
+     },
+     "glossary": {
+          "title": "Glossary Settings",
+          "default-view": {
+               "title": "Default glossary view",
+               "desc": "Default glossary view type (All / Few)",
+               "show-all": "Show All",
+               "show-few": "Show Few"
+          },
+          "sidebar": {
+               "title": "Show sidebar by default",
+               "desc": "Show the glossary sidebar everytime you enter the app"
+          }
+     },
+     "appearance": {
+          "title": "Appearance",
+          "theme": {
+               "title": "Theme",
+               "desc": "Theme and color of the app"
+          },
+          "brightness": {
+               "title": "Brightness",
+               "desc": "Adjust the app's brightness from 0 to 100"
+          },
+          "compact-toolbar": {
+               "title": "Compact Toolbar",
+               "desc": "Show smaller buttons instead in the toolbar"
+          }
+     },
+     "general": {
+          "title": "General Settings",
+          "lang": {
+               "title": "Language",
+               "desc": "Current language of I18N Translator"
+          },
+          "auto-check-update": {
+               "title": "Check updates on startup",
+               "desc": "Auto-checks for new version availability"
+          }
+     },
+     "file-format": {
+          "title": "File Format Settings",
+          "formats": {
+               "json": "JSON File",
+               "xml": "XML File",
+               "po": "GNU gettext",
+               "xliff": "XLIFF File",
+               "resx": "Microsoft RESX File"
+          },
+          "default-format": {
+               "title": "Default format for new Translation",
+               "desc": "Default initial translation format"
+          }
+     },
+     "android-xml": {
+          "title": "Android XML",
+          "translatable-state": {
+               "title": "Default Translatable State",
+               "desc": "Initial value of the Android translatable state"
+          },
+          "show-translatable": {
+               "title": "Show Translatable column",
+               "desc": "Show translatable table column every time you enter the app"
+          }
+     },
+     "xliff": {
+          "title": "XLIFF Settings",
+          "auto-detect": {
+               "title": "Auto-detect language",
+               "desc": "uto-detect language everytime the XLIFF file is opened"
+          },
+          "preserve-meta": {
+               "title": "Preserve Metadata",
+               "desc": "Keep existing translation metadata when opening or saving XLIFF files"
+          }
+     },
+     "editor": {
+          "title": "Editor Settings",
+          "curr-namespace-only": {
+               "title": "Show current namespace only",
+               "desc": "Toggle between current namespace or entire translation"
+          },
+          "line-numbers": {
+               "title": "Show line numbers",
+               "desc": "Show translation line numbers inside the table"
+          },
+          "sidebar": {
+               "title": "Show sidebar by default",
+               "desc": "Show the tree sidebar everytime you enter the app"
+          },
+          "auto-save": {
+               "title": "Auto-save Translations",
+               "desc": "Automatically save translations every time you save a string"
+          },
+          "preserve-empty": {
+               "title": "Preserve Empty Translations",
+               "desc": "Keep or maintain empty translations intact"
+          },
+          "auto-detect-base": {
+               "title": "Auto-detect base language",
+               "desc": "Automatically detect the base language from the selected file path when possible"
+          }
+     },
+     "default-editor-lang": {
+          "title": "Default Editor Language",
+          "base": {
+               "title": "Base Language",
+               "desc": "Language used by default"
+          },
+          "target": {
+               "title": "Target Language",
+               "desc": "Language you often translate to"
+          }
+     },
+     "clear-data": {
+          "errors": {
+               "clear-recent": "Failed to clear recent translations",
+               "reset-settings": "Failed to reset some settings to defaults",
+               "clear-settings": "Failed to clear some settings"
+          },
+          "success": {
+               "clear-recent": "Recent translations cleared successfully",
+               "reset-settings": "Settings successfully reset to defaults",
+               "clear-settings": "Settings cleared successfully"
+          }
+     },
+     "danger-zone": {
+          "title": "Danger Zone",
+          "desc": "Be careful before deleting settings related to I18N Translator",
+          "clear-recent": {
+               "title": "Clear Recent Translations",
+               "desc": "This will clear recent translation data",
+               "button": "Clear Recent Data",
+               "confirmation": "Are you sure you want to clear recent translations?"
+          },
+          "clear-settings": {
+               "title": "Clear Settings (Permanent)",
+               "desc": "This will clear all settings data",
+               "button": "Clear Settings",
+               "confirmation": "Are you sure you want to clear all settings?"
+          },
+          "restore-settings": {
+               "title": "Restore Defaults",
+               "desc": "This will reset all settings into default values",
+               "button": "Restore Defaults",
+               "confirmation": "Are you sure you want to restore settings to defaults?"  
+          },
+          "cant-be-undone": "This action cannot be undone"
+     }
+}

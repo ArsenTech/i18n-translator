@@ -19,3 +19,5 @@ export const FILE_FORMATS: TranslationFormat[] = [
      TranslationFormat.Resx,
      TranslationFormat.Xliff,
 ]
+export const AVAILABLE_SHORTCUTS = ["ctrl++","ctrl+-","ctrl+0","ctrl+s","ctrl+shift+s","ctrl+a","esc"] as const
+export const ALL_SHORTCUTS = [...AVAILABLE_SHORTCUTS,"alt+f4","ctrl+z","ctrl+y","ctrl+x","ctrl+c","ctrl+v"] as const

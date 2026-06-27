@@ -15,6 +15,8 @@ import replace from "@i18n/en/replace.json"
 import fileActions from "@i18n/en/file-actions.json"
 import transliterate from "@i18n/en/transliterate.json"
 import spellChecker from "@i18n/en/spell-checker.json"
+import settings from "@i18n/en/settings.json"
+import shortcuts from "@i18n/en/shortcuts.json"
 
 import { LangCode } from "../i18n/config";
 
@@ -25,7 +27,6 @@ declare module "i18next" {
                translation: typeof translation;
                update: typeof update;
                "quick-access": typeof quickAccess;
-               buttons: typeof buttons;
                table: typeof table;
                glossary: typeof glossary;
                titlebar: typeof titlebar;
@@ -37,7 +38,9 @@ declare module "i18next" {
                replace: typeof replace;
                "file-actions": typeof fileActions
                transliterate: typeof transliterate;
-               "spell-checker": typeof spellChecker
+               "spell-checker": typeof spellChecker;
+               settings: typeof settings;
+               shortcuts: typeof shortcuts
           };
      }
 }

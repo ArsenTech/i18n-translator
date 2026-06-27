@@ -44,7 +44,6 @@ function TreeSidebarMenu({children}: {children: React.ReactNode}){
 
 function TreeSidebarContainer({children}: {children: React.ReactNode}){
      const {t} = useTranslation()
-     const {t: btnTxt} = useTranslation("buttons")
      const {isMobile, open, setOpen} = useTreeSidebar()
      const content = (
           <ScrollArea className={cn(
@@ -80,7 +79,7 @@ function TreeSidebarContainer({children}: {children: React.ReactNode}){
                          </div>
                          <SheetFooter>
                               <SheetClose asChild>
-                                   <Button variant="outline">{btnTxt("close")}</Button>
+                                   <Button variant="outline">{t("close")}</Button>
                               </SheetClose>
                          </SheetFooter>
                     </SheetContent>
@@ -95,7 +94,7 @@ interface TreeSidebarProps{
 }
 export default function TreeSidebar({tree}: TreeSidebarProps) {
      const {closeMobileSidebar} = useTreeSidebar()
-     const {t: btnTxt} = useTranslation("buttons")
+     const {t} = useTranslation("glossary")
      const {selectedNamespace, setSelectedNamespace} = useEditor()
      return (
           <TreeSidebarContainer>
@@ -110,7 +109,7 @@ export default function TreeSidebar({tree}: TreeSidebarProps) {
                               }}
                          >
                               <List className="size-4" />
-                              {btnTxt("show.all")}
+                              {t("show.all")}
                          </TreeSidebarButton>
                     </TreeSidebarItem>
                     <Suspense fallback={(

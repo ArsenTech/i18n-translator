@@ -15,56 +15,48 @@ import ClearDataSettingsLoader from "@/loaders/settings/clear-data";
 export const SETTINGS_TABS: ISettingsTab[] = [
      {
           page: SettingsTab.General,
-          tabName: "General",
           Icon: Cog,
           LazyComponent: lazy(()=>import("@/contents/settings/general")),
           Loader: GeneralSettingsLoader
      },
      {
           page: SettingsTab.FileFormats,
-          tabName: "File Formats",
           Icon: FileIcon,
           LazyComponent: lazy(()=>import("@/contents/settings/file-formats")),
           Loader: FileFormatSettingsLoader
      },
      {
           page: SettingsTab.Shortcuts,
-          tabName: "Shortcuts",
           Icon: Keyboard,
           LazyComponent: lazy(()=>import("@/contents/settings/shortcuts")),
           Loader: ShortcutSettingsLoader
      },
      {
           page: SettingsTab.Editor,
-          tabName: "Editor",
           Icon: Edit,
           LazyComponent: lazy(()=>import("@/contents/settings/editor")),
           Loader: EditorSettingsLoader
      },
      {
-          page: SettingsTab.Translation,
-          tabName: "Translation",
+          page: SettingsTab.AutoTranslate,
           Icon: Languages,
           LazyComponent: lazy(()=>import("@/contents/settings/translation")),
           Loader: TranslationSettingsLoader
      },
      {
           page: SettingsTab.Toolbar,
-          tabName: "Toolbar",
           Icon: Wrench,
           LazyComponent: lazy(()=>import("@/contents/settings/toolbar")),
           Loader: ToolbarSettingsLoader
      },
      {
           page: SettingsTab.Glossary,
-          tabName: "Glossary",
           Icon: BookOpen,
           LazyComponent: lazy(()=>import("@/contents/settings/glossary")),
           Loader: GlossarySettingsLoader
      },
      {
           page: SettingsTab.ClearData,
-          tabName: "Clear Data",
           Icon: Trash2,
           LazyComponent: lazy(()=>import("@/contents/settings/clear-data")),
           Loader: ClearDataSettingsLoader

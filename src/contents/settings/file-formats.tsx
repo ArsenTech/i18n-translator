@@ -8,26 +8,31 @@ import { Files } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { lazy, Suspense } from "react";
 import { SiAndroid } from "react-icons/si"; // TODO: Implement Android XML Settings
+import { useTranslation } from "react-i18next";
 
 const SelectorField = lazy(()=>import("@/components/fields/selector"))
 
 export default function FileFormatSettings(){
+     const {t} = useTranslation("settings")
      const {settings, setSettings} = useSettings()
      return (
           <div className="space-y-2">
                <SettingsItem
-                    title="File Format Settings"
+                    title={t("file-format.title")}
                     Icon={Files}
                >
                     <SettingsOption
-                         title="Default format for new Translation"
-                         description="Default initial translation format"
+                         title={t("file-format.default-format.title")}
+                         description={t("file-format.default-format.desc")}
                          id="translation-format"
                     >
                          <Suspense fallback={<Skeleton className="h-8 w-full max-w-32"/>}>
                               <SelectorField
                                    name="translation-format"
-                                   items={NEW_TRANSLATION_FORMATS}
+                                   items={NEW_TRANSLATION_FORMATS.map(val=>({
+                                        label: t(`file-format.formats.${val}`),
+                                        value: val
+                                   }))}
                                    value={settings.defaultFormat}
                                    onChange={val=>setSettings({defaultFormat: val as TranslationFormat})}
                               />
@@ -35,12 +40,12 @@ export default function FileFormatSettings(){
                     </SettingsOption>
                </SettingsItem>
                <SettingsItem
-                    title="Android XML"
+                    title={t("android-xml.title")}
                     Icon={SiAndroid}
                >
                     <SettingsOption
-                         title="Default Translatable State"
-                         description="Initial value of the Android translatable state"
+                         title={t("android-xml.translatable-state.title")}
+                         description={t("android-xml.translatable-state.desc")}
                          id="default-translatable"
                     >
                          <Switch
@@ -51,8 +56,8 @@ export default function FileFormatSettings(){
                          />
                     </SettingsOption>
                     <SettingsOption
-                         title="Show Translatable column"
-                         description="Show translatable table column every time you enter the app"
+                         title={t("android-xml.show-translatable.title")}
+                         description={t("android-xml.show-translatable.desc")}
                          id="show-translatable"
                     >
                          <Switch
@@ -64,12 +69,12 @@ export default function FileFormatSettings(){
                     </SettingsOption>
                </SettingsItem>
                <SettingsItem
-                    title="XLIFF"
+                    title={t("xliff.title")}
                     Icon={Files}
                >
                     <SettingsOption
-                         title="Auto-detect language"
-                         description="Auto-detect language everytime the XLIFF file is opened"
+                         title={t("xliff.auto-detect.title")}
+                         description={t("xliff.auto-detect.desc")}
                          id="auto-detect-lang"
                     >
                          <Switch
@@ -79,8 +84,8 @@ export default function FileFormatSettings(){
                          />
                     </SettingsOption>
                     <SettingsOption
-                         title="Preserve Metadata"
-                         description="Keep existing translation metadata when opening or saving XLIFF files"
+                         title={t("xliff.preserve-meta.title")}
+                         description={t("xliff.preserve-meta.desc")}
                          id="preserve-meta"
                     >
                          <Switch

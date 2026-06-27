@@ -2,7 +2,7 @@ import { PARTS_OF_SPEECH, GLOSSARY_DOMAINS } from "@/lib/constants/combobox-item
 import { FILE_FORMATS, RESOURCE_TYPE, SUPPORTED_SCRIPTS } from "@/lib/constants/items"
 import * as z from "zod"
 
-const scriptField = z.enum([...SUPPORTED_SCRIPTS.map(s => s.value)],"Choose a Script to transliterate")
+const scriptField = z.enum([...SUPPORTED_SCRIPTS],"Choose a Script to transliterate")
 
 export const NewTranslationSchema = z.object({
      path: z.string().min(1,"Please enter the path of the base language file").trim(),
@@ -46,7 +46,7 @@ export const TransliterateScriptSchema = z.object({
 )
 export const SpellCheckSchema = z.object({
      dictionary: z.string().min(1,"Please choose the dictionary language").trim(),
-     scope: z.enum([...RESOURCE_TYPE.map(s => s.value)], "Select the scope for a spell check")
+     scope: z.enum([...RESOURCE_TYPE], "Select the scope for a spell check")
 })
 export const AddToGlossarySchema = z.object({
      term: z.string().min(1,"Please add the term on the base language").max(200,"The term is too long"),

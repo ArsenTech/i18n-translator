@@ -46,7 +46,10 @@ export default function FileMenu(){
                     <MenubarGroup>
                          <Suspense fallback={<Skeleton className="h-5 w-full max-w-48 my-1.5"/>}>
                               <NewTranslationPopup triggerButton={(
-                                   <MenubarItem onSelect={(e) => e.preventDefault()}>{t("file.new")}</MenubarItem>
+                                   <MenubarItem onSelect={(e) => e.preventDefault()}>
+                                        {t("file.new")}
+                                        <MenubarShortcut>Ctrl+N</MenubarShortcut>
+                                   </MenubarItem>
                               )}/>
                          </Suspense>
                          <MenubarSub>
@@ -61,10 +64,16 @@ export default function FileMenu(){
                                         </>
                                    )}>
                                         <OpenTranslationPopup triggerButton={(
-                                             <MenubarItem onSelect={(e) => e.preventDefault()} disabled={!!files.format}>{t("file.open.action")}</MenubarItem>
+                                             <MenubarItem onSelect={(e) => e.preventDefault()} disabled={!!files.format}>
+                                                  {t("file.open.action")}
+                                                  <MenubarShortcut>Ctrl+O</MenubarShortcut>
+                                             </MenubarItem>
                                         )}/>
                                         <OpenXliffPopup triggerButton={(
-                                             <MenubarItem onSelect={(e) => e.preventDefault()} disabled={!!files.format}>{t("file.open.xliff")}</MenubarItem>
+                                             <MenubarItem onSelect={(e) => e.preventDefault()} disabled={!!files.format}>
+                                                  {t("file.open.xliff")}
+                                                  <MenubarShortcut>Ctrl+Shift+O</MenubarShortcut>
+                                             </MenubarItem>
                                         )}/>
                                    </Suspense>
                               </MenubarSubContent>
@@ -78,7 +87,8 @@ export default function FileMenu(){
                     <MenubarGroup>
                          <MenubarItem disabled={isSaving} onClick={()=>save("save-all")}>
                               {t("file.save")}
-                              <MenubarShortcut>Ctrl+S</MenubarShortcut></MenubarItem>
+                              <MenubarShortcut>Ctrl+S</MenubarShortcut>
+                         </MenubarItem>
                          <MenubarItem disabled={isSaving} onClick={()=>save("save-as")}>
                               {t("file.save-as")}
                               <MenubarShortcut>Ctrl+Shift+S</MenubarShortcut>

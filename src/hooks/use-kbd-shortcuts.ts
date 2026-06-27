@@ -2,6 +2,7 @@ import { useEditor } from "@/context/editor";
 import { useSettings } from "@/context/settings";
 import { useAppTranslation } from "@/context/translation";
 import { KBD_SHORTCUTS } from "@/lib/constants/kbd-shortcuts";
+import { AvailableShortcuts } from "@/lib/types/shortcuts";
 import { useEffect } from "react";
 
 export default function useKeyboardShortcuts(){
@@ -16,10 +17,10 @@ export default function useKeyboardShortcuts(){
                if (event.shiftKey) parts.push("shift")
                if (event.altKey) parts.push("alt")
                parts.push(key)
-               const action = KBD_SHORTCUTS[parts.join("+")]
+               const action = KBD_SHORTCUTS[parts.join("+") as AvailableShortcuts]
                if (!action) return
                event.preventDefault()
-               action.fn({
+               action({
                     table,
                     targetPath: files.targetPath,
                     setIsDirty,

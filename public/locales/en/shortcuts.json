@@ -1,0 +1,19 @@
+{
+     "cols": {
+          "name": "Name",
+          "shortcut": "Shortcut"
+     },
+     "ctrl++": "Zoom in", 
+     "ctrl+-": "Zoom Out", 
+     "ctrl+0": "Reset Zoom", 
+     "ctrl+s": "Save Translation", 
+     "ctrl+shift+s": "Save Translation as", 
+     "ctrl+a": "Select All", 
+     "esc": "Clear Selection",
+     "alt+f4": "Exit Application",
+     "ctrl+z": "Undo",
+     "ctrl+y": "Redo",
+     "ctrl+x": "Cut",
+     "ctrl+c": "Copy",
+     "ctrl+v": "Paste"
+}

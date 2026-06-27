@@ -2,10 +2,11 @@ import { useAppTranslation } from "@/context/translation";
 import { lazy, Suspense } from "react";
 import { Skeleton } from "../ui/skeleton";
 import { Trans, useTranslation } from "react-i18next";
+import React from "react";
 
 const LangSelector = lazy(()=>import("@/components/fields/lang-selector"))
 
-export default function LanguageSelect(){
+function LanguageSelect(){
      const {t} = useTranslation()
      const {langs, updateLangs} = useAppTranslation()
      return (
@@ -39,3 +40,5 @@ export default function LanguageSelect(){
           </div>
      )
 }
+
+export default React.memo(LanguageSelect)

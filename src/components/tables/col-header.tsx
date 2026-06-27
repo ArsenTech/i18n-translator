@@ -15,11 +15,11 @@ export function DataTableColumnHeader<TData, TValue>({
   className,
 }: DataTableColumnHeaderProps<TData, TValue>) {
      if (!column.getCanSort()) {
-          return <div className={cn(className)}>{title}</div>
+          return <div className={cn("select-none pointer-events-none",className)}>{title}</div>
      }
      return (
           <div className={cn("flex items-center gap-1", className)}>
-               <div>{title}</div>
+               <div className="select-none pointer-events-none">{title}</div>
                <Button
                     variant="ghost"
                     size="icon-sm"

@@ -2,45 +2,46 @@ import type { SetStateType } from "@/lib/types"
 import type { ITranslation } from "@/lib/types/data"
 import type { TranslationFormat } from "@/lib/types/enums"
 import { getErrorMessage } from "@/lib/utils"
-import { BatchRenameKeysSchema, ReplaceTranslationSchema, SpellCheckSchema, TransliterateScriptSchema } from "@/schemas"
-import { AutoTranslateSchema } from "@/schemas/auto-translate"
+import { getBatchRenameKeysSchema, getReplaceTranslationSchema, getSpellCheckSchema, getTransliterateScriptSchema } from "@/schemas"
+import { getAutoTranslateSchema } from "@/schemas/auto-translate"
 import { AutoTranslateType, BatchRenameKeysType, ReplaceTranslationType, SpellCheckType, TransliterateScriptType } from "@/schemas/types"
+import type { TFunction } from "i18next"
 
 export default class TranslatorActions{
-     public static autoTranslate(values: AutoTranslateType){
+     public static autoTranslate(values: AutoTranslateType, t: TFunction<"validation">){
           try {
-               const validatedFields = AutoTranslateSchema.safeParse(values)
-               if(!validatedFields.success) return {error: "All fields are invalid"}
+               const validatedFields = getAutoTranslateSchema(t).safeParse(values)
+               if(!validatedFields.success) return {error: t("invalid-fields")}
                console.log(`TODO: Implement ${validatedFields.data.provider} Auto translation using ${JSON.stringify(values,undefined,2)}`)
           } catch (err) {
                console.error(err)
                return {error: getErrorMessage(err)}
           }
      }
-     public static hunspellCheck(values: SpellCheckType){
+     public static hunspellCheck(values: SpellCheckType, t: TFunction<"validation">){
           try {
-               const validatedFields = SpellCheckSchema.safeParse(values)
-               if(!validatedFields.success) return {error: "All fields are invalid"}
+               const validatedFields = getSpellCheckSchema(t).safeParse(values)
+               if(!validatedFields.success) return {error: t("invalid-fields")}
                console.log(`TODO: Implement Spell check (using Hunspell with dictionary: ${validatedFields.data.dictionary})`)
           } catch (err) {
                console.error(err)
                return {error: getErrorMessage(err)}
           }
      }
-     public static transliterateScript(values: TransliterateScriptType){
+     public static transliterateScript(values: TransliterateScriptType, t: TFunction<"validation">){
           try {
-               const validatedFields = TransliterateScriptSchema.safeParse(values)
-               if(!validatedFields.success) return {error: "All fields are invalid"}
+               const validatedFields = getTransliterateScriptSchema(t).safeParse(values)
+               if(!validatedFields.success) return {error: t("invalid-fields")}
                console.log(`TODO: Implement Script transliteration (e.g. ${validatedFields.data.source} to ${validatedFields.data.target})`)
           } catch (err) {
                console.error(err)
                return {error: getErrorMessage(err)}
           }
      }
-     public static replaceTranslation(values: ReplaceTranslationType, table: ITranslation[]){
+     public static replaceTranslation(values: ReplaceTranslationType, table: ITranslation[], t: TFunction<"validation">){
           try {
-               const validatedFields = ReplaceTranslationSchema.safeParse(values)
-               if(!validatedFields.success) return {error: "All fields are invalid", data: []}
+               const validatedFields = getReplaceTranslationSchema(t).safeParse(values)
+               if(!validatedFields.success) return {error: t("invalid-fields"), data: []}
                const {from, to, caseSensitive} = validatedFields.data
                const data = table.map(val => ({
                     ...val,
@@ -52,7 +53,7 @@ export default class TranslatorActions{
                          ),
                }))
                return {
-                    success: "Translations replaced successfully",
+                    success: t("success.replace"),
                     data
                }
           } catch (err) {
@@ -60,10 +61,10 @@ export default class TranslatorActions{
                return {error: getErrorMessage(err), data: []}
           }
      }
-     public static batchRename(values: BatchRenameKeysType, table: ITranslation[]){
+     public static batchRename(values: BatchRenameKeysType, table: ITranslation[], t: TFunction<"validation">){
           try {
-               const validatedFields = BatchRenameKeysSchema.safeParse(values)
-               if(!validatedFields.success) return {error: "All fields are invalid", data: []}
+               const validatedFields = getBatchRenameKeysSchema(t).safeParse(values)
+               if(!validatedFields.success) return {error: t("invalid-fields"), data: []}
                const {from, to} = validatedFields.data
                const regex = new RegExp(from.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),"gi")
                const data = table.map(val => ({
@@ -71,7 +72,7 @@ export default class TranslatorActions{
                     keyName: val.keyName.replace(regex,to),
                }))
                return {
-                    success: "Key names renamed successfully",
+                    success: t("success.batch-rename"),
                     data
                }
           } catch (err) {
@@ -172,11 +173,10 @@ export default class TranslatorActions{
                count: invalid.length,
           }
      }
-     public static removeUnusedKeys(table: ITranslation[], baseKeys: Set<string>) {
+     public static removeUnusedKeys(table: ITranslation[], baseKeys: Set<string>, t: TFunction<"validation">) {
           const data = table.filter(item => baseKeys.has(item.keyName))
-          const removed = table.length - data.length
           return {
-               success: `${removed} unused key${removed === 1 ? "" : "s"} removed`,
+               success: t("success.remove-unused",{count: table.length - data.length}),
                data,
           }
      }

@@ -2,7 +2,7 @@ import { Field, FieldError, FieldGroup, FieldLabel, FieldLegend, FieldSeparator,
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
 import { OpenTranslationType } from "@/schemas/types";
-import { OpenTranslationSchema } from "@/schemas";
+import { getOpenTranslationSchema } from "@/schemas";
 import { DialogFooter } from "@/components/ui/dialog";
 import FileActions from "@/actions/file";
 import type { PopupComponentProps } from "@/lib/types/props";
@@ -25,12 +25,13 @@ const FilePicker = lazy(()=>import("@/components/fields/file-picker"))
 
 export default function OpenTranslation({setOpen}: PopupComponentProps){
      const {t} = useTranslation("file-actions")
+     const {t: validationTxt} = useTranslation("validation")
      const [isOpening, startTransition] = useTransition()
      const [isFetching, setIsFetching] = useState(false)
      const {settings} = useSettings()
      const {setTable, updateLangs, setFiles, setBaseKeys, setIsDirty} = useAppTranslation()
      const form = useForm<OpenTranslationType>({
-          resolver: zodResolver(OpenTranslationSchema),
+          resolver: zodResolver(getOpenTranslationSchema(validationTxt)),
           defaultValues: {
                basePath: "",
                baseLang: settings.baseLang ?? "",
@@ -42,7 +43,7 @@ export default function OpenTranslation({setOpen}: PopupComponentProps){
           if (isOpening) return;
           startTransition(async()=>{
                try {
-                    const res = await FileActions.openTranslation(values)
+                    const res = await FileActions.openTranslation(values,validationTxt)
                     if(res.error) toast.error(t("open.error"),{
                          description: res.error,
                          id: "open-error"

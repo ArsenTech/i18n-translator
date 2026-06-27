@@ -1,4 +1,4 @@
-import { LucideIcon, BookOpen, BookPlus, Delete, FilePlus, FolderOpen, FolderPen, Languages, RefreshCcw, RotateCcw, Save, Scan, Search, SearchCheck, SearchSlash, SpellCheckIcon } from "lucide-react"
+import { type LucideIcon, BookOpen, BookPlus, Delete, FilePlus, FolderOpen, FolderPen, Languages, RefreshCcw, RotateCcw, Save, Scan, Search, SearchCheck, SearchSlash, SpellCheckIcon } from "lucide-react"
 import type { ToolbarValues } from "../types/settings"
 
 export const DEFAULT_TOOLBAR_SETTINGS: ToolbarValues = {

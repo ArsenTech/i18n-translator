@@ -1,7 +1,7 @@
 import type { ITranslation } from "@/lib/types/data"
 import type { CreateTranslationResult, IBackendTranslation } from "@/lib/types/data/backend"
 import { getErrorMessage } from "@/lib/utils"
-import { NewTranslationSchema, OpenTranslationSchema, OpenXliffSchema } from "@/schemas"
+import { getNewTranslationSchema, getOpenTranslationSchema, getOpenXliffSchema } from "@/schemas"
 import { NewTranslationType, OpenTranslationType, OpenXliffType } from "@/schemas/types"
 import { invoke } from "@tauri-apps/api/core"
 import { save } from "@tauri-apps/plugin-dialog"
@@ -9,9 +9,10 @@ import { detectLanguageCode } from "@/lib/helpers"
 import type { ILangInputState } from "@/lib/types"
 import FetcherActions from "./fetcher"
 import { TranslationFormat } from "@/lib/types/enums"
+import type { TFunction } from "i18next"
 
 export default class FileActions{
-     public static async newTranslation(values: NewTranslationType, autoDetectBaseLang: boolean, defaultBaseLang?: string): Promise<{
+     public static async newTranslation(t: TFunction<"validation">, values: NewTranslationType, autoDetectBaseLang: boolean, defaultBaseLang?: string): Promise<{
           error?: string,
           success?: string,
           data: ITranslation[],
@@ -19,8 +20,8 @@ export default class FileActions{
           code: string
      }>{
           try {
-               const validatedFields = NewTranslationSchema.safeParse(values)
-               if(!validatedFields.success) return {error: "All fields are invalid", data: [], code: ""}
+               const validatedFields = getNewTranslationSchema(t).safeParse(values)
+               if(!validatedFields.success) return {error: t("invalid-fields"), data: [], code: ""}
                const {path, targetLanguageCode, format} = validatedFields.data
                const [fileType, meta] = await Promise.all([
                     FetcherActions.getFileTypeFromPath(path, format),
@@ -35,7 +36,7 @@ export default class FileActions{
                     format
                })
                return {
-                    success: "Translation created successfully",
+                    success: t("success.new-translation"),
                     data: res.entries.map(val=>({
                          keyName: val.key_name,
                          translationString: val.translation_string,
@@ -50,21 +51,21 @@ export default class FileActions{
                return {error: getErrorMessage(err), data: [], code: ""}
           }
      }
-     public static async openTranslation(values: OpenTranslationType){
+     public static async openTranslation(values: OpenTranslationType, t: TFunction<"validation">){
           try {
-               const validatedFields = OpenTranslationSchema.safeParse(values)
-               if(!validatedFields.success) return {error: "All fields are invalid", data: []}
+               const validatedFields = getOpenTranslationSchema(t).safeParse(values)
+               if(!validatedFields.success) return {error: t("invalid-fields"), data: []}
                const {basePath, targetPath} = validatedFields.data
                const baseFormat = await FetcherActions.getFormatFromPath(basePath);
                const targetFormat = await FetcherActions.getFormatFromPath(targetPath)
-               if (baseFormat!==targetFormat) return {error: "Translation format should match the Base language format"}
+               if (baseFormat!==targetFormat) return {error: t("different-formats")}
                const res = await this.openBackendTranslation({
                     basePath,
                     targetPath,
                     format: baseFormat
                })
                return {
-                    success: "Translation opened successfully",
+                    success: t("success.open-translation"),
                     data: res.map(val=>({
                          keyName: val.key_name,
                          translationString: val.translation_string,
@@ -77,16 +78,16 @@ export default class FileActions{
                return {error: getErrorMessage(err), data: []}
           }
      }
-     public static async openXliff(values: OpenXliffType) {
+     public static async openXliff(values: OpenXliffType, t: TFunction<"validation">) {
           try {
-               const validatedFields = OpenXliffSchema.safeParse(values)
-               if(!validatedFields.success) return {error: "All fields are invalid", data: []}
+               const validatedFields = getOpenXliffSchema(t).safeParse(values)
+               if(!validatedFields.success) return {error: t("invalid-fields"), data: []}
                const {translationPath} = validatedFields.data
                const fileFormat = await FetcherActions.getFormatFromPath(translationPath);
-               if(!fileFormat) return {error: "Format doesn't exist"}
+               if(!fileFormat) return {error: t("format-not-found")}
                const res = await this.openBackendXliffTranslation(translationPath)
                return {
-                    success: "Translation opened successfully",
+                    success: t("success.open-translation"),
                     data: res.map(val=>({
                          keyName: val.key_name,
                          translationString: val.translation_string,
@@ -104,11 +105,12 @@ export default class FileActions{
           targetPath: string,
           langs: ILangInputState,
           preserveTranslations: boolean,
-          preserveMetadata: boolean
+          preserveMetadata: boolean,
+          t: TFunction<"validation">
      ){
-          if(!targetPath) return {error: "Target Path is empty. Save cancelled"}
+          if(!targetPath) return {error: t("target-empty")}
           const data = preserveTranslations ? table : table.filter(item => item.translationString.trim() !== "")
-          if(data.length<=0) return {error: "Table itself is empty"}
+          if(data.length<=0) return {error: t("table-empty")}
           try {
                const entries: IBackendTranslation[] = data.map(val=>({
                     key_name: val.keyName,
@@ -131,20 +133,22 @@ export default class FileActions{
                     baseLang,
                     targetLang
                })
-               return {success: "Translation saved successfully"}
+               return {success: t("success.save-translation")}
           } catch (err) {
                console.error(err)
                return {error: getErrorMessage(err)}
           }
      }
+     // TODO: Replace filters with translated ones
      public static async saveAs(
           table: ITranslation[],
           langs: ILangInputState,
           preserveTranslations: boolean,
-          preserveMetadata: boolean
+          preserveMetadata: boolean,
+          t: TFunction<"validation">
      ){
           const data = preserveTranslations ? table : table.filter(item => item.translationString.trim() !== "")
-          if(data.length<=0) return {error: "Table itself is empty"}
+          if(data.length<=0) return {error: t("table-empty")}
           try {
                const targetPath = await save({
                     title: "Save Translation As",
@@ -193,7 +197,7 @@ export default class FileActions{
                     baseLang,
                     targetLang
                })
-               return {success: "Translation saved successfully"}
+               return {success: t("success.save-translation")}
           } catch (err) {
                console.error(err)
                return {error: getErrorMessage(err)}

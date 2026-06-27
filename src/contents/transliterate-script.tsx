@@ -3,7 +3,7 @@ import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
 import { TransliterateScriptType } from "@/schemas/types";
-import { TransliterateScriptSchema } from "@/schemas";
+import { getTransliterateScriptSchema } from "@/schemas";
 import { DialogFooter } from "@/components/ui/dialog";
 import TranslatorActions from "@/actions/translator";
 import { SUPPORTED_SCRIPTS } from "@/lib/constants/items";
@@ -16,15 +16,16 @@ const SelectorField = lazy(()=>import("@/components/fields/selector"))
 
 export default function TransliterateScript(){
      const {t} = useTranslation("transliterate")
+     const {t: validationTxt} = useTranslation("validation")
      const form = useForm<TransliterateScriptType>({
-          resolver: zodResolver(TransliterateScriptSchema),
+          resolver: zodResolver(getTransliterateScriptSchema(validationTxt)),
           defaultValues: {
                source: "latin",
                target: "cyrillic"
           }
      })
      const onSubmit = (values: TransliterateScriptType) => {
-          TranslatorActions.transliterateScript(values)
+          TranslatorActions.transliterateScript(values,validationTxt)
      }
      const allScripts: SelectType[] = useMemo(()=>SUPPORTED_SCRIPTS.map(val=>({
           label: t(`supported-scripts.${val}`),

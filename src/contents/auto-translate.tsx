@@ -3,7 +3,7 @@ import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
 import { AutoTranslateProvider, AutoTranslateType } from "@/schemas/types";
-import { AutoTranslateSchema } from "@/schemas/auto-translate";
+import { getAutoTranslateSchema } from "@/schemas/auto-translate";
 import { DialogFooter } from "@/components/ui/dialog";
 import TranslatorActions from "@/actions/translator";
 import { RESOURCE_TYPE } from "@/lib/constants/items";
@@ -23,9 +23,10 @@ interface AutoTranslateProps extends PopupContentProps{
 }
 export default function AutoTranslate({provider}: AutoTranslateProps){
      const {t} = useTranslation("auto-translate")
+     const {t: validationTxt} = useTranslation("validation")
      const {providers} = useSettings()
      const form = useForm<AutoTranslateType>({
-          resolver: zodResolver(AutoTranslateSchema),
+          resolver: zodResolver(getAutoTranslateSchema(validationTxt)),
           defaultValues: {
                provider,
                target: "key",
@@ -36,7 +37,7 @@ export default function AutoTranslate({provider}: AutoTranslateProps){
           }
      })
      const onSubmit = (values: AutoTranslateType) => {
-          TranslatorActions.autoTranslate(values)
+          TranslatorActions.autoTranslate(values, validationTxt)
      }
      return (
           <>

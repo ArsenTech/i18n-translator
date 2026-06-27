@@ -1,7 +1,7 @@
 import type { ITranslation, TreeNode } from "@/lib/types/data"
 import type { IBackendTranslation } from "../types/data/backend"
 import { FileType } from "../types/enums"
-import { TFunction } from "i18next"
+import type { TFunction } from "i18next"
 
 export function buildTree(data: ITranslation[], t: TFunction): TreeNode[] {
      const root: TreeNode = {

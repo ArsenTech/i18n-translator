@@ -3,7 +3,7 @@ import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
 import { BatchRenameKeysType } from "@/schemas/types";
-import { BatchRenameKeysSchema } from "@/schemas";
+import { getBatchRenameKeysSchema } from "@/schemas";
 import { DialogFooter } from "@/components/ui/dialog";
 import TranslatorActions from "@/actions/translator";
 import { useAppTranslation } from "@/context/translation";
@@ -18,16 +18,17 @@ const ComboboxField = lazy(()=>import("@/components/fields/combobox-field"))
 
 export default function BatchRenameKeys({setOpen}: PopupContentProps){
      const {t} = useTranslation("replace")
+     const {t: validationTxt} = useTranslation("validation")
      const {table, setTable, keyNames, setIsDirty} = useAppTranslation()
      const form = useForm<BatchRenameKeysType>({
-          resolver: zodResolver(BatchRenameKeysSchema),
+          resolver: zodResolver(getBatchRenameKeysSchema(validationTxt)),
           defaultValues: {
                from: "",
                to: "",
           }
      })
      const onSubmit = (values: BatchRenameKeysType) => {
-          const res = TranslatorActions.batchRename(values, table)
+          const res = TranslatorActions.batchRename(values, table, validationTxt)
           if(res.error) toast.error(t("batch-rename.error"),{
                description: res.error
           })

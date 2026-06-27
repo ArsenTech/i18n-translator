@@ -13,10 +13,11 @@ const FindPopup = lazy(()=>import("@/popups/find"));
 
 export default function FindSubmenu(){
      const {t} = useTranslation("menubar")
+     const {t: validationTxt} = useTranslation("validation")
      const {findState, setFindState, setCurrentTranslation, setInput, setVisibleCount} = useEditor();
      const {visibleTable} = useAppTranslation()
      const findAction = (type: "next" | "prev" | "missing") => {
-          const res: FindResult = type==="next" ? FindActions.findNext(findState) : type==="prev" ? FindActions.findPrev(findState) : type==="missing" ? FindActions.findMissing(visibleTable) : {success: false, error: t("messages.unknown-find")}
+          const res: FindResult = type==="next" ? FindActions.findNext(findState, validationTxt) : type==="prev" ? FindActions.findPrev(findState, validationTxt) : type==="missing" ? FindActions.findMissing(visibleTable, validationTxt) : {success: false, error: t("messages.unknown-find")}
           if(res.success) {
                if(res.findState) setFindState(res.findState)
                TranslatorActions.jumpToTranslation({

@@ -1,7 +1,7 @@
-import { CircleQuestionMark, LucideIcon } from "lucide-react"
+import { CircleQuestionMark, type LucideIcon } from "lucide-react"
 import { Label } from "../ui/label"
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
-import { IconType } from "react-icons/lib"
+import type { IconType } from "react-icons/lib"
 
 interface Props{
      title: string,

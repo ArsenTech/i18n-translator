@@ -1,4 +1,5 @@
 import type { ITranslation } from "@/lib/types/data"
+import type { TFunction } from "i18next"
 
 export default class EditActions{
      public static undo(){
@@ -7,24 +8,24 @@ export default class EditActions{
      public static redo(){
           document.execCommand("redo")
      }
-     public static async cut(input: HTMLInputElement | HTMLTextAreaElement | null){
-          if(input===null) return {error: "inputRef is required"}
+     public static async cut(input: HTMLInputElement | HTMLTextAreaElement | null, t: TFunction<"validation">){
+          if(input===null) return {error: t("input-ref")}
           const start = input.selectionStart ?? 0
           const end = input.selectionEnd ?? 0
           await navigator.clipboard.writeText(input.value.slice(start, end))
           input.setRangeText("", start, end, "start")
           input.dispatchEvent(new Event("input", { bubbles: true }))
      }
-     public static async copy(input: HTMLInputElement | HTMLTextAreaElement | null){
-          if(input===null) return {error: "inputRef is required"}
+     public static async copy(input: HTMLInputElement | HTMLTextAreaElement | null, t: TFunction<"validation">){
+          if(input===null) return {error: t("input-ref")}
           const selected = input.value.slice(
                input.selectionStart ?? 0,
                input.selectionEnd ?? 0
           )
           await navigator.clipboard.writeText(selected)
      }
-     public static async paste(input: HTMLInputElement | HTMLTextAreaElement | null){
-          if(input===null) return {error: "inputRef is required"}
+     public static async paste(input: HTMLInputElement | HTMLTextAreaElement | null, t: TFunction<"validation">){
+          if(input===null) return {error: t("input-ref")}
           const text = await navigator.clipboard.readText()
           input.setRangeText(
                text,

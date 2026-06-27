@@ -18,6 +18,7 @@ import spellChecker from "@i18n/en/spell-checker.json"
 import settings from "@i18n/en/settings.json"
 import shortcuts from "@i18n/en/shortcuts.json"
 import languages from "@i18n/en/languages.json"
+import validation from "@i18n/en/validation.json"
 
 import { LangCode } from "../i18n/config";
 
@@ -42,7 +43,8 @@ declare module "i18next" {
                "spell-checker": typeof spellChecker;
                settings: typeof settings;
                shortcuts: typeof shortcuts;
-               languages: typeof languages
+               languages: typeof languages;
+               validation: typeof validation
           };
      }
 }

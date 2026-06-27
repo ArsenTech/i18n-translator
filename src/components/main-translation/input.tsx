@@ -16,6 +16,7 @@ import { useTranslation } from "react-i18next";
 export default function TranslationInput(){
      const {t} = useTranslation()
      const [isSaving, startTransition] = useTransition()
+     const {t: validationTxt} = useTranslation("validation")
      const {table, setTable, visibleTable, setIsDirty, files, langs} = useAppTranslation()
      const {currTranslation, setCurrentTranslation, input, setInput, inputRef} = useEditor()
      const {settings} = useSettings()
@@ -29,7 +30,7 @@ export default function TranslationInput(){
                               translationString: !files.format ? input : files.format==="json" ? input : String.raw`${input}`
                          }
                          : item)
-                         const res = await FileActions.saveAll(newTable, files.targetPath, langs, settings.preserveEmpty, settings.xliffPreserveMeta)
+                         const res = await FileActions.saveAll(newTable, files.targetPath, langs, settings.preserveEmpty, settings.xliffPreserveMeta, validationTxt)
                          if(res.error) {
                               toast.error(t("translation-input.auto-save-error"),{
                                    description: res.error,

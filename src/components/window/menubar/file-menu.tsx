@@ -16,6 +16,7 @@ const OpenXliffPopup = lazy(()=>import("@/popups/open-xliff"));
 
 export default function FileMenu(){
      const {t} = useTranslation("menubar")
+     const {t: validationTxt} = useTranslation("validation")
      const {settings} = useSettings()
      const {table, files, setIsDirty, reset, langs} = useAppTranslation()
      const [isSaving, setIsSaving] = useState(false)
@@ -23,7 +24,7 @@ export default function FileMenu(){
           if(isSaving) return;
           setIsSaving(true)
           try {
-               const res = type==="save-as" ? await FileActions.saveAs(table, langs, settings.preserveEmpty, settings.xliffPreserveMeta) : await FileActions.saveAll(table, files.targetPath, langs, settings.preserveEmpty, settings.xliffPreserveMeta)
+               const res = type==="save-as" ? await FileActions.saveAs(table, langs, settings.preserveEmpty, settings.xliffPreserveMeta, validationTxt) : await FileActions.saveAll(table, files.targetPath, langs, settings.preserveEmpty, settings.xliffPreserveMeta, validationTxt)
                if(res?.error) toast.error(t("messages.save-error"),{
                     description: res.error
                })

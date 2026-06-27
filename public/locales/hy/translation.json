@@ -1,5 +1,45 @@
 {
-     "labels": {
-          "lang-switcher": "Փոխել լեզուն"
-     }
+  "auto-update": {
+    "checking": "Ստուգում․․․",
+    "failed": "Չստացվեց ստուգել թարմացումները",
+    "new-version": "Նոր տարբերակը հասանելի է՝ {{version}}",
+    "updated": "I18N Translator-ը թարմացված է"
+  },
+  "close": "Փակել",
+  "labels": {
+    "color": "Ընտրել գույնը",
+    "lang-switcher": "Փոխել լեզուն",
+    "theme": "Ընտրել ոճը"
+  },
+  "lang-select": {
+    "base-placeholder": "Հիմնական լեզու",
+    "layout": "<baseInput/> լեզվից <targetInput/> լեզուն",
+    "load-error": "Չստացվեց բեռնել լեզուների ցանկը",
+    "not-found": "Ոչ մի լեզու չի գտնվել",
+    "target-placeholder": "Թիրախային լեզու"
+  },
+  "loading": "Բեռնվում է․․․",
+  "translation-input": {
+    "auto-save-error": "Չստացվեց ավտոմատ պահպանել թարգմանությունը",
+    "copy-from-source": "Պատճենել բնօրինակից",
+    "next": "Առաջ",
+    "prev": "Ետ",
+    "save-string": {
+      "current": "Պահպանել տողը",
+      "loading": "Պահպանվում է․․․"
+    }
+  },
+  "translator-stats": {
+    "borrowed": "Վերցված է բնօրինակից",
+    "line-num": "Տողի №",
+    "total": "Ընդամենը",
+    "translated": "Թարգմանված",
+    "untranslated": "Չթարգմանված"
+  },
+  "tree-sidebar": {
+    "desc": "Ցուցադրում է կոմպակտ ծառի կողային վահանակը",
+    "general": "Ընդհանուր",
+    "root": "Արմատային",
+    "title": "Ծառի կողային վահանակ"
+  }
 }

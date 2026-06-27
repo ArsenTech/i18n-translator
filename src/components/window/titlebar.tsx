@@ -21,6 +21,7 @@ interface TitleBarProps{
 }
 export default function TitleBar({hideMaximize, title}: TitleBarProps){
      const {t} = useTranslation("titlebar")
+     const {t: validationTxt} = useTranslation("validation")
      const appWindow = getCurrentWindow()
      const {settings} = useSettings()
      const [isMaximized, setIsMaximized] = useState(false)
@@ -40,7 +41,7 @@ export default function TitleBar({hideMaximize, title}: TitleBarProps){
           })
           if (confirmation === "Yes") {
                try {
-                    const res = files.targetPath ? await FileActions.saveAll(table, files.targetPath, langs, settings.preserveEmpty, settings.xliffPreserveMeta) : await FileActions.saveAs(table, langs, settings.preserveEmpty, settings.xliffPreserveMeta)
+                    const res = files.targetPath ? await FileActions.saveAll(table, files.targetPath, langs, settings.preserveEmpty, settings.xliffPreserveMeta, validationTxt) : await FileActions.saveAs(table, langs, settings.preserveEmpty, settings.xliffPreserveMeta, validationTxt)
                     if (res?.success) {
                          setIsDirty(false)
                          await appWindow.close();

@@ -2,8 +2,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import React from "react";
 import { cn } from "@/lib/utils";
 import type { DesignType } from "@/lib/types/string-unions";
-import { LucideIcon } from "lucide-react";
-import { IconType } from "react-icons/lib";
+import type { LucideIcon } from "lucide-react";
+import type { IconType } from "react-icons/lib";
 
 interface Props{
      Icon?: LucideIcon | IconType,

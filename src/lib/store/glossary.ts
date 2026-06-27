@@ -1,9 +1,10 @@
-import { AddToGlossarySchema } from "@/schemas";
+import { getAddToGlossarySchema } from "@/schemas";
 import { AddToGlossaryType } from "@/schemas/types";
 import { LazyStore } from "@tauri-apps/plugin-store";
 import type { GlossaryEntry } from "@/lib/types/data"
 import type { ILangInputState } from "../types";
 import { getErrorMessage } from "../utils";
+import type { TFunction } from "i18next";
 
 const store = new LazyStore("glossary.json")
 
@@ -15,12 +16,12 @@ export default class GlossaryActions{
           await store.set(`${langs.base}-${langs.target}`, values),
           await store.save()
      }
-     public static async add(values: AddToGlossaryType, langs: ILangInputState){
+     public static async add(values: AddToGlossaryType, langs: ILangInputState, t: TFunction<"validation">){
           if (!langs.base.trim() || !langs.target.trim()) {
                throw new Error("Base and target languages are required");
           }
           try {
-               const validatedFields = AddToGlossarySchema.safeParse(values)
+               const validatedFields = getAddToGlossarySchema(t).safeParse(values)
                if(!validatedFields.success) return {error: "All fields are invalid", data: []}
                const {
                     term,

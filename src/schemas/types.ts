@@ -1,15 +1,36 @@
 import * as z from "zod"
-import { AddToGlossarySchema, BatchRenameKeysSchema, FindSchema, NewTranslationSchema, OpenTranslationSchema, OpenXliffSchema, ReplaceTranslationSchema, SpellCheckSchema, TransliterateScriptSchema } from "."
-import { AutoTranslateSchema, providerField } from "./auto-translate"
+import { getAddToGlossarySchema, getBatchRenameKeysSchema, getFindSchema, getNewTranslationSchema, getOpenTranslationSchema, getOpenXliffSchema, getReplaceTranslationSchema, getSpellCheckSchema, getTransliterateScriptSchema } from "."
+import { getAutoTranslateSchema, providerField } from "./auto-translate"
 
-export type NewTranslationType = z.infer<typeof NewTranslationSchema>
-export type OpenTranslationType = z.infer<typeof OpenTranslationSchema>
-export type FindType = z.infer<typeof FindSchema>
-export type ReplaceTranslationType = z.infer<typeof ReplaceTranslationSchema>
-export type BatchRenameKeysType = z.infer<typeof BatchRenameKeysSchema>
-export type AutoTranslateType = z.infer<typeof AutoTranslateSchema>
 export type AutoTranslateProvider = z.infer<typeof providerField>
-export type TransliterateScriptType = z.infer<typeof TransliterateScriptSchema>
-export type SpellCheckType = z.infer<typeof SpellCheckSchema>
-export type OpenXliffType = z.infer<typeof OpenXliffSchema>
-export type AddToGlossaryType = z.infer<typeof AddToGlossarySchema>
+
+export type NewTranslationType = z.infer<
+     Awaited<ReturnType<typeof getNewTranslationSchema>>
+>
+export type OpenTranslationType = z.infer<
+     Awaited<ReturnType<typeof getOpenTranslationSchema>>
+>
+export type FindType = z.infer<
+     Awaited<ReturnType<typeof getFindSchema>>
+>
+export type ReplaceTranslationType = z.infer<
+     Awaited<ReturnType<typeof getReplaceTranslationSchema>>
+>
+export type BatchRenameKeysType = z.infer<
+     Awaited<ReturnType<typeof getBatchRenameKeysSchema>>
+>
+export type AutoTranslateType = z.infer<
+     Awaited<ReturnType<typeof getAutoTranslateSchema>>
+>
+export type TransliterateScriptType = z.infer<
+     Awaited<ReturnType<typeof getTransliterateScriptSchema>>
+>
+export type SpellCheckType = z.infer<
+     Awaited<ReturnType<typeof getSpellCheckSchema>>
+>
+export type OpenXliffType = z.infer<
+     Awaited<ReturnType<typeof getOpenXliffSchema>>
+>
+export type AddToGlossaryType = z.infer<
+     Awaited<ReturnType<typeof getAddToGlossarySchema>>
+>

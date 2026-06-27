@@ -26,6 +26,7 @@ interface LangSelectorProps{
 export default function LangSelector({name, value, onChange, invalid, disabled, onBlur, placeholder="Language to Translate", className}: LangSelectorProps){
      const {t} = useTranslation()
      const {t: langTxt} = useTranslation("languages")
+     const {t: validationTxt} = useTranslation("validation")
      const [isLoading, setIsLoading] = useState(true);
      const [open, setOpen] = useState(false)
      const [search, setSearch] = useState("")
@@ -36,7 +37,7 @@ export default function LangSelector({name, value, onChange, invalid, disabled, 
      useEffect(()=>{
           (async()=>{
                try{
-                    const resData = await FetcherActions.fetchLanguages(langTxt);
+                    const resData = await FetcherActions.fetchLanguages(langTxt,validationTxt);
                     if(!resData) {
                          toast.error(t("lang-select.load-error"),{
                               id: "load-error"

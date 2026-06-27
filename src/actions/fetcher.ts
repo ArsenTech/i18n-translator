@@ -5,7 +5,7 @@ import { cache } from "react";
 import {getName, getTauriVersion, getVersion, getIdentifier} from "@tauri-apps/api/app"
 import { extname } from "@tauri-apps/api/path"
 import { type FileType, TranslationFormat } from "@/lib/types/enums";
-import { TFunction } from "i18next";
+import type { TFunction } from "i18next";
 
 const extensions: Record<string,TranslationFormat> = {
      "json": TranslationFormat.Json,
@@ -16,9 +16,9 @@ const extensions: Record<string,TranslationFormat> = {
 }
 
 export default class FetcherActions{
-     public static fetchLanguages = cache(async(t: TFunction<"languages">)=>{
+     public static fetchLanguages = cache(async(t: TFunction<"languages">, validationTxt: TFunction<"validation">)=>{
           const res = await fetch("/lang-list.json");
-          if (!res.ok) throw new Error("Failed to fetch the data")
+          if (!res.ok) throw new Error(validationTxt("fetch-lang-error"))
           const resData: ILangItem[] = await res.json();
           return resData.sort(({code: a},{code: b})=>{
                const aName = t(a), bName = t(b);

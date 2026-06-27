@@ -3,7 +3,7 @@ import { Field, FieldContent, FieldError, FieldGroup, FieldLabel } from "@/compo
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm, useWatch } from "react-hook-form"
 import { FindType } from "@/schemas/types";
-import { FindSchema } from "@/schemas";
+import { getFindSchema } from "@/schemas";
 import { DialogFooter } from "@/components/ui/dialog";
 import FindActions from "@/actions/find";
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group";
@@ -25,10 +25,11 @@ const RadioField = lazy(()=>import("@/components/fields/radio-field"))
 
 export default function FindContent({setOpen}: PopupContentProps){
      const {t} = useTranslation("find")
+     const {t: validationTxt} = useTranslation("validation")
      const {visibleTable, keyNames} = useAppTranslation()
      const {setVisibleCount, setCurrentTranslation, setInput, setFindState} = useEditor()
      const form = useForm<FindType>({
-          resolver: zodResolver(FindSchema),
+          resolver: zodResolver(getFindSchema(validationTxt)),
           defaultValues: {
                query: "",
                mode: "key",
@@ -36,7 +37,7 @@ export default function FindContent({setOpen}: PopupContentProps){
           }
      })
      const onSubmit = (values: FindType) => {
-          const res = FindActions.find(values, visibleTable)
+          const res = FindActions.find(values, visibleTable, validationTxt)
           if(res.success) {
                if(res.findState) setFindState(res.findState)
                TranslatorActions.jumpToTranslation({

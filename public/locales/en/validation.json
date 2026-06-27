@@ -1,0 +1,74 @@
+{
+     "translation-target": "Select the translation target to Auto-Translate",
+     "transliteration": {
+          "required": "Choose a Script to transliterate",
+          "should-be-different": "Source and target scripts must be different"
+     },
+     "gemini-api": "Please enter the Gemini API Key",
+     "libre-translate-url": "Enter the valid Libre Translate Server URL",
+     "llama": {
+          "endpoint": "Please enter the Llama AI endpoint",
+          "model": "Please enter the Llama AI model"
+     },
+     "transliterate-script": "Choose a Script to transliterate",
+     "paths": {
+          "base": "Please enter the path of the base language file",
+          "target": "Please enter the path of the translation"
+     },
+     "languages": {
+          "base": "Please select a base language",
+          "target": "Please select a target language"
+     },
+     "file-type": "Choose the file type of the new translation",
+     "search": {
+          "mode": "Choose the search mode",
+          "query": "Please enter the query to find"
+     },
+     "replace": {
+          "from": "Please enter the translation to replace",
+          "to": "Please enter the new translation"
+     },
+     "batch-rename": {
+          "from": "Please enter the key to rename",
+          "to": "Please enter the new key name"
+     },
+     "spell-check": {
+          "dict": "Please choose the dictionary language",
+          "scope": "Select the scope for a spell check"
+     },
+     "add-to-glossary": {
+          "term": {
+               "required": "Please add the term on the base language",
+               "too-long": "The term is too long"
+          },
+          "part-of-speech": "Please add the part of speech to the term",
+          "domain": "Please select a domain",
+          "translation": {
+               "required": "Please add the translation of this term",
+               "too-long": "The translation is too long"
+          }
+     },
+     "invalid-fields": "All Fields are invalid",
+     "no-results": "No results found",
+     "no-active-search": "Currently there are no active search instances",
+     "no-missing-translations": "No missing translations found",
+     "different-formats": "Target format should match the Base language format",
+     "format-not-found": "The requested format is not found",
+     "target-empty": "Target Path is empty. Save cancelled",
+     "table-empty": "Table itself is empty",
+     "fetch-lang-error": "Failed to fetch the languages list",
+     "input-ref": "inputRef is required",
+     "success": {
+          "replace": "Translations replaced successfully",
+          "batch-rename": "Key names renamed successfully",
+          "remove-unused_zero": "No unused keys to remove",
+          "remove-unused_one": "One unused key removed",
+          "remove-unused_two": "Two unused keys removed",
+          "remove-unused_few": "{{count}} unused keys removed",
+          "remove-unused_many": "{{count}} unused keys removed",
+          "remove-unused_other": "{{count}} unused keys removed",
+          "new-translation": "Translation created successfully",
+          "open-translation": "Translation opened successfully",
+          "save-translation": "Translation saved successfully"
+     }
+}

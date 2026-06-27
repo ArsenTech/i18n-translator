@@ -1,4 +1,4 @@
-import { LucideIcon } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { COLORS } from "../constants/colors";
 import { GlossaryTogglerType } from "./string-unions";
 import { TranslationFormat } from "./enums";

@@ -15,9 +15,10 @@ const GlossaryManagerPopup = lazy(()=>import("@/popups/glossary-manager"));
 
 export default function ToolsMenu(){
      const {t} = useTranslation("menubar")
+     const {t: validationTxt} = useTranslation("validation")
      const {setTable, table, baseKeys, setIsDirty} = useAppTranslation()
      const removeUnusedKeys = () => {
-          const res = TranslatorActions.removeUnusedKeys(table,baseKeys)
+          const res = TranslatorActions.removeUnusedKeys(table,baseKeys,validationTxt)
           if(res.success) {
                toast.success(res.success)
                setTable(res.data)

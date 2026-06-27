@@ -3,7 +3,7 @@ import { Field, FieldContent, FieldError, FieldGroup, FieldLabel } from "@/compo
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
 import { ReplaceTranslationType } from "@/schemas/types";
-import { ReplaceTranslationSchema } from "@/schemas";
+import { getReplaceTranslationSchema } from "@/schemas";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
@@ -15,9 +15,10 @@ import { useTranslation } from "react-i18next";
 
 export default function ReplaceTranslation({setOpen}: PopupComponentProps){
      const {t} = useTranslation("replace")
+     const {t: validationTxt} = useTranslation("validation")
      const {table, setTable, setIsDirty} = useAppTranslation()
      const form = useForm<ReplaceTranslationType>({
-          resolver: zodResolver(ReplaceTranslationSchema),
+          resolver: zodResolver(getReplaceTranslationSchema(validationTxt)),
           defaultValues: {
                from: "",
                to: "",
@@ -25,7 +26,7 @@ export default function ReplaceTranslation({setOpen}: PopupComponentProps){
           }
      })
      const onSubmit = (values: ReplaceTranslationType) => {
-          const res = TranslatorActions.replaceTranslation(values,table)
+          const res = TranslatorActions.replaceTranslation(values,table,validationTxt)
           if(res.error) toast.error(t("error"),{
                description: res.error
           })

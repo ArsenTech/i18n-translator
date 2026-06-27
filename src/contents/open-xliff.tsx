@@ -2,7 +2,7 @@ import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
 import { OpenXliffType } from "@/schemas/types";
-import { OpenXliffSchema } from "@/schemas";
+import { getOpenXliffSchema } from "@/schemas";
 import { DialogFooter } from "@/components/ui/dialog";
 import FileActions from "@/actions/file";
 import type { PopupComponentProps } from "@/lib/types/props";
@@ -25,12 +25,13 @@ const XliffFilePicker = lazy(()=>import("@/components/fields/file-picker/xliff")
 
 export default function OpenXliff({setOpen}: PopupComponentProps){
      const {t} = useTranslation("file-actions")
+     const {t: validationTxt} = useTranslation("validation")
      const {settings} = useSettings()
      const [isOpening, startTransition] = useTransition()
      const [isFetching, startFetching] = useTransition()
      const {setTable, updateLangs, setFiles, setBaseKeys, setIsDirty} = useAppTranslation()
      const form = useForm<OpenXliffType>({
-          resolver: zodResolver(OpenXliffSchema),
+          resolver: zodResolver(getOpenXliffSchema(validationTxt)),
           defaultValues: {
                translationPath: "",
                baseLang: settings.baseLang ?? "",
@@ -55,7 +56,7 @@ export default function OpenXliff({setOpen}: PopupComponentProps){
           if (isOpening) return;
           startTransition(async()=>{
                try {
-                    const res = await FileActions.openXliff(values)
+                    const res = await FileActions.openXliff(values,validationTxt)
                     if(res.error) toast.error(t("open-xliff.error"),{
                          description: res.error,
                          id: "open-xliff-error"

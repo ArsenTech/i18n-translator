@@ -2,7 +2,7 @@ import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@/c
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
 import { NewTranslationType } from "@/schemas/types";
-import { NewTranslationSchema } from "@/schemas";
+import { getNewTranslationSchema } from "@/schemas";
 import { DialogFooter } from "@/components/ui/dialog";
 import FileActions from "@/actions/file";
 import type { PopupContentProps } from "@/lib/types/props";
@@ -25,12 +25,13 @@ const LanguageInput = lazy(()=>import("@/components/fields/lang-input"));
 
 export default function NewTranslation({setOpen}: PopupContentProps){
      const {t} = useTranslation("file-actions")
+     const {t: validationTxt} = useTranslation("validation")
      const {settings} = useSettings()
      const [isCreating, startTransition] = useTransition()
      const [isFetching, startFetching] = useTransition()
      const {setTable, updateLangs, setFiles, setBaseKeys, setIsDirty} = useAppTranslation()
      const form = useForm<NewTranslationType>({
-          resolver: zodResolver(NewTranslationSchema),
+          resolver: zodResolver(getNewTranslationSchema(validationTxt)),
           defaultValues: {
                path: "",
                targetLanguageCode: settings.targetLang ?? "",
@@ -50,6 +51,7 @@ export default function NewTranslation({setOpen}: PopupContentProps){
           startTransition(async()=>{
                try {
                     const res = await FileActions.newTranslation(
+                         validationTxt,
                          values,
                          settings.autoDetectBaseLang,
                          settings.baseLang

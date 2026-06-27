@@ -1,5 +1,5 @@
 import { SettingsTab, TranslationFormat, UpdaterStatus } from "./enums"
-import { LucideIcon } from "lucide-react"
+import type { LucideIcon } from "lucide-react"
 
 export type SetStateType<T> = React.Dispatch<React.SetStateAction<T>>
 export type SelectType = {label: string, value: string}

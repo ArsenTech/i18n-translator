@@ -34,14 +34,15 @@ const GlossaryManagerPopup = lazy(()=>import("@/popups/glossary-manager"));
 export default function QuickAccessToolbar(){
      const {t} = useTranslation("quick-access")
      const [isSaving, setIsSaving] = useState(false)
+     const {t: validationTxt} = useTranslation("validation")
      const {table, files, baseKeys, visibleTable, setIsDirty, langs, reset, setTable} = useAppTranslation()
      const {setCurrentTranslation,setInput, setVisibleCount, setSelectedKeys, findState, setFindState} = useEditor()
      const {toolbars, settings} = useSettings()
      const findAction = (type: "next" | "prev" | "missing") => {
           const res: FindResult =
-               type==="next" ? FindActions.findNext(findState) :
-               type==="prev" ? FindActions.findPrev(findState) :
-               type==="missing" ? FindActions.findMissing(visibleTable) :
+               type==="next" ? FindActions.findNext(findState,validationTxt) :
+               type==="prev" ? FindActions.findPrev(findState,validationTxt) :
+               type==="missing" ? FindActions.findMissing(visibleTable,validationTxt) :
                {success: false, error: t("find.unknown")}
           if(res.success) {
                if(res.findState) setFindState(res.findState)
@@ -62,7 +63,7 @@ export default function QuickAccessToolbar(){
           if(isSaving) return;
           setIsSaving(true)
           try {
-               const res = await FileActions.saveAll(table, files.targetPath, langs, settings.preserveEmpty, settings.xliffPreserveMeta)
+               const res = await FileActions.saveAll(table, files.targetPath, langs, settings.preserveEmpty, settings.xliffPreserveMeta, validationTxt)
                if(res?.error) toast.error(t("save.error"),{
                     description: res.error,
                     id: "save-error"
@@ -89,7 +90,7 @@ export default function QuickAccessToolbar(){
           }
      }
      const removeUnusedKeys = () => {
-          const res = TranslatorActions.removeUnusedKeys(table,baseKeys)
+          const res = TranslatorActions.removeUnusedKeys(table,baseKeys, validationTxt)
           if(res.success) {
                toast.success(res.success)
                setTable(res.data)

@@ -2,8 +2,9 @@ import { findValue, getField } from "@/lib/helpers/find"
 import type { FindResult } from "@/lib/types/find"
 import type { ITranslation } from "@/lib/types/data"
 import { getErrorMessage } from "@/lib/utils"
-import { FindSchema } from "@/schemas"
+import { getFindSchema } from "@/schemas"
 import { FindType } from "@/schemas/types"
+import type { TFunction } from "i18next"
 
 export interface FindState {
      matches: { translation: ITranslation; index: number }[]
@@ -11,13 +12,13 @@ export interface FindState {
 }
 
 export default class FindActions{
-     public static find(values: FindType, table: ITranslation[]): FindResult{
+     public static find(values: FindType, table: ITranslation[], t: TFunction<"validation">): FindResult{
           try {
-               const validatedFields = FindSchema.safeParse(values)
-               if(!validatedFields.success) return {success: false, error: "All fields are invalid"}
+               const validatedFields = getFindSchema(t).safeParse(values)
+               if(!validatedFields.success) return {success: false, error: t("invalid-fields")}
                const {mode, query, caseSensitive} = validatedFields.data
                const matches = table.map((translation, index) => ({ translation, index })).filter(({ translation }) => findValue(getField(translation, mode), query, caseSensitive))
-               if (matches.length === 0) return { success: false, error: "No results found" }
+               if (matches.length === 0) return { success: false, error: t("no-results") }
                return {
                     success: true,
                     findState: {
@@ -31,8 +32,8 @@ export default class FindActions{
                return {success: false, error: getErrorMessage(err)}
           }
      }
-     public static findNext(state: FindState | null): FindResult {
-          if (!state || state.matches.length === 0) return { success: false, error: "No active search" }
+     public static findNext(state: FindState | null, t: TFunction<"validation">): FindResult {
+          if (!state || state.matches.length === 0) return { success: false, error: t("no-active-search") }
           const currentIndex = (state.currentIndex + 1) % state.matches.length
           return {
                success: true,
@@ -40,8 +41,8 @@ export default class FindActions{
                ...state.matches[currentIndex],
           }
      }
-     public static findPrev(state: FindState | null): FindResult {
-          if (!state || state.matches.length === 0) return { success: false, error: "No active search" }
+     public static findPrev(state: FindState | null, t: TFunction<"validation">): FindResult {
+          if (!state || state.matches.length === 0) return { success: false, error: t("no-active-search") }
           const currentIndex = (state.currentIndex - 1 + state.matches.length) % state.matches.length
           return {
                success: true,
@@ -49,9 +50,9 @@ export default class FindActions{
                ...state.matches[currentIndex],
           }
      }
-     public static findMissing(table: ITranslation[]): FindResult {
+     public static findMissing(table: ITranslation[], t: TFunction<"validation">): FindResult {
           const index = table.findIndex(item => item.translationString.trim() === "")
-          if (index === -1) return { success: false, error: "No missing translations found" }
+          if (index === -1) return { success: false, error: t("no-missing-translations") }
           return {
                success: true,
                index,

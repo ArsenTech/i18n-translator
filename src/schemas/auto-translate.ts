@@ -1,7 +1,8 @@
 import { RESOURCE_TYPE } from "@/lib/constants/items"
+import type { TFunction } from "i18next"
 import * as z from "zod"
 
-const translationTargetField = z.enum([...RESOURCE_TYPE], "Select the translation target to Auto-Translate")
+const translationTargetField = (t: TFunction<"validation">) => z.enum([...RESOURCE_TYPE], t("translation-target"))
 
 export const providerField = z.enum([
      "google-translate",
@@ -10,26 +11,26 @@ export const providerField = z.enum([
      "llama-ai"
 ])
 
-export const AutoTranslateSchema = z.discriminatedUnion("provider", [
+export const getAutoTranslateSchema = (t: TFunction<"validation">) => z.discriminatedUnion("provider", [
      z.object({
           provider: z.literal("google-translate"),
-          target: translationTargetField,
+          target: translationTargetField(t),
      }),
      z.object({
           provider: z.literal("gemini"),
-          target: translationTargetField,
-          apiKey: z.string().min(1,"Please enter the Gemini API Key"),
+          target: translationTargetField(t),
+          apiKey: z.string().min(1,t("gemini-api")),
      }),
      z.object({
           provider: z.literal("libretranslate"),
-          target: translationTargetField,
-          serverURL: z.url("Enter the valid Libre Translate Server URL"),
+          target: translationTargetField(t),
+          serverURL: z.url(t("libre-translate-url")),
           apiKey: z.string().optional(),
      }),
      z.object({
           provider: z.literal("llama-ai"),
-          target: translationTargetField,
-          endpoint: z.string().min(1,"Please enter the Llama AI endpoint"),
-          model: z.string().min(1,"Please enter the Llama AI model"),
+          target: translationTargetField(t),
+          endpoint: z.string().min(1,t("llama.endpoint")),
+          model: z.string().min(1,t("llama.model")),
      }),
 ])

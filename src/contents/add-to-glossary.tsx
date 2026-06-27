@@ -2,7 +2,7 @@ import { Field, FieldContent, FieldError, FieldGroup, FieldLabel } from "@/compo
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
 import { AddToGlossaryType } from "@/schemas/types";
-import { AddToGlossarySchema } from "@/schemas";
+import { getAddToGlossarySchema } from "@/schemas";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Switch } from "@/components/ui/switch";
 import { lazy, Suspense, useTransition } from "react";
@@ -22,11 +22,12 @@ const SelectorField = lazy(()=>import("@/components/fields/selector"))
 
 export default function AddToGlossary(){
      const {t} = useTranslation("glossary")
+     const {t: validationTxt} = useTranslation("validation")
      const {langs} = useAppTranslation()
      const {setGlossary} = useGlossary()
      const [isAdding, startTransition] = useTransition()
      const form = useForm<AddToGlossaryType>({
-          resolver: zodResolver(AddToGlossarySchema),
+          resolver: zodResolver(getAddToGlossarySchema(validationTxt)),
           defaultValues: {
                term: "",
                partOfSpeech: "noun",
@@ -38,7 +39,7 @@ export default function AddToGlossary(){
      const onSubmit = (values: AddToGlossaryType) => {
           startTransition(async() => {
                try {
-                    const res = await GlossaryActions.add(values, langs)
+                    const res = await GlossaryActions.add(values, langs, validationTxt)
                     if(res.success) {
                          toast.success(res.success)
                          setGlossary(res.data)

@@ -3,7 +3,7 @@ import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
 import { SpellCheckType } from "@/schemas/types";
-import { SpellCheckSchema } from "@/schemas";
+import { getSpellCheckSchema } from "@/schemas";
 import { DialogFooter } from "@/components/ui/dialog";
 import { DEFAULT_DICTIONARIES, RESOURCE_TYPE } from "@/lib/constants/items";
 import TranslatorActions from "@/actions/translator";
@@ -17,15 +17,16 @@ const RadioField = lazy(()=>import("@/components/fields/radio-field"))
 
 export default function SpellChecker(){
      const {t} = useTranslation("spell-checker")
+     const {t: validationTxt} = useTranslation("validation")
      const form = useForm<SpellCheckType>({
-          resolver: zodResolver(SpellCheckSchema),
+          resolver: zodResolver(getSpellCheckSchema(validationTxt)),
           defaultValues: {
                dictionary: "",
                scope: "key"
           }
      })
      const onSubmit = (values: SpellCheckType) => {
-          TranslatorActions.hunspellCheck(values)
+          TranslatorActions.hunspellCheck(values,validationTxt)
      }
      return (
           <>

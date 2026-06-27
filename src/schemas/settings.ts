@@ -5,8 +5,8 @@ import { z } from "zod";
 const colorKeys = Object.keys(COLORS) as (keyof typeof COLORS)[]
 
 export const AppearanceSchema = z.object({
-     theme: z.enum(["dark", "light", "system"],"Theme is required"),
-     color: z.enum([...colorKeys],"Color is required"),
+     theme: z.enum(["dark", "light", "system"]),
+     color: z.enum([...colorKeys]),
      brightness: z.number().min(0).max(100),
 });
 
@@ -18,8 +18,8 @@ export const SettingsSchema = z.object({
      showSidebar: z.boolean(),
      showGlossary: z.boolean(),
      autoSave: z.boolean(),
-     defaultGlossaryView: z.enum(["few", "all"],"Glossary View should be either few or all"),
-     defaultFormat: z.enum([...FILE_FORMATS],"File Format is required"),
+     defaultGlossaryView: z.enum(["few", "all"]),
+     defaultFormat: z.enum([...FILE_FORMATS]),
      checkUpdatesOnStartup: z.boolean(),
      compactToolbar: z.boolean(),
      androidTranslatable: z.boolean(),

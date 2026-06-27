@@ -13,6 +13,7 @@ const FindSubmenu = lazy(()=>import("./find-submenu"));
 
 export default function EditMenu(){
      const {t} = useTranslation("menubar")
+     const {t: validationTxt} = useTranslation("validation")
      const {inputRef, setSelectedKeys} = useEditor()
      const {table} = useAppTranslation()
      return (
@@ -68,15 +69,15 @@ export default function EditMenu(){
                     </MenubarGroup>
                     <MenubarSeparator />
                     <MenubarGroup>
-                         <MenubarItem onClick={()=>EditActions.cut(inputRef.current)}>
+                         <MenubarItem onClick={()=>EditActions.cut(inputRef.current, validationTxt)}>
                               {t("edit.cut")}
                               <MenubarShortcut>Ctrl+X</MenubarShortcut>
                          </MenubarItem>
-                         <MenubarItem onClick={()=>EditActions.copy(inputRef.current)}>
+                         <MenubarItem onClick={()=>EditActions.copy(inputRef.current, validationTxt)}>
                               {t("edit.copy")}
                               <MenubarShortcut>Ctrl+C</MenubarShortcut>
                          </MenubarItem>
-                         <MenubarItem onClick={()=>EditActions.paste(inputRef.current)}>
+                         <MenubarItem onClick={()=>EditActions.paste(inputRef.current, validationTxt)}>
                               {t("edit.paste")}
                               <MenubarShortcut>Ctrl+V</MenubarShortcut>
                          </MenubarItem>

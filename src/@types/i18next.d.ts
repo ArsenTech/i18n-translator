@@ -17,6 +17,7 @@ import transliterate from "@i18n/en/transliterate.json"
 import spellChecker from "@i18n/en/spell-checker.json"
 import settings from "@i18n/en/settings.json"
 import shortcuts from "@i18n/en/shortcuts.json"
+import languages from "@i18n/en/languages.json"
 
 import { LangCode } from "../i18n/config";
 
@@ -40,7 +41,8 @@ declare module "i18next" {
                transliterate: typeof transliterate;
                "spell-checker": typeof spellChecker;
                settings: typeof settings;
-               shortcuts: typeof shortcuts
+               shortcuts: typeof shortcuts;
+               languages: typeof languages
           };
      }
 }

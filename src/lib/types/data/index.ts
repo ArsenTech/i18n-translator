@@ -1,3 +1,4 @@
+import { AllLangCode } from "@/i18n/types";
 import { PARTS_OF_SPEECH } from "@/lib/constants/combobox-items";
 
 export interface ITranslation{
@@ -15,8 +16,7 @@ export interface GlossaryEntry {
 }
 export interface ILangItem {
      flag: string
-     name: string
-     code: string
+     code: AllLangCode
      type: "country" | "language"
      label: string
      value: string

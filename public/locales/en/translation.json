@@ -36,7 +36,9 @@
      "lang-select": {
           "layout": "From <baseInput/> to <targetInput/>",
           "base-placeholder": "Base Language",
-          "target-placeholder": "Target Language"
+          "target-placeholder": "Target Language",
+          "load-error": "Failed to load the language list",
+          "not-found": "No languages found"
      },
      "close": "Close",
      "loading": "Loading..."

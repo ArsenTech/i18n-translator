@@ -4,8 +4,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { AVAILABLE_COLORS } from "@/lib/constants/settings";
 import { cn } from "@/lib/utils";
 import type { Color } from "@/lib/types/settings";
+import { useTranslation } from "react-i18next";
 
 export default function ColorChanger(){
+     const {t} = useTranslation()
      const {resolvedTheme, color, setColor} = useAppearance();
      return (
           <Select
@@ -13,7 +15,7 @@ export default function ColorChanger(){
                value={color}
           >
                <SelectTrigger>
-                    <SelectValue placeholder="Choose a Color"/>
+                    <SelectValue placeholder={t("labels.color")}/>
                </SelectTrigger>
                <SelectContent>
                     {Object.entries(AVAILABLE_COLORS).map(([key,color])=>(

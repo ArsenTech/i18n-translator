@@ -1,11 +1,13 @@
 import { TriangleAlert, CircleAlert, CheckCircle } from "lucide-react"
 import { Tooltip, TooltipTrigger, TooltipContent } from "../ui/tooltip"
+import { useTranslation } from "react-i18next"
 
 interface StatusCellProps{
      base: string,
      target: string
 }
 export default function StatusCell({base, target}: StatusCellProps){
+     const {t} = useTranslation("table")
      return (
           <Tooltip>
                <TooltipTrigger className="flex justify-center max-w-[50px]">
@@ -19,8 +21,8 @@ export default function StatusCell({base, target}: StatusCellProps){
                </TooltipTrigger>
                <TooltipContent>
                     {base===target
-                         ? "Translation is equal to source" : !target
-                         ? "Translation is missing" : "Translation is now set"}
+                         ? t("status.translation-eq-src") : !target
+                         ? t("status.translation-missing") : t("status.translation-set")}
                </TooltipContent>
           </Tooltip>
      )

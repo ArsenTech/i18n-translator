@@ -48,5 +48,10 @@
           "term": "Term",
           "caseSensitive": "Case Sensitive"
      },
+     "status": {
+          "translation-eq-src": "Translation is equal to source",
+          "translation-missing": "Translation is missing",
+          "translation-set": "Translation is now set"
+     },
      "clear-filters": "Clear Filters"
 }

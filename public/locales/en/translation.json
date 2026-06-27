@@ -1,6 +1,8 @@
 {
      "labels": {
-          "lang-switcher": "Change Language"
+          "lang-switcher": "Change Language",
+          "theme": "Choose a Theme",
+          "color": "Choose a Color"
      },
      "auto-update": {
           "checking": "Checking...",

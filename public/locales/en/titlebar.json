@@ -1,12 +1,12 @@
 {
      "save": {
-          "confirm": "`Do you want to save changes to the translation \"{{fileName}}\"?",
+          "confirm": "Do you want to save changes to the translation \"{{fileName}}\"?",
           "error": "Failed to save translation"
      },
      "controls": {
           "minimize": "Minimize",
           "restore-down": "Restore Down",
-          "maximize": "Mazimize",
+          "maximize": "Maximize",
           "close-app": "Close the app"
      },
      "logo-dropdown": {

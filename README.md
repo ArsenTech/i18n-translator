@@ -78,6 +78,8 @@ Whether you are translating a small application or maintaining a large localizat
 Future releases are planned to include automatic translation tools, transliteration, spell checking, and additional localization formats.
 
 ### Planned Improvements
+### v1.0.1 (Next)
+- [ ] Decide whether translation keys should be sorted when saving
 
 #### Nice to have
 - [ ] Extend the Installation guide to Mac and Linux Users

@@ -1592,7 +1592,7 @@ dependencies = [
 
 [[package]]
 name = "i18n-translator"
-version = "0.3.5"
+version = "1.0.0"
 dependencies = [
  "quick-xml 0.40.1",
  "serde",

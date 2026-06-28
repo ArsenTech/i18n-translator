@@ -4,7 +4,7 @@ All notable changes of I18N Translator will be documented here.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
-## [1.0.0] - Unreleased
+## [1.0.0] - 2026-06-28
 > [!NOTE]
 > This is the first stable release of I18N Translator. Some greyed-out features are placeholders and will be implemented in future releases.
 

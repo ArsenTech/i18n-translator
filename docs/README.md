@@ -8,7 +8,7 @@
 
 <h1 align="center">I18N Translator Documentation</h1>
 
-Welcome to the documentation of the **I18N Translator** version 0.3.5!
+Welcome to the documentation of the **I18N Translator** version 1.0.0!
 
 Here are some quick links to get you started:
 - To use the I18N Translator, continue to the [Usage Guide](./usage.md)

@@ -79,25 +79,10 @@ Future releases are planned to include automatic translation tools, transliterat
 
 ### Planned Improvements
 
-#### v1.0.x or later (Next, Stability)
-- [X] I18N Support
-- [X] Access keyboard shortcuts from popups
-- [X] Refactor and optimize after recent changes
-- [X] Update documentation before release
-
 #### Nice to have
-- [X] Write the Documentation on the `docs/` folder.
-  - [X] Usage Guide
-  - [X] Installation Guide
-  - [X] Troubleshooting
-  - [X] FAQs
-  - [X] Translation Guide
-
-<!-- 
 - [ ] Extend the Installation guide to Mac and Linux Users
 - [ ] Continue writing the Troubleshooting Guide once it has new info
 - [ ] Continue writing the FAQ once it has new info
-  -->
 
 #### Future Expansions
 - [ ] Android XML enhancements

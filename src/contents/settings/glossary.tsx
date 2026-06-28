@@ -12,18 +12,20 @@ import { useTranslation } from "react-i18next";
 const SelectorField = lazy(()=>import("@/components/fields/selector"))
 
 export default function GlossarySettings(){
-     const {t} = useTranslation("settings")
+     const {t} = useTranslation("settings",{
+          keyPrefix: "glossary"
+     })
      const {settings, setSettings} = useSettings()
      const {setShowType} = useGlossary()
      return (
           <div className="space-y-2">
                <SettingsItem
-                    title={t("glossary.title")}
+                    title={t("title")}
                     Icon={BookOpen}
                >
                     <SettingsOption
-                         title={t("glossary.default-view.title")}
-                         description={t("glossary.default-view.desc")}
+                         title={t("default-view.title")}
+                         description={t("default-view.desc")}
                          id="glossary-view"
                     >
                          <Suspense fallback={<Skeleton className="h-8 w-full max-w-32"/>}>
@@ -36,15 +38,15 @@ export default function GlossarySettings(){
                                         setShowType(newVal)
                                    }}
                                    items={[
-                                        {value: "few", label: t("glossary.default-view.show-few")},
-                                        {value: "all", label: t("glossary.default-view.show-all")}
+                                        {value: "few", label: t("default-view.show-few")},
+                                        {value: "all", label: t("default-view.show-all")}
                                    ]}
                               />
                          </Suspense>
                     </SettingsOption>
                     <SettingsOption
-                         title={t("glossary.sidebar.title")}
-                         description={t("glossary.sidebar.desc")}
+                         title={t("sidebar.title")}
+                         description={t("sidebar.desc")}
                          id="show-glossary"
                     >
                          <Switch

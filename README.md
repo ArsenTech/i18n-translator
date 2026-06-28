@@ -73,6 +73,7 @@ Whether you are translating a small application or maintaining a large localizat
 - 🎨 Modern desktop interface built with Tauri and React
 - 🌐 Cross-platform support
 - 📖 Glossary Support
+- 🌍 I18N Support
 
 Future releases are planned to include automatic translation tools, transliteration, spell checking, and additional localization formats.
 
@@ -81,19 +82,22 @@ Future releases are planned to include automatic translation tools, transliterat
 #### v1.0.x or later (Next, Stability)
 - [X] I18N Support
 - [ ] Access keyboard shortcuts from popups
-- [ ] Refactor and optimize after recent changes
+- [X] Refactor and optimize after recent changes
 - [X] Update documentation before release
 
 #### Nice to have
-- [ ] Write the Documentation on the `docs/` folder.
+- [X] Write the Documentation on the `docs/` folder.
   - [X] Usage Guide
   - [X] Installation Guide
-    - [ ] Extend the Installation guide to Mac and Linux Users
   - [X] Troubleshooting
-    - [ ] Continue writing the Troubleshooting Guide once it has new info
   - [X] FAQs
-    - [ ] Continue writing the FAQ once it has new info
   - [X] Translation Guide
+
+<!-- 
+- [ ] Extend the Installation guide to Mac and Linux Users
+- [ ] Continue writing the Troubleshooting Guide once it has new info
+- [ ] Continue writing the FAQ once it has new info
+  -->
 
 #### Future Expansions
 - [ ] Android XML enhancements

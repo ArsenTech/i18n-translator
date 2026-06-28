@@ -1,46 +1,8 @@
-import type { ITranslation, TreeNode } from "@/lib/types/data"
-import type { IBackendTranslation } from "../types/data/backend"
+import { DEFAULT_SETTINGS } from "../constants/settings/defaults";
 import { FileType } from "../types/enums"
 import type { TFunction } from "i18next"
+import type { SettingsKey } from "../types/settings";
 
-export function buildTree(data: ITranslation[], t: TFunction): TreeNode[] {
-     const root: TreeNode = {
-          name: t("tree-sidebar.root"),
-          fullPath: "",
-          children: [
-               {
-                    name: t("tree-sidebar.general"),
-                    fullPath: "__general",
-                    children: [],
-               },
-          ],
-     }
-     for (const item of data) {
-          const parts = item.keyName.split(".")
-          if (parts.length === 1) continue
-          let current = root.children
-
-          for (let i = 0; i < parts.length - 1; i++) {
-               const part = parts[i]
-               const fullPath = parts.slice(0, i + 1).join(".")
-
-               let existing = current.find(node => node.fullPath === fullPath)
-
-               if (!existing) {
-                    existing = {
-                         name: part,
-                         fullPath,
-                         children: [],
-                    }
-
-                    current.push(existing)
-               }
-
-               current = existing.children
-          }
-     }
-     return [root]
-}
 export function detectLanguageCode(path: string, type: FileType) {
      if (type === FileType.Xliff) return "";
      const parts = path.split(/[\\/]/)
@@ -55,11 +17,38 @@ export function detectLanguageCode(path: string, type: FileType) {
      const match = fileName.match(/(?:^|[._-])([a-z]{2}(?:-[a-z]{2})?)(?:$|[._-])/gi)
      return match?.[1]?.toLowerCase() ?? ""
 }
-export function toBackendEntries(table: ITranslation[]): IBackendTranslation[] {
-     return table.map(val => ({
-          key_name: val.keyName,
-          base_string: val.baseString,
-          translation_string: val.translationString,
-          line_number: val.lineNumber,
-     }))
+export const getFilters = (t: TFunction<"file-actions">,includeXliff = false) => {
+     const filters = [
+          {
+               name: t("filters.json"),
+               extensions: ["json"]
+          },
+          {
+               name: t("filters.xml"),
+               extensions: ["xml"]
+          },
+          {
+               name: t("filters.po"),
+               extensions: ["po", "pot", "mo"]
+          },
+          {
+               name: t("filters.resx"),
+               extensions: ["resx"]
+          },
+     ]
+     if(includeXliff) filters.push({
+          name: t("filters.xliff"),
+          extensions: ["xliff", "xlf"]
+     })
+     return filters
+}
+export function initializeValue(key: SettingsKey){
+     const fallback = DEFAULT_SETTINGS[key]
+     try {
+          const raw = localStorage.getItem(key)
+          if (!raw) return fallback
+          return { ...fallback, ...JSON.parse(raw) }
+     } catch {
+          return fallback
+     }
 }

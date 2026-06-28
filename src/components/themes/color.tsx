@@ -7,7 +7,9 @@ import type { Color } from "@/lib/types/settings";
 import { useTranslation } from "react-i18next";
 
 export default function ColorChanger(){
-     const {t} = useTranslation()
+     const {t} = useTranslation("translation",{
+          keyPrefix: "labels"
+     })
      const {resolvedTheme, color, setColor} = useAppearance();
      return (
           <Select
@@ -15,7 +17,7 @@ export default function ColorChanger(){
                value={color}
           >
                <SelectTrigger>
-                    <SelectValue placeholder={t("labels.color")}/>
+                    <SelectValue placeholder={t("color")}/>
                </SelectTrigger>
                <SelectContent>
                     {Object.entries(AVAILABLE_COLORS).map(([key,color])=>(

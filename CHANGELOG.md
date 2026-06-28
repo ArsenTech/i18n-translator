@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 > This is a first stable version of I18N Translator. Some of these greyed out features will be implemented in the future
 ### Added
 - I18N Support across nearly every part of the app
+- Skeleton loader support of Window Controls
 ### Core Languages
 - 🇦🇲 Armenian (Հայերեն)
 - 🇷🇺 Russian (Русский)
@@ -19,6 +20,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
   - Auto-Translation
   - Transliteration
   - Spell Checker
+- Refactored and optimized after recent changes
 ### Documentation
 - Added the translation guide
 - Updated existing ones
@@ -26,6 +28,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
   - **FAQs** - Added new FAQs + refactored existing ones
   - **Troubleshooting** - Added new Troubleshooting guides + refactored existing ones
   - **Installation Guide** - Refactored the entire process
+### Fixed
+- Brightness UI bug
 
 [1.0.0]: https://github.com/ArsenTech/i18n-translator/releases/tag/v1.0.0
 

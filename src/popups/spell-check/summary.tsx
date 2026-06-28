@@ -7,11 +7,13 @@ import { useTranslation } from "react-i18next";
 const SpellCheckSummary = lazy(()=>import("@/contents/spell-check/summary"));
 
 export default function SpellCheckSummaryPopup({open, setOpen}: PopupComponentProps){
-     const {t} = useTranslation("spell-checker")
+     const {t} = useTranslation("spell-checker",{
+          keyPrefix: "summary"
+     })
      return (
           <AppModal
                size="sm"
-               title={t("summary.title")}
+               title={t("title")}
                open={open}
                onOpenChange={setOpen}
           >

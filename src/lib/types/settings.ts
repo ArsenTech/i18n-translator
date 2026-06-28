@@ -2,6 +2,7 @@ import type { LucideIcon } from "lucide-react";
 import { COLORS } from "../constants/colors";
 import { GlossaryTogglerType } from "./string-unions";
 import { TranslationFormat } from "./enums";
+import { DEFAULT_SETTINGS } from "../constants/settings/defaults";
 
 export interface ISettings{
      currNamespaceOnly: boolean
@@ -55,3 +56,4 @@ export interface ISettingsMetadata {
      providers: IProviderValues;
      toolbars: ToolbarValues;
 }
+export type SettingsKey = keyof typeof DEFAULT_SETTINGS

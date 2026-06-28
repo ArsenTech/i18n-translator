@@ -6,35 +6,37 @@ import { useEditor } from "@/context/editor";
 import { useTranslation } from "react-i18next";
 
 export default function ViewMenu(){
-     const {t} = useTranslation("menubar")
+     const {t} = useTranslation("menubar",{
+          keyPrefix: "view"
+     })
      const {setOpen: setOpenTree} = useTreeSidebar()
      const {setOpen: setOpenGlossary} = useGlossary()
      const {setMissingOnly} = useEditor()
      return (
           <MenubarMenu>
-               <MenubarTrigger className="tracking-tight">{t("view.title")}</MenubarTrigger>
+               <MenubarTrigger className="tracking-tight">{t("title")}</MenubarTrigger>
                <MenubarContent>
                     <MenubarSub>
-                         <MenubarSubTrigger>{t("view.sidebar.title")}</MenubarSubTrigger>
+                         <MenubarSubTrigger>{t("sidebar.title")}</MenubarSubTrigger>
                          <MenubarSubContent>
-                              <MenubarItem onClick={()=>setOpenTree(prev=>!prev)}>{t("view.sidebar.translation")}</MenubarItem>
-                              <MenubarItem onClick={()=>setOpenGlossary(prev=>!prev)}>{t("view.sidebar.glossary")}</MenubarItem>
+                              <MenubarItem onClick={()=>setOpenTree(prev=>!prev)}>{t("sidebar.translation")}</MenubarItem>
+                              <MenubarItem onClick={()=>setOpenGlossary(prev=>!prev)}>{t("sidebar.glossary")}</MenubarItem>
                          </MenubarSubContent>
                     </MenubarSub>
-                    <MenubarItem onClick={()=>setMissingOnly(prev => !prev)}>{t("view.toggle-missing")}</MenubarItem>
+                    <MenubarItem onClick={()=>setMissingOnly(prev => !prev)}>{t("toggle-missing")}</MenubarItem>
                     <MenubarSub>
-                         <MenubarSubTrigger>{t("view.zoom.title")}</MenubarSubTrigger>
+                         <MenubarSubTrigger>{t("zoom.title")}</MenubarSubTrigger>
                          <MenubarSubContent>
                               <MenubarItem onClick={ViewActions.zoomIn}>
-                                   {t("view.zoom.in")}
+                                   {t("zoom.in")}
                                    <MenubarShortcut>Ctrl+Plus</MenubarShortcut>
                               </MenubarItem>
                               <MenubarItem onClick={ViewActions.zoomOut}>
-                                   {t("view.zoom.out")}
+                                   {t("zoom.out")}
                                    <MenubarShortcut>Ctrl+Minus</MenubarShortcut>
                               </MenubarItem>
                               <MenubarItem onClick={ViewActions.resetZoom}>
-                                   {t("view.zoom.reset")}
+                                   {t("zoom.reset")}
                                    <MenubarShortcut>Ctrl+0</MenubarShortcut>
                               </MenubarItem>
                          </MenubarSubContent>

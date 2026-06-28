@@ -7,11 +7,13 @@ import { useTranslation } from "react-i18next";
 const AddToGlossary = lazy(()=>import("@/contents/add-to-glossary"));
 
 export default function AddToGlossaryPopup({triggerButton}: PopupComponentProps){
-     const {t} = useTranslation("glossary")
+     const {t} = useTranslation("glossary",{
+          keyPrefix: "add-glossary"
+     })
      return (
           <AppModal
-               title={t("add-glossary.title")}
-               description={t("add-glossary.desc")}
+               title={t("title")}
+               description={t("desc")}
                triggerButton={triggerButton}
           >
                <Suspense fallback={<AddToGlossaryLoader/>}>

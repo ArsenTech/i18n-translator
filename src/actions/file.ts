@@ -4,7 +4,7 @@ import { getErrorMessage } from "@/lib/utils"
 import { getNewTranslationSchema, getOpenTranslationSchema, getOpenXliffSchema } from "@/schemas"
 import { NewTranslationType, OpenTranslationType, OpenXliffType } from "@/schemas/types"
 import { invoke } from "@tauri-apps/api/core"
-import { save } from "@tauri-apps/plugin-dialog"
+import { type DialogFilter, save } from "@tauri-apps/plugin-dialog"
 import { detectLanguageCode } from "@/lib/helpers"
 import type { ILangInputState } from "@/lib/types"
 import FetcherActions from "./fetcher"
@@ -139,41 +139,20 @@ export default class FileActions{
                return {error: getErrorMessage(err)}
           }
      }
-     // TODO: Replace filters with translated ones
      public static async saveAs(
           table: ITranslation[],
           langs: ILangInputState,
           preserveTranslations: boolean,
           preserveMetadata: boolean,
-          t: TFunction<"validation">
+          t: TFunction<"validation">,
+          filters: DialogFilter[]
      ){
           const data = preserveTranslations ? table : table.filter(item => item.translationString.trim() !== "")
           if(data.length<=0) return {error: t("table-empty")}
           try {
                const targetPath = await save({
                     title: "Save Translation As",
-                    filters: [
-                         {
-                              name: "JSON Files",
-                              extensions: ["json"]
-                         },
-                         {
-                              name: "XML Files",
-                              extensions: ["xml"]
-                         },
-                         {
-                              name: "GNU gettext",
-                              extensions: ["po", "pot", "mo"]
-                         },
-                         {
-                              name: "XLIFF Files",
-                              extensions: ["xliff", "xlf"]
-                         },
-                         {
-                              name: "Microsoft RESX Files",
-                              extensions: ["resx"]
-                         },
-                    ]
+                    filters
                })
                if(!targetPath) return;
                const entries: IBackendTranslation[] = data.map(val=>({

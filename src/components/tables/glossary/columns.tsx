@@ -21,9 +21,11 @@ export const GLOSSARY_COLS: ColumnDef<GlossaryEntry>[] = [
      {
           accessorKey: "term",
           header: ({column})=>{
-               const {t} = useTranslation("table")
+               const {t} = useTranslation("table",{
+                    keyPrefix: "cols"
+               })
                return (
-                    <DataTableColumnHeader title={t("cols.term")} column={column}/>
+                    <DataTableColumnHeader title={t("term")} column={column}/>
                )
           },
           size: 200,
@@ -37,9 +39,11 @@ export const GLOSSARY_COLS: ColumnDef<GlossaryEntry>[] = [
      {
           accessorKey: "translation",
           header: ({column})=>{
-               const {t} = useTranslation("table")
+               const {t} = useTranslation("table",{
+                    keyPrefix: "cols"
+               })
                return (
-                    <DataTableColumnHeader title={t("cols.translation")} column={column}/>
+                    <DataTableColumnHeader title={t("translation")} column={column}/>
                )
           },
           size: 200,
@@ -53,8 +57,10 @@ export const GLOSSARY_COLS: ColumnDef<GlossaryEntry>[] = [
      {
           accessorKey: "caseSensitive",
           header: () => {
-               const {t} = useTranslation("table");
-               return t("cols.caseSensitive")
+               const {t} = useTranslation("table",{
+                    keyPrefix: "cols"
+               });
+               return t("caseSensitive")
           },
           cell: ({getValue, row}) => {
                const {t: validationTxt} = useTranslation("validation")
@@ -103,8 +109,10 @@ export const GLOSSARY_COLS: ColumnDef<GlossaryEntry>[] = [
      {
           id: "status",
           header: () => {
-               const {t} = useTranslation("table")
-               return t("cols.status")
+               const {t} = useTranslation("table",{
+                    keyPrefix: "cols"
+               })
+               return t("status")
           },
           cell: ({row}) => (
                <Suspense fallback={<Skeleton className="size-5"/>}>
@@ -120,7 +128,9 @@ export const GLOSSARY_COLS: ColumnDef<GlossaryEntry>[] = [
      {
           id: "actions",
           cell: ({row}) => {
-               const {t} = useTranslation("glossary")
+               const {t} = useTranslation("glossary",{
+                    keyPrefix: "delete"
+               })
                const {t: validationTxt} = useTranslation("validation")
                const {setGlossary, glossary} = useGlossary()
                const {langs} = useAppTranslation()
@@ -129,23 +139,23 @@ export const GLOSSARY_COLS: ColumnDef<GlossaryEntry>[] = [
                          const newValue = [...glossary].filter((_,i)=>i!==row.index)
                          setGlossary(newValue)
                          GlossaryActions.setGlossary(langs, newValue, validationTxt)
-                         toast.success(t("delete.success"))
+                         toast.success(t("success"))
                     } catch (err) {
-                         toast.error(t("delete.error"),{
+                         toast.error(t("error"),{
                               description: getErrorMessage(err)
                          })
                     }
                }
                return (
                     <AppConfirmation
-                         title={t("delete.confirm")}
-                         description={t("delete.desc")}
+                         title={t("confirm")}
+                         description={t("desc")}
                          Icon={BookOpen}
                          variant="destructive"
-                         actionText={t("delete.button")}
+                         actionText={t("button")}
                          onConfirm={deleteValue}
                          triggerButton={(
-                              <Button variant="destructive" size="icon" title={t("delete.button")}>
+                              <Button variant="destructive" size="icon" title={t("button")}>
                                    <Trash2/>
                               </Button>
                          )}

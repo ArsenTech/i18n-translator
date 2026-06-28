@@ -1,13 +1,15 @@
 {
      "title": "Auto-Translate",
      "desc": "Auto-Translation using {{provider}}",
-     "api-key": {
-          "mandatory": "API Key",
-          "optional": "API Key (optional)"
+     "api-key": "API Key",
+     "libre-translate": {
+          "api-key": "API Key (optional)",
+          "server-url": "Server URL"
      },
-     "server-url": "Server URL",
-     "endpoint": "Endpoint",
-     "model": "Model",
+     "llama-ai": {
+          "endpoint": "Endpoint",
+          "model": "Model"
+     },
      "target": {
           "title": "Target",
           "key": "Selected Key",

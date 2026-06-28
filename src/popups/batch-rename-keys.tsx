@@ -7,13 +7,15 @@ import { useTranslation } from "react-i18next";
 const BatchRenameKeys = lazy(()=>import("@/contents/batch-rename-keys"));
 
 export default function BatchRenameKeysPopup({triggerButton}: PopupComponentProps){
-     const {t} = useTranslation("replace")
+     const {t} = useTranslation("replace",{
+          keyPrefix: "batch-rename"
+     })
      const [open, setOpen] = useState(false)
      return (
           <AppModal
                size="sm"
-               title={t("batch-rename.title")}
-               description={t("batch-rename.desc")}
+               title={t("title")}
+               description={t("desc")}
                triggerButton={triggerButton}
                open={open} onOpenChange={setOpen}
           >

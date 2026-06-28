@@ -18,7 +18,9 @@ interface SortByProps {
 const SORT_OPTIONS = ["termWords", "termChars", "translationWords", "translationChars"] as const
 
 export default function SortBy({ onSort }: SortByProps) {
-     const {t} = useTranslation("table")
+     const {t} = useTranslation("table",{
+          keyPrefix: "sort"
+     })
      const [column, setColumn] = React.useState("")
      const [direction, setDirection] = React.useState<"asc" | "desc">("asc")
      const handleSort = (nextColumn: string, nextDirection: "asc" | "desc" = direction) => {
@@ -35,7 +37,7 @@ export default function SortBy({ onSort }: SortByProps) {
                <DropdownMenuTrigger asChild>
                     <Button variant="outline">
                          <ArrowDownUp />
-                         {t("sort.title")}
+                         {t("title")}
                     </Button>
                </DropdownMenuTrigger>
                <DropdownMenuContent className="min-w-56">
@@ -44,11 +46,11 @@ export default function SortBy({ onSort }: SortByProps) {
                          onValueChange={(value) => handleSort(value)}
                     >
                          <DropdownMenuRadioItem value="">
-                              {t("sort.default")}
+                              {t("default")}
                          </DropdownMenuRadioItem>
                          {SORT_OPTIONS.map(option=>(
                               <DropdownMenuRadioItem value={option}>
-                                   {t(`sort.${option}`)}
+                                   {t(option)}
                               </DropdownMenuRadioItem>
                          ))}
                     </DropdownMenuRadioGroup>
@@ -63,10 +65,10 @@ export default function SortBy({ onSort }: SortByProps) {
                          }
                     >
                          <DropdownMenuRadioItem value="asc">
-                              {t("sort.directions.asc")}
+                              {t("directions.asc")}
                          </DropdownMenuRadioItem>
                          <DropdownMenuRadioItem value="desc">
-                              {t("sort.directions.desc")}
+                              {t("directions.desc")}
                          </DropdownMenuRadioItem>
                     </DropdownMenuRadioGroup>
                </DropdownMenuContent>

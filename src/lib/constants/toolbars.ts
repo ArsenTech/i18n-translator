@@ -1,23 +1,6 @@
 import { type LucideIcon, BookOpen, BookPlus, Delete, FilePlus, FolderOpen, FolderPen, Languages, RefreshCcw, RotateCcw, Save, Scan, Search, SearchCheck, SearchSlash, SpellCheckIcon } from "lucide-react"
 import type { ToolbarValues } from "../types/settings"
 
-export const DEFAULT_TOOLBAR_SETTINGS: ToolbarValues = {
-     newFile: true,
-     openFile: true,
-     saveFile: true,
-     find: true,
-     findMissing: true,
-     replace: true,
-     batchRename: false,
-     selectUntranslated: false,
-     addToGlossary: true,
-     autoTranslate: false,
-     validateKeys: true,
-     removeUnusedKeys: false,
-     transliterate: false,
-     glossaryManager: true,
-     spellCheck: false
-}
 export const TOOLBAR_OPTIONS: { key: keyof ToolbarValues, Icon: LucideIcon}[] = [
      { key: "newFile", Icon: FilePlus },
      { key: "openFile", Icon: FolderOpen },

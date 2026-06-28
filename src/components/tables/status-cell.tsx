@@ -7,7 +7,9 @@ interface StatusCellProps{
      target: string
 }
 export default function StatusCell({base, target}: StatusCellProps){
-     const {t} = useTranslation("table")
+     const {t} = useTranslation("table",{
+          keyPrefix: "status"
+     })
      return (
           <Tooltip>
                <TooltipTrigger className="flex justify-center max-w-[50px]">
@@ -21,8 +23,8 @@ export default function StatusCell({base, target}: StatusCellProps){
                </TooltipTrigger>
                <TooltipContent>
                     {base===target
-                         ? t("status.translation-eq-src") : !target
-                         ? t("status.translation-missing") : t("status.translation-set")}
+                         ? t("translation-eq-src") : !target
+                         ? t("translation-missing") : t("translation-set")}
                </TooltipContent>
           </Tooltip>
      )

@@ -14,7 +14,9 @@ import { useEditor } from "@/context/editor";
 import { useTranslation } from "react-i18next";
 
 export default function TranslationInput(){
-     const {t} = useTranslation()
+     const {t} = useTranslation("translation",{
+          keyPrefix: "translation-input"
+     })
      const [isSaving, startTransition] = useTransition()
      const {t: validationTxt} = useTranslation("validation")
      const {table, setTable, visibleTable, setIsDirty, files, langs} = useAppTranslation()
@@ -32,7 +34,7 @@ export default function TranslationInput(){
                          : item)
                          const res = await FileActions.saveAll(newTable, files.targetPath, langs, settings.preserveEmpty, settings.xliffPreserveMeta, validationTxt)
                          if(res.error) {
-                              toast.error(t("translation-input.auto-save-error"),{
+                              toast.error(t("auto-save-error"),{
                                    description: res.error,
                                    id: "auto-save-error"
                               });
@@ -41,7 +43,7 @@ export default function TranslationInput(){
                          setTable(newTable)
                          setIsDirty(false)
                     } catch (err) {
-                         toast.error(t("translation-input.auto-save-error"),{
+                         toast.error(t("auto-save-error"),{
                               description: getErrorMessage(err),
                               id: "auto-save-error"
                          })
@@ -105,25 +107,25 @@ export default function TranslationInput(){
                          setIsDirty(true)
                     }}>
                          <Copy/>
-                         {t("translation-input.copy-from-source")}
+                         {t("copy-from-source")}
                     </Button>
-                    <LoadingButton isLoading={isSaving} loaderText={t("translation-input.save-string.loading")} className="w-full col-span-2" onClick={saveTranslation}>
+                    <LoadingButton isLoading={isSaving} loaderText={t("save-string.loading")} className="w-full col-span-2" onClick={saveTranslation}>
                          <Save/>
-                         {t("translation-input.save-string.current")}
+                         {t("save-string.current")}
                     </LoadingButton>
                     <Button className="w-full col-span-2 sm:col-span-1" onClick={()=>TranslatorActions.jumpToPrevBlankField({
                          table: visibleTable, currTranslation,
                          setInput, onSelectTranslation: setCurrentTranslation
                     })}>
                          <ChevronLeft/>
-                         {t("translation-input.prev")}
+                         {t("prev")}
                     </Button>
                     <Button className="w-full col-span-2 sm:col-span-1" onClick={()=>TranslatorActions.jumpToNextBlankField({
                          table: visibleTable, currTranslation,
                          setInput, onSelectTranslation: setCurrentTranslation
                     })}>
                          
-                         {t("translation-input.next")}
+                         {t("next")}
                          <ChevronRight/>
                     </Button>
                </div>

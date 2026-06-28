@@ -3,7 +3,7 @@ import WindowWrapper from "@/components/window";
 import { useTreeSidebar } from "@/context/tree-sidebar";
 import { useAppTranslation } from "@/context/translation";
 import useKeyboardShortcuts from "@/hooks/use-kbd-shortcuts";
-import { buildTree } from "@/lib/helpers";
+import { buildTree } from "@/lib/helpers/data";
 import { cn } from "@/lib/utils";
 import { lazy, Suspense, useEffect, useMemo } from "react";
 import { useGlossary } from "@/context/glossary";
@@ -26,12 +26,17 @@ const LanguageSelect = lazy(()=>import("@/components/main-translation/language-s
 const GlossarySidebar = lazy(()=>import("@/components/main-translation/glossary-sidebar"))
 
 export default function MainPage(){
-     const {t} = useTranslation()
+     const {t} = useTranslation("translation",{
+          keyPrefix: "auto-update"
+     })
+     const {t: sidebarTxt} = useTranslation("translation",{
+          keyPrefix: "tree-sidebar"
+     })
      const {table} = useAppTranslation()
      const {open: treeOpen} = useTreeSidebar()
      const {open: glossaryOpen, glossary} = useGlossary()
      const {settings} = useSettings()
-     const tree = useMemo(() => buildTree(table,t), [table])
+     const tree = useMemo(() => buildTree(table,sidebarTxt), [table,sidebarTxt])
      useKeyboardShortcuts()
      useEffect(() => {
           if (!settings.checkUpdatesOnStartup) return;
@@ -39,9 +44,9 @@ export default function MainPage(){
                check({ timeout: 100000 }),
                {
                     id: "startup-update-check",
-                    loading: t("auto-update.checking"),
-                    success: result => result ? t("auto-update.new-version",{version: result.version}) : t("auto-update.updated"),
-                    error: t("auto-update.failed")
+                    loading: t("checking"),
+                    success: result => result ? t("new-version",{version: result.version}) : t("updated"),
+                    error: t("failed")
                }
           );
      }, [settings.checkUpdatesOnStartup]);

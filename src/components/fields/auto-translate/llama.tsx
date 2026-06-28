@@ -5,7 +5,9 @@ import type { AutoTranslateFieldProps } from "@/lib/types/props"
 import { useTranslation } from "react-i18next"
 
 export default function LlamaAIFields({control}: AutoTranslateFieldProps){
-     const {t} = useTranslation("auto-translate")
+     const {t} = useTranslation("auto-translate",{
+          keyPrefix: "llama-ai"
+     })
      return (
           <>
           <Controller

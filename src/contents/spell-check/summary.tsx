@@ -6,37 +6,39 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useTranslation } from "react-i18next";
 
 export default function SpellCheckSummary(){
-     const {t} = useTranslation("spell-checker")
+     const {t} = useTranslation("spell-checker",{
+          keyPrefix: "summary"
+     })
      return (
           <>
                <ul className="space-y-2">
                     <li className="flex items-center gap-2">
                          <CheckCircle className="size-4.5 text-muted-foreground"/>
-                         {t("summary.corrected",{count: 5})}
+                         {t("corrected",{count: 5})}
                     </li>
                     <li className="flex items-center gap-2">
                          <SkipForward className="size-4.5 text-muted-foreground"/>
-                         {t("summary.skipped",{count: 6})}
+                         {t("skipped",{count: 6})}
                     </li>
                     <li className="flex items-center gap-2">
                          <NotebookText className="size-4.5 text-muted-foreground"/>
-                         {t("summary.already-correct",{count: 522})}
+                         {t("already-correct",{count: 522})}
                     </li>
                     <li className="flex items-center gap-2">
                          <BookPlus className="size-4.5 text-muted-foreground"/>
-                         {t("summary.added-dict",{count: 5})}
+                         {t("added-dict",{count: 5})}
                     </li>
                     <li className="flex items-center gap-2">
                          <List className="size-4.5 text-muted-foreground"/>
-                         {t("summary.total",{count: 5445})}
+                         {t("total",{count: 5445})}
                     </li>
                </ul>
                <div className="flex items-center gap-2">
                     <Checkbox/>
-                    <Label>{t("summary.dont-show")}</Label>
+                    <Label>{t("dont-show")}</Label>
                </div>
                <DialogFooter>
-                    <Button>{t("buttons.done")}</Button>
+                    <Button>{t("done")}</Button>
                </DialogFooter>
           </>
      )

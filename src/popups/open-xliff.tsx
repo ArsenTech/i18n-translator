@@ -7,14 +7,16 @@ import { useTranslation } from "react-i18next";
 const OpenXliff = lazy(()=>import("@/contents/open-xliff"));
 
 export default function OpenXliffPopup({triggerButton}: PopupComponentProps){
-     const {t} = useTranslation("file-actions")
+     const {t} = useTranslation("file-actions",{
+          keyPrefix: "open-xliff"
+     })
      const [open, setOpen] = useState(false)
      return (
           <AppModal
                open={open}
                onOpenChange={setOpen}
-               title={t("open-xliff.title")}
-               description={t("open-xliff.desc")}
+               title={t("title")}
+               description={t("desc")}
                triggerButton={triggerButton}
           >
                <Suspense fallback={<OpenXliffLoader/>}>

@@ -1,80 +1,15 @@
-import { Copy, Minus, Square, X } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { ButtonGroup } from "@/components/ui/button-group"
-import { getCurrentWindow } from "@tauri-apps/api/window";
-import { useState, useEffect, lazy, Suspense } from "react";
-import { message } from "@tauri-apps/plugin-dialog";
-import { useAppTranslation } from "@/context/translation";
-import FileActions from "@/actions/file";
-import { toast } from "sonner";
-import { getErrorMessage } from "@/lib/utils";
+import { lazy, Suspense } from "react";
 import { MenubarLoader } from "../../loaders/titlebar";
-import { useSettings } from "@/context/settings";
-import { useTranslation } from "react-i18next";
+import { Skeleton } from "../ui/skeleton";
 
 const LogoDropdown = lazy(()=>import("./logo-dropdown"));
 const MenuBar = lazy(()=>import("./menubar"))
+const WindowControl = lazy(()=>import("./controls"))
 
 interface TitleBarProps{
-     title?: string,
-     hideMaximize?: boolean
+     title?: string
 }
-export default function TitleBar({hideMaximize, title}: TitleBarProps){
-     const {t} = useTranslation("titlebar")
-     const {t: validationTxt} = useTranslation("validation")
-     const appWindow = getCurrentWindow()
-     const {settings} = useSettings()
-     const [isMaximized, setIsMaximized] = useState(false)
-     const {isDirty, files, setIsDirty, table, langs} = useAppTranslation()
-     const handleClose = async () => {
-          if(!isDirty) {
-               await appWindow.close();
-               return
-          }
-          const paths = files.targetPath.split("\\")
-          const confirmation = await message(t("save.confirm",{
-               fileName: paths[paths.length-1] || t("untitled")
-          }),{
-               title: "I18N Translator",
-               kind: "warning",
-               buttons: "YesNoCancel"
-          })
-          if (confirmation === "Yes") {
-               try {
-                    const res = files.targetPath ? await FileActions.saveAll(table, files.targetPath, langs, settings.preserveEmpty, settings.xliffPreserveMeta, validationTxt) : await FileActions.saveAs(table, langs, settings.preserveEmpty, settings.xliffPreserveMeta, validationTxt)
-                    if (res?.success) {
-                         setIsDirty(false)
-                         await appWindow.close();
-                    }
-                    if (res?.error) toast.error(t("save.error"), {
-                         description: res.error,
-                         id: "save-error"
-                    })
-               } catch (err) {
-                    toast.error(t("save.error"), {
-                         description: getErrorMessage(err),
-                         id: "save-error"
-                    })
-               }
-          }
-          if (confirmation === "No") await appWindow.close()
-     }
-     const handleToggleMaximize = async () => {
-          if(hideMaximize) return;
-          await appWindow.toggleMaximize();
-          setIsMaximized(await appWindow.isMaximized())
-     }
-     const handleMinimize = async () => await appWindow.minimize()
-     useEffect(() => {
-          const syncState = async () => {
-               setIsMaximized(await appWindow.isMaximized())
-          }
-          syncState()
-          const unlisten = appWindow.onResized(syncState)
-          return () => {
-               unlisten.then(fn => fn())
-          }
-     }, [])
+export default function TitleBar({title}: TitleBarProps){
      return (
           <div className="flex items-center justify-between gap-2 bg-secondary/80 dark:bg-card/80 text-secondary-foreground border-b shadow-xs pl-2 sticky top-0 left-0 z-30 w-full h-9 backdrop-blur-md">
                <Suspense fallback={<MenubarLoader/>}>
@@ -87,15 +22,9 @@ export default function TitleBar({hideMaximize, title}: TitleBarProps){
                     data-tauri-drag-region
                     className="flex-1 h-full"
                />
-               <ButtonGroup className="[&>[data-slot]:not(:has(~[data-slot]))]:rounded-none! h-full">
-                    <Button size="window-control" variant="ghost" title={t("controls.minimize")} onClick={handleMinimize}><Minus/></Button>
-                    {!hideMaximize && (
-                         <Button size="window-control" variant="ghost" title={isMaximized ? t("controls.restore-down") : t("controls.maximize")} onClick={handleToggleMaximize}>
-                              {isMaximized ? <Copy/> : <Square/>}
-                         </Button>
-                    )}
-                    <Button size="window-control" variant="ghost-destructive" title={t("controls.close-app")} onClick={handleClose}><X/></Button>
-               </ButtonGroup>
+               <Suspense fallback={<Skeleton className="h-9 w-[108px]"/>}>
+                    <WindowControl/>
+               </Suspense>
           </div>
      )
 }

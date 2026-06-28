@@ -1,13 +1,15 @@
 {
      "title": "Автоматический перевод",
      "desc": "Автоматический перевод с использованием {{provider}}",
-     "api-key": {
-          "mandatory": "Ключ API",
-          "optional": "Ключ API (необязательно)"
+     "api-key": "Ключ API",
+     "libre-translate": {
+          "api-key": "Ключ API (необязательно)",
+          "server-url": "URL сервера"
      },
-     "server-url": "URL сервера",
-     "endpoint": "Конечная точка",
-     "model": "Модель",
+     "llama-ai": {
+          "endpoint": "Конечная точка",
+          "model": "Модель"
+     },
      "target": {
           "title": "Цель",
           "key": "Выбранный ключ",

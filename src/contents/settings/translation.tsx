@@ -6,17 +6,25 @@ import { useTranslation } from "react-i18next";
 import { SiGooglegemini, SiLibretranslate, SiOllama } from "react-icons/si";
 
 export default function TranslationSettings(){
-     const {t} = useTranslation("settings")
+     const {t: geminiTxt} = useTranslation("settings",{
+          keyPrefix: "gemini-settings"
+     })
+     const {t: libreTranslateTxt} = useTranslation("settings",{
+          keyPrefix: "libre-translate-settings"
+     })
+     const {t: llamaTxt} = useTranslation("settings",{
+          keyPrefix: "llama-settings"
+     })
      const {providers, setProviders} = useSettings()
      return (
           <div className="space-y-2">
                <SettingsItem
-                    title={t("gemini-settings.title")}
+                    title={geminiTxt("title")}
                     Icon={SiGooglegemini}
                >
                     <SettingsOption
-                         title={t("gemini-settings.api-key.title")}
-                         description={t("gemini-settings.api-key.desc")}
+                         title={geminiTxt("api-key.title")}
+                         description={geminiTxt("api-key.desc")}
                          id="gemini-key"
                     >
                          <Input
@@ -28,12 +36,12 @@ export default function TranslationSettings(){
                     </SettingsOption>
                </SettingsItem>
                <SettingsItem
-                    title={t("libre-translate-settings.title")}
+                    title={libreTranslateTxt("title")}
                     Icon={SiLibretranslate}
                >
                     <SettingsOption
-                         title={t("libre-translate-settings.server-url.title")}
-                         description={t("libre-translate-settings.server-url.desc")}
+                         title={libreTranslateTxt("server-url.title")}
+                         description={libreTranslateTxt("server-url.desc")}
                     >
                          <Input
                               id="libre-translate-server"
@@ -43,8 +51,8 @@ export default function TranslationSettings(){
                          />
                     </SettingsOption>
                     <SettingsOption
-                         title={t("libre-translate-settings.api-key.title")}
-                         description={t("libre-translate-settings.api-key.desc")}
+                         title={libreTranslateTxt("api-key.title")}
+                         description={libreTranslateTxt("api-key.desc")}
                          id="libre-translate-key"
                     >
                          <Input
@@ -56,12 +64,12 @@ export default function TranslationSettings(){
                     </SettingsOption>
                </SettingsItem>
                <SettingsItem
-                    title={t("llama-settings.title")}
+                    title={llamaTxt("title")}
                     Icon={SiOllama}
                >
                     <SettingsOption
-                         title={t("llama-settings.endpoint.title")}
-                         description={t("llama-settings.endpoint.desc")}
+                         title={llamaTxt("endpoint.title")}
+                         description={llamaTxt("endpoint.desc")}
                          id="llama-endpoint"
                     >
                          <Input
@@ -72,8 +80,8 @@ export default function TranslationSettings(){
                          />
                     </SettingsOption>
                     <SettingsOption
-                         title={t("llama-settings.model.title")}
-                         description={t("llama-settings.model.desc")}
+                         title={llamaTxt("model.title")}
+                         description={llamaTxt("model.desc")}
                          id="llama-model"
                     >
                          <Input

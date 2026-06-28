@@ -10,7 +10,9 @@ import { useTranslation } from "react-i18next";
 const suggestions = ["Nope", "Node", "Not"];
 
 export default function SpellCheckWorkflow(){
-     const {t} = useTranslation("spell-checker")
+     const {t} = useTranslation("spell-checker",{
+          keyPrefix: "workflow"
+     })
      const [selectedSuggestion, setSelectedSuggestion] = useState("")
      return (
           <>
@@ -47,14 +49,14 @@ export default function SpellCheckWorkflow(){
                     </ScrollArea>
                </div>
                <div className="grid grid-cols-2 gap-1">
-                    <Button className="w-full">{t("buttons.replace-once")}</Button>
-                    <Button className="w-full">{t("buttons.replace-all")}</Button>
-                    <Button variant="secondary">{t("buttons.skip")}</Button>
-                    <Button variant="secondary">{t("buttons.skip-all")}</Button>
-                    <Button className="col-span-2" variant="secondary">{t("buttons.add-to-dict")}</Button>
+                    <Button className="w-full">{t("replace-once")}</Button>
+                    <Button className="w-full">{t("replace-all")}</Button>
+                    <Button variant="secondary">{t("skip")}</Button>
+                    <Button variant="secondary">{t("skip-all")}</Button>
+                    <Button className="col-span-2" variant="secondary">{t("add-to-dict")}</Button>
                </div>
                <DialogFooter>
-                    <Button>{t("buttons.skip-all-remaining")}</Button>
+                    <Button>{t("skip-all-remaining")}</Button>
                </DialogFooter>
           </>
      )

@@ -11,18 +11,20 @@ import { useTranslation } from "react-i18next";
 const LangSelector = lazy(()=>import("@/components/fields/lang-selector"))
 
 export default function EditorSettings(){
-     const {t} = useTranslation("settings")
+     const {t} = useTranslation("settings",{
+          keyPrefix: "editor"
+     })
      const {updateLangs} = useAppTranslation()
      const {settings, setSettings} = useSettings()
      return (
           <div className="space-y-2">
                <SettingsItem
                     Icon={Edit}
-                    title={t("editor.title")}
+                    title={t("title")}
                >
                     <SettingsOption
-                         title={t("editor.curr-namespace-only.title")}
-                         description={t("editor.curr-namespace-only.desc")}
+                         title={t("curr-namespace-only.title")}
+                         description={t("curr-namespace-only.desc")}
                          id="switch-mode"
                     >
                          <Switch
@@ -32,8 +34,8 @@ export default function EditorSettings(){
                          />
                     </SettingsOption>
                     <SettingsOption
-                         title={t("editor.line-numbers.title")}
-                         description={t("editor.line-numbers.desc")}
+                         title={t("line-numbers.title")}
+                         description={t("line-numbers.desc")}
                          id="show-line-numbers"
                     >
                          <Switch
@@ -43,8 +45,8 @@ export default function EditorSettings(){
                          />
                     </SettingsOption>
                     <SettingsOption
-                         title={t("editor.sidebar.title")}
-                         description={t("editor.sidebar.desc")}
+                         title={t("sidebar.title")}
+                         description={t("sidebar.desc")}
                          id="show-sidebar"
                     >
                          <Switch
@@ -54,8 +56,8 @@ export default function EditorSettings(){
                          />
                     </SettingsOption>
                     <SettingsOption
-                         title={t("editor.auto-save.title")}
-                         description={t("editor.auto-save.desc")}
+                         title={t("auto-save.title")}
+                         description={t("auto-save.desc")}
                          id="auto-save"
                     >
                          <Switch
@@ -65,8 +67,8 @@ export default function EditorSettings(){
                          />
                     </SettingsOption>
                     <SettingsOption
-                         title={t("editor.preserve-empty.title")}
-                         description={t("editor.preserve-empty.desc")}
+                         title={t("preserve-empty.title")}
+                         description={t("preserve-empty.desc")}
                          id="preserve-empty"
                     >
                          <Switch
@@ -76,8 +78,8 @@ export default function EditorSettings(){
                          />
                     </SettingsOption>
                     <SettingsOption
-                         title={t("editor.auto-detect-base.title")}
-                         description={t("editor.auto-detect-base.desc")}
+                         title={t("auto-detect-base.title")}
+                         description={t("auto-detect-base.desc")}
                          id="auto-detect-base-lang"
                     >
                          <Switch
@@ -91,16 +93,16 @@ export default function EditorSettings(){
                </SettingsItem>
                <SettingsItem
                     Icon={Languages}
-                    title={t("default-editor-lang.title")}
+                    title={t("default-lang.title")}
                >
                     <SettingsOption
-                         title={t("default-editor-lang.base.title")}
-                         description={t("default-editor-lang.base.desc")}
+                         title={t("default-lang.base.title")}
+                         description={t("default-lang.base.desc")}
                          id="base"
                     >
                          <Suspense fallback={<Skeleton className="h-8 flex-1"/>}>
                               <LangSelector
-                                   placeholder={t("default-editor-lang.base.title")}
+                                   placeholder={t("default-lang.base.title")}
                                    className="flex-1"
                                    value={settings.baseLang}
                                    onChange={lang=>{
@@ -111,13 +113,13 @@ export default function EditorSettings(){
                          </Suspense>
                     </SettingsOption>
                     <SettingsOption
-                         title={t("default-editor-lang.target.title")}
-                         description={t("default-editor-lang.target.desc")}
+                         title={t("default-lang.target.title")}
+                         description={t("default-lang.target.desc")}
                          id="target"
                     >
                          <Suspense fallback={<Skeleton className="h-8 flex-1"/>}>
                               <LangSelector
-                                   placeholder={t("default-editor-lang.target.title")}
+                                   placeholder={t("default-lang.target.title")}
                                    className="flex-1"
                                    value={settings.targetLang}
                                    onChange={lang=>{

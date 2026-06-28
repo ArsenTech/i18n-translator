@@ -1,22 +1,25 @@
 {
      "title": "Spell Check",
      "desc": "Spell checking using Hunspell",
-     "dictionary": "Dictionary",
-     "scope": {
-          "title": "Scope",
-          "key": "Selected Key",
-          "namescape": "Current Namescape",
-          "translation": "Entire Translation"
+     "form": {
+          "dictionary": "Dictionary",
+          "scope": {
+               "title": "Scope",
+               "key": "Selected Key",
+               "namescape": "Current Namescape",
+               "translation": "Entire Translation"
+          },
+          "check": "Check Spelling"
      },
-     "buttons": {
-          "check": "Check Spelling",
-          "done": "Done",
+     "workflow": {
+          "suggestions": "Suggestions",
           "skip-all-remaining": "Skip All Remaining",
           "replace-once": "Replace once",
           "replace-all": "Replace All",
           "skip": "Skip",
           "skip-all": "Skip All",
-          "add-to-dict": "Add to dictionary"
+          "add-to-dict": "Add to dictionary",
+          "issue": "Issue {{count}} of {{total}}"
      },
      "summary": {
           "title": "Spell Check Summary",
@@ -25,8 +28,7 @@
           "already-correct": "{{count}} already correct",
           "added-dict": "{{count}} added to dictionary",
           "total": "{{count}} total words",
-          "dont-show": "Don't show the summary again"
-     },
-     "issue": "Issue {{count}} of {{total}}",
-     "suggestions": "Suggestions"
+          "dont-show": "Don't show the summary again",
+          "done": "Done"
+     }
 }

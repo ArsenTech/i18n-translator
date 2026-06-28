@@ -7,14 +7,16 @@ import { useTranslation } from "react-i18next";
 const OpenTranslation = lazy(()=>import("@/contents/open-translation"));
 
 export default function OpenTranslationPopup({triggerButton}: PopupComponentProps){
-     const {t} = useTranslation("file-actions")
+     const {t} = useTranslation("file-actions",{
+          keyPrefix: "open"
+     })
      const [open, setOpen] = useState(false)
      return (
           <AppModal
                open={open}
                onOpenChange={setOpen}
-               title={t("open.title")}
-               description={t("open.desc")}
+               title={t("title")}
+               description={t("desc")}
                triggerButton={triggerButton}
           >
                <Suspense fallback={<OpenTranslationLoader/>}>

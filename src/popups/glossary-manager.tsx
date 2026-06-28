@@ -7,11 +7,13 @@ import { useTranslation } from "react-i18next";
 const GlossaryManager = lazy(()=>import("@/contents/glossary-manager"));
 
 export default function GlossaryManagerPopup({triggerButton}: PopupComponentProps){
-     const {t} = useTranslation("glossary")
+     const {t} = useTranslation("glossary",{
+          keyPrefix: "manager"
+     })
      return (
           <AppModal
-               title={t("manager.title")}
-               description={t("manager.desc")}
+               title={t("title")}
+               description={t("desc")}
                size="xl"
                triggerButton={triggerButton}
           >

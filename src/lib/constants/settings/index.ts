@@ -1,31 +1,6 @@
 import { Monitor, Sun, Moon } from "lucide-react"
-import type { Color, IProviderValues, ISettings, IThemeSettings, IAppearance } from "@/lib/types/settings"
-import { TranslationFormat } from "@/lib/types/enums"
+import type { Color, IThemeSettings, IAppearance } from "@/lib/types/settings"
 
-export const DEFAULT_SETTINGS: ISettings = {
-     currNamespaceOnly: true,
-     showLineNumbers: false,
-     showSidebar: true,
-     showGlossary: true,
-     autoSave: false,
-     defaultGlossaryView: "few",
-     defaultFormat: TranslationFormat.Json,
-     checkUpdatesOnStartup: false,
-     androidTranslatableCol: true,
-     androidTranslatable: true,
-     compactToolbar: false,
-     xliffAutoDetect: true,
-     xliffPreserveMeta: true,
-     preserveEmpty: true,
-     autoDetectBaseLang: true
-}
-export const DEFAULT_PROVIDER_VALUES: IProviderValues = {
-     geminiApi: "",
-     libreTranslateApi: "",
-     libreTranslateServer: "",
-     llamaEndpoint: "",
-     llamaModel: ""
-}
 export const DEFAULT_APPEARANCE: IAppearance = {
      theme: "system",
      color: "yellow",

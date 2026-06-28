@@ -16,7 +16,9 @@ const SelectorField = lazy(()=>import("@/components/fields/selector"))
 const RadioField = lazy(()=>import("@/components/fields/radio-field"))
 
 export default function SpellChecker(){
-     const {t} = useTranslation("spell-checker")
+     const {t} = useTranslation("spell-checker",{
+          keyPrefix: "form"
+     })
      const {t: validationTxt} = useTranslation("validation")
      const form = useForm<SpellCheckType>({
           resolver: zodResolver(getSpellCheckSchema(validationTxt)),
@@ -77,7 +79,7 @@ export default function SpellChecker(){
                     </FieldGroup>
                </form>
                <DialogFooter>
-                    <Button type="submit" form="spell-check">{t("buttons.check")}</Button>
+                    <Button type="submit" form="spell-check">{t("check")}</Button>
                </DialogFooter>
           </>
      )

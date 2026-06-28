@@ -14,9 +14,11 @@ export const getColumns = (isSelected: boolean, showLineNumbers: boolean): Colum
           {
                accessorKey: "keyName",
                header: ({column})=>{
-                    const {t} = useTranslation("table")
+                    const {t} = useTranslation("table",{
+                         keyPrefix: "cols"
+                    })
                     return (
-                         <DataTableColumnHeader title={t("cols.keyName")} column={column}/>
+                         <DataTableColumnHeader title={t("keyName")} column={column}/>
                     )
                },
                size: 150,
@@ -36,9 +38,11 @@ export const getColumns = (isSelected: boolean, showLineNumbers: boolean): Colum
           {
                accessorKey: "baseString",
                header: ({column})=>{
-                    const {t} = useTranslation("table")
+                    const {t} = useTranslation("table",{
+                         keyPrefix: "cols"
+                    })
                     return (
-                         <DataTableColumnHeader title={t("cols.source")} column={column}/>
+                         <DataTableColumnHeader title={t("source")} column={column}/>
                     )
                },
                size: 400,
@@ -52,9 +56,11 @@ export const getColumns = (isSelected: boolean, showLineNumbers: boolean): Colum
           {
                accessorKey: "translationString",
                header: ({column})=>{
-                    const {t} = useTranslation("table")
+                    const {t} = useTranslation("table",{
+                         keyPrefix: "cols"
+                    })
                     return (
-                         <DataTableColumnHeader title={t("cols.translation")} column={column}/>
+                         <DataTableColumnHeader title={t("translation")} column={column}/>
                     )
                },
                size: 400,
@@ -88,8 +94,10 @@ export const getColumns = (isSelected: boolean, showLineNumbers: boolean): Colum
           {
                id: "status",
                header: () => {
-                    const {t} = useTranslation("table")
-                    return t("cols.status")
+                    const {t} = useTranslation("table",{
+                         keyPrefix: "cols"
+                    })
+                    return t("status")
                },
                cell: ({row}) => (
                     <Suspense fallback={<Skeleton className="size-5"/>}>
@@ -107,8 +115,10 @@ export const getColumns = (isSelected: boolean, showLineNumbers: boolean): Colum
           {
                accessorKey: "lineNumber",
                header: () => {
-                    const {t} = useTranslation("table")
-                    return t("cols.line-num")
+                    const {t} = useTranslation("table",{
+                         keyPrefix: "cols"
+                    })
+                    return t("line-num")
                },
                size: 50,
                maxSize: 50

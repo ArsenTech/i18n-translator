@@ -1,13 +1,15 @@
 {
-  "api-key": {
-    "mandatory": "API Բանալի",
-    "optional": "API Բանալի (ըստ ցանկության)"
-  },
+  "api-key": "API Բանալի",
   "button": "Ավտոմատ թարգմանել",
   "desc": "Ավտոմատ թարգմանություն՝ օգտագործելով {{provider}}",
-  "endpoint": "Վերջնակետ",
-  "model": "Մոդել",
-  "server-url": "Սերվերի հղում",
+  "llama-ai": {
+    "endpoint": "Վերջնակետ",
+    "model": "Մոդել"
+  },
+  "libre-translate": {
+    "server-url": "Սերվերի հղում",
+    "api-key": "API Բանալի (ըստ ցանկության)"
+  },
   "target": {
     "key": "Ընտրված բանալի",
     "namescape": "Ընթացիկ անվանատարածք",

@@ -13,7 +13,9 @@ import { ButtonGroup } from "../ui/button-group";
 import { useTranslation } from "react-i18next";
 
 export default function GlossaryInput(){
-     const {t} = useTranslation("glossary")
+     const {t} = useTranslation("glossary",{
+          keyPrefix: "manager"
+     })
      const {t: validationTxt} = useTranslation("validation")
      const {langs} = useAppTranslation()
      const {glossary, currEntry, setGlossary, setCurrentEntry, input, setInput} = useGlossary()
@@ -33,7 +35,7 @@ export default function GlossaryInput(){
                          onSelectEntry: setCurrentEntry
                     })
                } catch (err) {
-                    toast.error(t("manager.save-error"),{
+                    toast.error(t("save-error"),{
                          description: getErrorMessage(err),
                          id: "glossary-save-error"
                     })
@@ -50,7 +52,7 @@ export default function GlossaryInput(){
                          onSelectEntry: setCurrentEntry
                     })
                } catch (err) {
-                    toast.error(t("manager.save-error"),{
+                    toast.error(t("save-error"),{
                          description: getErrorMessage(err),
                          id: "glossary-save-error"
                     })
@@ -60,7 +62,7 @@ export default function GlossaryInput(){
      const saveString = async() => {
           try {
                if (!langs.base.trim() || !langs.target.trim()) {
-                    throw new Error(t("manager.no-base-target"));
+                    throw new Error(t("no-base-target"));
                }
                const newItem = [...glossary].map(item => item.term === currEntry?.term ? {
                     ...item,
@@ -70,7 +72,7 @@ export default function GlossaryInput(){
                setGlossary(newItem)
                await GlossaryActions.setGlossary(langs,newItem,validationTxt)
           } catch (err) {
-               toast.error(t("manager.save-error"),{
+               toast.error(t("save-error"),{
                     description: getErrorMessage(err),
                     id: "glossary-save-error"
                })
@@ -92,7 +94,7 @@ export default function GlossaryInput(){
                          value={input}
                          onChange={e=>setInput(e.target.value)}
                          className="flex-2"
-                         placeholder={t("manager.placeholder")}
+                         placeholder={t("placeholder")}
                          onKeyDown={e => {
                               if(e.shiftKey && e.key==="Tab") {
                                    e.preventDefault()
@@ -103,18 +105,18 @@ export default function GlossaryInput(){
                               }
                          }}
                     />
-                    <Button disabled={isSaving} variant="secondary" onClick={()=>GlossaryActions.borrowFromSource(currEntry,setInput)} size="icon" title={t("manager.copy-from-source")}>
+                    <Button disabled={isSaving} variant="secondary" onClick={()=>GlossaryActions.borrowFromSource(currEntry,setInput)} size="icon" title={t("copy-from-source")}>
                          <Copy/>
                     </Button>
-                    <Button disabled={isSaving} onClick={saveEntry} size="icon" title={t("manager.save-string")}>
+                    <Button disabled={isSaving} onClick={saveEntry} size="icon" title={t("save-string")}>
                          {isSaving ? <Spinner/> : <Save/>}
                     </Button>
                </ButtonGroup>
                <div className="flex items-center gap-1 justify-center flex-wrap">
-                    <Button disabled={isSaving} className="flex-1" onClick={saveAndPrev} size="icon" title={t("manager.previous")}>
+                    <Button disabled={isSaving} className="flex-1" onClick={saveAndPrev} size="icon" title={t("previous")}>
                          <ChevronLeft/>
                     </Button>
-                    <Button disabled={isSaving} className="flex-1" onClick={saveAndNext} size="icon" title={t("manager.next")}>
+                    <Button disabled={isSaving} className="flex-1" onClick={saveAndNext} size="icon" title={t("next")}>
                          <ChevronRight/>
                     </Button>
                </div>

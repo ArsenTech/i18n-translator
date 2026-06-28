@@ -5,7 +5,9 @@ import type { AutoTranslateFieldProps } from "@/lib/types/props"
 import { useTranslation } from "react-i18next"
 
 export default function LibreTranslateFields({control}: AutoTranslateFieldProps){
-     const {t} = useTranslation("auto-translate")
+     const {t} = useTranslation("auto-translate",{
+          keyPrefix: "libre-translate"
+     })
      return (
           <>
           <Controller
@@ -31,7 +33,7 @@ export default function LibreTranslateFields({control}: AutoTranslateFieldProps)
                name="apiKey"
                render={({field, fieldState})=>(
                     <Field data-invalid={fieldState.invalid}>
-                         <FieldLabel htmlFor={field.name}>{t("api-key.optional")}</FieldLabel>
+                         <FieldLabel htmlFor={field.name}>{t("api-key")}</FieldLabel>
                          <Input
                               {...field}
                               id={field.name}

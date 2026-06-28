@@ -12,7 +12,7 @@ export default function GeminiFields({control}: AutoTranslateFieldProps){
                name="apiKey"
                render={({field, fieldState})=>(
                     <Field data-invalid={fieldState.invalid}>
-                         <FieldLabel htmlFor={field.name}>{t("api-key.mandatory")}</FieldLabel>
+                         <FieldLabel htmlFor={field.name}>{t("api-key")}</FieldLabel>
                          <Input
                               {...field}
                               id={field.name}

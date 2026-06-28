@@ -7,12 +7,14 @@ import { THEME_SETTINGS } from "@/lib/constants/settings";
 import { useTranslation } from "react-i18next";
 
 export default function ModeToggler(){
-     const {t} = useTranslation()
+     const {t} = useTranslation("translation",{
+          keyPrefix: "labels"
+     })
      const {setTheme, resolvedTheme} = useAppearance();
      return (
           <DropdownMenu modal={false}>
                <DropdownMenuTrigger asChild>
-                    <Button variant="outline" size="icon" title={t("labels.theme")}>
+                    <Button variant="outline" size="icon" title={t("theme")}>
                          {resolvedTheme==="dark" ? <Moon/> : <Sun/>}
                     </Button>
                </DropdownMenuTrigger>

@@ -13,24 +13,26 @@ import { useTranslation } from "react-i18next";
 const SelectorField = lazy(()=>import("@/components/fields/selector"))
 
 export default function FileFormatSettings(){
-     const {t} = useTranslation("settings")
+     const {t} = useTranslation("settings",{
+          keyPrefix: "file-format"
+     })
      const {settings, setSettings} = useSettings()
      return (
           <div className="space-y-2">
                <SettingsItem
-                    title={t("file-format.title")}
+                    title={t("title")}
                     Icon={Files}
                >
                     <SettingsOption
-                         title={t("file-format.default-format.title")}
-                         description={t("file-format.default-format.desc")}
+                         title={t("default-format.title")}
+                         description={t("default-format.desc")}
                          id="translation-format"
                     >
                          <Suspense fallback={<Skeleton className="h-8 w-full max-w-32"/>}>
                               <SelectorField
                                    name="translation-format"
                                    items={NEW_TRANSLATION_FORMATS.map(val=>({
-                                        label: t(`file-format.formats.${val}`),
+                                        label: t(`formats.${val}`),
                                         value: val
                                    }))}
                                    value={settings.defaultFormat}

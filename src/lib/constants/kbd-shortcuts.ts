@@ -17,7 +17,7 @@ export const KBD_SHORTCUTS: ShortcutsType = {
                setIsDirty(false)
           }
      }),
-     "ctrl+shift+s": ({table, setIsDirty, langs, settings, t}) => FileActions.saveAs(table, langs, settings.preserveEmpty, settings.xliffPreserveMeta, t).then(res=>{
+     "ctrl+shift+s": ({table, setIsDirty, langs, settings, t, filters}) => FileActions.saveAs(table, langs, settings.preserveEmpty, settings.xliffPreserveMeta, t, filters).then(res=>{
           if(res?.error) toast.error("Failed to save the file",{
                description: res.error
           })

@@ -7,17 +7,19 @@ import { Wrench } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 export default function ToolbarSettings(){
-     const {t} = useTranslation("settings")
+     const {t} = useTranslation("settings",{
+          keyPrefix: "toolbar-buttons"
+     })
      const {toolbars, setToolbars} = useSettings()
      return (
           <div className="space-y-2">
                <SettingsItem
-                    title={t("toolbar-buttons.title")}
-                    description={t("toolbar-buttons.desc")}
+                    title={t("title")}
+                    description={t("desc")}
                     Icon={Wrench}
                >
                     {TOOLBAR_OPTIONS.map(({ key, Icon }) => (
-                         <SettingsOption key={key} title={t(`toolbar-buttons.${key}`)} Icon={Icon} id={`toolbar-${key}`}>
+                         <SettingsOption key={key} title={t(key)} Icon={Icon} id={`toolbar-${key}`}>
                               <Switch
                                    id={`toolbar-${key}`}
                                    checked={toolbars[key]}

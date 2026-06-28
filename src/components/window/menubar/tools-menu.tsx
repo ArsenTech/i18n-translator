@@ -14,7 +14,12 @@ const SpellCheckPopup = lazy(()=>import("@/popups/spell-check"));
 const GlossaryManagerPopup = lazy(()=>import("@/popups/glossary-manager"));
 
 export default function ToolsMenu(){
-     const {t} = useTranslation("menubar")
+     const {t} = useTranslation("menubar",{
+          keyPrefix: "tools"
+     })
+     const {t: msgTxt} = useTranslation("menubar",{
+          keyPrefix: "messages"
+     })
      const {t: validationTxt} = useTranslation("validation")
      const {setTable, table, baseKeys, setIsDirty} = useAppTranslation()
      const removeUnusedKeys = () => {
@@ -28,17 +33,17 @@ export default function ToolsMenu(){
      const validateKeys = () => {
           const res = TranslatorActions.validateKeys(table, baseKeys)
           if (res.success) {
-               toast.success(t("messages.keys.valid"))
+               toast.success(msgTxt("keys.valid"))
           } else {
-               toast.error(t("messages.keys.invalid",{count: res.count}))
+               toast.error(msgTxt("keys.invalid",{count: res.count}))
           }
      }
      return (
           <MenubarMenu>
-               <MenubarTrigger className="tracking-tight">{t("tools.title")}</MenubarTrigger>
+               <MenubarTrigger className="tracking-tight">{t("title")}</MenubarTrigger>
                <MenubarContent>
                     <MenubarSub>
-                         <MenubarSubTrigger>{t("tools.translate-using")}</MenubarSubTrigger>
+                         <MenubarSubTrigger>{t("translate-using")}</MenubarSubTrigger>
                          <MenubarSubContent>
                               <Suspense fallback={(
                                    <>
@@ -58,13 +63,13 @@ export default function ToolsMenu(){
                          </MenubarSubContent>
                     </MenubarSub>
                     <MenubarSub>
-                         <MenubarSubTrigger>{t("tools.validation.title")}</MenubarSubTrigger>
+                         <MenubarSubTrigger>{t("validation.title")}</MenubarSubTrigger>
                          <MenubarSubContent>
-                              <MenubarItem onClick={validateKeys}>{t("tools.validation.keys")}</MenubarItem>
-                              <MenubarItem onClick={removeUnusedKeys}>{t("tools.validation.remove-unused")}</MenubarItem>
+                              <MenubarItem onClick={validateKeys}>{t("validation.keys")}</MenubarItem>
+                              <MenubarItem onClick={removeUnusedKeys}>{t("validation.remove-unused")}</MenubarItem>
                               <Suspense fallback={<Skeleton className="h-5 w-full max-w-48 my-1.5"/>}>
                                    <SpellCheckPopup triggerButton={(
-                                        <MenubarItem disabled onSelect={(e) => e.preventDefault()}>{t("tools.validation.spell-check")}</MenubarItem>
+                                        <MenubarItem disabled onSelect={(e) => e.preventDefault()}>{t("validation.spell-check")}</MenubarItem>
                                    )}/>
                               </Suspense>
                          </MenubarSubContent>
@@ -76,10 +81,10 @@ export default function ToolsMenu(){
                          </>
                     )}>
                          <TransliterateScriptPopup triggerButton={(
-                              <MenubarItem disabled onSelect={(e) => e.preventDefault()}>{t("tools.transliterate")}</MenubarItem>
+                              <MenubarItem disabled onSelect={(e) => e.preventDefault()}>{t("transliterate")}</MenubarItem>
                          )}/>
                          <GlossaryManagerPopup triggerButton={(
-                              <MenubarItem onSelect={e=>e.preventDefault()}>{t("tools.glossary")}</MenubarItem>
+                              <MenubarItem onSelect={e=>e.preventDefault()}>{t("glossary")}</MenubarItem>
                          )}/>
                     </Suspense>
                </MenubarContent>

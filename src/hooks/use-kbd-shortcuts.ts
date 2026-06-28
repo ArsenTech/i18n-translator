@@ -5,9 +5,11 @@ import { KBD_SHORTCUTS } from "@/lib/constants/kbd-shortcuts";
 import { AvailableShortcuts } from "@/lib/types/shortcuts";
 import { useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import useDialogFilters from "./use-dialog-filter";
 
 export default function useKeyboardShortcuts(){
      const {t} = useTranslation("validation")
+     const filters = useDialogFilters(true)
      const {settings} = useSettings()
      const {table, files, setIsDirty, langs} = useAppTranslation()
      const {setSelectedKeys} = useEditor()
@@ -28,7 +30,8 @@ export default function useKeyboardShortcuts(){
                setSelectedKeys,
                langs,
                settings,
-               t
+               t,
+               filters
           })
      },[table, files.targetPath, t])
      useEffect(() => {

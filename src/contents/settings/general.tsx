@@ -13,7 +13,9 @@ const LanguageSwitcher = lazy(()=>import("@/i18n/lang-selector"));
 const BrightnessSlider = lazy(()=>import("@/components/fields/brightness-slider"));
 
 export default function GeneralSettings(){
-     const {t} = useTranslation("settings")
+     const {t} = useTranslation("settings",{
+          keyPrefix: "general"
+     })
      const {settings, setSettings} = useSettings()
      return (
           <div className="space-y-2">
@@ -51,19 +53,19 @@ export default function GeneralSettings(){
                </SettingsItem>
                <SettingsItem
                     Icon={Cog}
-                    title={t("general.title")}
+                    title={t("title")}
                >
                     <SettingsOption
-                         title={t("general.lang.title")}
-                         description={t("general.lang.desc")}
+                         title={t("lang.title")}
+                         description={t("lang.desc")}
                     >
                          <Suspense fallback={<Skeleton className="h-8 w-28"/>}>
                               <LanguageSwitcher/>
                          </Suspense>
                     </SettingsOption>
                     <SettingsOption
-                         title={t("general.auto-check-update.title")}
-                         description={t("general.auto-check-update.desc")}
+                         title={t("auto-check-update.title")}
+                         description={t("auto-check-update.desc")}
                          id="auto-check"
                     >
                          <Switch

@@ -14,7 +14,9 @@ import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 
 export default function ClearDataSettings(){
-     const {t} = useTranslation("settings")
+     const {t} = useTranslation("settings",{
+          keyPrefix: "danger-zone"
+     })
      const {t: validationTxt} = useTranslation("validation")
      const {setRecentTranslations} = useAppTranslation()
      const {resetAll, clearAll, settings} = useSettings()
@@ -25,7 +27,7 @@ export default function ClearDataSettings(){
                try {
                     const res = await RecentTranslations.clearRecent(validationTxt)
                     if(res.error) {
-                         toast.error(t("clear-data.errors.clear-recent"),{
+                         toast.error(t("errors.clear-recent"),{
                               description: res.error,
                               id: "clear-recent-error"
                          })
@@ -35,7 +37,7 @@ export default function ClearDataSettings(){
                          setRecentTranslations([])
                     }
                } catch (error) {
-                    toast.error(t("clear-data.errors.clear-recent"),{
+                    toast.error(t("errors.clear-recent"),{
                          description: getErrorMessage(error),
                          id: "clear-recent-error"
                     })
@@ -46,9 +48,9 @@ export default function ClearDataSettings(){
           try {
                resetAll()
                resetValues()
-               toast.success(t("clear-data.success.reset-settings"))
+               toast.success(t("success.reset-settings"))
           } catch (err) {
-               toast.error(t("clear-data.errors.reset-settings"),{
+               toast.error(t("errors.reset-settings"),{
                     description: getErrorMessage(err)
                })
           }
@@ -57,9 +59,9 @@ export default function ClearDataSettings(){
           try {
                clearAll()
                clearValues()
-               toast.success(t("clear-data.success.clear-settings"))
+               toast.success(t("success.clear-settings"))
           } catch (err) {
-               toast.error(t("clear-data.errors.clear-settings"),{
+               toast.error(t("errors.clear-settings"),{
                     description: getErrorMessage(err)
                })
           }
@@ -67,64 +69,64 @@ export default function ClearDataSettings(){
      return (
           <div className="space-y-2">
                <SettingsItem
-                    title={t("danger-zone.title")}
-                    description={t("danger-zone.desc")}
+                    title={t("title")}
+                    description={t("desc")}
                     type="danger"
                >
                     <SettingsOption
-                         title={t("danger-zone.clear-recent.title")}
-                         description={t("danger-zone.clear-recent.desc")}
+                         title={t("clear-recent.title")}
+                         description={t("clear-recent.desc")}
                     >
                          <AppConfirmation
                               triggerButton={(
                                    <LoadingButton isLoading={isPending} variant="destructive">
                                         <FileX/>
-                                        {t("danger-zone.clear-recent.button")}
+                                        {t("clear-recent.button")}
                                    </LoadingButton>
                               )}
                               variant="destructive"
                               Icon={FileX}
-                              title={t("danger-zone.clear-recent.confirmation")}
-                              description={t("danger-zone.cant-be-undone")}
+                              title={t("clear-recent.confirmation")}
+                              description={t("cant-be-undone")}
                               onConfirm={clearTranslations}
-                              actionText={t("danger-zone.clear-recent.button")}
+                              actionText={t("clear-recent.button")}
                          />
                     </SettingsOption>
                     <SettingsOption
-                         title={t("danger-zone.clear-settings.title")}
-                         description={t("danger-zone.clear-settings.desc")}
+                         title={t("clear-settings.title")}
+                         description={t("clear-settings.desc")}
                     >
                          <AppConfirmation
                               triggerButton={(
                                    <Button variant="destructive">
                                         <Trash2/>
-                                        {t("danger-zone.clear-settings.button")}
+                                        {t("clear-settings.button")}
                                    </Button>
                               )}
                               variant="destructive"
                               Icon={Trash2}
-                              title={t("danger-zone.clear-settings.confirmation")}
-                              description={t("danger-zone.cant-be-undone")}
+                              title={t("clear-settings.confirmation")}
+                              description={t("cant-be-undone")}
                               onConfirm={handleClear}
-                              actionText={t("danger-zone.clear-settings.button")}
+                              actionText={t("clear-settings.button")}
                          />
                     </SettingsOption>
                     <SettingsOption
-                         title={t("danger-zone.restore-settings.title")}
-                         description={t("danger-zone.restore-settings.desc")}
+                         title={t("restore-settings.title")}
+                         description={t("restore-settings.desc")}
                     >
                          <AppConfirmation
                               triggerButton={(
                                    <Button variant="outline">
                                         <RotateCw/>
-                                        {t("danger-zone.restore-settings.button")}
+                                        {t("restore-settings.button")}
                                    </Button>
                               )}
                               Icon={RotateCw}
-                              title={t("danger-zone.restore-settings.confirmation")}
-                              description={t("danger-zone.cant-be-undone")}
+                              title={t("restore-settings.confirmation")}
+                              description={t("cant-be-undone")}
                               onConfirm={handleReset}
-                              actionText={t("danger-zone.restore-settings.button")}
+                              actionText={t("restore-settings.button")}
                          />
                     </SettingsOption>
                </SettingsItem>

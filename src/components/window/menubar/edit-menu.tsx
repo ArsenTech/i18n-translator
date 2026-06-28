@@ -12,21 +12,23 @@ const AddToGlossaryPopup = lazy(()=>import("@/popups/add-to-glossary"));
 const FindSubmenu = lazy(()=>import("./find-submenu"));
 
 export default function EditMenu(){
-     const {t} = useTranslation("menubar")
+     const {t} = useTranslation("menubar",{
+          keyPrefix: "edit"
+     })
      const {t: validationTxt} = useTranslation("validation")
      const {inputRef, setSelectedKeys} = useEditor()
      const {table} = useAppTranslation()
      return (
           <MenubarMenu>
-               <MenubarTrigger className="tracking-tight">{t("edit.title")}</MenubarTrigger>
+               <MenubarTrigger className="tracking-tight">{t("title")}</MenubarTrigger>
                <MenubarContent>
                     <MenubarGroup>
                          <MenubarItem onClick={EditActions.undo}>
-                              {t("edit.undo")}
+                              {t("undo")}
                               <MenubarShortcut>Ctrl+Z</MenubarShortcut>
                          </MenubarItem>
                          <MenubarItem onClick={EditActions.redo}>
-                              {t("edit.redo")}
+                              {t("redo")}
                               <MenubarShortcut>Ctrl+Y</MenubarShortcut>
                          </MenubarItem>
                     </MenubarGroup>
@@ -42,13 +44,13 @@ export default function EditMenu(){
                               <FindSubmenu/>
                               <ReplaceTranslationPopup triggerButton={(
                                    <MenubarItem onSelect={(e) => e.preventDefault()}>
-                                        {t("edit.replace")}
+                                        {t("replace")}
                                         <MenubarShortcut>Ctrl+R</MenubarShortcut>
                                    </MenubarItem>
                               )}/>
                               <BatchRenameKeysPopup triggerButton={(
                                    <MenubarItem onSelect={(e) => e.preventDefault()}>
-                                        {t("edit.batch-rename")}
+                                        {t("batch-rename")}
                                         <MenubarShortcut>Ctrl+Shift+R</MenubarShortcut>
                                    </MenubarItem>
                               )}/>
@@ -56,33 +58,33 @@ export default function EditMenu(){
                     </MenubarGroup>
                     <MenubarSeparator/>
                     <MenubarGroup>
-                         <MenubarItem onClick={()=>EditActions.selectUntranslated(table, setSelectedKeys)}>{t("edit.select-untranslated")}</MenubarItem>
+                         <MenubarItem onClick={()=>EditActions.selectUntranslated(table, setSelectedKeys)}>{t("select-untranslated")}</MenubarItem>
                          <MenubarItem onClick={()=>EditActions.clearSelection(setSelectedKeys)}>
-                              {t("edit.clear-selection")}
+                              {t("clear-selection")}
                               <MenubarShortcut>Esc</MenubarShortcut>
                          </MenubarItem>
                          <Suspense fallback={<Skeleton className="h-5 w-full max-w-48 my-1.5"/>}>
                               <AddToGlossaryPopup triggerButton={(
-                                   <MenubarItem onSelect={(e) => e.preventDefault()}>{t("edit.add-glossary")}</MenubarItem>
+                                   <MenubarItem onSelect={(e) => e.preventDefault()}>{t("add-glossary")}</MenubarItem>
                               )}/>
                          </Suspense>
                     </MenubarGroup>
                     <MenubarSeparator />
                     <MenubarGroup>
                          <MenubarItem onClick={()=>EditActions.cut(inputRef.current, validationTxt)}>
-                              {t("edit.cut")}
+                              {t("cut")}
                               <MenubarShortcut>Ctrl+X</MenubarShortcut>
                          </MenubarItem>
                          <MenubarItem onClick={()=>EditActions.copy(inputRef.current, validationTxt)}>
-                              {t("edit.copy")}
+                              {t("copy")}
                               <MenubarShortcut>Ctrl+C</MenubarShortcut>
                          </MenubarItem>
                          <MenubarItem onClick={()=>EditActions.paste(inputRef.current, validationTxt)}>
-                              {t("edit.paste")}
+                              {t("paste")}
                               <MenubarShortcut>Ctrl+V</MenubarShortcut>
                          </MenubarItem>
                          <MenubarItem onClick={()=>EditActions.selectAll(table, setSelectedKeys)}>
-                              {t("edit.select-all")}
+                              {t("select-all")}
                               <MenubarShortcut>Ctrl+A</MenubarShortcut>
                          </MenubarItem>
                     </MenubarGroup>

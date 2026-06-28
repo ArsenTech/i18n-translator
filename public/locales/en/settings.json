@@ -71,21 +71,6 @@
                "desc": "Show the glossary sidebar everytime you enter the app"
           }
      },
-     "appearance": {
-          "title": "Appearance",
-          "theme": {
-               "title": "Theme",
-               "desc": "Theme and color of the app"
-          },
-          "brightness": {
-               "title": "Brightness",
-               "desc": "Adjust the app's brightness from 0 to 100"
-          },
-          "compact-toolbar": {
-               "title": "Compact Toolbar",
-               "desc": "Show smaller buttons instead in the toolbar"
-          }
-     },
      "general": {
           "title": "General Settings",
           "lang": {
@@ -95,6 +80,21 @@
           "auto-check-update": {
                "title": "Check updates on startup",
                "desc": "Auto-checks for new version availability"
+          },
+          "appearance": {
+               "title": "Appearance",
+               "theme": {
+                    "title": "Theme",
+                    "desc": "Theme and color of the app"
+               },
+               "brightness": {
+                    "title": "Brightness",
+                    "desc": "Adjust the app's brightness from 0 to 100"
+               },
+               "compact-toolbar": {
+                    "title": "Compact Toolbar",
+                    "desc": "Show smaller buttons instead in the toolbar"
+               }
           }
      },
      "file-format": {
@@ -109,28 +109,28 @@
           "default-format": {
                "title": "Default format for new Translation",
                "desc": "Default initial translation format"
-          }
-     },
+          },
      "android-xml": {
-          "title": "Android XML",
-          "translatable-state": {
-               "title": "Default Translatable State",
-               "desc": "Initial value of the Android translatable state"
+               "title": "Android XML",
+               "translatable-state": {
+                    "title": "Default Translatable State",
+                    "desc": "Initial value of the Android translatable state"
+               },
+               "show-translatable": {
+                    "title": "Show Translatable column",
+                    "desc": "Show translatable table column every time you enter the app"
+               }
           },
-          "show-translatable": {
-               "title": "Show Translatable column",
-               "desc": "Show translatable table column every time you enter the app"
-          }
-     },
-     "xliff": {
-          "title": "XLIFF Settings",
-          "auto-detect": {
-               "title": "Auto-detect language",
-               "desc": "Auto-detect language everytime the XLIFF file is opened"
-          },
-          "preserve-meta": {
-               "title": "Preserve Metadata",
-               "desc": "Keep existing translation metadata when opening or saving XLIFF files"
+          "xliff": {
+               "title": "XLIFF Settings",
+               "auto-detect": {
+                    "title": "Auto-detect language",
+                    "desc": "Auto-detect language everytime the XLIFF file is opened"
+               },
+               "preserve-meta": {
+                    "title": "Preserve Metadata",
+                    "desc": "Keep existing translation metadata when opening or saving XLIFF files"
+               }
           }
      },
      "editor": {
@@ -158,28 +158,17 @@
           "auto-detect-base": {
                "title": "Auto-detect base language",
                "desc": "Automatically detect the base language from the selected file path when possible"
-          }
-     },
-     "default-editor-lang": {
-          "title": "Default Editor Language",
-          "base": {
-               "title": "Base Language",
-               "desc": "Language used by default"
           },
-          "target": {
-               "title": "Target Language",
-               "desc": "Language you often translate to"
-          }
-     },
-     "clear-data": {
-          "errors": {
-               "clear-recent": "Failed to clear recent translations",
-               "reset-settings": "Failed to reset some settings to defaults",
-               "clear-settings": "Failed to clear some settings"
-          },
-          "success": {
-               "reset-settings": "Settings successfully reset to defaults",
-               "clear-settings": "Settings cleared successfully"
+          "default-lang": {
+               "title": "Default Editor Language",
+               "base": {
+                    "title": "Base Language",
+                    "desc": "Language used by default"
+               },
+               "target": {
+                    "title": "Target Language",
+                    "desc": "Language you often translate to"
+               }
           }
      },
      "danger-zone": {
@@ -203,6 +192,15 @@
                "button": "Restore Defaults",
                "confirmation": "Are you sure you want to restore settings to defaults?"  
           },
-          "cant-be-undone": "This action cannot be undone"
+          "cant-be-undone": "This action cannot be undone",
+          "errors": {
+               "clear-recent": "Failed to clear recent translations",
+               "reset-settings": "Failed to reset some settings to defaults",
+               "clear-settings": "Failed to clear some settings"
+          },
+          "success": {
+               "reset-settings": "Settings successfully reset to defaults",
+               "clear-settings": "Settings cleared successfully"
+          }
      }
 }

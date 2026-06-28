@@ -14,7 +14,9 @@ interface LogoDropdownProps{
      title?: string,
 }
 export default function LogoDropdown({title}: LogoDropdownProps){
-     const {t} = useTranslation("titlebar")
+     const {t} = useTranslation("titlebar",{
+          keyPrefix: "logo-dropdown"
+     })
      return (
           <DropdownMenu modal={false}>
                <DropdownMenuTrigger>
@@ -33,19 +35,19 @@ export default function LogoDropdown({title}: LogoDropdownProps){
                          <AboutPopup triggerButton={(
                               <DropdownMenuItem onSelect={e=>e.preventDefault()}>
                                    <Info className="text-muted-foreground"/>
-                                   {t("logo-dropdown.about")}
+                                   {t("about")}
                               </DropdownMenuItem>
                          )}/>
                          <SettingsPopup triggerButton={(
                               <DropdownMenuItem onSelect={e=>e.preventDefault()}>
                                    <Settings className="text-muted-foreground"/>
-                                   {t("logo-dropdown.settings")}
+                                   {t("settings")}
                               </DropdownMenuItem>
                          )}/>
                          <UpdaterPopup triggerButton={(
                               <DropdownMenuItem onSelect={e=>e.preventDefault()}>
                                    <RotateCcw className="text-muted-foreground"/>
-                                   {t("logo-dropdown.check-updates")}
+                                   {t("check-updates")}
                               </DropdownMenuItem>
                          )}/>
                     </Suspense>
@@ -56,24 +58,24 @@ export default function LogoDropdown({title}: LogoDropdownProps){
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={()=>openUrl("https://github.com/ArsenTech/i18n-translator/tree/main/docs")}>
                          <BookOpen className="text-muted-foreground"/>
-                         {t("logo-dropdown.docs")}
+                         {t("docs")}
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={()=>openUrl("https://github.com/ArsenTech/i18n-translator/blob/main/docs/CONTRIBUTING.md")}>
                          <Code className="text-muted-foreground"/>
-                         {t("logo-dropdown.contribute")}
+                         {t("contribute")}
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={()=>openUrl("https://github.com/ArsenTech/i18n-translator/blob/main/public/locales")}>
                          <Languages className="text-muted-foreground"/>
-                         {t("logo-dropdown.add-lang")}
+                         {t("add-lang")}
                     </DropdownMenuItem>
                     <DropdownMenuSeparator/>
                     <DropdownMenuItem onClick={()=>openUrl("https://github.com/ArsenTech/i18n-translator/issues/new?assignees=&labels=&template=bug_report.md&title=")}>
                          <MessageCircleWarning className="text-muted-foreground"/>
-                         {t("logo-dropdown.bug-report")}
+                         {t("bug-report")}
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={()=>openUrl("https://github.com/ArsenTech/i18n-translator/issues/new?assignees=&labels=&template=feature_request.md&title=")}>
                          <Grid2X2Plus className="text-muted-foreground"/>
-                         {t("logo-dropdown.request-feature")}
+                         {t("request-feature")}
                     </DropdownMenuItem>
                </DropdownMenuContent>
           </DropdownMenu>

@@ -94,7 +94,9 @@ interface TreeSidebarProps{
 }
 export default function TreeSidebar({tree}: TreeSidebarProps) {
      const {closeMobileSidebar} = useTreeSidebar()
-     const {t} = useTranslation("glossary")
+     const {t} = useTranslation("glossary",{
+          keyPrefix: "show"
+     })
      const {selectedNamespace, setSelectedNamespace} = useEditor()
      return (
           <TreeSidebarContainer>
@@ -109,7 +111,7 @@ export default function TreeSidebar({tree}: TreeSidebarProps) {
                               }}
                          >
                               <List className="size-4" />
-                              {t("show.all")}
+                              {t("all")}
                          </TreeSidebarButton>
                     </TreeSidebarItem>
                     <Suspense fallback={(

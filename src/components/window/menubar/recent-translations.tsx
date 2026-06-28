@@ -8,7 +8,12 @@ import { TranslationFormat } from "@/lib/types/enums";
 import { useTranslation } from "react-i18next";
 
 export default function RecentTranslationsMenu(){
-     const {t} = useTranslation("menubar")
+     const {t} = useTranslation("menubar",{
+          keyPrefix: "file.open"
+     })
+     const {t: msgTxt} = useTranslation("menubar",{
+          keyPrefix: "messages"
+     })
      const {t: validationTxt} = useTranslation("validation")
      const {files, setTable, setFiles, updateLangs, setBaseKeys, setIsDirty, recentTranslations, setRecentTranslations} = useAppTranslation()
      const [isOpening, setIsOpening] = useState(false)
@@ -23,7 +28,7 @@ export default function RecentTranslationsMenu(){
           setIsOpening(true)
           try {
                const res = item.format=== TranslationFormat.Xliff ? await RecentTranslations.openRecentXliff(item,validationTxt) : await RecentTranslations.openRecent(item,validationTxt)
-               if(res.error) toast.error(t("messages.open-error"),{
+               if(res.error) toast.error(msgTxt("open-error"),{
                     description: res.error,
                     id: "open-error"
                })
@@ -43,7 +48,7 @@ export default function RecentTranslationsMenu(){
                     setIsDirty(false)
                }
           } catch (err){
-               toast.error(t("messages.open-error"),{
+               toast.error(msgTxt("open-error"),{
                     description: getErrorMessage(err),
                     id: "open-error"
                })
@@ -52,11 +57,11 @@ export default function RecentTranslationsMenu(){
           }
      }
      return recentTranslations.length<=0 ? (
-          <MenubarItem disabled>{t("file.open.recent")}</MenubarItem>
+          <MenubarItem disabled>{t("recent")}</MenubarItem>
      ) : (
           <MenubarSub>
                <MenubarSubTrigger>
-                    {t("file.open.recent")}
+                    {t("recent")}
                </MenubarSubTrigger>
                <MenubarSubContent>
                     {recentTranslations.map((item,i) => (

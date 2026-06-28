@@ -1,6 +1,6 @@
-import { DEFAULT_PROVIDER_VALUES, DEFAULT_SETTINGS } from "@/lib/constants/settings"
-import { DEFAULT_TOOLBAR_SETTINGS } from "@/lib/constants/toolbars";
-import type { IProviderValues, ISettings, ToolbarValues } from "@/lib/types/settings";
+import { DEFAULT_SETTINGS } from "@/lib/constants/settings/defaults";
+import { initializeValue } from "@/lib/helpers";
+import type { IProviderValues, ISettings, SettingsKey, ToolbarValues } from "@/lib/types/settings";
 import { createContext, useContext, useMemo, useState } from "react";
 
 interface SettingsContextValue{
@@ -16,33 +16,14 @@ interface SettingsContextValue{
 const SettingsContext = createContext<SettingsContextValue | null>(null)
 
 export function SettingsProvider({ children }: { children: React.ReactNode }){
-     const [settings, setSettings] = useState<ISettings>(()=>{
-          try {
-               const raw = localStorage.getItem("app-settings")
-               if (!raw) return DEFAULT_SETTINGS
-               return { ...DEFAULT_SETTINGS, ...JSON.parse(raw) }
-          } catch {
-               return DEFAULT_SETTINGS
-          }
-     });
-     const [providers, setProviders] = useState<IProviderValues>(()=>{
-          try {
-               const raw = localStorage.getItem("auto-translation-settings")
-               if (!raw) return DEFAULT_PROVIDER_VALUES
-               return { ...DEFAULT_PROVIDER_VALUES, ...JSON.parse(raw) }
-          } catch {
-               return DEFAULT_PROVIDER_VALUES
-          }
-     })
-     const [toolbars, setToolbars] = useState<ToolbarValues>(()=>{
-          try {
-               const raw = localStorage.getItem("toolbar-settings")
-               if (!raw) return DEFAULT_TOOLBAR_SETTINGS
-               return { ...DEFAULT_TOOLBAR_SETTINGS, ...JSON.parse(raw) }
-          } catch {
-               return DEFAULT_TOOLBAR_SETTINGS
-          }
-     })
+     const [settings, setSettings] = useState<ISettings>(initializeValue("app-settings"));
+     const [providers, setProviders] = useState<IProviderValues>(initializeValue("auto-translation-settings"))
+     const [toolbars, setToolbars] = useState<ToolbarValues>(initializeValue("toolbar-settings"))
+     const reset = () => {
+          setSettings(DEFAULT_SETTINGS["app-settings"])
+          setProviders(DEFAULT_SETTINGS["auto-translation-settings"])
+          setToolbars(DEFAULT_SETTINGS["toolbar-settings"])
+     }
      const values: SettingsContextValue = useMemo(()=>({
           settings,
           setSettings: (overrides: Partial<ISettings>) => {
@@ -72,18 +53,12 @@ export function SettingsProvider({ children }: { children: React.ReactNode }){
                setToolbars(newValues)
           },
           resetAll: () => {
-               localStorage.setItem("app-settings",JSON.stringify(DEFAULT_SETTINGS));
-               setSettings(DEFAULT_SETTINGS)
-               localStorage.setItem("auto-translation-settings",JSON.stringify(DEFAULT_PROVIDER_VALUES))
-               setProviders(DEFAULT_PROVIDER_VALUES)
-               localStorage.setItem("toolbar-settings",JSON.stringify(DEFAULT_TOOLBAR_SETTINGS))
-               setToolbars(DEFAULT_TOOLBAR_SETTINGS)
+               for(const key in DEFAULT_SETTINGS) localStorage.setItem(key,JSON.stringify(DEFAULT_SETTINGS[key as SettingsKey])); 
+               reset()
           },
           clearAll: () => {
-               setSettings(DEFAULT_SETTINGS)
-               setProviders(DEFAULT_PROVIDER_VALUES)
-               setToolbars(DEFAULT_TOOLBAR_SETTINGS);
-               ["app-settings","auto-translation-settings","toolbar-settings"].forEach(val=>localStorage.removeItem(val))
+               for(const key in DEFAULT_SETTINGS) localStorage.removeItem(key)
+               reset()
           }
      }),[settings, providers, toolbars])
      return (

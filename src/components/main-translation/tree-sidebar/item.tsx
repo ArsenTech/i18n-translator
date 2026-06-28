@@ -13,9 +13,11 @@ interface TreeNodeItemProps{
      node: TreeNode
 }
 const TreeNodeItem = React.memo(({node}: TreeNodeItemProps) => {
-     const {t} = useTranslation()
+     const {t} = useTranslation("translation",{
+          keyPrefix: "tree-sidebar"
+     })
      const {selectedNamespace, setSelectedNamespace} = useEditor()
-     const [open, setOpen] = useState(node.name === t("tree-sidebar.root"))
+     const [open, setOpen] = useState(node.name === t("root"))
      const hasChildren = node.children.length > 0
      const selected = selectedNamespace === node.fullPath
      const {closeMobileSidebar} = useTreeSidebar()

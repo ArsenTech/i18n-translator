@@ -24,7 +24,9 @@ interface LangSelectorProps{
      placeholder?: string
 }
 export default function LangSelector({name, value, onChange, invalid, disabled, onBlur, placeholder="Language to Translate", className}: LangSelectorProps){
-     const {t} = useTranslation()
+     const {t} = useTranslation("translation",{
+          keyPrefix: "lang-select"
+     })
      const {t: langTxt} = useTranslation("languages")
      const {t: validationTxt} = useTranslation("validation")
      const [isLoading, setIsLoading] = useState(true);
@@ -39,14 +41,14 @@ export default function LangSelector({name, value, onChange, invalid, disabled, 
                try{
                     const resData = await FetcherActions.fetchLanguages(langTxt,validationTxt);
                     if(!resData) {
-                         toast.error(t("lang-select.load-error"),{
+                         toast.error(t("load-error"),{
                               id: "load-error"
                          });
                          return;
                     }
                     setData(resData)
                } catch (err) {
-                    toast.error(t("lang-select.load-error"),{
+                    toast.error(t("load-error"),{
                          description: getErrorMessage(err),
                          id: "load-error"
                     })
@@ -83,7 +85,7 @@ export default function LangSelector({name, value, onChange, invalid, disabled, 
                               placeholder={placeholder}
                          />
                          <CommandEmpty>
-                              {t("lang-select.not-found")}
+                              {t("not-found")}
                          </CommandEmpty>
                          <CommandList className="max-h-64 overflow-y-auto overscroll-contain" onWheel={(e) => e.stopPropagation()}>
                               <CommandGroup>

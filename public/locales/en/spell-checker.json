@@ -27,6 +27,6 @@
           "total": "{{count}} total words",
           "dont-show": "Don't show the summary again"
      },
-     "issue": "issue {{count}} of {{total}}",
+     "issue": "Issue {{count}} of {{total}}",
      "suggestions": "Suggestions"
 }

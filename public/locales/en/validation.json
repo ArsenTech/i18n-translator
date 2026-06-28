@@ -46,7 +46,8 @@
           "translation": {
                "required": "Please add the translation of this term",
                "too-long": "The translation is too long"
-          }
+          },
+          "exists": "This glossary entry already exists"
      },
      "invalid-fields": "All Fields are invalid",
      "no-results": "No results found",
@@ -69,6 +70,10 @@
           "remove-unused_other": "{{count}} unused keys removed",
           "new-translation": "Translation created successfully",
           "open-translation": "Translation opened successfully",
-          "save-translation": "Translation saved successfully"
-     }
+          "save-translation": "Translation saved successfully",
+          "clear-recent": "Recent translations cleared successfully",
+          "add-glossary": "Term added to glossary successfully"
+     },
+     "xliff-required": "XLIFF requires 1 file to translate",
+     "no-base-target": "Base and target languages are required"
 }

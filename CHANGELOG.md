@@ -7,12 +7,25 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [1.0.0] - Unreleased
 > [!NOTE]
 > This is a first stable version of I18N Translator. Some of these greyed out features will be implemented in the future
+### Added
+- I18N Support across nearly every part of the app
+### Core Languages
+- 🇦🇲 Armenian (Հայերեն)
+- 🇷🇺 Russian (Русский)
+- 🇺🇸 English
 ### Changed
 - Greyed out some future expansions
   - Android XML Settings
   - Auto-Translation
   - Transliteration
   - Spell Checker
+### Documentation
+- Added the translation guide
+- Updated existing ones
+  - **Usage Guide** - Added guides of new features + refactored existing ones
+  - **FAQs** - Added new FAQs + refactored existing ones
+  - **Troubleshooting** - Added new Troubleshooting guides + refactored existing ones
+  - **Installation Guide** - Refactored the entire process
 
 [1.0.0]: https://github.com/ArsenTech/i18n-translator/releases/tag/v1.0.0
 

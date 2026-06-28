@@ -1,5 +1,45 @@
 {
      "labels": {
-          "lang-switcher": "Изменить язык"
-     }
+          "lang-switcher": "Изменить язык",
+          "theme": "Выберите тему",
+          "color": "Выберите цвет"
+     },
+     "auto-update": {
+          "checking": "Проверка...",
+          "new-version": "Доступна новая версия: {{version}}",
+          "updated": "Переводчик I18N обновлен",
+          "failed": "Не удалось проверить наличие обновлений"
+     },
+     "tree-sidebar": {
+          "title": "Боковая панель дерева",
+          "desc": "Отображает компактную боковую панель дерева",
+          "root": "Корень",
+          "general": "Общие"
+     },
+     "translator-stats": {
+          "untranslated": "Непереведено",
+          "translated": "Переведено",
+          "borrowed": "Заимствовано из источника",
+          "total": "Всего",
+          "line-num": "Строка №"
+     },
+     "translation-input": {
+          "auto-save-error": "Не удалось автоматически сохранить перевод",
+          "copy-from-source": "Копировать из источника",
+          "save-string": {
+               "current": "Сохранить строку",
+               "loading": "Сохранение..."
+          },
+          "next": "Следующий",
+          "prev": "Предыдущий"
+     },
+     "lang-select": {
+          "layout": "От <baseInput/> до <targetInput/>",
+          "base-placeholder": "Базовый язык",
+          "target-placeholder": "Целевой язык",
+          "load-error": "Не удалось загрузить список языков",
+          "not-found": "Языки не найдены"
+     },
+     "close": "Закрыть",
+     "loading": "Загрузка..."
 }

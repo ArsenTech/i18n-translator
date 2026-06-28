@@ -79,7 +79,7 @@ Future releases are planned to include automatic translation tools, transliterat
 ### Planned Improvements
 
 #### v1.0.x or later (Next, Stability)
-- [ ] I18N Support
+- [X] I18N Support
 - [ ] Access keyboard shortcuts from popups
 - [ ] Refactor and optimize after recent changes
 - [X] Update documentation before release

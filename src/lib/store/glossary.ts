@@ -9,20 +9,20 @@ import type { TFunction } from "i18next";
 const store = new LazyStore("glossary.json")
 
 export default class GlossaryActions{
-     public static async setGlossary(langs: ILangInputState, values: GlossaryEntry[]){
+     public static async setGlossary(langs: ILangInputState, values: GlossaryEntry[], t: TFunction<"validation">){
           if (!langs.base.trim() || !langs.target.trim()) {
-               throw new Error("Base and target languages are required");
+               throw new Error(t("no-base-target"));
           }
           await store.set(`${langs.base}-${langs.target}`, values),
           await store.save()
      }
      public static async add(values: AddToGlossaryType, langs: ILangInputState, t: TFunction<"validation">){
           if (!langs.base.trim() || !langs.target.trim()) {
-               throw new Error("Base and target languages are required");
+               throw new Error(t("no-base-target"));
           }
           try {
                const validatedFields = getAddToGlossarySchema(t).safeParse(values)
-               if(!validatedFields.success) return {error: "All fields are invalid", data: []}
+               if(!validatedFields.success) return {error: t("invalid-fields"), data: []}
                const {
                     term,
                     translation,
@@ -30,8 +30,7 @@ export default class GlossaryActions{
                     domain,
                     caseSensitive,
                } = validatedFields.data;
-
-               const glossaries = await this.getGlossary(langs);
+               const glossaries = await this.getGlossary(langs,t);
                const exists = glossaries.some(
                     item =>
                          item.term === term &&
@@ -42,7 +41,7 @@ export default class GlossaryActions{
                );
                if (exists) {
                     return {
-                         error: "This glossary entry already exists",
+                         error: t("add-to-glossary.exists"),
                          data: []
                     };
                }
@@ -53,16 +52,16 @@ export default class GlossaryActions{
                     domain,
                     caseSensitive,
                })
-               await this.setGlossary(langs,glossaries)
-               return {success: "Term added to glossary successfully", data: glossaries}
+               await this.setGlossary(langs,glossaries,t)
+               return {success: t("success.add-glossary"), data: glossaries}
           } catch (err) {
                console.error(err)
                return {error: getErrorMessage(err), data: []}
           }
      }
-     public static async getGlossary(langs: ILangInputState) {
+     public static async getGlossary(langs: ILangInputState, t: TFunction<"validation">) {
           if (!langs.base.trim() || !langs.target.trim()) {
-               throw new Error("Base and target languages are required");
+               throw new Error(t("no-base-target"));
           }
           return (
                await store.get<GlossaryEntry[]>(`${langs.base}-${langs.target}`)

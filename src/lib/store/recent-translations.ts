@@ -3,6 +3,7 @@ import type { ITranslation } from "../types/data"
 import { TranslationFormat } from "../types/enums"
 import { getErrorMessage } from "../utils"
 import FileActions from "@/actions/file"
+import { TFunction } from "i18next"
 
 export interface RecentTranslation {
      name: string
@@ -35,7 +36,7 @@ export default class RecentTranslations{
           const list = await store.get<RecentTranslation[]>("recentTranslations") ?? []
           return list.slice(0,25)
      }
-     public static async openRecent(item: RecentTranslation): Promise<{
+     public static async openRecent(item: RecentTranslation, t: TFunction<"validation">): Promise<{
           error?: string,
           success?: string,
           data: ITranslation[]
@@ -47,7 +48,7 @@ export default class RecentTranslations{
                     format: item.format
                })
                return {
-                    success: "Translation opened successfully",
+                    success: t("success.open-translation"),
                     data: res.map(val=>({
                          keyName: val.key_name,
                          translationString: val.translation_string,
@@ -60,16 +61,16 @@ export default class RecentTranslations{
                return {error: getErrorMessage(err), data: []}
           }
      }
-     public static async openRecentXliff(item: RecentTranslation): Promise<{
+     public static async openRecentXliff(item: RecentTranslation, t: TFunction<"validation">): Promise<{
           error?: string,
           success?: string,
           data: ITranslation[]
      }>{
           try {
-               if(item.basePath!==item.targetPath) return {error: "XLIFF requires 1 file to translate", data: []};
+               if(item.basePath!==item.targetPath) return {error: t("xliff-required"), data: []};
                const res = await FileActions.openBackendXliffTranslation(item.basePath)
                return {
-                    success: "Translation opened successfully",
+                    success: t("success.open-translation"),
                     data: res.map(val=>({
                          keyName: val.key_name,
                          translationString: val.translation_string,
@@ -82,10 +83,10 @@ export default class RecentTranslations{
                return {error: getErrorMessage(err), data: []}
           }
      }
-     public static async clearRecent(){
+     public static async clearRecent(t: TFunction<"validation">){
           try {
                await store.clear()
-               return {success: "Recent translations cleared successfully"}
+               return {success: t("success.clear-recent")}
           } catch (err){
                console.error(err)
                return {error: getErrorMessage(err)}

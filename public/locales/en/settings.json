@@ -178,7 +178,6 @@
                "clear-settings": "Failed to clear some settings"
           },
           "success": {
-               "clear-recent": "Recent translations cleared successfully",
                "reset-settings": "Settings successfully reset to defaults",
                "clear-settings": "Settings cleared successfully"
           }

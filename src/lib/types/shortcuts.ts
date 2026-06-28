@@ -14,5 +14,6 @@ export type ShortcutsType = Record<AvailableShortcuts,(args: {
      langs: ILangInputState,
      settings: ISettings,
      t: TFunction<"validation">,
-     filters: DialogFilter[]
+     filters: DialogFilter[],
+     setOpenCommand: (open: boolean) => void
 })=>void>

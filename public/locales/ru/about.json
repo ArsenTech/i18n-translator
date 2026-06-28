@@ -9,7 +9,7 @@
      },
      "licensing": "Информация о лицензировании",
      "tauri": "Версия Tauri: v{{version}}",
-     "title": "О переводчике I18N",
+     "title": "О I18N Translator",
      "translated-by": "Перевод на Русском: ArsenTech - https://github.com/ArsenTech",
      "version": "Версия {{version}}"
 }

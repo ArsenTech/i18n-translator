@@ -81,7 +81,7 @@ Future releases are planned to include automatic translation tools, transliterat
 
 #### v1.0.x or later (Next, Stability)
 - [X] I18N Support
-- [ ] Access keyboard shortcuts from popups
+- [X] Access keyboard shortcuts from popups
 - [X] Refactor and optimize after recent changes
 - [X] Update documentation before release
 

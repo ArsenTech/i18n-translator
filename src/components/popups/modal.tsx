@@ -17,11 +17,12 @@ interface AppModalProps {
      children: React.ReactNode,
      triggerButton?: React.ReactNode,
      size?: keyof typeof sizeClasses,
-     className?: string
+     className?: string,
+     modal?: boolean
 }
-export default function AppModal({open, onOpenChange, title, description, children, triggerButton, size="default", className}: AppModalProps){
+export default function AppModal({open, onOpenChange, title, description, children, triggerButton, size="default", className, modal=true}: AppModalProps){
      return (
-          <Dialog open={open} onOpenChange={onOpenChange}>
+          <Dialog open={open} onOpenChange={onOpenChange} modal={modal}>
                {triggerButton && (
                     <DialogTrigger asChild>
                          {triggerButton}

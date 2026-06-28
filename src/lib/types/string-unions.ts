@@ -15,3 +15,18 @@ export type TranslationFilterType =
   | "repeatedStr"
 export type TranslationSearchType = "name" | "translation" | "source" | "source-not" | "translation-not" | "name-not"
 export type DesignType = "default" | "danger";
+export type Popup =
+  | "new"
+  | "open"
+  | "open-xliff"
+  | "find"
+  | "replace"
+  | "batch-rename"
+  | "spell-check"
+  | "glossary"
+  | "add-glossary"
+  | "transliterate"
+  | "settings"
+  | "updater"
+  | "about"
+  | null

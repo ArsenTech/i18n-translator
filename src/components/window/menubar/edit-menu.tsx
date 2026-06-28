@@ -45,13 +45,11 @@ export default function EditMenu(){
                               <ReplaceTranslationPopup triggerButton={(
                                    <MenubarItem onSelect={(e) => e.preventDefault()}>
                                         {t("replace")}
-                                        <MenubarShortcut>Ctrl+R</MenubarShortcut>
                                    </MenubarItem>
                               )}/>
                               <BatchRenameKeysPopup triggerButton={(
                                    <MenubarItem onSelect={(e) => e.preventDefault()}>
                                         {t("batch-rename")}
-                                        <MenubarShortcut>Ctrl+Shift+R</MenubarShortcut>
                                    </MenubarItem>
                               )}/>
                          </Suspense>

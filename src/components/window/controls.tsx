@@ -35,7 +35,12 @@ export default function WindowControl(){
           })
           if (confirmation === "Yes") {
                try {
-                    const res = files.targetPath ? await FileActions.saveAll(table, files.targetPath, langs, settings.preserveEmpty, settings.xliffPreserveMeta, validationTxt) : await FileActions.saveAs(table, langs, settings.preserveEmpty, settings.xliffPreserveMeta, validationTxt, filters)
+                    const res = await FileActions.saveFile(files.targetPath.trim()!=="",validationTxt,{
+                         table, langs,
+                         preserveMetadata: settings.xliffPreserveMeta,
+                         preserveTranslations: settings.preserveEmpty,
+                         filters, targetPath: files.targetPath
+                    })
                     if (res?.success) {
                          setIsDirty(false)
                          await appWindow.close();

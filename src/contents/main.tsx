@@ -24,6 +24,7 @@ const TranslationInput = lazy(()=>import("@/components/main-translation/input"))
 const QuickAccessToolbar = lazy(()=>import("@/components/main-translation/quick-access"))
 const LanguageSelect = lazy(()=>import("@/components/main-translation/language-select"))
 const GlossarySidebar = lazy(()=>import("@/components/main-translation/glossary-sidebar"))
+const CommandsPopup = lazy(()=>import("@/popups/command"))
 
 export default function MainPage(){
      const {t} = useTranslation("translation",{
@@ -83,6 +84,7 @@ export default function MainPage(){
                                         <TranslationInput/>
                                         <TranslatorStats/>
                                    </div>
+                                   <CommandsPopup/>
                               </Suspense>
                               {glossaryOpen && (
                                    <Suspense fallback={<GlossarySidebarLoader/>}>

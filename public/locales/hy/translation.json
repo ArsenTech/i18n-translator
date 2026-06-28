@@ -5,6 +5,37 @@
     "new-version": "Նոր տարբերակը հասանելի է՝ {{version}}",
     "updated": "I18N Translator-ը թարմացված է"
   },
+  "command-popup": {
+    "search": "Մուտքագրեք հրաման կամ որոնեք...",
+    "not-found": "Արդյունքներ չեն գտնվել",
+    "file": {
+      "title": "Ֆայլ",
+      "new": "Նոր թարգմանություն",
+      "open": "Բացել թարգմանությունը",
+      "open-xliff": "Բացել XLIFF",
+      "save": "Պահպանել",
+      "save-as": "Պահպանել որպես"
+    },
+    "edit": {
+      "title": "Խմբագրել",
+      "find": "Գտնել",
+      "replace": "Փոխարինել",
+      "batch-rename": "Խմբային վերանվանում",
+      "spell-check": "Ուղղագրության ստուգում"
+    },
+    "translation": {
+      "title": "Թարգմանություն",
+      "add-glossary": "Ավելացնել բառարանում",
+      "transliterate": "Տառադարձել"
+    },
+    "view": {
+      "title": "Դիտել",
+      "settings": "Կարգավորումներ",
+      "about": "I18N Translator-ի մասին",
+      "updater": "Թարմացնող",
+      "glossary": "Բառարան"
+    }
+  },
   "close": "Փակել",
   "labels": {
     "color": "Ընտրել գույնը",

@@ -8,7 +8,11 @@ export const KBD_SHORTCUTS: ShortcutsType = {
      "ctrl++": _ => ViewActions.zoomIn(),
      "ctrl+-": _ => ViewActions.zoomOut(),
      "ctrl+0": _ => ViewActions.resetZoom(),
-     "ctrl+s": ({table, targetPath, setIsDirty, langs, settings, t}) => FileActions.saveAll(table, targetPath, langs, settings.preserveEmpty, settings.xliffPreserveMeta, t).then(res=>{
+     "ctrl+s": ({table, targetPath, setIsDirty, langs, settings, t}) => FileActions.saveAll({
+          table, targetPath, langs,
+          preserveTranslations: settings.preserveEmpty,
+          preserveMetadata: settings.xliffPreserveMeta
+     }, t).then(res=>{
           if(res?.error) toast.error("Failed to save the file",{
                description: res.error
           })
@@ -17,7 +21,11 @@ export const KBD_SHORTCUTS: ShortcutsType = {
                setIsDirty(false)
           }
      }),
-     "ctrl+shift+s": ({table, setIsDirty, langs, settings, t, filters}) => FileActions.saveAs(table, langs, settings.preserveEmpty, settings.xliffPreserveMeta, t, filters).then(res=>{
+     "ctrl+shift+s": ({table, setIsDirty, langs, settings, t, filters}) => FileActions.saveAs({
+          table, langs, filters,
+          preserveTranslations: settings.preserveEmpty,
+          preserveMetadata: settings.xliffPreserveMeta
+     }, t).then(res=>{
           if(res?.error) toast.error("Failed to save the file",{
                description: res.error
           })
@@ -27,5 +35,6 @@ export const KBD_SHORTCUTS: ShortcutsType = {
           }
      }),
      "ctrl+a": ({setSelectedKeys, table}) => EditActions.selectAll(table,setSelectedKeys),
-     "esc": ({setSelectedKeys}) => EditActions.clearSelection(setSelectedKeys)
+     "esc": ({setSelectedKeys}) => EditActions.clearSelection(setSelectedKeys),
+     "ctrl+enter": ({setOpenCommand}) => setOpenCommand(true)
 }

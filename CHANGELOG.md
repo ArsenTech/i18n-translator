@@ -6,30 +6,42 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ---
 ## [1.0.0] - Unreleased
 > [!NOTE]
-> This is a first stable version of I18N Translator. Some of these greyed out features will be implemented in the future
+> This is the first stable release of I18N Translator. Some greyed-out features are placeholders and will be implemented in future releases.
+
 ### Added
-- I18N Support across nearly every part of the app
-- Skeleton loader support of Window Controls
+- Internationalization (i18n) support across nearly every part of the application
+- Command Palette
+
+### New Skeleton Loaders
+- Window controls
+- Command Palette
+
 ### Core Languages
 - 🇦🇲 Armenian (Հայերեն)
 - 🇷🇺 Russian (Русский)
 - 🇺🇸 English
+
 ### Changed
-- Greyed out some future expansions
+- Greyed out future features until implementation
   - Android XML Settings
   - Auto-Translation
   - Transliteration
   - Spell Checker
-- Refactored and optimized after recent changes
+- Refactored and optimized the codebase after recent changes
+
 ### Documentation
-- Added the translation guide
-- Updated existing ones
-  - **Usage Guide** - Added guides of new features + refactored existing ones
-  - **FAQs** - Added new FAQs + refactored existing ones
-  - **Troubleshooting** - Added new Troubleshooting guides + refactored existing ones
-  - **Installation Guide** - Refactored the entire process
+- Added the Translation Guide
+- Updated:
+  - **Usage Guide** – Added documentation for new features and reorganized existing sections
+  - **FAQs** – Added new questions and improved existing entries
+  - **Troubleshooting** – Added new troubleshooting topics and revised existing ones
+  - **Installation Guide** – Reworked the installation process
+
 ### Fixed
-- Brightness UI bug
+- Fixed a brightness UI issue
+
+### Improved
+- Simplified the save logic
 
 [1.0.0]: https://github.com/ArsenTech/i18n-translator/releases/tag/v1.0.0
 

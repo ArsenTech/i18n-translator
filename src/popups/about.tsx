@@ -7,11 +7,13 @@ import { openUrl } from "@tauri-apps/plugin-opener";
 import { Scale, MessageCircleWarning, Grid2X2Plus } from "lucide-react";
 import { lazy, Suspense, useMemo } from "react";
 import { Trans, useTranslation } from "react-i18next";
+import { usePopupOpen } from "@/hooks/use-popup-open";
 
 const AboutDetails = lazy(()=>import("@/contents/about-details"));
 
-export default function AboutPopup({triggerButton}: PopupComponentProps){
+export default function AboutPopup({triggerButton, modal=true, open, setOpen}: PopupComponentProps){
      const {t} = useTranslation("about")
+     const {actualOpen, setActualOpen} = usePopupOpen({open, setOpen})
      const year = new Date().getFullYear()
      const translatedBy = useMemo(()=>t("translated-by"),[t])
      return (
@@ -19,6 +21,9 @@ export default function AboutPopup({triggerButton}: PopupComponentProps){
                title={t("title")}
                triggerButton={triggerButton}
                size="lg"
+               modal={modal}
+               open={actualOpen}
+               onOpenChange={setActualOpen}
           >
                <div className="flex justify-center items-center gap-4">
                     <img alt="i18n-translator" width="100" height="100" className="object-contain" src="/logo.png" />

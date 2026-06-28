@@ -32,7 +32,11 @@ export default function TranslationInput(){
                               translationString: !files.format ? input : files.format==="json" ? input : String.raw`${input}`
                          }
                          : item)
-                         const res = await FileActions.saveAll(newTable, files.targetPath, langs, settings.preserveEmpty, settings.xliffPreserveMeta, validationTxt)
+                         const res = await FileActions.saveAll({
+                              table: newTable, targetPath: files.targetPath,
+                              langs, preserveTranslations: settings.preserveEmpty,
+                              preserveMetadata: settings.xliffPreserveMeta
+                         }, validationTxt)
                          if(res.error) {
                               toast.error(t("auto-save-error"),{
                                    description: res.error,

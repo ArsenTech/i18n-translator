@@ -1,10 +1,11 @@
-import { BookOpen, Code, Grid2X2Plus, Info, Languages, MessageCircleWarning, RotateCcw, Settings } from "lucide-react"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { BookOpen, Code, Command, Grid2X2Plus, Info, Languages, MessageCircleWarning, RotateCcw, Settings } from "lucide-react"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { SiGithub } from "react-icons/si"
 import { openUrl } from "@tauri-apps/plugin-opener"
 import { lazy, Suspense } from "react";
 import { Skeleton } from "../ui/skeleton";
 import { useTranslation } from "react-i18next";
+import { useEditor } from "@/context/editor";
 
 const AboutPopup = lazy(()=>import("@/popups/about"));
 const SettingsPopup = lazy(()=>import("@/popups/settings"));
@@ -17,6 +18,7 @@ export default function LogoDropdown({title}: LogoDropdownProps){
      const {t} = useTranslation("titlebar",{
           keyPrefix: "logo-dropdown"
      })
+     const {setOpenCommand} = useEditor()
      return (
           <DropdownMenu modal={false}>
                <DropdownMenuTrigger>
@@ -28,6 +30,7 @@ export default function LogoDropdown({title}: LogoDropdownProps){
                     <Suspense fallback={(
                          <>
                          <Skeleton className="h-5 w-full max-w-56 my-1.5"/>
+                         <Skeleton className="h-5 w-full max-w-48 my-1.5"/>
                          <Skeleton className="h-5 w-full max-w-48 my-1.5"/>
                          <Skeleton className="h-5 w-full max-w-48 my-1.5"/>
                          </>
@@ -50,6 +53,11 @@ export default function LogoDropdown({title}: LogoDropdownProps){
                                    {t("check-updates")}
                               </DropdownMenuItem>
                          )}/>
+                         <DropdownMenuItem onClick={()=>setOpenCommand(true)}>
+                              <Command className="text-muted-foreground"/>
+                              {t("open-commands")}
+                              <DropdownMenuShortcut>Ctrl+Enter</DropdownMenuShortcut>
+                         </DropdownMenuItem>
                     </Suspense>
                     <DropdownMenuSeparator/>
                     <DropdownMenuItem onClick={()=>openUrl("https://github.com/ArsenTech/i18n-translator")}>

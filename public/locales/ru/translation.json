@@ -7,7 +7,7 @@
      "auto-update": {
           "checking": "Проверка...",
           "new-version": "Доступна новая версия: {{version}}",
-          "updated": "Переводчик I18N обновлен",
+          "updated": "I18N Translator обновлен",
           "failed": "Не удалось проверить наличие обновлений"
      },
      "tree-sidebar": {
@@ -41,5 +41,36 @@
           "not-found": "Языки не найдены"
      },
      "close": "Закрыть",
-     "loading": "Загрузка..."
+     "loading": "Загрузка...",
+     "command-popup": {
+          "search": "Введите команду или выполните поиск...",
+          "not-found": "Результаты не найдены",
+          "file": {
+               "title": "Файл",
+               "new": "Новый перевод",
+               "open": "Открыть перевод",
+               "open-xliff": "Открыть XLIFF",
+               "save": "Сохранить",
+               "save-as": "Сохранить как"
+          },
+          "edit": {
+               "title": "Редактировать",
+               "find": "Найти",
+               "replace": "Заменить",
+               "batch-rename": "Пакетное переименование",
+               "spell-check": "Проверка орфографии"
+          },
+          "translation": {
+               "title": "Перевод",
+               "add-glossary": "Добавить в глоссарий",
+               "transliterate": "Транслитерировать"
+          },
+          "view": {
+               "title": "Просмотр",
+               "settings": "Настройки",
+               "about": "О I18N Translator",
+               "updater": "Обновление",
+               "glossary": "Глоссарий"
+          }
+     }
 }

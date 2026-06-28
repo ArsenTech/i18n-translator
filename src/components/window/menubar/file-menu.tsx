@@ -31,7 +31,12 @@ export default function FileMenu(){
           if(isSaving) return;
           setIsSaving(true)
           try {
-               const res = type==="save-as" ? await FileActions.saveAs(table, langs, settings.preserveEmpty, settings.xliffPreserveMeta, validationTxt, filters) : await FileActions.saveAll(table, files.targetPath, langs, settings.preserveEmpty, settings.xliffPreserveMeta, validationTxt)
+               const res = await FileActions.saveFile(type==="save-all",validationTxt,{
+                    table, langs,
+                    preserveMetadata: settings.xliffPreserveMeta,
+                    preserveTranslations: settings.preserveEmpty,
+                    filters, targetPath: files.targetPath
+               })
                if(res?.error) toast.error(msgTxt("save-error"),{
                     description: res.error
                })
@@ -56,7 +61,6 @@ export default function FileMenu(){
                               <NewTranslationPopup triggerButton={(
                                    <MenubarItem onSelect={(e) => e.preventDefault()}>
                                         {t("new")}
-                                        <MenubarShortcut>Ctrl+N</MenubarShortcut>
                                    </MenubarItem>
                               )}/>
                          </Suspense>
@@ -74,13 +78,11 @@ export default function FileMenu(){
                                         <OpenTranslationPopup triggerButton={(
                                              <MenubarItem onSelect={(e) => e.preventDefault()} disabled={!!files.format}>
                                                   {t("open.action")}
-                                                  <MenubarShortcut>Ctrl+O</MenubarShortcut>
                                              </MenubarItem>
                                         )}/>
                                         <OpenXliffPopup triggerButton={(
                                              <MenubarItem onSelect={(e) => e.preventDefault()} disabled={!!files.format}>
                                                   {t("open.xliff")}
-                                                  <MenubarShortcut>Ctrl+Shift+O</MenubarShortcut>
                                              </MenubarItem>
                                         )}/>
                                    </Suspense>

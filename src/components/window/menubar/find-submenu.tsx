@@ -1,4 +1,4 @@
-import { MenubarGroup, MenubarItem, MenubarShortcut, MenubarSub, MenubarSubContent, MenubarSubTrigger } from "@/components/ui/menubar";
+import { MenubarGroup, MenubarItem, MenubarSub, MenubarSubContent, MenubarSubTrigger } from "@/components/ui/menubar";
 import FindActions from "@/actions/find";
 import TranslatorActions from "@/actions/translator";
 import { useAppTranslation } from "@/context/translation";
@@ -47,7 +47,6 @@ export default function FindSubmenu(){
                               <FindPopup triggerButton={(
                                    <MenubarItem onSelect={(e) => e.preventDefault()}>
                                         {t("action")}
-                                        <MenubarShortcut>Ctrl+F</MenubarShortcut>
                                    </MenubarItem>
                               )}/>
                          </Suspense>

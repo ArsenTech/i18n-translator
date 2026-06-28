@@ -63,7 +63,11 @@ export default function QuickAccessToolbar(){
           if(isSaving) return;
           setIsSaving(true)
           try {
-               const res = await FileActions.saveAll(table, files.targetPath, langs, settings.preserveEmpty, settings.xliffPreserveMeta, validationTxt)
+               const res = await FileActions.saveAll({
+                    table, targetPath: files.targetPath, langs,
+                    preserveTranslations: settings.preserveEmpty,
+                    preserveMetadata: settings.xliffPreserveMeta
+               }, validationTxt)
                if(res?.error) toast.error(t("save.error"),{
                     description: res.error,
                     id: "save-error"

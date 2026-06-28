@@ -15,5 +15,6 @@
      "ctrl+y": "Redo",
      "ctrl+x": "Cut",
      "ctrl+c": "Copy",
-     "ctrl+v": "Paste"
+     "ctrl+v": "Paste",
+     "ctrl+enter": "Open Commands Menu"
 }

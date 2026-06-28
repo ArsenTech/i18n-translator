@@ -41,5 +41,36 @@
           "not-found": "No languages found"
      },
      "close": "Close",
-     "loading": "Loading..."
+     "loading": "Loading...",
+     "command-popup": {
+          "search": "Type a command or search...",
+          "not-found": "No results found",
+          "file": {
+               "title": "File",
+               "new": "New Translation",
+               "open": "Open Translation",
+               "open-xliff": "Open XLIFF",
+               "save": "Save",
+               "save-as": "Save As"
+          },
+          "edit": {
+               "title": "Edit",
+               "find": "Find",
+               "replace": "Replace",
+               "batch-rename": "Batch Rename",
+               "spell-check": "Spell Check"
+          },
+          "translation": {
+               "title": "Translation",
+               "add-glossary": "Add to Glossary",
+               "transliterate": "Transliterate"
+          },
+          "view": {
+               "title": "View",
+               "settings": "Settings",
+               "about": "About I18N Translator",
+               "updater": "Updater",
+               "glossary": "Glossary"
+          }
+     }
 }

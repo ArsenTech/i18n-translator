@@ -10,14 +10,15 @@
           "close-app": "Закрыть приложение"
      },
      "logo-dropdown": {
-          "about": "О переводчике I18N",
+          "about": "О I18N Translator",
           "settings": "Настройки",
           "check-updates": "Проверить наличие обновлений",
           "docs": "Документация",
           "contribute": "Участвовать",
           "add-lang": "Добавить свой язык",
           "bug-report": "Сообщить об ошибке",
-          "request-feature": "Запросить функцию"
+          "request-feature": "Запросить функцию",
+          "open-commands": "Открыть меню команд"
      },
      "untitled": "Безымянный"
 }

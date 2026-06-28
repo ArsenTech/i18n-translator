@@ -1,5 +1,7 @@
-import { AllLangCode } from "@/i18n/types";
+import type { AllLangCode } from "@/i18n/types";
 import { PARTS_OF_SPEECH } from "@/lib/constants/combobox-items";
+import type { Popup } from "../string-unions";
+import type { LucideIcon } from "lucide-react";
 
 export interface ITranslation{
      keyName: string,
@@ -25,4 +27,12 @@ export interface TreeNode {
      name: string
      fullPath: string
      children: TreeNode[]
+}
+export interface CommandAction {
+     popup?: Popup
+     label: string
+     Icon: LucideIcon
+     shortcut?: string,
+     saveType?: "save-all" | "save-as",
+     disabled?: boolean
 }

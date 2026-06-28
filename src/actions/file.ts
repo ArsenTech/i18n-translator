@@ -100,14 +100,19 @@ export default class FileActions{
                return {error: getErrorMessage(err), data: []}
           }
      }
-     public static async saveAll(
+     public static async saveAll({
+          table,
+          targetPath,
+          langs,
+          preserveTranslations,
+          preserveMetadata
+     }: {
           table: ITranslation[],
           targetPath: string,
           langs: ILangInputState,
           preserveTranslations: boolean,
-          preserveMetadata: boolean,
-          t: TFunction<"validation">
-     ){
+          preserveMetadata: boolean
+     },t: TFunction<"validation">){
           if(!targetPath) return {error: t("target-empty")}
           const data = preserveTranslations ? table : table.filter(item => item.translationString.trim() !== "")
           if(data.length<=0) return {error: t("table-empty")}
@@ -139,14 +144,19 @@ export default class FileActions{
                return {error: getErrorMessage(err)}
           }
      }
-     public static async saveAs(
+     public static async saveAs({
+          table,
+          langs,
+          preserveTranslations,
+          preserveMetadata,
+          filters
+     }: {
           table: ITranslation[],
           langs: ILangInputState,
           preserveTranslations: boolean,
           preserveMetadata: boolean,
-          t: TFunction<"validation">,
           filters: DialogFilter[]
-     ){
+     },t: TFunction<"validation">){
           const data = preserveTranslations ? table : table.filter(item => item.translationString.trim() !== "")
           if(data.length<=0) return {error: t("table-empty")}
           try {
@@ -207,5 +217,15 @@ export default class FileActions{
                console.error(err)
                return []
           }
+     }
+     public static async saveFile(saveAllCondition: boolean, t: TFunction<"validation">, obj: {
+          table: ITranslation[],
+          langs: ILangInputState,
+          preserveTranslations: boolean,
+          preserveMetadata: boolean,
+          filters: DialogFilter[],
+          targetPath: string,
+     }){
+          return saveAllCondition ? await this.saveAll(obj, t) : await this.saveAs(obj, t)
      }
 }

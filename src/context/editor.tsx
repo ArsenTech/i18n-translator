@@ -29,6 +29,9 @@ interface EditorContextValues{
 
      inputRef: React.RefObject<HTMLTextAreaElement | null>
      resetEditor: () => void
+
+     openCommand: boolean,
+     setOpenCommand: SetStateType<boolean>
 }
 const EditorContext = createContext<EditorContextValues | null>(null)
 
@@ -41,6 +44,7 @@ export function EditorProvider({ children, initialLimit=100 }: { children: React
      const [missingOnly, setMissingOnly] = useState(false);
      const [findState, setFindState] = useState<FindState | null>(null)
      const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set())
+     const [openCommand, setOpenCommand] = useState(false)
      const inputRef = useRef<HTMLTextAreaElement>(null)
      const selectKey = useCallback((key: string) => setSelectedKeys(prev => {
           const next = new Set(prev)
@@ -67,8 +71,9 @@ export function EditorProvider({ children, initialLimit=100 }: { children: React
           selectedNamespace, setSelectedNamespace,
           input, setInput,
           findState, setFindState, resetEditor,
-          inputRef, selectedKeys, setSelectedKeys, selectKey
-     }),[missingOnly, currTranslation, visibleCount, selectedNamespace, input, findState, selectedKeys, settings.baseLang, settings.targetLang])
+          inputRef, selectedKeys, setSelectedKeys, selectKey,
+          openCommand, setOpenCommand
+     }),[missingOnly, currTranslation, visibleCount, selectedNamespace, input, findState, selectedKeys, settings.baseLang, settings.targetLang, openCommand])
      return (
           <EditorContext.Provider value={values}>
                {children}

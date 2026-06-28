@@ -12,7 +12,7 @@ export default function useKeyboardShortcuts(){
      const filters = useDialogFilters(true)
      const {settings} = useSettings()
      const {table, files, setIsDirty, langs} = useAppTranslation()
-     const {setSelectedKeys} = useEditor()
+     const {setSelectedKeys, setOpenCommand} = useEditor()
      const handleExecuteShortcut = useCallback((event: KeyboardEvent) => {
           const key = event.key==="Escape" ? "esc" : event.key.toLowerCase()
           const parts: string[] = []
@@ -31,7 +31,8 @@ export default function useKeyboardShortcuts(){
                langs,
                settings,
                t,
-               filters
+               filters,
+               setOpenCommand
           })
      },[table, files.targetPath, t])
      useEffect(() => {

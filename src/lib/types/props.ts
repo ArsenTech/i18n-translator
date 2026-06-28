@@ -4,7 +4,8 @@ import { Control } from "react-hook-form"
 export interface PopupComponentProps{
      triggerButton?: React.ReactNode
      open?: boolean,
-     setOpen?: (open: boolean) => void
+     setOpen?: (open: boolean) => void,
+     modal?: boolean
 }
 export type PopupContentProps = Omit<PopupComponentProps,"triggerButton">
 export interface AutoTranslateFieldProps{

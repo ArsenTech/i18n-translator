@@ -57,6 +57,7 @@ export const GLOSSARY_COLS: ColumnDef<GlossaryEntry>[] = [
                return t("cols.caseSensitive")
           },
           cell: ({getValue, row}) => {
+               const {t: validationTxt} = useTranslation("validation")
                const {setGlossary, glossary} = useGlossary()
                const {langs} = useAppTranslation()
                const updateValue = (checked: boolean) => {
@@ -65,7 +66,7 @@ export const GLOSSARY_COLS: ColumnDef<GlossaryEntry>[] = [
                          return i===row.index ? newItem : item
                     })
                     setGlossary(newValue)
-                    GlossaryActions.setGlossary(langs, newValue)
+                    GlossaryActions.setGlossary(langs, newValue, validationTxt)
                }
                return (
                     <div className="break-all whitespace-normal max-w-[32px]">
@@ -120,13 +121,14 @@ export const GLOSSARY_COLS: ColumnDef<GlossaryEntry>[] = [
           id: "actions",
           cell: ({row}) => {
                const {t} = useTranslation("glossary")
+               const {t: validationTxt} = useTranslation("validation")
                const {setGlossary, glossary} = useGlossary()
                const {langs} = useAppTranslation()
                const deleteValue = () => {
                     try {
                          const newValue = [...glossary].filter((_,i)=>i!==row.index)
                          setGlossary(newValue)
-                         GlossaryActions.setGlossary(langs, newValue)
+                         GlossaryActions.setGlossary(langs, newValue, validationTxt)
                          toast.success(t("delete.success"))
                     } catch (err) {
                          toast.error(t("delete.error"),{

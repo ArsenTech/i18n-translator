@@ -18,6 +18,7 @@ import { useTranslation } from "react-i18next";
 
 export default function ImportExportGlossary(){
      const {t} = useTranslation("import-export")
+     const {t: validationTxt} = useTranslation("validation")
      const [isImporting, setIsImporting] = useState(false);
      const [isExporting, setIsExporting] = useState(false);
      const {langs} = useAppTranslation()
@@ -39,7 +40,7 @@ export default function ImportExportGlossary(){
                     defaultPath: "glossary.json"
                })
                if(!path) return;
-               const data = await GlossaryActions.getGlossary(langs)
+               const data = await GlossaryActions.getGlossary(langs, validationTxt)
                const exportFile = path.endsWith(".csv") ? exportCSV : exportJSON<GlossaryEntry[]>;
                await exportFile(path, data)
                toast.success(t("glossary.success.export"))
@@ -87,7 +88,7 @@ export default function ImportExportGlossary(){
                     return;
                }
                setGlossary(parsed.data)
-               await GlossaryActions.setGlossary(langs,parsed.data)
+               await GlossaryActions.setGlossary(langs,parsed.data, validationTxt)
                toast.success(t("glossary.success.import"))
           } catch (err){
                toast.error(t("glossary.error.import"),{

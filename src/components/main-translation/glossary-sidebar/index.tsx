@@ -134,6 +134,7 @@ interface GlossarySidebarProps{
 }
 export default function GlossarySidebar({glossary}: GlossarySidebarProps) {
      const {t} = useTranslation("glossary")
+     const {t: validationTxt} = useTranslation("validation")
      const [isLoading, startTransition] = useTransition()
      const {langs} = useAppTranslation()
      const {currTranslation, setInput} = useEditor()
@@ -141,7 +142,7 @@ export default function GlossarySidebar({glossary}: GlossarySidebarProps) {
      const loadPack = () => {
           startTransition(async()=>{
                try {
-                    const data = await GlossaryActions.getGlossary(langs)
+                    const data = await GlossaryActions.getGlossary(langs,validationTxt)
                     if(data.length<=0) throw new Error(t("messages.empty"))
                     setGlossary(data)
                } catch (err) {

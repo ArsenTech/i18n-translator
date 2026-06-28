@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 
 export default function RecentTranslationsMenu(){
      const {t} = useTranslation("menubar")
+     const {t: validationTxt} = useTranslation("validation")
      const {files, setTable, setFiles, updateLangs, setBaseKeys, setIsDirty, recentTranslations, setRecentTranslations} = useAppTranslation()
      const [isOpening, setIsOpening] = useState(false)
      useEffect(()=>{
@@ -21,7 +22,7 @@ export default function RecentTranslationsMenu(){
           if(isOpening) return;
           setIsOpening(true)
           try {
-               const res = item.format=== TranslationFormat.Xliff ? await RecentTranslations.openRecentXliff(item) : await RecentTranslations.openRecent(item)
+               const res = item.format=== TranslationFormat.Xliff ? await RecentTranslations.openRecentXliff(item,validationTxt) : await RecentTranslations.openRecent(item,validationTxt)
                if(res.error) toast.error(t("messages.open-error"),{
                     description: res.error,
                     id: "open-error"

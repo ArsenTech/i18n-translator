@@ -15,6 +15,7 @@ import { useTranslation } from "react-i18next";
 
 export default function ClearDataSettings(){
      const {t} = useTranslation("settings")
+     const {t: validationTxt} = useTranslation("validation")
      const {setRecentTranslations} = useAppTranslation()
      const {resetAll, clearAll, settings} = useSettings()
      const {resetValues, clearValues} = useAppearance()
@@ -22,7 +23,7 @@ export default function ClearDataSettings(){
      const clearTranslations = () => {
           startTransition(async() => {
                try {
-                    const res = await RecentTranslations.clearRecent()
+                    const res = await RecentTranslations.clearRecent(validationTxt)
                     if(res.error) {
                          toast.error(t("clear-data.errors.clear-recent"),{
                               description: res.error,

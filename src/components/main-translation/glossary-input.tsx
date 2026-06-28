@@ -14,6 +14,7 @@ import { useTranslation } from "react-i18next";
 
 export default function GlossaryInput(){
      const {t} = useTranslation("glossary")
+     const {t: validationTxt} = useTranslation("validation")
      const {langs} = useAppTranslation()
      const {glossary, currEntry, setGlossary, setCurrentEntry, input, setInput} = useGlossary()
      const [isSaving, startTransition] = useTransition()
@@ -67,7 +68,7 @@ export default function GlossaryInput(){
                }
                : item)
                setGlossary(newItem)
-               await GlossaryActions.setGlossary(langs,newItem)
+               await GlossaryActions.setGlossary(langs,newItem,validationTxt)
           } catch (err) {
                toast.error(t("manager.save-error"),{
                     description: getErrorMessage(err),

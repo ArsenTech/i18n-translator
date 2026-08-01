@@ -89,6 +89,7 @@ Future releases are planned to include automatic translation tools, transliterat
   - [ ] Implement Translatable column settings
 - [ ] Compare difference popup
 - [ ] PO Language Support + Settings
+- [ ] XCLOC Language Support + Settings
 
 #### v1.2
 - [ ] Support ICU MessageFormat & pluralization rules + Settings

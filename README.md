@@ -80,6 +80,11 @@ Future releases are planned to include automatic translation tools, transliterat
 ### Planned Improvements
 #### v1.0.1 (Next)
 - [ ] Decide whether translation keys should be sorted when saving
+- [ ] Decide whether translation opening functions should be cached or stay as is
+  - [ ] Profile opening/parsing large translation files
+  - [ ] Check whether repeated opens are actually a bottleneck
+  - [ ] If caching helps, determine invalidation strategy
+  - [ ] Account for files modified outside the application
 
 #### v1.1
 - [ ] Android XML enhancements

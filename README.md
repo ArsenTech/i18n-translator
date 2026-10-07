@@ -85,6 +85,7 @@ Future releases are planned to include automatic translation tools, transliterat
   - [ ] Check whether repeated opens are actually a bottleneck
   - [ ] If caching helps, determine invalidation strategy
   - [ ] Account for files modified outside the application
+- [ ] Gradient or solid window color
 
 #### v1.1
 - [ ] Android XML enhancements

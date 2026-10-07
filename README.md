@@ -85,7 +85,8 @@ Future releases are planned to include automatic translation tools, transliterat
   - [ ] Check whether repeated opens are actually a bottleneck
   - [ ] If caching helps, determine invalidation strategy
   - [ ] Account for files modified outside the application
-- [ ] Gradient or solid window color
+- [ ] Gradient or solid window color settings
+- [ ] Show the command icon for Mac OS users instead of `Ctrl`. Keep `Ctrl` on Windows and Linux users
 
 #### v1.1
 - [ ] Android XML enhancements
